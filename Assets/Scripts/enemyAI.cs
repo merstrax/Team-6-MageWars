@@ -13,7 +13,7 @@ public class enemyAI : MonoBehaviour, IDamage
         [SerializeField] CapsuleCollider headCollider;
 
         [Header("AI Nav")]
-        [SerializeField] NavMeshAgent agent;
+        [SerializeField] UnityEngine.AI.NavMeshAgent agent;
         [SerializeField] Transform headPos;
         [Range(0, 30)][SerializeField] int faceTargetSpeed;
 
