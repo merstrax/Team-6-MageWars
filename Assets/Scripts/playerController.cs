@@ -13,6 +13,7 @@ public class playerController : MonoBehaviour
     [Header("Player Stats")]
     [Range(1, 20)][SerializeField] int healthMax;
     [Range(0, 200)][SerializeField] float regenDelay;
+    [SerializeField] float shootRate;
 
     //Player Movement
     [Header("Player Movement")]
@@ -24,6 +25,8 @@ public class playerController : MonoBehaviour
 
     //Player Shoot
     [Header("Player Weapon")]
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform shootPos;
 
     [Header("Player Audio")]
     [SerializeField] AudioSource audioPlayer;
@@ -40,6 +43,7 @@ public class playerController : MonoBehaviour
     int jumpCount;
 
     bool isSprinting;
+    bool isShooting;
     public bool IsSprinting() { return isSprinting; }
 
     // Start is called before the first frame update
@@ -52,6 +56,11 @@ public class playerController : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 400, Color.red);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            shoot();
+        }
 
         UpdateMovement();
         UpdateSprint();
@@ -107,5 +116,19 @@ public class playerController : MonoBehaviour
             speed /= sprintMod;
             isSprinting = false;
         }
+    }
+
+    public void CreateBullet()
+    {
+        if (bullet != null)
+            Instantiate(bullet, shootPos.position, transform.rotation);
+    }
+
+    IEnumerator shoot()
+    {
+        isShooting = true;
+        CreateBullet();
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
     }
 }

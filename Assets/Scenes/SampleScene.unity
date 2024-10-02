@@ -122,6 +122,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 7ac345cc488a63a44bdee58032c5d662, type: 2}
+--- !u!4 &47224283 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1484745995285923595, guid: e05c6763a8daba140952fa2c5904eb1a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8807730046915157602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &77447144 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5445517007330954636, guid: 1439809131db7a04a9b6fdf47536aeb7,
@@ -235,107 +241,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1306435392}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &372179319
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 372179323}
-  - component: {fileID: 372179322}
-  - component: {fileID: 372179321}
-  - component: {fileID: 372179320}
-  m_Layer: 0
-  m_Name: Projectile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &372179320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372179319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2186101ef5e4a1846bde3fa63022d647, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  rb: {fileID: 372179321}
-  damageAmount: 2
-  speed: 0
-  destroyTime: 0
---- !u!54 &372179321
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372179319}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!136 &372179322
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372179319}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &372179323
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372179319}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -66.511215, y: 7.795329, z: -14.528816}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4932,6 +4837,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6164467732712480064, guid: e05c6763a8daba140952fa2c5904eb1a,
+        type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 3579724244194885488, guid: d901ea5dcccd4d64c83cbba03976cf1e,
+        type: 3}
+    - target: {fileID: 6164467732712480064, guid: e05c6763a8daba140952fa2c5904eb1a,
+        type: 3}
+      propertyPath: shootPos
+      value: 
+      objectReference: {fileID: 47224283}
+    - target: {fileID: 6164467732712480064, guid: e05c6763a8daba140952fa2c5904eb1a,
+        type: 3}
+      propertyPath: shootRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8321203083046502558, guid: e05c6763a8daba140952fa2c5904eb1a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5004,4 +4925,3 @@ SceneRoots:
   - {fileID: 1425633020}
   - {fileID: 1707547018}
   - {fileID: 1456092477}
-  - {fileID: 372179323}
