@@ -4,58 +4,39 @@ using UnityEngine;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] enum damageType { arcane, frost, fire, wind, melee, earth }
+    [SerializeField] enum damageType { bullet, stationary, melee }
     [SerializeField] damageType type;
-    [SerializeField] Rigidbody rigidBody;
+    [SerializeField] Rigidbody rb;
 
-    [Range(0, 10)][SerializeField] int damageAmount;
-    [Range(0, 50)][SerializeField] int speed;
-    [Range(0, 5)][SerializeField] int destroyTime;
-    [Range(0, 3)][SerializeField] float damageRate;
+    [SerializeField] int damageAmount;
+    [SerializeField] int speed;
+    [SerializeField] int destroyTime;
 
-    bool canDamage = true;
-
+    // Start is called before the first frame update
     void Start()
     {
-        rigidBody.velocity = transform.forward * speed; // Initialize projectile speed
-        Destroy(gameObject, destroyTime); // Destroy after a specified time
-    }
-
-    void Update()
-    {
-
+        if (type == damageType.bullet)
+        {
+            rb.velocity = transform.forward * speed;
+            Destroy(gameObject, destroyTime);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.isTrigger)
+            return;
+
+        IDamage dmg = other.GetComponent<IDamage>();
+
+        if (dmg != null)
         {
-            IDamage damageable = other.GetComponent<IDamage>();
-            if (damageable != null && canDamage)
-            {
-                float finalDamage = damageAmount; // Base damage
+            dmg.TakeDamage(damageAmount);
+        }
 
-                switch (type)
-                {
-                    case damageType.arcane:
-                        finalDamage *= 1.5f; // Example of increased damage
-                        break;
-                    case damageType.frost:
-                        // Apply slow effect logic here
-                        break;
-                    case damageType.fire:
-                        // Apply damage over time logic here
-                        break;
-                    case damageType.wind:
-                        // Apply knockback logic here
-                        break;
-                        // Handle other damage types...
-                }
-
-                damageable.TakeDamage(finalDamage); // Apply damage
-                canDamage = false; // Prevent further damage
-                Destroy(gameObject); // Destroy the projectile after hitting
-            }
+        if (type == damageType.bullet)
+        {
+            Destroy(gameObject);
         }
     }
 }
