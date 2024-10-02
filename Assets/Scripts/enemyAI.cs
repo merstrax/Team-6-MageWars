@@ -8,7 +8,7 @@ public class enemyAI : MonoBehaviour, IDamage
         [SerializeField] Animator animator; 
         [SerializeField] Renderer model; 
         [SerializeField] ParticleSystem particle;
-        [SerializeField] TextMeshPro healthText; 
+        //[SerializeField] TextMeshPro healthText; 
         [SerializeField] CapsuleCollider bodyCollider;
         [SerializeField] CapsuleCollider headCollider;
 
@@ -69,11 +69,8 @@ public class enemyAI : MonoBehaviour, IDamage
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed); 
     }
 
-    public void TakeDamage(float amount, bool headshot = false)
+    public void TakeDamage(float amount)
     {
-        if (headshot)
-            amount *= headShotMultiplier;
-
         HP -= amount;
         if (HP <= 0 && !isDead)
         {
