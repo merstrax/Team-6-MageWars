@@ -64,6 +64,19 @@ public class playerController : MonoBehaviour
 
         UpdateMovement();
         UpdateSprint();
+        if (Input.GetButtonDown("Cancel"))
+        {
+            quit();
+        }
+    }
+
+    public void quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
     }
 
     void UpdateMovement()
