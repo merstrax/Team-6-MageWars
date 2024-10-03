@@ -1,31 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class gameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static gameManager instance;
+    public static GameManager instance;
 
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
-    [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] PlayerInterface playerInterface;
 
-    public GameObject playerSpawnPos;
-    public TMP_Text ammoCurrent, ammoMax;
-    public Image PlayerHPBar;
 
     public GameObject checkPointPopUp;
-    public GameObject damagePanel;
     public GameObject player;
 
     public playerController playerScript;
 
-    int enemyCount;
     float timeScaleOrig;
 
-    public bool isPaused;
+    private bool isPaused;
+    public bool IsPaused()
+    {
+        return isPaused;
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -34,7 +34,6 @@ public class gameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
-        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
     }
 
     // Update is called once per frame
@@ -72,21 +71,6 @@ public class gameManager : MonoBehaviour
         menuActive = null;
     }
 
-
-    public void updateGameGoal(int amount)
-    {
-        enemyCount += amount;
-        enemyCountText.text = enemyCount.ToString("F0");
-
-        if (enemyCount <= 0)
-        {
-            // player wins the game
-            //Debug.Log("You Win!!"); 
-            statePause();
-            menuActive = menuWin;
-            menuActive.SetActive(isPaused);
-        }
-    }
 
     public void youLose()
     {
