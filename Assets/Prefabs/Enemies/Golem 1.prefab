@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 9142772966208370348}
   m_Layer: 0
   m_Name: Golem 1
-  m_TagString: Untagged
+  m_TagString: Golem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -410,11 +410,14 @@ MonoBehaviour:
   agent: {fileID: 6332267895436848291}
   headPos: {fileID: 5427190524156282746}
   faceTargetSpeed: 0
-  HP: 1
   rightHandPos: {fileID: 8203293041816323012}
   leftHandPos: {fileID: 8203293041816323012}
   bolt: {fileID: 0}
   attackRate: 3
+  aggroRange: 0
+  roamRange: 0
+  renderDistance: 50
+  viewAngle: 0
   isMoving: 0
   canAttack: 1
 --- !u!95 &5663918749682702063
@@ -446,7 +449,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2917085908127289139}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
