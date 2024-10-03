@@ -1278,6 +1278,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem 1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: renderDistance
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2967938953222354635, guid: ffec57e1993c22f46a82a2cfcce25f82,
         type: 3}
       propertyPath: m_Radius
@@ -2115,6 +2120,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Golem 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: isMoving
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: roamRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: viewAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: aggroRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: attackRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: renderDistance
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2967938953222354635, guid: ffec57e1993c22f46a82a2cfcce25f82,
         type: 3}
@@ -3785,6 +3820,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: renderDistance
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2967938953222354635, guid: ffec57e1993c22f46a82a2cfcce25f82,
         type: 3}
       propertyPath: m_Radius
@@ -4782,6 +4822,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: renderDistance
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2967938953222354635, guid: ffec57e1993c22f46a82a2cfcce25f82,
         type: 3}
