@@ -1415,6 +1415,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2936085057193892722, guid: ffec57e1993c22f46a82a2cfcce25f82,
+        type: 3}
+      propertyPath: viewAngle
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3940973292118368143, guid: ffec57e1993c22f46a82a2cfcce25f82,
         type: 3}
       propertyPath: m_LocalScale.x

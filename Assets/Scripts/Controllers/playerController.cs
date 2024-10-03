@@ -37,8 +37,6 @@ public class playerController : Unit
     [SerializeField] Ability ability4;
     Ability ability4Handler;
 
-    public Ability dashAbility;
-
     [Header("Player Audio")]
     [SerializeField] AudioSource audioPlayer;
     [SerializeField] AudioClip[] audioDamage;
@@ -61,6 +59,7 @@ public class playerController : Unit
 
     public enum InputDirection
     {
+        NONE,
         LEFT,
         RIGHT,
         UP, 
@@ -70,6 +69,7 @@ public class playerController : Unit
     InputDirection lastInput;
     float lastInputTime;
     bool canDash;
+    Ability dashAbility;
 
     // Start is called before the first frame update
     void Start()
@@ -136,27 +136,20 @@ public class playerController : Unit
         UpdateSprint();
     }
 
-    public void quit()
-    {
-#if UNITY_EDITOR
-        //UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
-    }
-
     void UpdateDash()
     {
         if (Input.GetButtonDown("Left"))
         {
-            if(lastInput == InputDirection.LEFT && lastInputTime + dashTiming > Time.time)
+            if (lastInput == InputDirection.LEFT && lastInputTime + dashTiming > Time.time)
             {
                 canDash = true;
             }
-
-            lastInput = InputDirection.LEFT;
-            lastInputTime = Time.time;
-            canDash = false;
+            else
+            {
+                lastInput = InputDirection.LEFT;
+                lastInputTime = Time.time;
+                canDash = false;
+            }
         }
 
         if (Input.GetButtonDown("Right"))
