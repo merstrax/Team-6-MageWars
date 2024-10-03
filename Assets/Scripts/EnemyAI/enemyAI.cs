@@ -80,7 +80,7 @@ public class enemyAI : Unit
     private bool IsPlayerInRange()
     {
         // Raycast to check if the player is within aggro range
-        playerDir = gameManager.instance.player.transform.position - headPos.position;
+        playerDir = GameManager.instance.player.transform.position - headPos.position;
         angleToPLayer = Vector3.Angle(playerDir, transform.forward); 
 
         Debug.DrawRay(headPos.position, playerDir);
