@@ -28,18 +28,21 @@ public class enemyAI : Unit
     [Range(0, 25)][SerializeField] float aggroRange;
     [Range(0, 25)][SerializeField] float roamRange;
     [Range(50, 150)][SerializeField] float renderDistance;
-    [SerializeField] int viewAngle; 
+    [Range(10, 50)][SerializeField] int viewAngle;
+    [Range(0, 20)][SerializeField] int roamDist;
+    [Range(0, 5.0f)][SerializeField] int roamTimer;
 
     Vector3 playerDir;
+    Vector3 startPos;
 
     Color colorOrig;
 
     bool playerInRange;
     bool isAttacking;
     bool isDead;
+    bool isRoaming; 
     public bool isMoving;
     public bool canAttack = true;
-
     float angleToPLayer;
     float stopDistOrig;
 
@@ -48,7 +51,9 @@ public class enemyAI : Unit
     // Start is called before the first frame update
     void Start()
     {
-      
+        colorOrig = model.material.color; 
+        stopDistOrig = agent.stoppingDistance;
+        startPos = transform.position; 
     }
 
     // Update is called once per frame
@@ -76,6 +81,23 @@ public class enemyAI : Unit
             StopAllCoroutines();
         }
     }
+
+    IEnumerator roam()
+    {
+        isRoaming = true;
+        yield return new WaitForSeconds(roamTimer);
+
+        agent.stoppingDistance = 0;
+        Vector3 randomPos = Random.insideUnitSphere * roamDist;
+        randomPos += startPos;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+        agent.SetDestination(hit.position);
+
+        isRoaming = false;
+        someCo = null;
+    } 
 
     private bool IsPlayerInRange()
     {
