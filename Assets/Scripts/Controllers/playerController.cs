@@ -67,7 +67,6 @@ public class playerController : Unit
         DOWN,
     }
 
-    
     InputDirection lastInput;
     float lastInputTime;
     bool canDash;
@@ -135,11 +134,6 @@ public class playerController : Unit
         UpdateMovement();
         UpdateDash();
         UpdateSprint();
-
-        if (Input.GetButtonDown("Cancel"))
-        {
-            quit();
-        }
     }
 
     public void quit()
@@ -155,7 +149,7 @@ public class playerController : Unit
     {
         if (Input.GetButtonDown("Left"))
         {
-            if(lastInput == InputDirection.LEFT && lastInputTime + dashTiming < Time.time)
+            if(lastInput == InputDirection.LEFT && lastInputTime + dashTiming > Time.time)
             {
                 canDash = true;
             }
@@ -167,7 +161,7 @@ public class playerController : Unit
 
         if (Input.GetButtonDown("Right"))
         {
-            if (lastInput == InputDirection.RIGHT && lastInputTime + dashTiming < Time.time)
+            if (lastInput == InputDirection.RIGHT && lastInputTime + dashTiming > Time.time)
             {
                 canDash = true;
             }
@@ -181,7 +175,7 @@ public class playerController : Unit
 
         if (Input.GetButtonDown("Up"))
         {
-            if (lastInput == InputDirection.UP && lastInputTime + dashTiming < Time.time)
+            if (lastInput == InputDirection.UP && lastInputTime + dashTiming > Time.time)
             {
                 canDash = true;
             }
@@ -195,7 +189,7 @@ public class playerController : Unit
 
         if (Input.GetButtonDown("Down"))
         {
-            if (lastInput == InputDirection.DOWN && lastInputTime + dashTiming < Time.time)
+            if (lastInput == InputDirection.DOWN && lastInputTime + dashTiming > Time.time)
             {
                 canDash = true;
             }
@@ -273,7 +267,6 @@ public class playerController : Unit
 
     private void CastAbility(Ability ability)
     {
-        Debug.Log("Cast Ability: " + ability.GetName());
         Ability _ability = Instantiate(ability, GetCastPos().position, transform.rotation);
 
         Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);

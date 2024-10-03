@@ -146,7 +146,6 @@ public class Ability : MonoBehaviour
         if (castType == CastType.INSTANT)
         {
             castTarget = lookAt;
-            Debug.Log("Start Cast Ability: " + GetName());
             FinishCast();
         }
         isCasting = true;

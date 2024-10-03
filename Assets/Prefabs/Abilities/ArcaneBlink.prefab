@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
   abilityName: Blink
-  cooldown: 15
+  cooldown: 2
   chargesMax: 0
   castTime: 0
   castType: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
   damageAmount: 0
   tickSpeed: 0
   duration: 0
-  speed: 30
+  speed: 10
   range: 0
   isTarget: 0
   myCollider: {fileID: 0}
