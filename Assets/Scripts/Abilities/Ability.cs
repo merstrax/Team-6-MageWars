@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Ability : MonoBehaviour
 {
@@ -11,7 +10,8 @@ public class Ability : MonoBehaviour
         AREAOFEFFECT,
         OVERTIME,
         STATUS,
-        MOVEMENT
+        MOVEMENT,
+        JUMP
     }
 
     public enum ElementType
@@ -63,6 +63,9 @@ public class Ability : MonoBehaviour
     [SerializeField] float range;
     [SerializeField] bool isTarget;
 
+    public CastType GetCastType() { return castType; }
+    public AbilityType GetAbilityType() {  return abilityType; }
+
     Unit owner;
     Unit other;
 
@@ -72,10 +75,18 @@ public class Ability : MonoBehaviour
     bool canCast = true;
     Vector3 castTarget;
 
+    int chargesCurrent;
+
     [Header("Ability Components")]
     [SerializeField] Collider myCollider;
     [SerializeField] Renderer myRenderer;
     [SerializeField] Rigidbody myRigidbody;
+
+    // Start is called before the first frame update
+    protected virtual void Start()
+    {
+        chargesCurrent = chargesMax;
+    }
 
     public string GetName()
     {
@@ -84,16 +95,13 @@ public class Ability : MonoBehaviour
 
     public void SetAsHandler(Unit owner)
     {
-        myCollider.enabled = false;
-        myRenderer.enabled = false;
-        speed = 0f;
+        if(myCollider != null)
+            myCollider.enabled = false;
+        if(myRenderer != null)
+            myRenderer.enabled = false;
+        if(abilityType != AbilityType.MOVEMENT)
+            speed = 0f;
         this.owner = owner;
-    }
-
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -109,9 +117,10 @@ public class Ability : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (!ReadyToCast())
+        if (!canCast && CooldownRemaining() <= 0)
         {
-            canCast = cooldownStart + cooldown < Time.time;
+            canCast = true;
+            chargesCurrent = Mathf.Min(chargesCurrent + 1, chargesMax);
         }
     }
 
@@ -157,11 +166,34 @@ public class Ability : MonoBehaviour
 
     protected virtual void Cast(Transform end = null)
     {
-        //transform.localPosition = owner.GetCastPos().localPosition;
-        Debug.Log("Owner Cast Ability: " + owner.GetUnitName());
-
         transform.LookAt(castTarget);
         myRigidbody.velocity = transform.forward * speed;
+    }
+
+    public virtual void CastMovement(playerController.InputDirection inputDirection)
+    {
+        CharacterController _controller = owner.GetComponent<CharacterController>();
+        if (_controller != null)
+        {
+            switch (inputDirection)
+            {
+                case playerController.InputDirection.UP:
+                    _controller.Move(_controller.transform.forward * speed);
+                    break;
+                case playerController.InputDirection.DOWN:
+                    _controller.Move((-1 * _controller.transform.forward) * speed);
+                    break;
+                case playerController.InputDirection.LEFT:
+                    _controller.Move((-1 * _controller.transform.right) * speed);
+                    break;
+                case playerController.InputDirection.RIGHT:
+                    _controller.Move(_controller.transform.right * speed);
+                    break;
+                default:
+                    break;
+            }
+        }
+        StartCooldown();
     }
 
     protected virtual void OnCast() 

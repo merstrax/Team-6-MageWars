@@ -14,8 +14,6 @@ public class playerController : Unit
     [SerializeField] Animator animator;
 
     [Header("Player Stats")]
-    [Range(0, 200)][SerializeField] float regenDelay;
-    [SerializeField] float shootRate;
 
     //Player Movement
     [Header("Player Movement")]
@@ -24,15 +22,22 @@ public class playerController : Unit
     [Range(0, 3)][SerializeField] int jumpMax;
     [Range(0, 15)][SerializeField] int jumpSpeed;
     [Range(0, 50)][SerializeField] int gravity;
+    [SerializeField] float dashTiming;
 
     //Player Shoot
     [Header("Player Abilities")]
     [SerializeField] Ability abilityPassive;
+    Ability abilityPassiveHandler;
     [SerializeField] Ability ability1;
     Ability ability1Handler;
     [SerializeField] Ability ability2;
+    Ability ability2Handler;
     [SerializeField] Ability ability3;
+    Ability ability3Handler;
     [SerializeField] Ability ability4;
+    Ability ability4Handler;
+
+    public Ability dashAbility;
 
     [Header("Player Audio")]
     [SerializeField] AudioSource audioPlayer;
@@ -54,11 +59,66 @@ public class playerController : Unit
     Ability lastAbility;
     bool postCooldown;
 
+    public enum InputDirection
+    {
+        LEFT,
+        RIGHT,
+        UP, 
+        DOWN,
+    }
+
+    
+    InputDirection lastInput;
+    float lastInputTime;
+    bool canDash;
+
     // Start is called before the first frame update
     void Start()
     {
-        ability1Handler = Instantiate(ability1, GetCastPos());
-        ability1Handler.SetAsHandler(this);
+        if (abilityPassive != null)
+        {
+            abilityPassiveHandler = Instantiate(abilityPassive, GetCastPos());
+            abilityPassiveHandler.SetAsHandler(this);
+        }
+
+        if (ability1 != null)
+        {
+            ability1Handler = Instantiate(ability1, GetCastPos());
+            ability1Handler.SetAsHandler(this);
+            if(ability1Handler.GetAbilityType() == Ability.AbilityType.MOVEMENT && dashAbility == null)
+            {
+                dashAbility = ability1Handler;
+            }
+        }
+
+        if (ability2 != null) { 
+            ability2Handler = Instantiate(ability2, GetCastPos());
+            ability2Handler.SetAsHandler(this);
+            if (ability2Handler.GetAbilityType() == Ability.AbilityType.MOVEMENT && dashAbility == null)
+            {
+                dashAbility = ability2Handler;
+            }
+        }
+
+        if (ability3 != null)
+        {
+            ability3Handler = Instantiate(ability3, GetCastPos());
+            ability3Handler.SetAsHandler(this);
+            if (ability3Handler.GetAbilityType() == Ability.AbilityType.MOVEMENT && dashAbility == null)
+            {
+                dashAbility = ability3Handler;
+            }
+        }
+
+        if (ability4 != null)
+        {
+            ability4Handler = Instantiate(ability4, GetCastPos());
+            ability4Handler.SetAsHandler(this);
+            if (ability4Handler.GetAbilityType() == Ability.AbilityType.MOVEMENT && dashAbility == null)
+            {
+                dashAbility = ability4Handler;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -66,47 +126,20 @@ public class playerController : Unit
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 400, Color.red);
 
-        if (Input.GetButtonDown("Fire1") && ability1Handler.ReadyToCast())
+        if (Input.GetButtonDown("Ability1") && ability1Handler.ReadyToCast())
         {
             lastAbility = ability1Handler;
             CastAbility(ability1);
         }
 
         UpdateMovement();
+        UpdateDash();
         UpdateSprint();
+
         if (Input.GetButtonDown("Cancel"))
         {
             quit();
         }
-
-#if _DEBUG
-        if(!postCooldown && !ability1Handler.ReadyToCast())
-        {
-            StartCoroutine(PostCooldown());
-        }
-#endif
-
-    }
-
-#if _DEBUG
-    private IEnumerator PostCooldown()
-    {
-        postCooldown = true;
-        Debug.Log(ability1Handler.CooldownRemaining());
-        yield return new WaitForSeconds(1.0f);
-        postCooldown = false;
-    }
-#endif
-
-    private void CastAbility(Ability ability)
-    {
-        Debug.Log("Cast Ability: " + ability.GetName());
-        Ability _ability = Instantiate(ability, GetCastPos().position, transform.rotation);
-
-        Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
-        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
-
-        _ability.StartCast(this, ray.GetPoint(200.0f));
     }
 
     public void quit()
@@ -114,8 +147,76 @@ public class playerController : Unit
 #if UNITY_EDITOR
         //UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit();
+        Application.Quit();
 #endif
+    }
+
+    void UpdateDash()
+    {
+        if (Input.GetButtonDown("Left"))
+        {
+            if(lastInput == InputDirection.LEFT && lastInputTime + dashTiming < Time.time)
+            {
+                canDash = true;
+            }
+
+            lastInput = InputDirection.LEFT;
+            lastInputTime = Time.time;
+            canDash = false;
+        }
+
+        if (Input.GetButtonDown("Right"))
+        {
+            if (lastInput == InputDirection.RIGHT && lastInputTime + dashTiming < Time.time)
+            {
+                canDash = true;
+            }
+            else
+            {
+                lastInput = InputDirection.RIGHT;
+                lastInputTime = Time.time;
+                canDash = false;
+            }
+        }
+
+        if (Input.GetButtonDown("Up"))
+        {
+            if (lastInput == InputDirection.UP && lastInputTime + dashTiming < Time.time)
+            {
+                canDash = true;
+            }
+            else
+            {
+                lastInput = InputDirection.UP;
+                lastInputTime = Time.time;
+                canDash = false;
+            }
+        }
+
+        if (Input.GetButtonDown("Down"))
+        {
+            if (lastInput == InputDirection.DOWN && lastInputTime + dashTiming < Time.time)
+            {
+                canDash = true;
+            }
+            else
+            {
+                lastInput = InputDirection.DOWN;
+                lastInputTime = Time.time;
+                canDash = false;
+            }
+        }
+
+        if(canDash && HasDashAbility() && dashAbility.ReadyToCast())
+        {
+            dashAbility.CastMovement(lastInput);
+            canDash = false;
+        }
+    }
+
+    bool HasDashAbility()
+    {
+        return dashAbility != null;
     }
 
     void UpdateMovement()
@@ -131,7 +232,7 @@ public class playerController : Unit
         //Transform and move based on local space
         moveDir = Input.GetAxis("Horizontal") * transform.right +
                     Input.GetAxis("Vertical") * transform.forward;
-
+        
         controller.Move(speed * Time.deltaTime * moveDir);
 
         float agentSpeed = Input.GetAxis("Horizontal");
@@ -168,6 +269,17 @@ public class playerController : Unit
             speed /= sprintMod;
             isSprinting = false;
         }
+    }
+
+    private void CastAbility(Ability ability)
+    {
+        Debug.Log("Cast Ability: " + ability.GetName());
+        Ability _ability = Instantiate(ability, GetCastPos().position, transform.rotation);
+
+        Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
+        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+
+        _ability.StartCast(this, ray.GetPoint(200.0f));
     }
 
     public override void OnCast(Ability ability = null)
