@@ -68,9 +68,11 @@ public class Ability : MonoBehaviour
 
     bool isCasting;
     float castStartTime;
-
+    float cooldownStart;
+    bool canCast = true;
     Vector3 castTarget;
 
+    [Header("Ability Components")]
     [SerializeField] Collider myCollider;
     [SerializeField] Renderer myRenderer;
     [SerializeField] Rigidbody myRigidbody;
@@ -78,6 +80,14 @@ public class Ability : MonoBehaviour
     public string GetName()
     {
         return abilityName;
+    }
+
+    public void SetAsHandler(Unit owner)
+    {
+        myCollider.enabled = false;
+        myRenderer.enabled = false;
+        speed = 0f;
+        this.owner = owner;
     }
 
     // Start is called before the first frame update
@@ -96,8 +106,29 @@ public class Ability : MonoBehaviour
 
         if (owner == null)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
+
+        if (!ReadyToCast())
+        {
+            canCast = cooldownStart + cooldown < Time.time;
+        }
+    }
+
+    public virtual bool ReadyToCast()
+    {
+        return canCast;
+    }
+
+    public virtual void StartCooldown()
+    {
+        cooldownStart = Time.time;
+        canCast = false;
+    }
+
+    public virtual float CooldownRemaining()
+    {
+        return cooldownStart + cooldown - Time.time;
     }
 
     public virtual void StartCast(Unit owner, Vector3 lookAt)
@@ -129,14 +160,14 @@ public class Ability : MonoBehaviour
         //transform.localPosition = owner.GetCastPos().localPosition;
         Debug.Log("Owner Cast Ability: " + owner.GetUnitName());
 
-
         transform.LookAt(castTarget);
         myRigidbody.velocity = transform.forward * speed;
     }
 
     protected virtual void OnCast() 
-    { 
+    {
         //Used for scripts
+        owner.OnCast();
     }
 
     protected virtual void OnHit()
@@ -150,7 +181,7 @@ public class Ability : MonoBehaviour
         }
     }
 
-    protected virtual void OnDamage()
+    protected virtual void OnDamage(float amount = 0.0f)
     {
         //Used for scripts
     }

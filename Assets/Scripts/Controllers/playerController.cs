@@ -1,3 +1,5 @@
+#define _DEBUG
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +29,7 @@ public class playerController : Unit
     [Header("Player Abilities")]
     [SerializeField] Ability abilityPassive;
     [SerializeField] Ability ability1;
+    Ability ability1Handler;
     [SerializeField] Ability ability2;
     [SerializeField] Ability ability3;
     [SerializeField] Ability ability4;
@@ -48,12 +51,14 @@ public class playerController : Unit
     bool isSprinting;
     public bool IsSprinting() { return isSprinting; }
 
-    
+    Ability lastAbility;
+    bool postCooldown;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ability1Handler = Instantiate(ability1, GetCastPos());
+        ability1Handler.SetAsHandler(this);
     }
 
     // Update is called once per frame
@@ -61,8 +66,9 @@ public class playerController : Unit
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 400, Color.red);
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && ability1Handler.ReadyToCast())
         {
+            lastAbility = ability1Handler;
             CastAbility(ability1);
         }
 
@@ -70,9 +76,27 @@ public class playerController : Unit
         UpdateSprint();
         if (Input.GetButtonDown("Cancel"))
         {
-            //quit();
+            quit();
         }
+
+#if _DEBUG
+        if(!postCooldown && !ability1Handler.ReadyToCast())
+        {
+            StartCoroutine(PostCooldown());
+        }
+#endif
+
     }
+
+#if _DEBUG
+    private IEnumerator PostCooldown()
+    {
+        postCooldown = true;
+        Debug.Log(ability1Handler.CooldownRemaining());
+        yield return new WaitForSeconds(1.0f);
+        postCooldown = false;
+    }
+#endif
 
     private void CastAbility(Ability ability)
     {
@@ -88,7 +112,7 @@ public class playerController : Unit
     public void quit()
     {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
 #else
             Application.Quit();
 #endif
@@ -146,12 +170,12 @@ public class playerController : Unit
         }
     }
 
-    public void CreateBullet()
+    public override void OnCast(Ability ability = null)
     {
-
+        lastAbility.StartCooldown();
     }
 
-    public override void TakeDamage(float amount)
+    public override void TakeDamage(float amount, Unit other = null)
     {
         healthCurrent -= (amount * defenseModifier);
 

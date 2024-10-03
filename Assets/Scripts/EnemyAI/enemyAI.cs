@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class enemyAI : Unit
 {
@@ -13,12 +14,11 @@ public class enemyAI : Unit
     [SerializeField] CapsuleCollider headCollider;
 
     [Header("AI Nav")]
-    [SerializeField] UnityEngine.AI.NavMeshAgent agent;
+    [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform headPos;
     [Range(0, 30)][SerializeField] int faceTargetSpeed;
 
     [Header("Enemy Combat")]
-    [Range(1, 300)][SerializeField] float HP;
     [SerializeField] GameObject rightHandPos;
     [SerializeField] GameObject leftHandPos;
     [SerializeField] GameObject bolt; 
@@ -67,15 +67,4 @@ public class enemyAI : Unit
         Quaternion rot = Quaternion.LookRotation(playerDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed); 
     }
-
-    public override void OnDeath()
-    {
-        isDead = true;
-
-        bodyCollider.enabled = false;
-        headCollider.enabled = false;
-  
-        Destroy(gameObject, 3f); 
-    }
-
 }
