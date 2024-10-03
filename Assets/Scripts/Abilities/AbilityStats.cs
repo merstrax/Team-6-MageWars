@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [CreateAssetMenu]
 public class AbilityStats : ScriptableObject
 {
@@ -10,9 +9,9 @@ public class AbilityStats : ScriptableObject
     public string AbilityName;
     public float Cooldown;
     public int ChargesMax;
-    public Ability.DamageType DamageType;
+    public Ability.AbilityType DamageType;
     public Ability.ElementType ElementType;
-    public Ability.ControlType ControlType;
+    public Ability.StatusEffect ControlType;
 
     public float damageAmount;
     public float tickSpeed;
