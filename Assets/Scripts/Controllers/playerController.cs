@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour
+public class playerController : Unit
 {
     //Player logic variables
     [Header("Player Controller")]
@@ -11,7 +12,6 @@ public class playerController : MonoBehaviour
     [SerializeField] Animator animator;
 
     [Header("Player Stats")]
-    [Range(1, 20)][SerializeField] int healthMax;
     [Range(0, 200)][SerializeField] float regenDelay;
     [SerializeField] float shootRate;
 
@@ -24,9 +24,12 @@ public class playerController : MonoBehaviour
     [Range(0, 50)][SerializeField] int gravity;
 
     //Player Shoot
-    [Header("Player Weapon")]
-    [SerializeField] GameObject bullet;
-    [SerializeField] Transform shootPos;
+    [Header("Player Abilities")]
+    [SerializeField] Ability abilityPassive;
+    [SerializeField] Ability ability1;
+    [SerializeField] Ability ability2;
+    [SerializeField] Ability ability3;
+    [SerializeField] Ability ability4;
 
     [Header("Player Audio")]
     [SerializeField] AudioSource audioPlayer;
@@ -43,8 +46,9 @@ public class playerController : MonoBehaviour
     int jumpCount;
 
     bool isSprinting;
-    bool isShooting;
     public bool IsSprinting() { return isSprinting; }
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -59,15 +63,26 @@ public class playerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            shoot();
+            CastAbility(ability1);
         }
 
         UpdateMovement();
         UpdateSprint();
         if (Input.GetButtonDown("Cancel"))
         {
-            quit();
+            //quit();
         }
+    }
+
+    private void CastAbility(Ability ability)
+    {
+        Debug.Log("Cast Ability: " + ability.GetName());
+        Ability _ability = Instantiate(ability, GetCastPos().position, transform.rotation);
+
+        Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
+        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+
+        _ability.StartCast(this, ray.GetPoint(200.0f));
     }
 
     public void quit()
@@ -133,15 +148,16 @@ public class playerController : MonoBehaviour
 
     public void CreateBullet()
     {
-        if (bullet != null)
-            Instantiate(bullet, shootPos.position, transform.rotation);
+
     }
 
-    IEnumerator shoot()
+    public override void TakeDamage(float amount)
     {
-        isShooting = true;
-        CreateBullet();
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
+        healthCurrent -= (amount * defenseModifier);
+
+        if (healthCurrent <= 0)
+        {
+            //Player Death Handling
+        }
     }
 }

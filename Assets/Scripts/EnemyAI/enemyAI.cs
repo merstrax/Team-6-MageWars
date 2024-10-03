@@ -2,38 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyAI : MonoBehaviour, IDamage
+public class enemyAI : Unit
 {
-        [Header("Render Components")]
-        [SerializeField] Animator animator; 
-        [SerializeField] Renderer model; 
-        [SerializeField] ParticleSystem particle;
-        //[SerializeField] TextMeshPro healthText; 
-        [SerializeField] CapsuleCollider bodyCollider;
-        [SerializeField] CapsuleCollider headCollider;
+    [Header("Render Components")]
+    [SerializeField] Animator animator; 
+    [SerializeField] Renderer model; 
+    [SerializeField] ParticleSystem particle;
+    //[SerializeField] TextMeshPro healthText; 
+    [SerializeField] CapsuleCollider bodyCollider;
+    [SerializeField] CapsuleCollider headCollider;
 
-        [Header("AI Nav")]
-        [SerializeField] UnityEngine.AI.NavMeshAgent agent;
-        [SerializeField] Transform headPos;
-        [Range(0, 30)][SerializeField] int faceTargetSpeed;
+    [Header("AI Nav")]
+    [SerializeField] UnityEngine.AI.NavMeshAgent agent;
+    [SerializeField] Transform headPos;
+    [Range(0, 30)][SerializeField] int faceTargetSpeed;
 
-        [Header("Enemy Combat")]
-        [Range(1, 300)][SerializeField] float HP;
-        [SerializeField] Transform shootPos;
-        [SerializeField] GameObject rightHandPos;
-        [SerializeField] GameObject leftHandPos;
-        [SerializeField] GameObject bolt; 
-        [Range(0, 3)][SerializeField] float attackRate;
+    [Header("Enemy Combat")]
+    [Range(1, 300)][SerializeField] float HP;
+    [SerializeField] GameObject rightHandPos;
+    [SerializeField] GameObject leftHandPos;
+    [SerializeField] GameObject bolt; 
+    [Range(0, 3)][SerializeField] float attackRate;
 
-        Color colorOrig;
+    Color colorOrig;
 
-        bool playerInRange;
-        bool isAttacking;
-        bool isDead;
-        public bool isMoving;
-        public bool canAttack = true;
+    bool playerInRange;
+    bool isAttacking;
+    bool isDead;
+    public bool isMoving;
+    public bool canAttack = true;
 
-        Vector3 playerDir;
+    Vector3 playerDir;
 
     // Start is called before the first frame update
     void Start()
@@ -69,16 +68,7 @@ public class enemyAI : MonoBehaviour, IDamage
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed); 
     }
 
-    public void TakeDamage(float amount)
-    {
-        HP -= amount;
-        if (HP <= 0 && !isDead)
-        {
-            OnDeath();
-        }
-    }
-
-    private void OnDeath()
+    public override void OnDeath()
     {
         isDead = true;
 

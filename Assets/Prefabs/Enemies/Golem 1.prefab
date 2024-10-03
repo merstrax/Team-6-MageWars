@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 2936085057193892722}
   - component: {fileID: 5663918749682702063}
   - component: {fileID: 6332267895436848291}
+  - component: {fileID: 9142772966208370348}
   m_Layer: 0
   m_Name: Golem 1
   m_TagString: Untagged
@@ -394,6 +395,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feda6d4fa5924fe488772f03d1ca0b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitName: Golem
+  healthCurrent: 10
+  healthMax: 10
+  healthRegen: 0
+  damageModifier: 1
+  defenseModifier: 1
+  castPos: {fileID: 0}
   animator: {fileID: 5663918749682702063}
   model: {fileID: 2852112183291550114}
   particle: {fileID: 0}
@@ -403,7 +411,6 @@ MonoBehaviour:
   headPos: {fileID: 5427190524156282746}
   faceTargetSpeed: 0
   HP: 1
-  shootPos: {fileID: 0}
   rightHandPos: {fileID: 8203293041816323012}
   leftHandPos: {fileID: 8203293041816323012}
   bolt: {fileID: 0}
@@ -453,6 +460,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &9142772966208370348
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2917085908127289139}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3125081271527836409
 GameObject:
   m_ObjectHideFlags: 0
