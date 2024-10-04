@@ -50,8 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
   abilityName: Arcane Bolt
-  cooldown: 5
-  chargesMax: 0
+  cooldown: 3
+  chargesMax: 2
   castTime: 0
   castType: 0
   abilityType: 0

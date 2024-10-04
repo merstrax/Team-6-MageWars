@@ -11,6 +11,7 @@ public class Ability : MonoBehaviour
         OVERTIME,
         STATUS,
         MOVEMENT,
+        TELEPORT,
         JUMP
     }
 
@@ -104,6 +105,11 @@ public class Ability : MonoBehaviour
         this.owner = owner;
     }
 
+    public bool IsMovementAbility()
+    {
+        return abilityType == AbilityType.MOVEMENT || abilityType == AbilityType.TELEPORT;
+    }
+
     // Update is called once per frame
     protected virtual void Update()
     {
@@ -117,39 +123,95 @@ public class Ability : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (!canCast && CooldownRemaining() <= 0)
+        UpdateCooldown();
+    }
+
+    void UpdateCooldown()
+    {
+        if (CooldownRemaining() <= 0)
         {
+            if (HasCharges())
+            {
+                GainCharge();
+                if (!HasMaxCharges())
+                {
+                    cooldownStart = Time.time;
+                }
+            }
             canCast = true;
-            chargesCurrent = Mathf.Min(chargesCurrent + 1, chargesMax);
         }
     }
 
-    public virtual bool ReadyToCast()
+    //Cooldown Handling
+    public bool ReadyToCast()
     {
-        return canCast;
+        return canCast && HasChargesRemaining();
     }
 
-    public virtual void StartCooldown()
+    public void StartCooldown()
     {
-        cooldownStart = Time.time;
-        canCast = false;
+        if (HasCharges())
+        {
+            if (chargesCurrent == chargesMax)
+            {
+                cooldownStart = Time.time;
+            }
+            ConsumeCharge();
+        }
+        else
+        {
+            cooldownStart = Time.time;
+            canCast = false;
+        }
     }
 
-    public virtual float CooldownRemaining()
+    public int CooldownRemaining()
     {
-        return cooldownStart + cooldown - Time.time;
+        return Mathf.RoundToInt(cooldownStart + cooldown - Time.time);
     }
 
+    //Charges Handling
+    bool HasCharges()
+    {
+        return chargesMax > 0;
+    }
+
+    bool HasChargesRemaining()
+    {
+        return chargesCurrent > 0 || !HasCharges();
+    }
+
+    void ConsumeCharge()
+    {
+        chargesCurrent = Mathf.Max(chargesCurrent - 1, 0);
+    }
+
+    bool HasMaxCharges()
+    {
+        return chargesCurrent == chargesMax;
+    }
+
+    public void GainCharge(int amount = 1)
+    {
+        chargesCurrent = Mathf.Min(chargesCurrent + amount, chargesMax);
+    }
+
+    //Basic Cast Handling
     public virtual void StartCast(Unit owner, Vector3 lookAt)
     {
         this.owner = owner;
+        isCasting = true;
+        castStartTime = Time.time;
+
         if (castType == CastType.INSTANT)
         {
             castTarget = lookAt;
             FinishCast();
         }
-        isCasting = true;
-        castStartTime = Time.time;
+        else
+        {
+
+        }
     }
 
     public virtual void InterruptCast()
@@ -169,57 +231,52 @@ public class Ability : MonoBehaviour
         myRigidbody.velocity = transform.forward * speed;
     }
 
-    public virtual void CastMovement(playerController.InputDirection inputDirection)
+    //Movement Ability Handling
+    public virtual void CastMovement(playerController.InputDirection inputDirection = playerController.InputDirection.NONE)
+    {
+        StartCoroutine(DashMovement(inputDirection));
+        OnCast();
+    }
+
+    IEnumerator DashMovement(playerController.InputDirection inputDirection = playerController.InputDirection.NONE)
     {
         CharacterController _controller = owner.GetComponent<CharacterController>();
         if (_controller != null)
         {
+            float startTime = Time.time;
+            Vector3 _direction = Vector3.zero;
+
             switch (inputDirection)
             {
                 case playerController.InputDirection.UP:
-                    _controller.Move(_controller.transform.forward * speed);
+                    _direction = (_controller.transform.forward * speed);
                     break;
                 case playerController.InputDirection.DOWN:
-                    _controller.Move((-1 * _controller.transform.forward) * speed);
+                    _direction = (-1 * _controller.transform.forward) * speed;
                     break;
                 case playerController.InputDirection.LEFT:
-                    _controller.Move((-1 * _controller.transform.right) * speed);
+                    _direction = (-1 * _controller.transform.right) * speed;
                     break;
                 case playerController.InputDirection.RIGHT:
-                    _controller.Move(_controller.transform.right * speed);
+                    _direction = (_controller.transform.right * speed);
                     break;
                 default:
+                    _direction = owner.GetMoveDir() * speed;
                     break;
             }
-        }
-        StartCooldown();
-    }
 
-    protected virtual void OnCast() 
-    {
-        //Used for scripts
-        owner.OnCast();
-    }
-
-    protected virtual void OnHit()
-    {
-        if (damageAmount > 0)
-        {
-            DoDamage();
-        }else
-        {
-            Destroy(gameObject);
+            while (Time.time < startTime + duration)
+            {
+                _controller.Move(_direction * Time.deltaTime);
+                yield return null;
+            }
         }
     }
 
-    protected virtual void OnDamage(float amount = 0.0f)
-    {
-        //Used for scripts
-    }
-
+    //Damage Handlers
     public virtual float CalculatedDamage()
     {
-        if(owner == null) return 0f;
+        if (owner == null) return 0f;
 
         return owner.GetDamageModifier() * damageAmount;
     }
@@ -234,11 +291,35 @@ public class Ability : MonoBehaviour
 
             OnDamage();
         }
-       
-        if(abilityType == AbilityType.PROJECTILE)
+
+        if (abilityType == AbilityType.PROJECTILE)
         {
             Destroy(gameObject);
         }
+    }
+
+    //Triggers
+    protected virtual void OnCast() 
+    {
+        //Used for scripts
+        owner.OnCast();
+    }
+
+    protected virtual void OnHit()
+    {
+        if (damageAmount > 0)
+        {
+            Debug.Log("Hit detected");
+            DoDamage();
+        }else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    protected virtual void OnDamage(float amount = 0.0f)
+    {
+        //Used for scripts
     }
 
     private void OnTriggerEnter(Collider other)

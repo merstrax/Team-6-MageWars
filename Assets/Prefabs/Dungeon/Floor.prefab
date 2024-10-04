@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 4098045347947675452}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (8)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7028807783596760883
 Transform:
@@ -126,10 +126,10 @@ GameObject:
   - component: {fileID: 8080436005639458887}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (14)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5753817432909042959
 Transform:
@@ -237,10 +237,10 @@ GameObject:
   - component: {fileID: 5001576690831153629}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (15)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4107380064092661454
 Transform:
@@ -348,10 +348,10 @@ GameObject:
   - component: {fileID: 1429193688620781141}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (14)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5891582291231229926
 Transform:
@@ -459,10 +459,10 @@ GameObject:
   - component: {fileID: 5475050323434815728}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (10)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7980339929028228017
 Transform:
@@ -570,10 +570,10 @@ GameObject:
   - component: {fileID: 7830429714221029849}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (4)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7467183847276942594
 Transform:
@@ -681,10 +681,10 @@ GameObject:
   - component: {fileID: 4479639665397099596}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (1)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &616993052095116824
 Transform:
@@ -792,10 +792,10 @@ GameObject:
   - component: {fileID: 4109350434119033835}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (2)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3258449924853468816
 Transform:
@@ -903,10 +903,10 @@ GameObject:
   - component: {fileID: 2110792065983645567}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (12)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &532408840322692394
 Transform:
@@ -1014,10 +1014,10 @@ GameObject:
   - component: {fileID: 4619242309928897703}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (10)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8768672837129719222
 Transform:
@@ -1125,10 +1125,10 @@ GameObject:
   - component: {fileID: 5910503415879604353}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (11)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6012900556430365327
 Transform:
@@ -1236,10 +1236,10 @@ GameObject:
   - component: {fileID: 3927237767101115849}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (5)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8883705555408739715
 Transform:
@@ -1347,10 +1347,10 @@ GameObject:
   - component: {fileID: 6473108011617723019}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (6)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2178984003262978380
 Transform:
@@ -1458,10 +1458,10 @@ GameObject:
   - component: {fileID: 6948297992123932008}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (7)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5183886548588119779
 Transform:
@@ -1569,10 +1569,10 @@ GameObject:
   - component: {fileID: 5243367148274297937}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (10)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9163801016851895092
 Transform:
@@ -1680,10 +1680,10 @@ GameObject:
   - component: {fileID: 4793115443037334295}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (15)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1221889095587359396
 Transform:
@@ -1791,10 +1791,10 @@ GameObject:
   - component: {fileID: 3069787427352955641}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (4)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1127822899985082851
 Transform:
@@ -1902,10 +1902,10 @@ GameObject:
   - component: {fileID: 5314524438541563765}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (4)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3077026107364999367
 Transform:
@@ -2013,10 +2013,10 @@ GameObject:
   - component: {fileID: 8921398597307899980}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (13)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2823877901487900567
 Transform:
@@ -2124,10 +2124,10 @@ GameObject:
   - component: {fileID: 282215677726661931}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (4)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4715970008315921369
 Transform:
@@ -2235,10 +2235,10 @@ GameObject:
   - component: {fileID: 4368845756885373810}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (14)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3321387147203295611
 Transform:
@@ -2346,10 +2346,10 @@ GameObject:
   - component: {fileID: 7648240038470555105}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (9)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3269971608309780369
 Transform:
@@ -2457,10 +2457,10 @@ GameObject:
   - component: {fileID: 8971211121235949207}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (6)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6071877168742574876
 Transform:
@@ -2568,10 +2568,10 @@ GameObject:
   - component: {fileID: 5418525837645514745}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (1)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &938439467061244742
 Transform:
@@ -2679,10 +2679,10 @@ GameObject:
   - component: {fileID: 775603319998719136}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (9)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5689361876948032085
 Transform:
@@ -2790,10 +2790,10 @@ GameObject:
   - component: {fileID: 8696954534793675092}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (1)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4140594965343248743
 Transform:
@@ -2901,7 +2901,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8047921558684410363
 Transform:
@@ -2950,10 +2950,10 @@ GameObject:
   - component: {fileID: 7128985617293811243}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (11)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3377407901063604182
 Transform:
@@ -3061,10 +3061,10 @@ GameObject:
   - component: {fileID: 4801017903570605521}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (12)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6522870904168387495
 Transform:
@@ -3172,10 +3172,10 @@ GameObject:
   - component: {fileID: 3417251790647493192}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (15)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2735410078505274550
 Transform:
@@ -3283,10 +3283,10 @@ GameObject:
   - component: {fileID: 4334769854953888553}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (9)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7374409408610924006
 Transform:
@@ -3394,10 +3394,10 @@ GameObject:
   - component: {fileID: 3245994528482671973}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (11)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1342380313959692972
 Transform:
@@ -3505,10 +3505,10 @@ GameObject:
   - component: {fileID: 2811100373767323028}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (12)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1074991814915986031
 Transform:
@@ -3616,10 +3616,10 @@ GameObject:
   - component: {fileID: 8313101721437800041}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (8)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8133942968883040647
 Transform:
@@ -3727,10 +3727,10 @@ GameObject:
   - component: {fileID: 4999632199306750261}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (12)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3974672307799475311
 Transform:
@@ -3838,10 +3838,10 @@ GameObject:
   - component: {fileID: 4667596985953146170}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (13)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8721520685151821775
 Transform:
@@ -3949,7 +3949,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1499652161350827702
 Transform:
@@ -3998,10 +3998,10 @@ GameObject:
   - component: {fileID: 4749707658079165192}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (4)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1431594504550197365
 Transform:
@@ -4109,10 +4109,10 @@ GameObject:
   - component: {fileID: 6905646810500897932}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (8)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5523154293536117573
 Transform:
@@ -4220,10 +4220,10 @@ GameObject:
   - component: {fileID: 1295008422387434028}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (5)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3807818443280257467
 Transform:
@@ -4331,10 +4331,10 @@ GameObject:
   - component: {fileID: 2141721271629485719}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (6)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1144239264132304894
 Transform:
@@ -4442,10 +4442,10 @@ GameObject:
   - component: {fileID: 1047794461191145049}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (7)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5372866789238589659
 Transform:
@@ -4553,7 +4553,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4754002745228966165
 Transform:
@@ -4602,10 +4602,10 @@ GameObject:
   - component: {fileID: 1018617512470024179}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (3)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7307405202791294854
 Transform:
@@ -4713,10 +4713,10 @@ GameObject:
   - component: {fileID: 4717513266323674524}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (10)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8855105062599437061
 Transform:
@@ -4824,10 +4824,10 @@ GameObject:
   - component: {fileID: 4413532105326302828}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (10)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1392614159220084927
 Transform:
@@ -4935,10 +4935,10 @@ GameObject:
   - component: {fileID: 762336408962831728}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (15)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6196687548733880562
 Transform:
@@ -5046,10 +5046,10 @@ GameObject:
   - component: {fileID: 5583060959664168310}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (12)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6352305118554197908
 Transform:
@@ -5157,10 +5157,10 @@ GameObject:
   - component: {fileID: 1310316985039284081}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (15)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2740504964203179664
 Transform:
@@ -5268,10 +5268,10 @@ GameObject:
   - component: {fileID: 1751886048048208356}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (14)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9104050464958535339
 Transform:
@@ -5379,7 +5379,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &35263392502642109
 Transform:
@@ -5428,10 +5428,10 @@ GameObject:
   - component: {fileID: 7620898851307938710}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (5)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1253612086418044494
 Transform:
@@ -5539,10 +5539,10 @@ GameObject:
   - component: {fileID: 8653645885948715544}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (13)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8802827270910020614
 Transform:
@@ -5650,10 +5650,10 @@ GameObject:
   - component: {fileID: 3989227202007861606}
   m_Layer: 0
   m_Name: Ground Tile 1x1
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2186880609208664800
 Transform:
@@ -5761,10 +5761,10 @@ GameObject:
   - component: {fileID: 1663807546368695338}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (2)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8410664589864432451
 Transform:
@@ -5872,10 +5872,10 @@ GameObject:
   - component: {fileID: 1255855795627031842}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (13)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3641803852999372887
 Transform:
@@ -5983,10 +5983,10 @@ GameObject:
   - component: {fileID: 6951207392025109938}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (9)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4642871861813404923
 Transform:
@@ -6094,10 +6094,10 @@ GameObject:
   - component: {fileID: 7920965149106766274}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (3)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1031637975280538976
 Transform:
@@ -6205,10 +6205,10 @@ GameObject:
   - component: {fileID: 5153091708598779336}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (2)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1784322821413639250
 Transform:
@@ -6316,10 +6316,10 @@ GameObject:
   - component: {fileID: 2762048708965659184}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (11)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3801619645593655040
 Transform:
@@ -6427,10 +6427,10 @@ GameObject:
   - component: {fileID: 5936894990532230413}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (10)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7963512625656948893
 Transform:
@@ -6538,10 +6538,10 @@ GameObject:
   - component: {fileID: 5575433641659142151}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (7)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7799061988320943536
 Transform:
@@ -6649,10 +6649,10 @@ GameObject:
   - component: {fileID: 463160350902335842}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (3)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1878609367126859825
 Transform:
@@ -6760,10 +6760,10 @@ GameObject:
   - component: {fileID: 5476883281104821784}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (14)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1462949231022875097
 Transform:
@@ -6871,10 +6871,10 @@ GameObject:
   - component: {fileID: 4794408962086345935}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (4)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6965642957827567282
 Transform:
@@ -6982,10 +6982,10 @@ GameObject:
   - component: {fileID: 3758644948809753928}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (5)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1211633088486973038
 Transform:
@@ -7093,10 +7093,10 @@ GameObject:
   - component: {fileID: 2921957852515266936}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (11)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4228034724670901074
 Transform:
@@ -7204,10 +7204,10 @@ GameObject:
   - component: {fileID: 4444466367251620397}
   m_Layer: 0
   m_Name: Ground Tile 1x1
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6850509295219851042
 Transform:
@@ -7315,10 +7315,10 @@ GameObject:
   - component: {fileID: 4387593874180655950}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (5)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3299294764259010265
 Transform:
@@ -7426,10 +7426,10 @@ GameObject:
   - component: {fileID: 6176593020113115038}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (12)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7886305833079712992
 Transform:
@@ -7537,10 +7537,10 @@ GameObject:
   - component: {fileID: 2929079860455430395}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (2)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2555160800115913683
 Transform:
@@ -7648,10 +7648,10 @@ GameObject:
   - component: {fileID: 6392213522249338928}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (3)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7817300825774656433
 Transform:
@@ -7759,10 +7759,10 @@ GameObject:
   - component: {fileID: 9073971411211770363}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (3)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5841486039128538206
 Transform:
@@ -7870,10 +7870,10 @@ GameObject:
   - component: {fileID: 4597227126552281988}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (8)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5550183226316311731
 Transform:
@@ -7981,10 +7981,10 @@ GameObject:
   - component: {fileID: 951414061128995899}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (2)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5295969337776679767
 Transform:
@@ -8092,10 +8092,10 @@ GameObject:
   - component: {fileID: 5888164290858881346}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (13)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3269519705413032937
 Transform:
@@ -8203,10 +8203,10 @@ GameObject:
   - component: {fileID: 7938047075576647800}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (9)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9138445310102958702
 Transform:
@@ -8314,10 +8314,10 @@ GameObject:
   - component: {fileID: 6499459421746107264}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (3)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8561109646841674993
 Transform:
@@ -8425,10 +8425,10 @@ GameObject:
   - component: {fileID: 5570570073343360649}
   m_Layer: 0
   m_Name: Ground Tile 1x1
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7632457561652513751
 Transform:
@@ -8536,10 +8536,10 @@ GameObject:
   - component: {fileID: 3227404067976014651}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (1)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8357486335840463482
 Transform:
@@ -8643,10 +8643,10 @@ GameObject:
   - component: {fileID: 1699608403201649389}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1699608403201649389
 Transform:
@@ -8658,8 +8658,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2516618849425070128}
   - {fileID: 3636705472353373264}
@@ -8684,10 +8684,10 @@ GameObject:
   - component: {fileID: 4887146381745454808}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (9)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5115380499058324366
 Transform:
@@ -8795,10 +8795,10 @@ GameObject:
   - component: {fileID: 8329677151594266985}
   m_Layer: 0
   m_Name: Ground Tile 1x1
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &920824174077250735
 Transform:
@@ -8906,10 +8906,10 @@ GameObject:
   - component: {fileID: 6249951164016109731}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (7)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5876167256503249812
 Transform:
@@ -9017,10 +9017,10 @@ GameObject:
   - component: {fileID: 3033952480559158617}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (6)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7742021429091362019
 Transform:
@@ -9128,10 +9128,10 @@ GameObject:
   - component: {fileID: 7979995273660398485}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (1)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6472371661025547361
 Transform:
@@ -9239,10 +9239,10 @@ GameObject:
   - component: {fileID: 815937010111873054}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (11)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8650441553500590235
 Transform:
@@ -9350,10 +9350,10 @@ GameObject:
   - component: {fileID: 6047466933191677711}
   m_Layer: 0
   m_Name: Ground Tile 1x1
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3164619052792871071
 Transform:
@@ -9461,10 +9461,10 @@ GameObject:
   - component: {fileID: 2430847792387696050}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (6)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7488581220709827617
 Transform:
@@ -9572,10 +9572,10 @@ GameObject:
   - component: {fileID: 4355193813111384763}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (13)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8250721809323264300
 Transform:
@@ -9683,10 +9683,10 @@ GameObject:
   - component: {fileID: 7169342066048840187}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (14)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &340873096806822942
 Transform:
@@ -9794,10 +9794,10 @@ GameObject:
   - component: {fileID: 5766102229320366298}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (7)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2627037023026437961
 Transform:
@@ -9905,10 +9905,10 @@ GameObject:
   - component: {fileID: 6087611613120965970}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (2)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8695087018589681862
 Transform:
@@ -10016,10 +10016,10 @@ GameObject:
   - component: {fileID: 3648679762310184157}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (5)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3188261995932122313
 Transform:
@@ -10127,10 +10127,10 @@ GameObject:
   - component: {fileID: 6753252397820604370}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (8)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5831566440544108493
 Transform:
@@ -10238,10 +10238,10 @@ GameObject:
   - component: {fileID: 257847619207689126}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (8)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8495737184060577853
 Transform:
@@ -10349,10 +10349,10 @@ GameObject:
   - component: {fileID: 5035744416541331687}
   m_Layer: 0
   m_Name: Ground Tile 1x1
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &856544008287964228
 Transform:
@@ -10460,10 +10460,10 @@ GameObject:
   - component: {fileID: 3045377947952613522}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (15)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4717923608322125876
 Transform:
@@ -10571,10 +10571,10 @@ GameObject:
   - component: {fileID: 586538433488568978}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (7)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2102294319135785311
 Transform:
@@ -10682,10 +10682,10 @@ GameObject:
   - component: {fileID: 1482912884212551957}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (1)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2086610884411915690
 Transform:
@@ -10793,10 +10793,10 @@ GameObject:
   - component: {fileID: 9176106888671304674}
   m_Layer: 0
   m_Name: Ground Tile 1x1 (6)
-  m_TagString: Untagged
+  m_TagString: MapObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5019420658282935182
 Transform:
@@ -10904,7 +10904,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3636705472353373264
 Transform:
@@ -10953,7 +10953,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2516618849425070128
 Transform:

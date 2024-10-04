@@ -46,8 +46,8 @@ public class playerController : Unit
     [SerializeField] AudioClip[] audioJump;
     [Range(0, 1)][SerializeField] float audioJumpVolume;
 
-    Vector3 moveDir;
     Vector3 playerVel;
+    
 
     int jumpCount;
 
@@ -55,7 +55,6 @@ public class playerController : Unit
     public bool IsSprinting() { return isSprinting; }
 
     Ability lastAbility;
-    bool postCooldown;
 
     public enum InputDirection
     {
@@ -68,8 +67,8 @@ public class playerController : Unit
 
     InputDirection lastInput;
     float lastInputTime;
-    bool canDash;
-    Ability dashAbility;
+    bool doDash;
+    Ability movementAbility;
 
     // Start is called before the first frame update
     void Start()
@@ -84,18 +83,18 @@ public class playerController : Unit
         {
             ability1Handler = Instantiate(ability1, GetCastPos());
             ability1Handler.SetAsHandler(this);
-            if(ability1Handler.GetAbilityType() == Ability.AbilityType.MOVEMENT && dashAbility == null)
+            if(ability1Handler.IsMovementAbility())
             {
-                dashAbility = ability1Handler;
+                movementAbility = ability1Handler;
             }
         }
 
         if (ability2 != null) { 
             ability2Handler = Instantiate(ability2, GetCastPos());
             ability2Handler.SetAsHandler(this);
-            if (ability2Handler.GetAbilityType() == Ability.AbilityType.MOVEMENT && dashAbility == null)
+            if (ability2Handler.IsMovementAbility())
             {
-                dashAbility = ability2Handler;
+                movementAbility = ability2Handler;
             }
         }
 
@@ -103,9 +102,9 @@ public class playerController : Unit
         {
             ability3Handler = Instantiate(ability3, GetCastPos());
             ability3Handler.SetAsHandler(this);
-            if (ability3Handler.GetAbilityType() == Ability.AbilityType.MOVEMENT && dashAbility == null)
+            if (ability3Handler.IsMovementAbility())
             {
-                dashAbility = ability3Handler;
+                movementAbility = ability3Handler;
             }
         }
 
@@ -113,9 +112,9 @@ public class playerController : Unit
         {
             ability4Handler = Instantiate(ability4, GetCastPos());
             ability4Handler.SetAsHandler(this);
-            if (ability4Handler.GetAbilityType() == Ability.AbilityType.MOVEMENT && dashAbility == null)
+            if (ability4Handler.IsMovementAbility())
             {
-                dashAbility = ability4Handler;
+                movementAbility = ability4Handler;
             }
         }
     }
@@ -131,6 +130,24 @@ public class playerController : Unit
             CastAbility(ability1);
         }
 
+        if (Input.GetButtonDown("Ability2") && ability2Handler.ReadyToCast())
+        {
+            lastAbility = ability2Handler;
+            CastAbility(ability2);
+        }
+
+        if (Input.GetButtonDown("Ability3") && ability3Handler.ReadyToCast())
+        {
+            lastAbility = ability3Handler;
+            CastAbility(ability3);
+        }
+
+        if (Input.GetButtonDown("Ability4") && ability4Handler.ReadyToCast())
+        {
+            lastAbility = ability4Handler;
+            CastAbility(ability4);
+        }
+
         UpdateMovement();
         UpdateDash();
         UpdateSprint();
@@ -138,72 +155,77 @@ public class playerController : Unit
 
     void UpdateDash()
     {
+        if (!movementAbility.ReadyToCast()) return;
+
         if (Input.GetButtonDown("Left"))
         {
-            if (lastInput == InputDirection.LEFT && lastInputTime + dashTiming > Time.time)
+            if (lastInput == InputDirection.LEFT && lastInputTime + dashTiming > Time.time && CanDash())
             {
-                canDash = true;
+                doDash = true;
             }
             else
             {
                 lastInput = InputDirection.LEFT;
                 lastInputTime = Time.time;
-                canDash = false;
+                doDash = false;
             }
-        }
-
-        if (Input.GetButtonDown("Right"))
+        }else if (Input.GetButtonDown("Right"))
         {
-            if (lastInput == InputDirection.RIGHT && lastInputTime + dashTiming > Time.time)
+            if (lastInput == InputDirection.RIGHT && lastInputTime + dashTiming > Time.time && CanDash())
             {
-                canDash = true;
+                doDash = true;
             }
             else
             {
                 lastInput = InputDirection.RIGHT;
                 lastInputTime = Time.time;
-                canDash = false;
+                doDash = false;
             }
         }
-
-        if (Input.GetButtonDown("Up"))
+        else if (Input.GetButtonDown("Up"))
         {
-            if (lastInput == InputDirection.UP && lastInputTime + dashTiming > Time.time)
+            if (lastInput == InputDirection.UP && lastInputTime + dashTiming > Time.time && CanDash())
             {
-                canDash = true;
+                doDash = true;
             }
             else
             {
                 lastInput = InputDirection.UP;
                 lastInputTime = Time.time;
-                canDash = false;
+                doDash = false;
             }
         }
-
-        if (Input.GetButtonDown("Down"))
+        else if (Input.GetButtonDown("Down"))
         {
-            if (lastInput == InputDirection.DOWN && lastInputTime + dashTiming > Time.time)
+            if (lastInput == InputDirection.DOWN && lastInputTime + dashTiming > Time.time && CanDash())
             {
-                canDash = true;
+                doDash = true;
             }
             else
             {
                 lastInput = InputDirection.DOWN;
                 lastInputTime = Time.time;
-                canDash = false;
+                doDash = false;
             }
         }
 
-        if(canDash && HasDashAbility() && dashAbility.ReadyToCast())
+        if(HasMovementAbility() && doDash && movementAbility.ReadyToCast())
         {
-            dashAbility.CastMovement(lastInput);
-            canDash = false;
+            movementAbility.CastMovement(lastInput);
+            doDash = false;
+            lastInput = InputDirection.NONE;
+            lastAbility = movementAbility;
         }
     }
 
-    bool HasDashAbility()
+    bool CanDash()
     {
-        return dashAbility != null;
+        return !doDash && movementAbility.ReadyToCast();
+    }
+
+    bool HasMovementAbility()
+    {
+        return movementAbility != null;
     }
 
     void UpdateMovement()
@@ -260,6 +282,14 @@ public class playerController : Unit
 
     private void CastAbility(Ability ability)
     {
+        if(ability.IsMovementAbility())
+        {
+            movementAbility.CastMovement();
+            doDash = false;
+            lastInput = InputDirection.NONE;
+            return;
+        }
+
         Ability _ability = Instantiate(ability, GetCastPos().position, transform.rotation);
 
         Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2333936736402945928}
   - component: {fileID: 4427820751025286997}
   m_Layer: 0
-  m_Name: ArcaneBlink
+  m_Name: TestDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,12 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
-  abilityName: Blink
+  abilityName: Test Dash
   cooldown: 2
   chargesMax: 0
   castTime: 0
   castType: 0
-  abilityType: 5
+  abilityType: 4
   elementType: 0
   statusEffect: 0
   damageAmount: 0

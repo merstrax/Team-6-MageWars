@@ -52,6 +52,9 @@ public class Unit : MonoBehaviour, IDamage
     public bool IsRooted() { return isRooted; }
     public void SetRooted(bool isRooted) { this.isRooted = isRooted; }
 
+    protected Vector3 moveDir;
+    public Vector3 GetMoveDir() { return moveDir; }
+
     public virtual void InterruptCasting()
     {
         SetCasting(false);
