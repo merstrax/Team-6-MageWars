@@ -213,7 +213,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 6570
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 1
+  m_SoftShadowQuality: 3
 --- !u!1001 &459591126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1351,6 +1351,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6164467732712480064, guid: e05c6763a8daba140952fa2c5904eb1a,
+        type: 3}
+      propertyPath: ability1
+      value: 
+      objectReference: {fileID: 6866308487700440809, guid: c3d9db4364247a94e9b468761584e5e1,
+        type: 3}
     - target: {fileID: 8321203083046502558, guid: e05c6763a8daba140952fa2c5904eb1a,
         type: 3}
       propertyPath: m_LocalPosition.x
