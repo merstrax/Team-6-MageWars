@@ -108,9 +108,25 @@ public class enemyAI : Unit
 
         // Calculate the angle to the player
         float angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
-
         // Check if the player is within the view angle
-        return angleToPlayer <= viewAngle;
+        if (angleToPlayer > viewAngle)
+            return false;
+
+        // Perform a raycast to check if there's a clear line of sight to the player
+        RaycastHit hit;
+        int layerMask = LayerMask.GetMask("Player");
+
+        if (Physics.Raycast(headPos.position, directionToPlayer, out hit, aggroRange, layerMask))
+        {
+            // Check if the hit object is the player and there's a clear line of sight
+            if (hit.collider.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+
+        // If the player isn't hit or isn't visible, return false
+        return false;
     }
 
     // Face the target
@@ -143,26 +159,6 @@ public class enemyAI : Unit
         // Basic implementation of attack behavior
         yield return null; 
     } 
-
-    //private bool IsPlayerInRange()
-    //{
-    //    // Raycast to check if the player is within aggro range
-    //    playerDir = GameManager.instance.player.transform.position - headPos.position;
-    //    angleToPLayer = Vector3.Angle(playerDir, transform.forward); 
-
-    //    Debug.DrawRay(headPos.position, playerDir);
-
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(headPos.position, playerDir, out hit))
-    //    {
-    //        if (hit.collider.CompareTag("Player") && angleToPLayer <= viewAngle)   
-    //        {
-    //            return true;
-    //        }
-    //    }
-
-    //    return false;
-    //}
 
     private void OnTriggerEnter(Collider other)
     {
