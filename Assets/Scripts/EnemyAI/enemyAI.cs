@@ -114,6 +114,8 @@ public class enemyAI : Unit
 
         // Perform a raycast to check if there's a clear line of sight to the player
         RaycastHit hit;
+
+        /// can add obstacles/environment once they are tagged
         int layerMask = LayerMask.GetMask("Player");
 
         if (Physics.Raycast(headPos.position, directionToPlayer, out hit, aggroRange, layerMask))
