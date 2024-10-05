@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI; 
 
 public class GolemAI : enemyAI
 {
@@ -11,9 +12,33 @@ public class GolemAI : enemyAI
     [Range(0, 4.0f)][SerializeField] float rangedCooldown;
     public GameObject boulder; 
 
-    //Golem Melee
-    [Range(0, 2.0f)][SerializeField] float meleeRate; 
+    // Golem Melee
+    [Range(0, 2.0f)][SerializeField] float meleeRate;
 
+    // Golem Movement
+    [Range(0f, 10f)][SerializeField] private float movementSpeed; 
+    private NavMeshAgent agent;
+    private Animator animator;
+
+    protected override void Start() 
+    {
+        // Call the base class 
+        base.Start(); 
+        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        agent.speed = movementSpeed; 
+    }
+
+    protected override void Update()
+    {
+        // Call the base Update
+        base.Update(); 
+
+        if (IsPlayerInRange() && IsPlayerVisible())
+        {
+            MoveTowardsPlayer();
+        }
+    }
 
     // override the Attack coroutine
     public override IEnumerator Attack()
@@ -43,13 +68,13 @@ public class GolemAI : enemyAI
     private IEnumerator MeleeAttack()
     {
         // Play left melee attack animation
-        //animator.SetTrigger("LeftMeleeAttack");
+        animator.SetTrigger("LeftMeleeAttack");
 
         // Wait for the animation to finish
         yield return new WaitForSeconds(meleeRate);
 
         // Play right melee attack animation
-        //animator.SetTrigger("RightMeleeAttack");
+        animator.SetTrigger("RightMeleeAttack");
 
         // Wait for the animation to finish
         yield return new WaitForSeconds(meleeRate);

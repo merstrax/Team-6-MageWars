@@ -47,18 +47,16 @@ public class enemyAI : Unit
     float angleToPLayer;
     float stopDistOrig;
 
-    Coroutine someCo;  
+    Coroutine someCo;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
-        colorOrig = model.material.color; 
-        stopDistOrig = agent.stoppingDistance;
         startPos = transform.position; 
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         // Check if player is in range
         if (IsPlayerInRange())
@@ -84,10 +82,11 @@ public class enemyAI : Unit
     }
 
     // Move towards the player
-    private void MoveTowardsPlayer()
+    public void MoveTowardsPlayer()  
     {
         // Set the destination to the player's position
         agent.SetDestination(GameManager.instance.player.transform.position);
+        animator.SetBool("isMoving", true); 
     } 
 
     // Check if the player is in range
