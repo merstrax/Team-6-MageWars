@@ -32,6 +32,7 @@ public class enemyAI : Unit
     [Range(0, 20)][SerializeField] int roamDist;
     [Range(0, 5.0f)][SerializeField] int roamTimer;
 
+    // Variables 
     Vector3 playerDir;
     Vector3 startPos;
 
@@ -63,7 +64,7 @@ public class enemyAI : Unit
         if (IsPlayerInRange())
         {
             // Move towards the player
-            agent.Move(playerDir);
+            MoveTowardsPlayer(); 
 
             // Face the player
             FaceTarget();
@@ -82,6 +83,44 @@ public class enemyAI : Unit
         }
     }
 
+    // Move towards the player
+    private void MoveTowardsPlayer()
+    {
+        // Set the destination to the player's position
+        agent.SetDestination(GameManager.instance.player.transform.position);
+    } 
+
+    // Check if the player is in range
+    public bool IsPlayerInRange()
+    {
+        // Calculate the distance to the player
+        float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
+
+        // Check if the player is within range
+        return distanceToPlayer <= aggroRange;
+    }
+
+    // Check if the player is visible
+    public bool IsPlayerVisible()
+    {
+        // Calculate the direction to the player
+        Vector3 directionToPlayer = (GameManager.instance.player.transform.position - headPos.position).normalized;
+
+        // Calculate the angle to the player
+        float angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
+
+        // Check if the player is within the view angle
+        return angleToPlayer <= viewAngle;
+    }
+
+    // Face the target
+    void FaceTarget()
+    {
+        Quaternion rot = Quaternion.LookRotation(playerDir);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
+    }
+
+    // Roam around the environment
     IEnumerator roam()
     {
         isRoaming = true;
@@ -97,33 +136,44 @@ public class enemyAI : Unit
 
         isRoaming = false;
         someCo = null;
+    }
+
+    public virtual IEnumerator Attack()
+    {
+        // Basic implementation of attack behavior
+        yield return null; 
     } 
 
-    private bool IsPlayerInRange()
-    {
-        // Raycast to check if the player is within aggro range
-        playerDir = GameManager.instance.player.transform.position - headPos.position;
-        angleToPLayer = Vector3.Angle(playerDir, transform.forward); 
+    //private bool IsPlayerInRange()
+    //{
+    //    // Raycast to check if the player is within aggro range
+    //    playerDir = GameManager.instance.player.transform.position - headPos.position;
+    //    angleToPLayer = Vector3.Angle(playerDir, transform.forward); 
 
-        Debug.DrawRay(headPos.position, playerDir);
+    //    Debug.DrawRay(headPos.position, playerDir);
 
-        RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
-        {
-            if (hit.collider.CompareTag("Player") && angleToPLayer <= viewAngle)   
-            {
-                return true;
-            }
-        }
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(headPos.position, playerDir, out hit))
+    //    {
+    //        if (hit.collider.CompareTag("Player") && angleToPLayer <= viewAngle)   
+    //        {
+    //            return true;
+    //        }
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+        }
+        else
+        {
+            // Handle other colliders
+            Debug.Log("Other collider entered trigger: " + other.name);
         }
     }
 
@@ -133,11 +183,11 @@ public class enemyAI : Unit
         {
             playerInRange = false;
         }
+        else
+        {
+            // Handle other colliders
+            Debug.Log("Other collider exited trigger: " + other.name);
+        }
     }
 
-    void FaceTarget()
-    {
-        Quaternion rot = Quaternion.LookRotation(playerDir);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed); 
-    }
 }

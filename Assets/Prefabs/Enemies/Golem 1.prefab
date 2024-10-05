@@ -412,12 +412,14 @@ MonoBehaviour:
   faceTargetSpeed: 0
   rightHandPos: {fileID: 8203293041816323012}
   leftHandPos: {fileID: 8203293041816323012}
-  bolt: {fileID: 0}
+  bolt: {fileID: 5298590762127773683, guid: cad9f745870d9f448bf225d2a253d382, type: 3}
   attackRate: 3
   aggroRange: 0
   roamRange: 0
   renderDistance: 50
-  viewAngle: 0
+  viewAngle: 10
+  roamDist: 0
+  roamTimer: 0
   isMoving: 0
   canAttack: 1
 --- !u!95 &5663918749682702063
