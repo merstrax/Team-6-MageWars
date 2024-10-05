@@ -54,6 +54,12 @@ public class Unit : MonoBehaviour, IDamage
 
     protected Vector3 moveDir;
     public Vector3 GetMoveDir() { return moveDir; }
+    public void SetMoveDir(Vector3 moveDir) { this.moveDir = moveDir; }
+    public void UpdateMoveDir(Vector2 move) 
+    { 
+        moveDir = move.x * transform.right +
+                    move.y * transform.forward;
+    }
 
     public virtual void InterruptCasting()
     {

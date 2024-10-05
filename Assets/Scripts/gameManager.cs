@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject checkPointPopUp;
     public GameObject player;
 
-    public playerController playerScript;
+    public PlayerController playerScript;
 
     float timeScaleOrig;
 
@@ -33,13 +33,13 @@ public class GameManager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
+        playerScript = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (false)
         {
             if (menuActive == null)
             {

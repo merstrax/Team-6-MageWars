@@ -42,33 +42,33 @@ public class Ability : MonoBehaviour
     }
 
     [Header("Ability Stats")]
-    [SerializeField] AbilityStats stats;
+    [SerializeField] protected AbilityStats stats;
 
     [Header("Ability Info")]
-    [SerializeField] string abilityName;
-    [SerializeField] float cooldown;
-    [SerializeField] int chargesMax;
-    [SerializeField] float castTime;
-    [SerializeField] CastType castType;
-    [SerializeField] AbilityType abilityType;
-    [SerializeField] ElementType elementType;
-    [SerializeField] StatusEffect statusEffect;
+    [SerializeField] protected string abilityName;
+    [SerializeField] protected float cooldown;
+    [SerializeField] protected int chargesMax;
+    [SerializeField] protected float castTime;
+    [SerializeField] protected CastType castType;
+    [SerializeField] protected AbilityType abilityType;
+    [SerializeField] protected ElementType elementType;
+    [SerializeField] protected StatusEffect statusEffect;
 
     [Header("Ability Damages")]
-    [SerializeField] float damageAmount;
-    [SerializeField] float tickSpeed;
-    [SerializeField] float duration;
+    [SerializeField] protected float damageAmount;
+    [SerializeField] protected float tickSpeed;
+    [SerializeField] protected float duration;
 
     [Header("Ability Movement")]
-    [SerializeField] float speed;
-    [SerializeField] float range;
-    [SerializeField] bool isTarget;
+    [SerializeField] protected float speed;
+    [SerializeField] protected float range;
+    [SerializeField] protected bool isTarget;
 
     public CastType GetCastType() { return castType; }
     public AbilityType GetAbilityType() {  return abilityType; }
 
-    Unit owner;
-    Unit other;
+    protected Unit owner;
+    protected Unit other;
 
     bool isCasting;
     float castStartTime;
@@ -79,9 +79,9 @@ public class Ability : MonoBehaviour
     int chargesCurrent;
 
     [Header("Ability Components")]
-    [SerializeField] Collider myCollider;
-    [SerializeField] Renderer myRenderer;
-    [SerializeField] Rigidbody myRigidbody;
+    [SerializeField] protected Collider myCollider;
+    [SerializeField] protected GameObject myVisual;
+    [SerializeField] protected Rigidbody myRigidbody;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -98,11 +98,13 @@ public class Ability : MonoBehaviour
     {
         if(myCollider != null)
             myCollider.enabled = false;
-        if(myRenderer != null)
-            myRenderer.enabled = false;
-        if(abilityType != AbilityType.MOVEMENT)
-            speed = 0f;
+        if (myVisual != null)
+            myVisual.SetActive(false);
         this.owner = owner;
+
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource != null)
+            audioSource.Pause();
     }
 
     public bool IsMovementAbility()
@@ -229,41 +231,29 @@ public class Ability : MonoBehaviour
     {
         transform.LookAt(castTarget);
         myRigidbody.velocity = transform.forward * speed;
+
+        CleanUp();
+    }
+
+    protected virtual void CleanUp()
+    {
+        Destroy(gameObject, duration);
     }
 
     //Movement Ability Handling
-    public virtual void CastMovement(playerController.InputDirection inputDirection = playerController.InputDirection.NONE)
+    public virtual void CastMovement()
     {
-        StartCoroutine(DashMovement(inputDirection));
+        StartCoroutine(DashMovement());
         OnCast();
     }
 
-    IEnumerator DashMovement(playerController.InputDirection inputDirection = playerController.InputDirection.NONE)
+    IEnumerator DashMovement()
     {
         CharacterController _controller = owner.GetComponent<CharacterController>();
         if (_controller != null)
         {
             float startTime = Time.time;
-            Vector3 _direction = Vector3.zero;
-
-            switch (inputDirection)
-            {
-                case playerController.InputDirection.UP:
-                    _direction = (_controller.transform.forward * speed);
-                    break;
-                case playerController.InputDirection.DOWN:
-                    _direction = (-1 * _controller.transform.forward) * speed;
-                    break;
-                case playerController.InputDirection.LEFT:
-                    _direction = (-1 * _controller.transform.right) * speed;
-                    break;
-                case playerController.InputDirection.RIGHT:
-                    _direction = (_controller.transform.right * speed);
-                    break;
-                default:
-                    _direction = owner.GetMoveDir() * speed;
-                    break;
-            }
+            Vector3 _direction = owner.GetMoveDir() * speed;
 
             while (Time.time < startTime + duration)
             {
