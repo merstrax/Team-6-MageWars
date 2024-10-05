@@ -396,11 +396,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Golem
-  healthCurrent: 10
-  healthMax: 10
+  healthCurrent: 100
+  healthMax: 100
   healthRegen: 0
-  damageModifier: 1
-  defenseModifier: 1
+  damageModifier: 15
+  defenseModifier: 25
   castPos: {fileID: 0}
   animator: {fileID: 5663918749682702063}
   model: {fileID: 2852112183291550114}
@@ -414,13 +414,13 @@ MonoBehaviour:
   leftHandPos: {fileID: 8203293041816323012}
   bolt: {fileID: 5298590762127773683, guid: cad9f745870d9f448bf225d2a253d382, type: 3}
   attackRate: 3
-  aggroRange: 0
-  roamRange: 0
+  aggroRange: 25
+  roamRange: 20
   renderDistance: 50
-  viewAngle: 10
-  roamDist: 0
-  roamTimer: 0
-  isMoving: 0
+  viewAngle: 45
+  roamDist: 20
+  roamTimer: 3
+  isMoving: 1
   canAttack: 1
 --- !u!95 &5663918749682702063
 Animator:

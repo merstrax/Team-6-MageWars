@@ -1494,7 +1494,8 @@ MonoBehaviour:
   sprint: 0
   jump: 0
   ability: 00000000
-  followTransform: {fileID: 8571372849607651551}
+  followTransform: {fileID: 7676450077435814018, guid: ffcf1be42b5560f4584afc282ac79ea3,
+    type: 3}
   sensitivity: 100
   player: {fileID: 2578372866539603227}
   controller: {fileID: 483102131180510303}
