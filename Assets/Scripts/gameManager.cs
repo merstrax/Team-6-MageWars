@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
+    [Header("User Interface")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuSettings;
     [SerializeField] PlayerInterface playerInterface;
-
 
     public GameObject checkPointPopUp;
     public GameObject player;
 
     public PlayerController playerScript;
-
+    private PlayerInput playerInput;
     float timeScaleOrig;
 
     private bool isPaused;
@@ -34,25 +35,29 @@ public class GameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+        menuSettings.SetActive(true);
+
     }
 
     // Update is called once per frame
-    void Update()
+    public void TogglePause(InputAction.CallbackContext context)
     {
-        if (false)
+        if (menuActive == null)
         {
-            if (menuActive == null)
-            {
-                statePause();
-                menuActive = menuPause;
-                menuActive.SetActive(isPaused);
-            }
-            else if (menuActive == menuPause)
-            {
-                stateUnpause();
-            }
+            statePause();
+            menuActive = menuPause;
+            menuActive.SetActive(isPaused);
+        }
+        else if (menuActive == menuSettings)
+        {
+            ToggleSettings();
+        }
+        else if (menuActive == menuPause)
+        {
+            stateUnpause();
         }
     }
+
     public void statePause()
     {
         isPaused = !isPaused;
@@ -77,6 +82,22 @@ public class GameManager : MonoBehaviour
         statePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
+    }
+
+    public void ToggleSettings()
+    {
+        statePause();
+        menuActive.SetActive(false);
+        if (menuActive == menuSettings)
+        {
+            menuActive = menuPause;
+            menuActive.SetActive(true);
+        }   
+        else
+        {
+            menuActive = menuSettings;
+            menuActive.SetActive(true);
+        }
     }
 
 }
