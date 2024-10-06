@@ -55,7 +55,7 @@ public class WindGust : Ability
             if (attackCount < maxAttacks)
             {
                 // First two attacks
-                ApplyDamage(firstTwoDamage);
+                DoDamage(); 
                 attackCount++;
 
                 // Apply bleed effect
@@ -64,7 +64,7 @@ public class WindGust : Ability
             else
             {
                 // Third attack
-                ApplyDamage(thirdAttackDamage);
+                DoDamage(); 
 
                 // Check if knockback is on cooldown
                 if (knockbackTimer <= 0)
@@ -85,16 +85,6 @@ public class WindGust : Ability
                 // Reset ability cooldown
                 abilityTimer = abilityCooldown;
             }
-        }
-    }
-
-    private void ApplyDamage(float amount)
-    {
-        // Logic to deal damage to the target
-        if (other != null)
-        {
-            other.TakeDamage(amount);
-            Debug.Log("Dealt " + amount + " damage to " + other.name);
         }
     }
 
