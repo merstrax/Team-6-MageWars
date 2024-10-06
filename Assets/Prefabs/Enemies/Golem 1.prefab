@@ -420,6 +420,9 @@ MonoBehaviour:
   viewAngle: 45
   roamDist: 20
   roamTimer: 3
+  healthDropPrefab: {fileID: 3093282128322826495, guid: 047890308f70f024396e802c8d04c091,
+    type: 3}
+  dropChance: 0.1
   isMoving: 1
   canAttack: 1
 --- !u!95 &5663918749682702063
