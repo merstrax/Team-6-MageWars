@@ -17,8 +17,6 @@ public class BearsAI : enemyAI
 
     // Bear Movement
     [Range(0f, 10f)][SerializeField] private float movementSpeed;
-    private NavMeshAgent agent;
-    private Animator animator;
 
     protected override void Start()
     {

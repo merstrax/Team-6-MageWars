@@ -15,23 +15,23 @@ public class enemyAI : Unit
     [SerializeField] protected CapsuleCollider headCollider;
 
     [Header("AI Nav")]
-    [SerializeField] NavMeshAgent agent;
-    [SerializeField] Transform headPos;
-    [Range(0, 30)][SerializeField] int faceTargetSpeed;
+    [SerializeField] protected NavMeshAgent agent;
+    [SerializeField] protected Transform headPos;
+    [Range(0, 30)][SerializeField] protected int faceTargetSpeed;
 
     [Header("Enemy Combat")]
-    [SerializeField] GameObject rightHandPos;
-    [SerializeField] GameObject leftHandPos;
-    [SerializeField] GameObject bolt; 
-    [Range(0, 3)][SerializeField] float attackRate;
+    [SerializeField] protected GameObject rightHandPos;
+    [SerializeField] protected GameObject leftHandPos;
+    [SerializeField] protected GameObject bolt;  
+    [Range(0, 3)][SerializeField] protected  float attackRate;
 
     [Header("Aggro and Roaming")]
-    [Range(0, 25)][SerializeField] float aggroRange;
-    [Range(0, 25)][SerializeField] float roamRange;
-    [Range(50, 150)][SerializeField] float renderDistance;
-    [Range(10, 50)][SerializeField] int viewAngle;
-    [Range(0, 20)][SerializeField] int roamDist;
-    [Range(0, 5.0f)][SerializeField] int roamTimer;
+    [Range(0, 25)][SerializeField] protected float aggroRange;
+    [Range(0, 25)][SerializeField] protected float roamRange;
+    [Range(50, 150)][SerializeField] protected  float renderDistance;
+    [Range(10, 50)][SerializeField] protected int viewAngle;
+    [Range(0, 20)][SerializeField] protected int roamDist;
+    [Range(0, 5.0f)][SerializeField] protected int roamTimer;
 
     [Header("Health Drop")]
     [SerializeField] GameObject healthDropPrefab;
