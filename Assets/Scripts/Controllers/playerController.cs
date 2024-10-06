@@ -20,7 +20,7 @@ public class PlayerController : Unit
     [Header("Player Abilities")]
     [SerializeField] Ability abilityPassive;
     [SerializeField] Ability[] abilities;
-    readonly Ability[] abilityHandlers = new Ability[4];
+    readonly AbilityHandler[] abilityHandlers = new AbilityHandler[4];
     Ability movementAbility;
 
     [Header("Player Audio")]
@@ -38,18 +38,18 @@ public class PlayerController : Unit
         if (abilityPassive != null)
         {
             abilityPassive = Instantiate(abilityPassive, GetCastPos());
-            abilityPassive.SetAsHandler(this);
+            //abilityHandlers[0].Setup(this, abilityPassive);
         }
 
         for (int i = 0; i < abilities.Length; i++)
         {
             if (abilities[i] != null)
             {
-                abilityHandlers[i] = Instantiate(abilities[i], GetCastPos());
-                abilityHandlers[i].SetAsHandler(this);
-                if (abilities[i].IsMovementAbility())
+                abilityHandlers[i] = gameObject.AddComponent<AbilityHandler>();
+                abilityHandlers[i].Setup(this, abilities[i]);
+                if (abilityHandlers[i].IsMovementAbility())
                 {
-                    movementAbility = abilityHandlers[i];
+                    movementAbility = abilityHandlers[i].GetAbility();
                 }
             }
         }
@@ -68,22 +68,24 @@ public class PlayerController : Unit
         {
             if (inputController.ability[i] && abilityHandlers[i].ReadyToCast())
             {
-                CastAbility(abilities[i]);
+                CastAbility(abilityHandlers[i]);
                 abilityHandlers[i].StartCooldown();
                 inputController.ability[i] = false;
             }
         }
     }
 
-    private void CastAbility(Ability ability)
+    private void CastAbility(AbilityHandler ability)
     {
-        if(ability.IsMovementAbility())
+        Ability _ability = Instantiate(ability.GetAbility(), GetCastPos().position, transform.rotation);
+        _ability.SetOwner(this);
+
+        if (ability.IsMovementAbility())
         {
-            movementAbility.CastMovement();
+            
+            _ability.CastMovement();
             return;
         }
-
-        Ability _ability = Instantiate(ability, GetCastPos().position, transform.rotation);
 
         Vector3 screenCenter = new Vector3(0.5f, 0.66f, 0f);
         Ray ray = Camera.main.ViewportPointToRay(screenCenter);

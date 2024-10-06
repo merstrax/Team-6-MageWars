@@ -4,68 +4,47 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    public enum AbilityType
-    {
-        PROJECTILE,
-        AREAOFEFFECT,
-        OVERTIME,
-        STATUS,
-        MOVEMENT,
-        TELEPORT,
-        JUMP
-    }
-
-    public enum ElementType
-    {
-        NONE,
-        ARCANE,
-        FROST,
-        FIRE,
-        WIND,
-        PHYSICAL
-    }
-
-    public enum StatusEffect
-    {
-        NONE,
-        STUN,
-        SLOW,
-        ROOT
-    }
-
-    public enum CastType
-    {
-        INSTANT,
-        CASTTIME,
-        CHANNEL,
-        CHARGED
-    }
-
     [Header("Ability Stats")]
     [SerializeField] protected AbilityStats stats;
 
     [Header("Ability Info")]
-    [SerializeField] protected string abilityName;
-    [SerializeField] protected float cooldown;
-    [SerializeField] protected int chargesMax;
-    [SerializeField] protected float castTime;
-    [SerializeField] protected CastType castType;
-    [SerializeField] protected AbilityType abilityType;
-    [SerializeField] protected ElementType elementType;
-    [SerializeField] protected StatusEffect statusEffect;
+    public string AbilityName;
+    public string AbilityDescription;
+    public int AbilityID;
+    public int AbilityFlag;
+    public ElementType ElementType;
+    public AbilityType AbilityType;
+    public CastType CastType;
+    public float Cooldown;
 
-    [Header("Ability Damages")]
-    [SerializeField] protected float damageAmount;
-    [SerializeField] protected float tickSpeed;
-    [SerializeField] protected float duration;
+    [Header("Effect Info")]
+    public EffectType EffectType;
+    public EffectStatusType StatusType;
+    public EffectAttributeFlags AttributeFlags;
+    public EffectElementFlags ElementFlags;
+    public EffectTriggerFlags TriggerFlags;
+    public EffectModifierType ModifierType;
+    public float EffectAmount;
+    public float EffectTriggerChance;
+    public int EffectAbilityID;
+    public int EffectAbilityFlag;
+    public int EffectStackMax;
+    public float EffectDuration;
+    public float EffectTickSpeed;
+
+    [Header("Resource Info")]
+    public ResourceType ResourceType;
+    public int ResourceMax;
+    public float ResourceCooldown;
+    public float ResourceReset;
 
     [Header("Ability Movement")]
     [SerializeField] protected float speed;
     [SerializeField] protected float range;
     [SerializeField] protected bool isTarget;
 
-    public CastType GetCastType() { return castType; }
-    public AbilityType GetAbilityType() {  return abilityType; }
+    public CastType GetCastType() { return CastType; }
+    public AbilityType GetAbilityType() {  return AbilityType; }
 
     protected Unit owner;
     protected Unit other;
@@ -86,116 +65,16 @@ public class Ability : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        chargesCurrent = chargesMax;
-    }
-
-    public string GetName()
-    {
-        return abilityName;
-    }
-
-    public void SetAsHandler(Unit owner)
-    {
-        if(myCollider != null)
-            myCollider.enabled = false;
-        if (myVisual != null)
-            myVisual.SetActive(false);
-        this.owner = owner;
-
-        AudioSource audioSource = GetComponent<AudioSource>();
-        if (audioSource != null)
-            audioSource.Pause();
-    }
-
-    public bool IsMovementAbility()
-    {
-        return abilityType == AbilityType.MOVEMENT || abilityType == AbilityType.TELEPORT;
     }
 
     // Update is called once per frame
     protected virtual void Update()
-    {
-        if(isCasting)
-        {
-            //TODO: Cast Logic
-        }
-
-        if (owner == null)
-        {
-            Destroy(gameObject);
-        }
-
-        UpdateCooldown();
+    { 
     }
 
-    void UpdateCooldown()
+    public void SetOwner(Unit owner)
     {
-        if (CooldownRemaining() <= 0)
-        {
-            if (HasCharges())
-            {
-                GainCharge();
-                if (!HasMaxCharges())
-                {
-                    cooldownStart = Time.time;
-                }
-            }
-            canCast = true;
-        }
-    }
-
-    //Cooldown Handling
-    public bool ReadyToCast()
-    {
-        return canCast && HasChargesRemaining();
-    }
-
-    public void StartCooldown()
-    {
-        if (HasCharges())
-        {
-            if (chargesCurrent == chargesMax)
-            {
-                cooldownStart = Time.time;
-            }
-            ConsumeCharge();
-        }
-        else
-        {
-            cooldownStart = Time.time;
-            canCast = false;
-        }
-    }
-
-    public int CooldownRemaining()
-    {
-        return Mathf.RoundToInt(cooldownStart + cooldown - Time.time);
-    }
-
-    //Charges Handling
-    bool HasCharges()
-    {
-        return chargesMax > 0;
-    }
-
-    bool HasChargesRemaining()
-    {
-        return chargesCurrent > 0 || !HasCharges();
-    }
-
-    void ConsumeCharge()
-    {
-        chargesCurrent = Mathf.Max(chargesCurrent - 1, 0);
-    }
-
-    bool HasMaxCharges()
-    {
-        return chargesCurrent == chargesMax;
-    }
-
-    public void GainCharge(int amount = 1)
-    {
-        chargesCurrent = Mathf.Min(chargesCurrent + amount, chargesMax);
+        this.owner = owner;
     }
 
     //Basic Cast Handling
@@ -205,7 +84,7 @@ public class Ability : MonoBehaviour
         isCasting = true;
         castStartTime = Time.time;
 
-        if (castType == CastType.INSTANT)
+        if (CastType == CastType.INSTANT)
         {
             castTarget = lookAt;
             FinishCast();
@@ -225,19 +104,18 @@ public class Ability : MonoBehaviour
     {
         Cast();
         OnCast();
+        CleanUp();
     }
 
     protected virtual void Cast(Transform end = null)
     {
         transform.LookAt(castTarget);
         myRigidbody.velocity = transform.forward * speed;
-
-        CleanUp();
     }
 
     protected virtual void CleanUp()
     {
-        Destroy(gameObject, duration);
+        Destroy(gameObject, EffectDuration);
     }
 
     //Movement Ability Handling
@@ -245,17 +123,17 @@ public class Ability : MonoBehaviour
     {
         StartCoroutine(DashMovement());
         OnCast();
+        CleanUp();
     }
 
     IEnumerator DashMovement()
     {
-        CharacterController _controller = owner.GetComponent<CharacterController>();
-        if (_controller != null)
+        if (owner.TryGetComponent<CharacterController>(out var _controller))
         {
             float startTime = Time.time;
             Vector3 _direction = owner.GetMoveDir() * speed;
 
-            while (Time.time < startTime + duration)
+            while (Time.time < startTime + EffectDuration)
             {
                 _controller.Move(_direction * Time.deltaTime);
                 yield return null;
@@ -268,7 +146,7 @@ public class Ability : MonoBehaviour
     {
         if (owner == null) return 0f;
 
-        return owner.GetDamageModifier() * damageAmount;
+        return owner.GetDamageModifier() * EffectAmount;
     }
 
     public virtual void DoDamage()
@@ -282,7 +160,7 @@ public class Ability : MonoBehaviour
             OnDamage();
         }
 
-        if (abilityType == AbilityType.PROJECTILE)
+        if (AbilityType == AbilityType.PROJECTILE)
         {
             Destroy(gameObject);
         }
@@ -297,7 +175,7 @@ public class Ability : MonoBehaviour
 
     protected virtual void OnHit()
     {
-        if (damageAmount > 0)
+        if (EffectAmount > 0)
         {
             Debug.Log("Hit detected");
             DoDamage();

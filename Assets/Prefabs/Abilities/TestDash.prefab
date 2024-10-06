@@ -45,20 +45,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
-  abilityName: Test Dash
-  cooldown: 2
-  chargesMax: 0
-  castTime: 0
-  castType: 0
-  abilityType: 4
-  elementType: 0
-  statusEffect: 0
-  damageAmount: 0
-  tickSpeed: 0
-  duration: 0.25
+  AbilityName: 
+  AbilityDescription: 
+  AbilityID: 0
+  AbilityFlag: 0
+  ElementType: 0
+  AbilityType: 3
+  CastType: 0
+  Cooldown: 3
+  EffectType: 0
+  StatusType: 0
+  AttributeFlags: 0
+  ElementFlags: 0
+  TriggerFlags: 0
+  ModifierType: 0
+  EffectAmount: 0
+  EffectTriggerChance: 0
+  EffectAbilityID: 0
+  EffectAbilityFlag: 0
+  EffectStackMax: 0
+  EffectDuration: 0.2
+  EffectTickSpeed: 0
+  ResourceType: 0
+  ResourceMax: 0
+  ResourceCooldown: 0
+  ResourceReset: 0
   speed: 35
   range: 0
   isTarget: 0
   myCollider: {fileID: 0}
-  myRenderer: {fileID: 0}
+  myVisual: {fileID: 0}
   myRigidbody: {fileID: 0}

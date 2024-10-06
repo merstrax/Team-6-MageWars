@@ -1472,6 +1472,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 661bbc18-db6a-4f73-9842-183df21f34bb
     m_ActionName: Player/Sprint[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 27ee6710-2292-4f86-882a-faae5d679dc8
+    m_ActionName: UI/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1525,7 +1529,7 @@ MonoBehaviour:
   - {fileID: 39563482987813226, guid: c3d9db4364247a94e9b468761584e5e1, type: 3}
   - {fileID: 8394976232193250753, guid: ffa465c84745a3742be6ef08d77203ac, type: 3}
   - {fileID: 0}
-  - {fileID: 4427820751025286997, guid: 88eac2f2744594c489b099b0827b3085, type: 3}
+  - {fileID: 4427820751025286997, guid: f833d1966cdcbb04197dfe347dc6a102, type: 3}
   audioPlayer: {fileID: 0}
   audioDamage: []
   audioDamageVolume: 0
