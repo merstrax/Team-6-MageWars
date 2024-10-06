@@ -32,6 +32,10 @@ public class enemyAI : Unit
     [Range(0, 20)][SerializeField] int roamDist;
     [Range(0, 5.0f)][SerializeField] int roamTimer;
 
+    [Header("Health Drop")]
+    [SerializeField] GameObject healthDropPrefab;
+    [Range(0f, 1f)][SerializeField] float dropChance; 
+
     // Variables 
     Vector3 playerDir;
     Vector3 startPos;
@@ -159,6 +163,26 @@ public class enemyAI : Unit
     {
         // Basic implementation of attack behavior
         yield return null; 
+    }
+
+    public override void OnDeath(Unit other = null)
+    {
+        // Call the base OnDeath
+        base.OnDeath(other);
+
+        // Try dropping a health pickup
+        TryDropHealthPickup(); 
+    }
+
+    private void TryDropHealthPickup()
+    {
+        float randomValue = Random.Range(0f, 1f); 
+
+        // if the random valu is less than the drop chance spawn the health pickup
+        if (randomValue <= dropChance && healthDropPrefab != null)
+        { 
+            Instantiate(healthDropPrefab, transform.position, Quaternion.identity);  
+        } 
     } 
 
     private void OnTriggerEnter(Collider other)
