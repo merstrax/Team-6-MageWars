@@ -15,6 +15,8 @@ public class GolemAI : enemyAI
 
     // Golem Melee
     [Range(0, 2.0f)][SerializeField] float meleeRate;
+    [SerializeField] Collider LeftFoot; 
+    
 
     // Golem Movement
     [Range(0f, 10f)][SerializeField] private float movementSpeed;
@@ -26,17 +28,7 @@ public class GolemAI : enemyAI
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         agent.speed = movementSpeed;
-    }
-
-    protected override void Update()
-    {
-        // Call the base Update
-        base.Update();
-
-        if (IsPlayerInRange() && IsPlayerVisible())
-        {
-            MoveTowardsPlayer();
-        }
+        LeftFootDisabled(); 
     }
 
     // override the Attack coroutine
@@ -53,7 +45,9 @@ public class GolemAI : enemyAI
             else
             {
                 // Perform melee attack
-                yield return MeleeAttack();
+                MeleeAttack();
+
+                yield return new WaitForSeconds(meleeRate);
             }
         }
         else
@@ -62,6 +56,8 @@ public class GolemAI : enemyAI
         }
     }
 
+    /// This will be an ability call. 
+  
     private IEnumerator RangedAttack()
     {
         // Check cooldown
@@ -90,25 +86,28 @@ public class GolemAI : enemyAI
         yield return new WaitForSeconds(rangedCooldown);
     }
 
-    private IEnumerator MeleeAttack()
+    private void MeleeAttack()
     {
-        // Play left melee attack animation
-        animator.SetTrigger("LeftMeleeAttack");
 
-        // Wait for the animation to finish
-        yield return new WaitForSeconds(meleeRate);
+        animator.Play("Giant@UnarmedAttack01"); 
 
-        // Play right melee attack animation
-        animator.SetTrigger("RightMeleeAttack");
+        //// Play left melee attack animation
+        //animator.Play("Attack01");  
 
-        // Wait for the animation to finish
-        yield return new WaitForSeconds(meleeRate);
+        //// Wait for the animation to finish
+        //yield return new WaitForSeconds(meleeRate);
 
-        // Deal damage to the player
-        GameManager.instance.player.GetComponent<Unit>().TakeDamage(15, this as Unit);
+        //// Play right melee attack animation
+        //animator.SetTrigger("RightMeleeAttack");
+
+        //// Wait for the animation to finish
+        //yield return new WaitForSeconds(meleeRate);
+
+        //// Deal damage to the player
+        //GameManager.instance.player.GetComponent<Unit>().TakeDamage(15, this as Unit);
 
         // Wait for melee cooldown
-        yield return new WaitForSeconds(meleeRate);
+        
     }
 
     private void LeftMeleeAttackHit()
@@ -121,5 +120,15 @@ public class GolemAI : enemyAI
     {
         // Deal damage to the player
         GameManager.instance.player.GetComponent<Unit>().TakeDamage(15, this as Unit);
+    }
+
+    public void LeftFootEnable()
+    {
+        LeftFoot.enabled = true;    
+    }
+
+    public void LeftFootDisabled()
+    {
+        LeftFoot.enabled = false;
     }
 }
