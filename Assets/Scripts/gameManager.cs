@@ -40,11 +40,11 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void TogglePause(InputAction.CallbackContext context)
+    public void OnPause(InputAction.CallbackContext context)
     {
         if (menuActive == null)
         {
-            statePause();
+            StatePause();
             menuActive = menuPause;
             menuActive.SetActive(isPaused);
         }
@@ -54,11 +54,11 @@ public class GameManager : MonoBehaviour
         }
         else if (menuActive == menuPause)
         {
-            stateUnpause();
+            StateUnpause();
         }
     }
 
-    public void statePause()
+    public void StatePause()
     {
         isPaused = !isPaused;
         Time.timeScale = 0;
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
     }
 
-    public void stateUnpause()
+    public void StateUnpause()
     {
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
@@ -79,14 +79,14 @@ public class GameManager : MonoBehaviour
 
     public void youLose()
     {
-        statePause();
+        StatePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
 
     public void ToggleSettings()
     {
-        statePause();
+        StatePause();
         menuActive.SetActive(false);
         if (menuActive == menuSettings)
         {
