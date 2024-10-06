@@ -20,7 +20,7 @@ public class buttonFuctions : MonoBehaviour
 
     public void resume()
     {
-        GameManager.instance.stateUnpause();
+        GameManager.instance.StateUnpause();
     }
 
     public void Quit()
