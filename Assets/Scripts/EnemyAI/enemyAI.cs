@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI; 
 
 public class enemyAI : Unit
 {
@@ -9,7 +10,7 @@ public class enemyAI : Unit
     [SerializeField] Animator animator;
     [SerializeField] Renderer model;
     [SerializeField] ParticleSystem particle;
-    //[SerializeField] TextMeshPro healthText; 
+    [SerializeField] Image playerHealthBar;
     [SerializeField] CapsuleCollider bodyCollider;
     [SerializeField] CapsuleCollider headCollider;
 
