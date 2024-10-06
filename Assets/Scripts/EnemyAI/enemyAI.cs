@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class enemyAI : Unit
 {
     [Header("Render Components")]
-    [SerializeField] Animator animator;
-    [SerializeField] Renderer model;
-    [SerializeField] ParticleSystem particle;
-    [SerializeField] Image playerHealthBar;
-    [SerializeField] CapsuleCollider bodyCollider;
-    [SerializeField] CapsuleCollider headCollider;
+    [SerializeField] protected Animator animator;
+    [SerializeField] protected Renderer model;
+    [SerializeField] protected ParticleSystem particle;
+    [SerializeField] protected Image playerHealthBar;
+    [SerializeField] protected CapsuleCollider bodyCollider;
+    [SerializeField] protected CapsuleCollider headCollider;
 
     [Header("AI Nav")]
     [SerializeField] NavMeshAgent agent;
