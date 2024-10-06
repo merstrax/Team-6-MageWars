@@ -14,13 +14,13 @@ public class WindBlast : Ability
 
     private float abilityTimer = 0f; // Timer for ability cooldown
     private float knockbackTimer = 0f; // Timer for knockback cooldown
-    private const float knockbackCooldown = 7f; // Cooldown for knockback
-    private const float abilityCooldown = 3f; // Cooldown for the ability
+    private const float knockbackCooldown = 7f; /// Cooldown for knockback USE UNIT
+    private const float abilityCooldown = 3f; /// Cooldown for the ability USE UNIT
     private float comboTimer = 0f; // Timer to track combo time
     private const float comboResetTime = 2f; // Time limit to cast next attack in combo
     private const float attackIntervalMin = 0.5f; // Min cooldown between combo attacks
     private const float attackIntervalMax = 1f; // Max cooldown between combo attacks
-    private float attackCooldown = 0f; // Timer for individual combo attacks
+    private float attackCooldown = 0f; /// Timer for individual combo attacks USE UNIT
 
     protected override void Update()
     {

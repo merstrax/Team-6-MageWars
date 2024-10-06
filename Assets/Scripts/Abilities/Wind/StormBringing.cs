@@ -10,7 +10,7 @@ public class StormBringing : Ability
     private const float buffDuration = 5f; // Duration of the movement speed and jump buff
     private const float speedIncrease = 1.5f; // Movement speed multiplier
     private const float jumpIncrease = 1.5f; // Jump height multiplier
-    private const float abilityCooldown = 7f; // Cooldown for the ability
+    private const float abilityCooldown = 7f; /// Cooldown for the ability USE UNIT
 
     private bool isChanneling = false; // Tracks if the player is currently channeling
     private float channelTimer = 0f; // Timer for channeling duration
