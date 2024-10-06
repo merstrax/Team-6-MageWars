@@ -61,10 +61,11 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        jump = context.performed;
+        /*if (context.performed)
         {
             moveController.DoJump();
-        }
+        }*/
     }
 
     void Start()
@@ -78,7 +79,7 @@ public class PlayerInputController : MonoBehaviour
     float rotY;
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         float x = look.x * sensitivity * Time.deltaTime;
         float y = -look.y * sensitivity * Time.deltaTime;
@@ -92,7 +93,7 @@ public class PlayerInputController : MonoBehaviour
         Vector3 angles = followTransform.transform.localEulerAngles;
         angles.z = 0;
 
-        float angle = followTransform.transform.localEulerAngles.x;
+        float angle = angles.x; //followTransform.transform.localEulerAngles.x;
 
         if (angle > 180 && angle < 355)
         {

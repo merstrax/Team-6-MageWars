@@ -26,6 +26,8 @@ public class PlayerMovementController : MonoBehaviour
     bool isSprinting;
     public bool IsSprinting() { return isSprinting; }
 
+    bool isJumping;
+
     private void Start()
     {
         originalSpeed = speed;
@@ -43,9 +45,9 @@ public class PlayerMovementController : MonoBehaviour
         //Reset jump variables
         if (characterController.isGrounded)
         {
-            playerVel = Vector3.zero;
-            jumpCount = 0;
             animator.SetBool("Jumping", false);
+            if (inputController.jump)
+                DoJump();
         }
 
         //Transform and move based on local space
@@ -59,21 +61,15 @@ public class PlayerMovementController : MonoBehaviour
         animSpeed = animator.GetFloat("MoveZ");
         animator.SetFloat("MoveZ", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 5.0f));
 
-
         characterController.Move(playerVel * Time.deltaTime);
         playerVel.y -= gravity * Time.deltaTime;
     }
 
     public void DoJump()
     {
-        //Jump logic
-        if (jumpCount < jumpMax)
-        {
-            animator.Play("JumpStart");
-            animator.SetBool("Jumping", true);
-            jumpCount++;
-            playerVel.y = jumpSpeed;
-        }
+        animator.Play("JumpStart");
+        animator.SetBool("Jumping", true);
+        playerVel.y = jumpSpeed;
     }
 
     void UpdateSprint()

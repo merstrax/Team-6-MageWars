@@ -20,7 +20,7 @@ public class PlayerController : Unit
     [Header("Player Abilities")]
     [SerializeField] Ability abilityPassive;
     [SerializeField] Ability[] abilities;
-    Ability[] abilityHandlers = new Ability[4];
+    readonly Ability[] abilityHandlers = new Ability[4];
     Ability movementAbility;
 
     [Header("Player Audio")]
