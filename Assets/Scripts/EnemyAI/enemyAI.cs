@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class enemyAI : Unit
 {
     // Define AI States
-    protected enum AIState { Idle, Roaming, Chasing, Attacking, Dead }
+    protected enum AIState { Idle, Roaming, Chasing, Attacking, Dead, Searching }
     protected AIState currentState = AIState.Idle;
 
     [Header("Render Components")]
@@ -46,6 +46,7 @@ public class enemyAI : Unit
     // Variables 
     protected Vector3 playerDir;
     protected Vector3 startPos;
+    protected Vector3 lastAttackPosition;
     protected bool isAttacking;
     protected bool isDead;
     protected bool isRoaming;
@@ -76,6 +77,9 @@ public class enemyAI : Unit
             case AIState.Attacking:
                 AttackingState();
                 break;
+            case AIState.Searching:
+                SearchingState();
+                break;
         }
     }
 
@@ -90,6 +94,26 @@ public class enemyAI : Unit
         else if (!isRoaming)
         {
             StartRoaming();
+        }
+    }
+
+    protected void SearchingState()
+    {
+        // Move to the last attack position
+        agent.SetDestination(lastAttackPosition);
+
+        // TODO: Implement patrolling logic around last known position
+        // You could implement a small loop with random positions around `lastAttackPosition`
+
+        // Check visibility of the player
+        if (IsPlayerVisible())
+        {
+            currentState = AIState.Chasing; // Transition to chasing state if player is visible
+        }
+        else
+        {
+            // Optional: Return to idle after some time if the player is not found
+            StartCoroutine(IdleAfterSearching()); // Start idle timer
         }
     }
 
@@ -215,7 +239,7 @@ public class enemyAI : Unit
         {
             animator.SetTrigger("MeleeAttack");
             yield return new WaitForSeconds(attackRate);
-            // Damage logic here
+            // TODO: Damage logic for melee attack
         }
         else if (attackType == "ranged")
         {
@@ -242,9 +266,7 @@ public class enemyAI : Unit
 
     protected void TryDropHealthPickup()
     {
-        /// health for now will add all others and set it random chance to drop one of the x amount of drops 
-         
-
+        // Health drop logic - chance to drop health item
         float randomValue = Random.Range(0f, 1f);
         if (randomValue <= dropChance && healthDropPrefab != null)
         {
@@ -256,7 +278,16 @@ public class enemyAI : Unit
     {
         if (other.CompareTag("Player"))
         {
-            // Handle combat initiation or player interaction
+            // If the player is out of aggro range, go into searching state
+            if (!IsPlayerInRange())
+            {
+                lastAttackPosition = GameManager.instance.player.transform.position; // Store the player's position
+                currentState = AIState.Searching; // Switch to Searching state
+            }
+            else
+            {
+                // Handle combat initiation or player interaction
+            }
         }
     }
 
@@ -266,5 +297,12 @@ public class enemyAI : Unit
         {
             // Handle player exiting range
         }
+    }
+
+    // Coroutine to wait and then return to idle state after searching
+    private IEnumerator IdleAfterSearching()
+    {
+        yield return new WaitForSeconds(2f); // Wait before transitioning
+        currentState = AIState.Idle; // Transition back to idle
     }
 }
