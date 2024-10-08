@@ -24,26 +24,23 @@ public class SkeletonAI : enemyAI
     {
         // Call the base Update
         base.Update();
-
-        // Move towards the player if in range and visible
-        if (IsPlayerInRange() && IsPlayerVisible())
-        {
-            MoveTowardsPlayer();
-            StartCoroutine(Attack());
-        }
     }
 
     // Override the Attack coroutine
     public override IEnumerator Attack()
     {
-        // Check if the player is in range and visible
+        if (!canAttack || isAttacking)
+            yield break; // If it's on cooldown or already attacking, do nothing
+
+        // Perform melee attack
         if (IsPlayerInRange() && IsPlayerVisible())
         {
+            isAttacking = true;
+            canAttack = false; // Prevent other attacks until cooldown
             yield return MeleeAttack();
-        }
-        else
-        {
-            yield return null;
+            isAttacking = false;
+            yield return new WaitForSeconds(meleeRate); // Cooldown period
+            canAttack = true; // Reset attack ability after cooldown
         }
     }
 
@@ -57,10 +54,8 @@ public class SkeletonAI : enemyAI
 
         // Deal damage to the player
         GameManager.instance.player.GetComponent<Unit>().TakeDamage(7, this as Unit);
-
-        // Wait for melee cooldown
-        yield return new WaitForSeconds(meleeRate);
     }
+
     private void RightMeleeAttackHit()
     {
         // Deal damage to the player
