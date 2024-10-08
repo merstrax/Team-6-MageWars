@@ -65,7 +65,7 @@ public class BearsAI : enemyAI
     }
 
     // Override the Attack coroutine
-    public override IEnumerator Attack()
+    public override IEnumerator Attack(string attackType)
     {
         // Check if the player is in range and visible
         if (IsPlayerInRange() && IsPlayerVisible())

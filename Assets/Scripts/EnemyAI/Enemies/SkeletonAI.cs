@@ -27,7 +27,7 @@ public class SkeletonAI : enemyAI
     }
 
     // Override the Attack coroutine
-    public override IEnumerator Attack()
+    public override IEnumerator Attack(string attackType)
     {
         if (!canAttack || isAttacking)
             yield break; // If it's on cooldown or already attacking, do nothing

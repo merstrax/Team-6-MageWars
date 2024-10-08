@@ -267,7 +267,6 @@ public class Unit : MonoBehaviour, IDamage
          * Defense 140 : Damage 12.5 (Average 0.625% per defense)
          */
         float damageReduction = (IDamage.DefenseCoefficient / (IDamage.DefenseCoefficient + defenseBonus)); 
-
         damage *= damageReduction;
 
         return damage;
@@ -314,7 +313,8 @@ public class Unit : MonoBehaviour, IDamage
     //Overridable but not recommended
     public virtual void TakeDamage(Damage damage, Unit other = null)
     {
-        healthCurrent -= CalculateDefense(damage.Amount);
+        float _reducedDamage = CalculateDefense(damage.Amount);
+        healthCurrent -= _reducedDamage;
 
         if (other != null)
         {
@@ -328,7 +328,7 @@ public class Unit : MonoBehaviour, IDamage
             OnDeath(other);
         }
 
-        string damageOutput = unitName + " took " + damage.Amount + " damage";
+        string damageOutput = unitName + " took " + _reducedDamage + " damage";
         damageOutput += damage.IsCritical ? " (Critical)." : ".";
         Debug.Log(damageOutput);
     }

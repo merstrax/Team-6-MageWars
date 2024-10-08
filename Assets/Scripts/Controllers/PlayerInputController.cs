@@ -23,6 +23,8 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField] CharacterController controller;
     [SerializeField] PlayerMovementController moveController;
 
+    [SerializeField] GameObject testDummy;
+
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
@@ -65,6 +67,14 @@ public class PlayerInputController : MonoBehaviour
         {
             moveController.DoJump();
         }*/
+    }
+
+    public void OnDebugSummon(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Instantiate(testDummy, transform.position + (Vector3.right * 5), transform.rotation);
+        }
     }
 
     void Start()

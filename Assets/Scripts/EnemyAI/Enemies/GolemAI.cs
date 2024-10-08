@@ -32,7 +32,7 @@ public class GolemAI : enemyAI
     }
 
     // override the Attack coroutine
-    public override IEnumerator Attack()
+    public override IEnumerator Attack(string attackType)
     {
         // Check if the player is in range and visible
         if (IsPlayerInRange() && IsPlayerVisible())

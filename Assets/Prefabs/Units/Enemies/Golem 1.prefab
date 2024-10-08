@@ -395,17 +395,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13fabb0f9cb0194789ed2664871ffce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
-  healthCurrent: 0
-  healthMax: 0
-  healthRegen: 0
-  damageModifier: 0
-  defenseModifier: 0
+  unitName: Golem
   castPos: {fileID: 0}
+  healthRegen: 0
+  healthBase: 100
+  damageBase: 0
+  defenseBase: 20
+  speedBase: 4
+  critChanceBase: 0
+  critDamageBase: 0
+  healthCurrent: 0
   animator: {fileID: 5663918749682702063}
   model: {fileID: 2852112183291550114}
   particle: {fileID: 0}
-  playerHealthBar: {fileID: 0}
+  healthBar: {fileID: 0}
   bodyCollider: {fileID: 2967938953222354635}
   headCollider: {fileID: 2163259340079371921}
   agent: {fileID: 6332267895436848291}
@@ -415,6 +418,8 @@ MonoBehaviour:
   leftHandPos: {fileID: 7846170146277325765}
   bolt: {fileID: 0}
   attackRate: 0
+  meleeAttackRange: 0
+  rangedAttackRange: 6
   aggroRange: 0
   roamRange: 0
   renderDistance: 50
@@ -424,8 +429,6 @@ MonoBehaviour:
   healthDropPrefab: {fileID: 6961769210357640265, guid: 44e723b3d5b0e8c478e3b502b94369d5,
     type: 3}
   dropChance: 0
-  isMoving: 0
-  canAttack: 1
   rockVelocity: 0
   rockRange: 0
   minimumThrowDist: 0

@@ -53,8 +53,9 @@ public class enemyAI : Unit
     protected bool canAttack = true;
     protected Coroutine roamCoroutine;
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         startPos = transform.position;
         currentState = AIState.Idle;
     }

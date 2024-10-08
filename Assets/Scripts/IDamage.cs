@@ -14,7 +14,7 @@ public struct Damage
 
 public interface IDamage
 {
-    protected const float DefenseCoefficient = 20;
+    protected const float DefenseCoefficient = 20.0f;
     //void TakeDamage(float amount, Unit other = null);
     void TakeDamage(Damage damage, Unit other = null);
 }
