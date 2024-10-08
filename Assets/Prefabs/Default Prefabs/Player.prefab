@@ -1476,6 +1476,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 27ee6710-2292-4f86-882a-faae5d679dc8
     m_ActionName: UI/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3660527585307201292}
+        m_TargetAssemblyTypeName: PlayerInputController, Assembly-CSharp
+        m_MethodName: OnDebugSummon
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c57612e5-b544-4e5b-a9da-3269b1bb4bca
+    m_ActionName: Player/DebugSummon[/Keyboard/t]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1503,6 +1519,8 @@ MonoBehaviour:
   player: {fileID: 2578372866539603227}
   controller: {fileID: 483102131180510303}
   moveController: {fileID: 3210006295840939938}
+  testDummy: {fileID: 2917085908127289139, guid: ffec57e1993c22f46a82a2cfcce25f82,
+    type: 3}
 --- !u!114 &2578372866539603227
 MonoBehaviour:
   m_ObjectHideFlags: 0

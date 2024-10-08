@@ -258,11 +258,11 @@ public class enemyAI : Unit
 
     public override void OnDeath(Unit other = null)
     {
-        base.OnDeath(other);
         isDead = true;
         agent.SetDestination(transform.position);
         animator.SetTrigger("Die");
         TryDropHealthPickup();
+        base.OnDeath(other);
     }
 
     protected void TryDropHealthPickup()
