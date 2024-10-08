@@ -15,49 +15,31 @@ public class SkeletonAI : enemyAI
     {
         // Call the base class
         base.Start();
-        agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
         agent.speed = movementSpeed;
-    }
-
-    protected override void Update()
-    {
-        // Call the base Update
-        base.Update();
     }
 
     // Override the Attack coroutine
     public override IEnumerator Attack(string attackType)
     {
-        if (!canAttack || isAttacking)
-            yield break; // If it's on cooldown or already attacking, do nothing
-
-        // Perform melee attack
+        // Check if the player is in range and visible
         if (IsPlayerInRange() && IsPlayerVisible())
         {
-            isAttacking = true;
-            canAttack = false; // Prevent other attacks until cooldown
-            yield return MeleeAttack();
-            isAttacking = false;
-            yield return new WaitForSeconds(meleeRate); // Cooldown period
-            canAttack = true; // Reset attack ability after cooldown
+            // Perform melee attack
+            MeleeAttack();
+
+            yield return new WaitForSeconds(meleeRate);
+        }
+        else
+        {
+            yield return null;
         }
     }
 
-    private IEnumerator MeleeAttack()
+    private void MeleeAttack()
     {
         // Play melee attack animation
-        animator.SetTrigger("MeleeAttack");
+        animator.Play("MeleeAttack");
 
-        // Wait for the animation to finish (adjust the duration as needed)
-        yield return new WaitForSeconds(meleeRate);
-
-        // Deal damage to the player
-        GameManager.instance.player.GetComponent<Unit>().TakeDamage(7, this as Unit);
-    }
-
-    private void RightMeleeAttackHit()
-    {
         // Deal damage to the player
         GameManager.instance.player.GetComponent<Unit>().TakeDamage(7, this as Unit);
     }
