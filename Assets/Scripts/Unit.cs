@@ -13,6 +13,11 @@ public class Unit : MonoBehaviour, IDamage
     [SerializeField] protected float healthRegen;
     [SerializeField] protected float damageModifier;
     [SerializeField] protected float defenseModifier;
+    [SerializeField] protected float speedModifier;
+    [SerializeField] protected float critChanceModifier;
+    [SerializeField] protected float critDamageModifier;
+
+    private Dictionary<int, Ability> effects = new Dictionary<int, Ability>();
 
     public string GetUnitName() { return unitName; }
     public float GetHealthCurrent() { return healthCurrent; }
@@ -59,6 +64,31 @@ public class Unit : MonoBehaviour, IDamage
     { 
         moveDir = move.x * transform.right +
                     move.y * transform.forward;
+    }
+
+    public void ApplyEffect(Ability ability)
+    {
+        int _id = ability.GetID();
+
+        if (effects.ContainsKey(_id))
+        {
+            effects[_id].AddStack();
+            ability.CleanUp(true); //Remove ability as one already exists
+        }
+        else
+        {
+            effects.Add(_id, ability);
+        }
+    }
+    
+    public void RemoveEffect(Ability ability)
+    {
+        int _id = ability.GetID();
+        if (effects.ContainsKey(_id))
+        {
+            effects[_id].CleanUp(true);
+            effects.Remove(_id);
+        }
     }
 
     public virtual void InterruptCasting()
