@@ -1498,6 +1498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3078321175820848057}
+  - component: {fileID: -3326903170645943260}
   - component: {fileID: 6505172996936239181}
   m_Layer: 0
   m_Name: Skeleton
@@ -1516,13 +1517,60 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2953970397908394591}
   - {fileID: 3314769561625134544}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3326903170645943260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129813066059308909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a065f60b434252848862128be992ff69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: 
+  castPos: {fileID: 0}
+  healthRegen: 0
+  healthBase: 0
+  damageBase: 0
+  defenseBase: 0
+  speedBase: 0
+  critChanceBase: 0
+  critDamageBase: 0
+  healthCurrent: 0
+  animator: {fileID: 0}
+  model: {fileID: 0}
+  particle: {fileID: 0}
+  healthBar: {fileID: 0}
+  bodyCollider: {fileID: 0}
+  headCollider: {fileID: 0}
+  agent: {fileID: 0}
+  headPos: {fileID: 0}
+  faceTargetSpeed: 0
+  rightHandPos: {fileID: 0}
+  leftHandPos: {fileID: 0}
+  bolt: {fileID: 0}
+  attackRate: 0
+  meleeAttackRange: 0
+  rangedAttackRange: 6
+  aggroRange: 0
+  roamRange: 0
+  renderDistance: 0
+  viewAngle: 0
+  roamDist: 0
+  roamTimer: 0
+  healthDropPrefab: {fileID: 0}
+  dropChance: 0
+  meleeRate: 0
+  movementSpeed: 0
 --- !u!95 &6505172996936239181
 Animator:
   serializedVersion: 5
