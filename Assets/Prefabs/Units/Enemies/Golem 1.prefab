@@ -413,29 +413,31 @@ MonoBehaviour:
   headCollider: {fileID: 2163259340079371921}
   agent: {fileID: 6332267895436848291}
   headPos: {fileID: 7884165309031046978}
-  faceTargetSpeed: 15
+  faceTargetSpeed: 50
   rightHandPos: {fileID: 8203293041816323012}
   leftHandPos: {fileID: 7846170146277325765}
   bolt: {fileID: 0}
-  attackRate: 0
+  attackRate: 3
   meleeAttackRange: 0
   rangedAttackRange: 6
-  aggroRange: 0
+  aggroRange: 20
   roamRange: 0
   renderDistance: 50
-  viewAngle: 10
+  viewAngle: 90
   roamDist: 0
   roamTimer: 0
   healthDropPrefab: {fileID: 6961769210357640265, guid: 44e723b3d5b0e8c478e3b502b94369d5,
     type: 3}
   dropChance: 0
-  rockVelocity: 0
-  rockRange: 0
-  minimumThrowDist: 0
-  rangedCooldown: 0
-  rockPrefab: {fileID: 0}
-  meleeRate: 0
+  rockVelocity: 30
+  rockRange: 20
+  minimumThrowDist: 15
+  rangedCooldown: 4
+  rockPrefab: {fileID: 5298590762127773683, guid: cad9f745870d9f448bf225d2a253d382,
+    type: 3}
+  meleeRate: 2
   LeftFoot: {fileID: 9041829068908652728}
+  stomp: {fileID: 5482782143325043695, guid: f2b27d56e521f104cb4071db95ba0721, type: 3}
   movementSpeed: 0
 --- !u!95 &5663918749682702063
 Animator:
@@ -472,7 +474,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 3
+  m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

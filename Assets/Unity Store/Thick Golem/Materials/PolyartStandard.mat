@@ -8,8 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PolyartStandard
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 2100000, guid: 1e05c88d86fecdf48a6a58c0b42cc445, type: 2}
+  m_Shader: {fileID: -6465566751694194690, guid: 25ace219e3d6aed42920d98a7183630b,
+    type: 3}
+  m_Parent: {fileID: 2100000, guid: aa2697fc5c62ddc469c79075db26cab4, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -17,8 +18,7 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -48,6 +48,7 @@ Material:
     m_Floats:
     - _Glossiness: 0
     - _Metallic: 0.3
+    - _QueueControl: 0
     - _Smoothness: 0
     m_Colors:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

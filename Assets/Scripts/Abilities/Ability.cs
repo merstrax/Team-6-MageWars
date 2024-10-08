@@ -24,6 +24,7 @@ public class Ability : MonoBehaviour
     float cooldownStart;
     bool canCast = true;
     Vector3 castTarget;
+    bool hasDamaged;
 
     int chargesCurrent;
 
@@ -118,7 +119,8 @@ public class Ability : MonoBehaviour
     protected virtual void Cast(Transform end = null)
     {
         transform.LookAt(castTarget);
-        myRigidbody.velocity = transform.forward * AbilityInfo.AbilitySpeed;
+        if(myRigidbody != null) 
+            myRigidbody.velocity = transform.forward * AbilityInfo.AbilitySpeed;
     }
 
     public virtual void CleanUp(bool instant = false)
@@ -190,12 +192,14 @@ public class Ability : MonoBehaviour
             other.TakeDamage(_damage, owner);
 
             OnDamage();
+
         }
 
         if (AbilityInfo.AbilityType == AbilityType.PROJECTILE)
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 1.0f);
         }
+        hasDamaged = true;
     }
 
     public virtual void DoEffectApply()
@@ -255,6 +259,7 @@ public class Ability : MonoBehaviour
             {
                 DoEffectApply();
             }
+            if(!hasDamaged)
             DoDamage();
         }else
         {
@@ -281,7 +286,7 @@ public class Ability : MonoBehaviour
 
         if(other.CompareTag("MapObject"))
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 0.5f);
         }
         
     }

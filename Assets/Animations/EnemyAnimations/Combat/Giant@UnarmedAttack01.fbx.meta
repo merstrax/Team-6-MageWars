@@ -60,14 +60,16 @@ ModelImporter:
       - time: 0.39657825
         functionName: LeftFootEnable
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 2917085908127289139, guid: ffec57e1993c22f46a82a2cfcce25f82,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.79310346
-        functionName: LeftFootDisable
+        functionName: LeftFootDisabled
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 2917085908127289139, guid: ffec57e1993c22f46a82a2cfcce25f82,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

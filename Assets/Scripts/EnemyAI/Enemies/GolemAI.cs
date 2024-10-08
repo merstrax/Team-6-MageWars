@@ -14,9 +14,9 @@ public class GolemAI : enemyAI
     private float lastRangedAttackTime; 
 
     // Golem Melee
-    [Range(0, 2.0f)][SerializeField] float meleeRate;
-    [SerializeField] Collider LeftFoot; 
-    
+    [Range(0, 3.0f)][SerializeField] float meleeRate;
+    [SerializeField] Collider LeftFoot;
+    [SerializeField] Ability stomp;
 
     // Golem Movement
     [Range(0f, 10f)][SerializeField] private float movementSpeed;
@@ -25,9 +25,7 @@ public class GolemAI : enemyAI
     {
         // Call the base class 
         base.Start();
-        agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
-        agent.speed = movementSpeed;
+        agent.speed = GetSpeed();
         LeftFootDisabled(); 
     }
 
@@ -70,7 +68,7 @@ public class GolemAI : enemyAI
         lastRangedAttackTime = Time.time;
 
         // Play ranged attack animation (if you have one)
-        animator.SetTrigger("ThrowRock");
+        //animator.SetTrigger("ThrowRock");
 
         // Create the rock projectile
         GameObject rock = Instantiate(rockPrefab, transform.position, Quaternion.identity);
@@ -124,11 +122,13 @@ public class GolemAI : enemyAI
 
     public void LeftFootEnable()
     {
-        LeftFoot.enabled = true;    
+        //LeftFoot.gameObject.SetActive(true);
+        Ability _stomp = Instantiate(stomp, LeftFoot.transform);
+        _stomp.StartCast(this, transform.position);
     }
 
     public void LeftFootDisabled()
     {
-        LeftFoot.enabled = false;
+        //LeftFoot.gameObject.SetActive(false);
     }
 }

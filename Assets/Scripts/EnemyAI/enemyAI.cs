@@ -209,7 +209,7 @@ public class enemyAI : Unit
         Vector3 directionToPlayer = (GameManager.instance.player.transform.position - headPos.position).normalized;
         float angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
 
-        if (angleToPlayer > viewAngle) return false;
+        if (angleToPlayer < viewAngle) return true;
 
         RaycastHit hit;
         int layerMask = LayerMask.GetMask("Player");
