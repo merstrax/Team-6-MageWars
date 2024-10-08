@@ -76,12 +76,12 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (inputController.sprint)
         {
-            speed = originalSpeed * sprintMod;
+            speed = player.GetSpeed() * sprintMod;
             isSprinting = true;
         }
         else
         {
-            speed = originalSpeed;
+            speed = player.GetSpeed();
             isSprinting = false;
         }
     }

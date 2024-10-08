@@ -23,6 +23,13 @@ public class PlayerController : Unit
     readonly AbilityHandler[] abilityHandlers = new AbilityHandler[4];
     Ability movementAbility;
 
+    public AbilityHandler GetAbility(uint handlerID)
+    {
+        if(handlerID > 3) return null;
+
+        return abilityHandlers[handlerID];
+    }
+
     [Header("Player Audio")]
     [SerializeField] AudioSource audioPlayer;
     [SerializeField] AudioClip[] audioDamage;
@@ -31,10 +38,11 @@ public class PlayerController : Unit
     [Range(0, 1)][SerializeField] float audioWalkVolume;
     [SerializeField] AudioClip[] audioJump;
     [Range(0, 1)][SerializeField] float audioJumpVolume;
-   
+
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         if (abilityPassive != null)
         {
             abilityPassive = Instantiate(abilityPassive, GetCastPos());
@@ -93,9 +101,9 @@ public class PlayerController : Unit
         _ability.StartCast(this, ray.GetPoint(200.0f));
     }
 
-    public override void TakeDamage(float amount, Unit other = null)
+    public override void TakeDamage(Damage damage, Unit other = null)
     {
-        healthCurrent -= (amount * defenseModifier);
+        healthCurrent -= CalculateDefense(damage.Amount);
 
         if (healthCurrent <= 0)
         {

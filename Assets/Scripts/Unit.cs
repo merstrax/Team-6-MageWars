@@ -8,18 +8,36 @@ public class Unit : MonoBehaviour, IDamage
 
     [Header("Unit Info")]
     [SerializeField] protected string unitName;
-    [SerializeField] protected float healthCurrent;
-    [SerializeField] protected float healthMax;
-    [SerializeField] protected float healthRegen;
-    [SerializeField] protected float damageModifier;
-    [SerializeField] protected float defenseModifier;
-    [SerializeField] protected float speedModifier;
-    [SerializeField] protected float critChanceModifier;
-    [SerializeField] protected float critDamageModifier;
-
-    private Dictionary<int, Ability> effects = new Dictionary<int, Ability>();
-
     public string GetUnitName() { return unitName; }
+    [SerializeField] Transform castPos;
+    public Transform GetCastPos() { return castPos; }
+
+    [Header("Unit Stats")]
+    [SerializeField] protected float healthRegen;
+    [SerializeField] protected float healthBase;
+    [SerializeField] protected float damageBase;
+    [SerializeField] protected float defenseBase;
+    [SerializeField] protected float speedBase;
+    [SerializeField] protected float critChanceBase;
+    [SerializeField] protected float critDamageBase;
+
+    protected float healthBonus;
+    protected float damageBonus;
+    protected float defenseBonus;
+    protected float speedBonus;
+    protected float critChanceBonus;
+    protected float critDamageBonus;
+
+    protected float healthModifier;
+    protected float damageModifier;
+    protected float defenseModifier;
+    protected float speedModifier;
+    protected float critChanceModifier;
+    protected float critDamageModifier;
+
+    public float healthCurrent;
+    protected float healthMax;
+
     public float GetHealthCurrent() { return healthCurrent; }
     public void SetHealthCurrent(float healthCurrent) { this.healthCurrent = healthCurrent; }
 
@@ -29,15 +47,174 @@ public class Unit : MonoBehaviour, IDamage
     public float GetHealthRegen() { return healthRegen; }
     public void SetHealthRegen(float healthRegen) { this.healthRegen = healthRegen; }
 
+    public float GetDamageBonus() { return damageBonus; }
     public float GetDamageModifier() { return damageModifier; }
     public void SetDamageModifier(float damageModifier) { this.damageModifier = damageModifier; }
 
+    public float GetDefenseBonus() {  return defenseBonus; }
     public float GetDefenseModifier() { return defenseModifier; }
     public void SetDefenseModifier(float defenseModifier) { this.defenseModifier = defenseModifier; }
 
-    [Header("Ability Position")]
-    [SerializeField] Transform castPos;
-    public Transform GetCastPos() { return castPos; }
+    public float GetCritChanceBonus() {  return critChanceBonus; }
+    public float GetCritDamageBonus() { return critDamageBonus; }
+
+    private Dictionary<int, Ability> effects = new();
+    public Dictionary<int, Ability> GetEffects() { return effects; }
+
+    #region Stat Handling
+    protected virtual void Start()
+    {
+        UpdateStats();
+        healthCurrent = healthMax;
+    }
+
+
+    protected void UpdateStats()
+    {
+        //Reset Bonus to base
+        healthBonus = healthBase;
+        damageBonus = damageBase;
+        defenseBonus = defenseBase;
+        speedBonus = speedBase;
+        critChanceBonus = critChanceBase;
+        critDamageBonus = critDamageBase;
+
+        //Reset modifiers to 1
+        healthModifier = 1;
+        damageModifier = 1;
+        defenseModifier = 1;
+        speedModifier = 1;
+        critChanceModifier = 1;
+        critDamageModifier = 1;
+
+        foreach (Ability ability in effects.Values)
+        {
+            if(ability.Info().TriggerFlags.HasFlag(EffectTriggerFlags.ON_UPDATE) && ability.Info().EffectType == EffectType.MODIFIER)
+            {
+                var modifyFlag = ability.Info().AttributeFlags;
+
+                if(modifyFlag.HasFlag(EffectAttributeFlags.DAMAGE))
+                {
+                    UpdateDamage(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
+                }
+
+                if (modifyFlag.HasFlag(EffectAttributeFlags.DEFENSE))
+                {
+                    UpdateDefense(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
+                }
+
+                if (modifyFlag.HasFlag(EffectAttributeFlags.MOVESPEED))
+                {
+                    UpdateSpeed(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
+                }
+
+                if (modifyFlag.HasFlag(EffectAttributeFlags.CRIT_CHANCE))
+                {
+                    UpdateCritChance(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
+                }
+
+                if (modifyFlag.HasFlag(EffectAttributeFlags.CRIT_DAMAGE))
+                {
+                    UpdateCritDamage(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
+                }
+            }
+        }
+
+        healthMax = healthBonus * healthModifier;
+        healthCurrent = Mathf.Min(healthCurrent, healthMax);
+
+        defenseBonus *= defenseModifier;
+        speedBonus *= speedModifier;
+        critChanceBonus *= critChanceModifier;
+        critDamageBonus *= critDamageModifier;
+    }
+
+    protected void UpdateHealthMax(float amount, EffectModifierType modType, int stackcount = 1)
+    {
+        switch(modType)
+        {
+            case EffectModifierType.ADD:
+                healthBonus += (amount * stackcount);
+                break;
+            case EffectModifierType.MULTIPLY:
+                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
+                healthModifier *= amount;
+                break;
+        }
+    }
+
+    protected void UpdateDamage(float amount, EffectModifierType modType, int stackcount = 1)
+    {
+        switch (modType)
+        {
+            case EffectModifierType.ADD:
+                damageBonus += (amount * stackcount);
+                break;
+            case EffectModifierType.MULTIPLY:
+                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
+                damageModifier *= amount;
+                break;
+        }
+    }
+
+    protected void UpdateDefense(float amount, EffectModifierType modType, int stackcount = 1)
+    {
+        switch (modType)
+        {
+            case EffectModifierType.ADD:
+                defenseBonus += (amount * stackcount);
+                break;
+            case EffectModifierType.MULTIPLY:
+                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
+                defenseModifier *= amount;
+                break;
+        }
+    }
+
+    protected void UpdateSpeed(float amount, EffectModifierType modType, int stackcount = 1)
+    {
+        switch (modType)
+        {
+            case EffectModifierType.ADD:
+                speedBonus += (amount * stackcount);
+                break;
+            case EffectModifierType.MULTIPLY:
+                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
+                speedModifier *= amount;
+                break;
+        }
+    }
+
+    protected void UpdateCritChance(float amount, EffectModifierType modType, int stackcount = 1)
+    {
+        switch (modType)
+        {
+            case EffectModifierType.ADD:
+                amount = amount > 1 ? amount / 100 : amount;
+                critChanceBonus += (amount * stackcount);
+                break;
+            case EffectModifierType.MULTIPLY:
+                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
+                critChanceModifier *= amount;
+                break;
+        }
+    }
+
+    protected void UpdateCritDamage(float amount, EffectModifierType modType, int stackcount = 1)
+    {
+        switch (modType)
+        {
+            case EffectModifierType.ADD:
+                amount = amount > 1 ? amount / 100 : amount;
+                critDamageBonus += (amount * stackcount);
+                break;
+            case EffectModifierType.MULTIPLY:
+                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
+                critDamageModifier *= amount;
+                break;
+        }
+    }
+    #endregion
 
     //Status Effects
     private bool isCasting;
@@ -65,6 +242,36 @@ public class Unit : MonoBehaviour, IDamage
         moveDir = move.x * transform.right +
                     move.y * transform.forward;
     }
+    public float GetSpeed() { return speedBonus; }
+
+    public Damage CalculateDamage(float damage, float coefficient, bool canCrit = true)
+    {
+        damage += (coefficient * damageBonus);
+        damage *= damageModifier;
+
+        bool isCritical = Random.Range(0.0f, 1.0f) < critChanceBonus;
+        damage *= isCritical && canCrit ? critDamageBonus : 1.0f;
+
+        return new Damage(damage, isCritical);
+    }
+
+    public float CalculateDefense(float damage)
+    {
+        /*
+         * Every 20 defense will reduces the effectiveness of defense by 50%
+         * Damage = 100
+         * 
+         * Defense 0 : Damage 100
+         * Defense 20 : Damage 50 (Average 2.5% per defense)
+         * Defense 60 : Damage 25 (Average 1.25% per defense)
+         * Defense 140 : Damage 12.5 (Average 0.625% per defense)
+         */
+        float damageReduction = (IDamage.DefenseCoefficient / (IDamage.DefenseCoefficient + defenseBonus)); 
+
+        damage *= damageReduction;
+
+        return damage;
+    }
 
     public void ApplyEffect(Ability ability)
     {
@@ -79,6 +286,7 @@ public class Unit : MonoBehaviour, IDamage
         {
             effects.Add(_id, ability);
         }
+        UpdateStats();
     }
     
     public void RemoveEffect(Ability ability)
@@ -89,6 +297,7 @@ public class Unit : MonoBehaviour, IDamage
             effects[_id].CleanUp(true);
             effects.Remove(_id);
         }
+        UpdateStats();
     }
 
     public virtual void InterruptCasting()
@@ -97,35 +306,54 @@ public class Unit : MonoBehaviour, IDamage
         OnInterrupted();
     }
 
-    //Overridable but not recommended
     public virtual void TakeDamage(float amount, Unit other = null)
     {
-        healthCurrent -= (amount * defenseModifier);
+        TakeDamage(new Damage(amount), other);
+    }
+
+    //Overridable but not recommended
+    public virtual void TakeDamage(Damage damage, Unit other = null)
+    {
+        healthCurrent -= CalculateDefense(damage.Amount);
 
         if (other != null)
         {
-            other.OnDamage(amount, this);
+            other.OnDamage(damage, this);
         }
         
-        OnDamaged(amount, other);
+        OnDamaged(damage, other);
 
         if(healthCurrent <= 0)
         {
             OnDeath(other);
         }
+
+        string damageOutput = unitName + " took " + damage.Amount + " damage";
+        damageOutput += damage.IsCritical ? " (Critical)." : ".";
+        Debug.Log(damageOutput);
     }
 
     //Scriptable functions
     public virtual void OnHit(Unit other, Ability ability) { }
-    public virtual void OnDamage(float amount, Unit other = null) { }
-    public virtual void OnDamaged(float amount, Unit other = null){ }
-    public virtual void OnHealed(float amount, GameObject obj = null) { }
+    public virtual void OnDamage(Damage damage, Unit other = null) { }
+    public virtual void OnDamaged(Damage damage, Unit other = null){ }
+    public virtual void OnHealed(Damage damage, GameObject obj = null) { }
     public virtual void OnKill(Unit other){ }
     public virtual void OnInterrupted(Unit other = null){ }
     public virtual void OnCast(Ability ability = null) { }
     public virtual void OnDeath(Unit other = null)
     {
         if(other != null) { other.OnKill(this); }
+        CleanUp();
         Destroy(gameObject);
+    }
+
+    private void CleanUp()
+    {
+        //Clears any effects that might not have a cleanup timer attached to it
+        foreach(Ability ability in effects.Values)
+        {
+            ability.CleanUp(true);
+        }
     }
 }
