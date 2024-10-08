@@ -15,21 +15,6 @@ public class AbilityHandler : MonoBehaviour
     public CastType CastType;
     public float Cooldown;
 
-    [Header("Effect Info")]
-    public EffectType EffectType;
-    public EffectStatusType StatusType;
-    public EffectAttributeFlags AttributeFlags;
-    public EffectElementFlags ElementFlags;
-    public EffectTriggerFlags TriggerFlags;
-    public EffectModifierType ModifierType;
-    public float EffectAmount;
-    public float EffectTriggerChance;
-    public int EffectAbilityID;
-    public int EffectAbilityFlag;
-    public int EffectStackMax;
-    public float EffectDuration;
-    public float EffectTickSpeed;
-
     [Header("Resource Info")]
     public ResourceType ResourceType;
     public int ResourceMax;
@@ -49,7 +34,6 @@ public class AbilityHandler : MonoBehaviour
     Vector3 CastTarget;
 
     int ResourceCurrent;
-
 
     // Start is called before the first frame update
     void Start()
@@ -75,11 +59,16 @@ public class AbilityHandler : MonoBehaviour
         this.owner = owner;
         this.ability = ability;
 
-        AbilityType = ability.AbilityType;
-        CastType = ability.CastType;
-        Cooldown = ability.Cooldown;
-        ResourceType = ability.ResourceType;
-        ResourceMax = ability.ResourceMax;
+        AbilityType = ability.Info().AbilityType;
+        CastType = ability.Info().CastType;
+        Cooldown = ability.Info().Cooldown;
+        ResourceType = ability.Info().ResourceType;
+        ResourceMax = ability.Info().ResourceMax;
+
+        if(ResourceType == ResourceType.CHARGES)
+        {
+            ResourceCurrent = ResourceMax;
+        }
     }
 
     public bool IsMovementAbility()
@@ -128,7 +117,7 @@ public class AbilityHandler : MonoBehaviour
 
     public int CooldownRemaining()
     {
-        return Mathf.RoundToInt(CooldownStart + Cooldown - Time.time);
+        return Mathf.Max(Mathf.RoundToInt(CooldownStart + Cooldown - Time.time), 0);
     }
 
     //Charges Handling
@@ -155,5 +144,18 @@ public class AbilityHandler : MonoBehaviour
     public void GainCharge(int amount = 1)
     {
         ResourceCurrent = Mathf.Min(ResourceCurrent + amount, ResourceMax);
+    }
+
+    public override string ToString()
+    {
+        string output = ability.Info().AbilityName;
+
+        if (ResourceMax > 0)
+            output += " Charges: " + ResourceCurrent;
+
+        if (!ReadyToCast() || (ResourceMax > 0 && !HasMaxCharges()))
+            output += " CD: " + CooldownRemaining();
+
+        return output;
     }
 }

@@ -1516,19 +1516,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Player
-  healthCurrent: 10
-  healthMax: 10
-  healthRegen: 0
-  damageModifier: 1
-  defenseModifier: 1
   castPos: {fileID: 7802814478744346973}
+  healthRegen: 5
+  healthBase: 100
+  damageBase: 0
+  defenseBase: 0
+  speedBase: 4
+  critChanceBase: 0.1
+  critDamageBase: 2
+  healthCurrent: 10
   inputController: {fileID: 3660527585307201292}
   dashTiming: 0.5
   abilityPassive: {fileID: 0}
   abilities:
   - {fileID: 39563482987813226, guid: c3d9db4364247a94e9b468761584e5e1, type: 3}
+  - {fileID: 39563482987813226, guid: f7b2abc1a7cdbee4780ad5a7e96ad2de, type: 3}
   - {fileID: 8394976232193250753, guid: ffa465c84745a3742be6ef08d77203ac, type: 3}
-  - {fileID: 0}
   - {fileID: 4427820751025286997, guid: f833d1966cdcbb04197dfe347dc6a102, type: 3}
   audioPlayer: {fileID: 0}
   audioDamage: []

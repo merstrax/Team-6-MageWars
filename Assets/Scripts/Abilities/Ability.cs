@@ -5,49 +5,16 @@ using UnityEngine;
 public class Ability : MonoBehaviour
 {
     [Header("Ability Stats")]
-    [SerializeField] protected AbilityStats stats;
+    [SerializeField] protected AbilityStats AbilityInfo;
+    public void SetAbilityInfo(AbilityStats abilityInfo) { AbilityInfo = abilityInfo; }
+    public AbilityStats GetAbilityInfo() { return AbilityInfo; }
+    public AbilityStats Info() { return AbilityInfo; }
 
-    [Header("Ability Info")]
-    public string AbilityName;
-    public string AbilityDescription;
-    public int AbilityID;
-    public int AbilityFlag;
-    public ElementType ElementType;
-    public AbilityType AbilityType;
-    public CastType CastType;
-    public float Cooldown;
-
-    [Header("Effect Info")]
-    public EffectType EffectType;
-    public EffectTargetType EffectTargetType;
-    public EffectStatusType StatusType;
-    public EffectAttributeFlags AttributeFlags;
-    public EffectElementFlags ElementFlags;
-    public EffectTriggerFlags TriggerFlags;
-    public EffectModifierType ModifierType;
-    public Ability EffectAbility;
-    public float EffectAmount;
-    public float EffectTriggerChance;
-    public int EffectAbilityID;
-    public int EffectAbilityFlag;
-    public int EffectStackMax;
-    public float EffectDuration;
-    public float EffectTickSpeed;
-
-    [Header("Resource Info")]
-    public ResourceType ResourceType;
-    public int ResourceMax;
-    public float ResourceCooldown;
-    public float ResourceReset;
-
-    [Header("Ability Movement")]
-    [SerializeField] protected float speed;
-    [SerializeField] protected float range;
     [SerializeField] protected bool isTarget;
 
-    public int GetID() { return AbilityID; }
-    public CastType GetCastType() { return CastType; }
-    public AbilityType GetAbilityType() {  return AbilityType; }
+    public int GetID() { return AbilityInfo.AbilityID; }
+    public CastType GetCastType() { return AbilityInfo.CastType; }
+    public AbilityType GetAbilityType() {  return AbilityInfo.AbilityType; }
 
     protected Unit owner;
     protected Unit other;
@@ -60,7 +27,8 @@ public class Ability : MonoBehaviour
 
     int chargesCurrent;
 
-    private int EffectStackCount = 0;
+    private int EffectStackCount = 1;
+    public int GetStacks() { return EffectStackCount; }
     private float EffectTimeApplied = 0;
     private float EffectLastTick;
 
@@ -83,25 +51,24 @@ public class Ability : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(AbilityType == AbilityType.EFFECT)
+        if(AbilityInfo.AbilityType == AbilityType.EFFECT)
             UpdateEffect();
     }
 
     protected virtual void UpdateEffect()
     {
-        if (AbilityType == AbilityType.EFFECT)
+        if (AbilityInfo.AbilityType == AbilityType.EFFECT)
         {
-            if (EffectType == EffectType.DAMAGE)
+            if (AbilityInfo.EffectType == EffectType.DAMAGE)
             {
-                if (EffectLastTick + EffectTickSpeed < Time.time)
+                if (EffectLastTick + AbilityInfo.EffectTickSpeed < Time.time)
                 {
                     DoDamage();
-                    Debug.Log(AbilityName + ": Dealt " + CalculatedDamage() + " Damage");
                     EffectLastTick = Time.time;
                 }
             }
 
-            if (EffectTimeApplied + EffectDuration < Time.time)
+            if (EffectTimeApplied + AbilityInfo.EffectDuration < Time.time)
             {
                 CleanUpEffect();
             }
@@ -125,16 +92,14 @@ public class Ability : MonoBehaviour
         isCasting = true;
         castStartTime = Time.time;
 
-        Debug.Log("Spell Cast");
-
-        if (CastType == CastType.INSTANT)
+        if (AbilityInfo.CastType == CastType.INSTANT)
         {
             castTarget = lookAt;
             FinishCast();
         }
         else
         {
-
+            Debug.Log("Wow");
         }
     }
 
@@ -153,7 +118,7 @@ public class Ability : MonoBehaviour
     protected virtual void Cast(Transform end = null)
     {
         transform.LookAt(castTarget);
-        myRigidbody.velocity = transform.forward * speed;
+        myRigidbody.velocity = transform.forward * AbilityInfo.AbilitySpeed;
     }
 
     public virtual void CleanUp(bool instant = false)
@@ -163,12 +128,12 @@ public class Ability : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        Destroy(gameObject, EffectDuration);
+        Destroy(gameObject, AbilityInfo.EffectDuration);
     }
 
     public virtual void CleanUpEffect()
     {
-        switch (EffectTargetType)
+        switch (AbilityInfo.EffectTargetType)
         {
             case EffectTargetType.OWNER:
                 owner.RemoveEffect(this);
@@ -194,9 +159,9 @@ public class Ability : MonoBehaviour
         if (owner.TryGetComponent<CharacterController>(out var _controller))
         {
             float startTime = Time.time;
-            Vector3 _direction = owner.GetMoveDir() * speed;
+            Vector3 _direction = owner.GetMoveDir() * AbilityInfo.AbilitySpeed;
 
-            while (Time.time < startTime + EffectDuration)
+            while (Time.time < startTime + AbilityInfo.EffectDuration)
             {
                 _controller.Move(_direction * Time.deltaTime);
                 yield return null;
@@ -205,23 +170,20 @@ public class Ability : MonoBehaviour
     }
 
     //Damage Handlers
-    public virtual float CalculatedDamage()
+    public virtual Damage CalculatedDamage()
     {
-        if (owner == null) return 0f;
+        if (owner == null) return new Damage();
 
-        float _calcDamage = owner.GetDamageModifier() * EffectAmount;
+        Damage _calcDamage = owner.CalculateDamage(AbilityInfo.EffectAmount, AbilityInfo.DamageCoefficent);
+        _calcDamage.Amount *= EffectStackCount;
 
-        if(EffectStackCount > 1)
-        {
-            _calcDamage *= EffectStackCount;
-        }
 
         return _calcDamage;
     }
 
     public virtual void DoDamage()
     {
-        float _damage = CalculatedDamage();
+        Damage _damage = CalculatedDamage();
 
         if (other != null)
         {
@@ -230,7 +192,7 @@ public class Ability : MonoBehaviour
             OnDamage();
         }
 
-        if (AbilityType == AbilityType.PROJECTILE)
+        if (AbilityInfo.AbilityType == AbilityType.PROJECTILE)
         {
             Destroy(gameObject);
         }
@@ -238,14 +200,17 @@ public class Ability : MonoBehaviour
 
     public virtual void DoEffectApply()
     {
-        bool isSuccess = Random.Range(0, 1) < EffectTriggerChance;
-        if (isSuccess && EffectAbility != null)
+        bool isSuccess = Random.Range(0, 1) < AbilityInfo.EffectTriggerChance;
+        if (isSuccess && AbilityInfo.EffectAbility != null)
         {
-            Ability toApply = Instantiate(EffectAbility);
+            GameObject _effect = new(AbilityInfo.EffectAbility.AbilityName);
+            Ability toApply = _effect.AddComponent<Ability>();
+
+            toApply.SetAbilityInfo(AbilityInfo.EffectAbility);
             toApply.SetOwner(owner);
             toApply.SetOther(other);
 
-            switch(toApply.EffectTargetType)
+            switch(toApply.AbilityInfo.EffectTargetType)
             {
                 case EffectTargetType.OWNER:
                     owner.ApplyEffect(toApply);
@@ -261,18 +226,18 @@ public class Ability : MonoBehaviour
 
     public virtual void AddStack()
     {
-        if(EffectStackMax > 0)
+        if(AbilityInfo.EffectStackMax > 0)
         {
-            if(EffectStackCount < EffectStackMax)
+            if(EffectStackCount < AbilityInfo.EffectStackMax)
             {
                 EffectStackCount++;
-                Debug.Log(AbilityName + ": Stacks increased to " + EffectStackCount);
+                //Debug.Log(AbilityInfo.AbilityName + ": Stacks increased to " + EffectStackCount);
             }
         }
         
         //Reset effect duration
         EffectTimeApplied = Time.time;
-        Debug.Log(AbilityName + ": Reset Time Applied with " + ((EffectTimeApplied + EffectDuration) - Time.time) + " Seconds Remaining");
+        //Debug.Log(AbilityInfo.AbilityName + ": Reset Time Applied with " + ((EffectTimeApplied + AbilityInfo.EffectDuration) - Time.time) + " Seconds Remaining");
     }
 
     //Triggers
@@ -284,13 +249,11 @@ public class Ability : MonoBehaviour
 
     protected virtual void OnHit()
     {
-        if (EffectAmount > 0)
+        if (AbilityInfo.EffectAmount > 0)
         {
-            if(TriggerFlags.HasFlag(EffectTriggerFlags.ON_HIT))
+            if(AbilityInfo.TriggerFlags.HasFlag(EffectTriggerFlags.ON_HIT))
             {
-                Debug.Log("OnHit Started");
                 DoEffectApply();
-                Debug.Log("OnHit Ended");
             }
             DoDamage();
         }else
@@ -329,5 +292,27 @@ public class Ability : MonoBehaviour
         {
             
         }
+    }
+
+    public float GetRemainingTime()
+    {
+        return Mathf.Max(EffectTimeApplied + AbilityInfo.EffectDuration - Time.time, 0);
+    }
+
+    public override string ToString()
+    {
+        string output = AbilityInfo.AbilityName;
+
+        if(AbilityInfo.EffectStackMax > 0)
+        {
+            output += " x" + EffectStackCount;
+        }
+
+        if(AbilityInfo.EffectDuration > 0)
+        {
+            output += " | " + GetRemainingTime().ToString("0.0");
+        }
+
+        return output;
     }
 }

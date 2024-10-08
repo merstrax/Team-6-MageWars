@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
+  m_Name: 1 - ArcaneBolt
+  m_EditorClassIdentifier: 
+  AbilityName: Arcane Bolt
+  AbilityDescription: Fire a bolt of Arcane Damage dealing {$d} damage.
+  AbilityID: 1
+  AbilityFlag: 0
+  AbilitySpeed: 35
+  AbilityRange: 20
+  ElementType: 1
+  AbilityType: 0
+  CastType: 0
+  Cooldown: 1
+  EffectType: 0
+  EffectTargetType: 0
+  StatusType: 0
+  AttributeFlags: 0
+  ElementFlags: 0
+  TriggerFlags: 8
+  ModifierType: 0
+  EffectAbility: {fileID: 11400000, guid: 3ab51a0f7d80de847b58ba5a880b6be3, type: 2}
+  EffectAmount: 10
+  DamageCoefficent: 0.3
+  EffectTriggerChance: 100
+  EffectAbilityID: 0
+  EffectAbilityFlag: 0
+  EffectStackMax: 0
+  EffectDuration: 5
+  EffectTickSpeed: 0
+  ResourceType: 0
+  ResourceMax: 0
+  ResourceCooldown: 0
+  ResourceReset: 0
+  ComboAbilities: []
+  AbilityIcon: {fileID: 2800000, guid: 59f654c034abb334a8ba4591c79f4464, type: 3}
+  AbilityVisual: {fileID: 104516, guid: 62de476edefb27d4fa2d5681775e8586, type: 3}

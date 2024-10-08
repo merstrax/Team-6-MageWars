@@ -47,36 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541234e85887dcf4e8ffaf0626d9e3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
-  AbilityName: Arcane Bolt
-  AbilityDescription: 
-  AbilityID: 0
-  AbilityFlag: 0
-  ElementType: 1
-  AbilityType: 0
-  CastType: 0
-  Cooldown: 1
-  EffectType: 0
-  EffectTargetType: 1
-  StatusType: 0
-  AttributeFlags: 0
-  ElementFlags: 0
-  TriggerFlags: 8
-  ModifierType: 0
-  EffectAbility: {fileID: 0}
-  EffectAmount: 10
-  EffectTriggerChance: 1
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
-  EffectStackMax: 0
-  EffectDuration: 5
-  EffectTickSpeed: 0
-  ResourceType: 0
-  ResourceMax: 0
-  ResourceCooldown: 0
-  ResourceReset: 0
-  speed: 35
-  range: 0
+  AbilityInfo: {fileID: 11400000, guid: e41f89dc5f52c0343b2e534e36e18dcf, type: 2}
   isTarget: 0
   myCollider: {fileID: 1487869344107837587}
   myVisual: {fileID: 7142690813406132899}
