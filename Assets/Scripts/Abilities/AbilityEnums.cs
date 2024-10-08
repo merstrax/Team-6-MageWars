@@ -44,19 +44,18 @@ public enum ResourceType
     COMBO
 }
 
-public enum TargetType
-{
-    OWNER,
-    OTHER,
-    TARGET
-}
-
 public enum EffectType
 {
     DAMAGE,
     HEAL,
     STATUS,
-    MODIFIER
+    MODIFIER,
+}
+
+public enum EffectTargetType
+{
+    OWNER,
+    OTHER,
 }
 
 public enum EffectStatusType

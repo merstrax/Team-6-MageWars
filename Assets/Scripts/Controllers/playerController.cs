@@ -38,9 +38,9 @@ public class PlayerController : Unit
         if (abilityPassive != null)
         {
             abilityPassive = Instantiate(abilityPassive, GetCastPos());
-            //abilityHandlers[0].Setup(this, abilityPassive);
+            abilityHandlers[0].Setup(this, abilityPassive);
         }
-
+        
         for (int i = 0; i < abilities.Length; i++)
         {
             if (abilities[i] != null)
@@ -63,7 +63,7 @@ public class PlayerController : Unit
         Ray ray = Camera.main.ViewportPointToRay(screenCenter);
         Debug.DrawRay(ray.GetPoint(0), ray.direction * 200.0f, Color.red);
 #endif
-
+        
         for(int i = 0; i < inputController.ability.Length; i++)
         {
             if (inputController.ability[i] && abilityHandlers[i].ReadyToCast())

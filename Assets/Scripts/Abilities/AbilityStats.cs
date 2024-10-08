@@ -23,6 +23,7 @@ public class AbilityStats : ScriptableObject
     public EffectElementFlags ElementFlags;
     public EffectTriggerFlags TriggerFlags;
     public EffectModifierType ModifierType;
+    public Ability EffectAbility;
     public float EffectAmount;
     public float EffectTriggerChance;
     public int EffectAbilityID;

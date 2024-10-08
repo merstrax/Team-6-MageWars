@@ -19,11 +19,13 @@ public class Ability : MonoBehaviour
 
     [Header("Effect Info")]
     public EffectType EffectType;
+    public EffectTargetType EffectTargetType;
     public EffectStatusType StatusType;
     public EffectAttributeFlags AttributeFlags;
     public EffectElementFlags ElementFlags;
     public EffectTriggerFlags TriggerFlags;
     public EffectModifierType ModifierType;
+    public Ability EffectAbility;
     public float EffectAmount;
     public float EffectTriggerChance;
     public int EffectAbilityID;
@@ -43,6 +45,7 @@ public class Ability : MonoBehaviour
     [SerializeField] protected float range;
     [SerializeField] protected bool isTarget;
 
+    public int GetID() { return AbilityID; }
     public CastType GetCastType() { return CastType; }
     public AbilityType GetAbilityType() {  return AbilityType; }
 
@@ -57,6 +60,10 @@ public class Ability : MonoBehaviour
 
     int chargesCurrent;
 
+    private int EffectStackCount = 0;
+    private float EffectTimeApplied = 0;
+    private float EffectLastTick;
+
     [Header("Ability Components")]
     [SerializeField] protected Collider myCollider;
     [SerializeField] protected GameObject myVisual;
@@ -65,16 +72,50 @@ public class Ability : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        EffectTimeApplied = Time.time;
     }
 
     // Update is called once per frame
     protected virtual void Update()
-    { 
+    {
+        if (owner == null)
+        {
+            Destroy(gameObject);
+        }
+
+        if(AbilityType == AbilityType.EFFECT)
+            UpdateEffect();
+    }
+
+    protected virtual void UpdateEffect()
+    {
+        if (AbilityType == AbilityType.EFFECT)
+        {
+            if (EffectType == EffectType.DAMAGE)
+            {
+                if (EffectLastTick + EffectTickSpeed < Time.time)
+                {
+                    DoDamage();
+                    Debug.Log(AbilityName + ": Dealt " + CalculatedDamage() + " Damage");
+                    EffectLastTick = Time.time;
+                }
+            }
+
+            if (EffectTimeApplied + EffectDuration < Time.time)
+            {
+                CleanUpEffect();
+            }
+        }
     }
 
     public void SetOwner(Unit owner)
     {
         this.owner = owner;
+    }
+
+    public void SetOther(Unit other)
+    {
+        this.other = other;
     }
 
     //Basic Cast Handling
@@ -83,6 +124,8 @@ public class Ability : MonoBehaviour
         this.owner = owner;
         isCasting = true;
         castStartTime = Time.time;
+
+        Debug.Log("Spell Cast");
 
         if (CastType == CastType.INSTANT)
         {
@@ -113,9 +156,29 @@ public class Ability : MonoBehaviour
         myRigidbody.velocity = transform.forward * speed;
     }
 
-    protected virtual void CleanUp()
+    public virtual void CleanUp(bool instant = false)
     {
+        if (instant)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Destroy(gameObject, EffectDuration);
+    }
+
+    public virtual void CleanUpEffect()
+    {
+        switch (EffectTargetType)
+        {
+            case EffectTargetType.OWNER:
+                owner.RemoveEffect(this);
+                break;
+            case EffectTargetType.OTHER:
+                other.RemoveEffect(this);
+                break;
+            default:
+                break;
+        }
     }
 
     //Movement Ability Handling
@@ -146,7 +209,14 @@ public class Ability : MonoBehaviour
     {
         if (owner == null) return 0f;
 
-        return owner.GetDamageModifier() * EffectAmount;
+        float _calcDamage = owner.GetDamageModifier() * EffectAmount;
+
+        if(EffectStackCount > 1)
+        {
+            _calcDamage *= EffectStackCount;
+        }
+
+        return _calcDamage;
     }
 
     public virtual void DoDamage()
@@ -155,7 +225,7 @@ public class Ability : MonoBehaviour
 
         if (other != null)
         {
-            other.TakeDamage(_damage);
+            other.TakeDamage(_damage, owner);
 
             OnDamage();
         }
@@ -164,6 +234,45 @@ public class Ability : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public virtual void DoEffectApply()
+    {
+        bool isSuccess = Random.Range(0, 1) < EffectTriggerChance;
+        if (isSuccess && EffectAbility != null)
+        {
+            Ability toApply = Instantiate(EffectAbility);
+            toApply.SetOwner(owner);
+            toApply.SetOther(other);
+
+            switch(toApply.EffectTargetType)
+            {
+                case EffectTargetType.OWNER:
+                    owner.ApplyEffect(toApply);
+                    break;
+                case EffectTargetType.OTHER:
+                    other.ApplyEffect(toApply);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public virtual void AddStack()
+    {
+        if(EffectStackMax > 0)
+        {
+            if(EffectStackCount < EffectStackMax)
+            {
+                EffectStackCount++;
+                Debug.Log(AbilityName + ": Stacks increased to " + EffectStackCount);
+            }
+        }
+        
+        //Reset effect duration
+        EffectTimeApplied = Time.time;
+        Debug.Log(AbilityName + ": Reset Time Applied with " + ((EffectTimeApplied + EffectDuration) - Time.time) + " Seconds Remaining");
     }
 
     //Triggers
@@ -177,7 +286,12 @@ public class Ability : MonoBehaviour
     {
         if (EffectAmount > 0)
         {
-            Debug.Log("Hit detected");
+            if(TriggerFlags.HasFlag(EffectTriggerFlags.ON_HIT))
+            {
+                Debug.Log("OnHit Started");
+                DoEffectApply();
+                Debug.Log("OnHit Ended");
+            }
             DoDamage();
         }else
         {

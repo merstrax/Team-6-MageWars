@@ -57,13 +57,15 @@ MonoBehaviour:
   CastType: 0
   Cooldown: 1
   EffectType: 0
+  EffectTargetType: 1
   StatusType: 0
   AttributeFlags: 0
   ElementFlags: 0
-  TriggerFlags: 0
+  TriggerFlags: 8
   ModifierType: 0
+  EffectAbility: {fileID: 0}
   EffectAmount: 10
-  EffectTriggerChance: 0
+  EffectTriggerChance: 1
   EffectAbilityID: 0
   EffectAbilityFlag: 0
   EffectStackMax: 0

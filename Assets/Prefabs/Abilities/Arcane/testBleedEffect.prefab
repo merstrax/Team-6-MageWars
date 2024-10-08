@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &112699574331342418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2900646514613497870}
+  - component: {fileID: 39563482987813226}
+  m_Layer: 0
+  m_Name: testBleedEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2900646514613497870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112699574331342418}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &39563482987813226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112699574331342418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541234e85887dcf4e8ffaf0626d9e3d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  AbilityName: Test Bleed
+  AbilityDescription: 
+  AbilityID: 2
+  AbilityFlag: 0
+  ElementType: 1
+  AbilityType: 2
+  CastType: 0
+  Cooldown: 0
+  EffectType: 0
+  EffectTargetType: 1
+  StatusType: 0
+  AttributeFlags: 0
+  ElementFlags: 0
+  TriggerFlags: 0
+  ModifierType: 0
+  EffectAbility: {fileID: 0}
+  EffectAmount: 3
+  EffectTriggerChance: 0
+  EffectAbilityID: 0
+  EffectAbilityFlag: 0
+  EffectStackMax: 3
+  EffectDuration: 5
+  EffectTickSpeed: 1
+  ResourceType: 0
+  ResourceMax: 0
+  ResourceCooldown: 0
+  ResourceReset: 0
+  speed: 0
+  range: 0
+  isTarget: 0
+  myCollider: {fileID: 0}
+  myVisual: {fileID: 0}
+  myRigidbody: {fileID: 0}
