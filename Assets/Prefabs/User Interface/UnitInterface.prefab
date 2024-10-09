@@ -56,7 +56,7 @@ MonoBehaviour:
   healthBarSprite: {fileID: 6732923499204144839}
   floatingNumber: {fileID: 4041425522889463057, guid: 174b90e86a8afbe45a5ca8eae7ae2945,
     type: 3}
-  floatingNumberTimer: 1.5
+  floatingNumberTimer: 1
 --- !u!223 &6132586822034229405
 Canvas:
   m_ObjectHideFlags: 0

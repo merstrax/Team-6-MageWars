@@ -45,7 +45,7 @@ public class UnitInterface : MonoBehaviour
 
         float randY = Random.Range(-5.0f, 5.0f) * Time.deltaTime;
         float randX = Random.Range(-5.0f, 5.0f) * Time.deltaTime;
-        float fade = (floatingNumberTimer * Time.deltaTime);
+        float fade = (0.33f * Time.deltaTime);
 
         while (Time.time < startTime + floatingNumberTimer)
         {

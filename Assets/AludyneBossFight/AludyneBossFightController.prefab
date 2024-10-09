@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1841949358072867171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5560284816569688524}
+  - component: {fileID: 6562373362117471229}
+  m_Layer: 0
+  m_Name: AludyneBossFightController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5560284816569688524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841949358072867171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6562373362117471229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841949358072867171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d603208f5952d45a4a28b54a752c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frostPillar: {fileID: 4800605422500310663, guid: fa148fc5593d5794c9e6c0cdafa4871a,
+    type: 3}
+  firePillar: {fileID: 5614397671776344584, guid: 8f25575818d62994fb4e9cc36bf3f8b2,
+    type: 3}
+  arcanePillar: {fileID: 7808638750030571196, guid: 6630efdd96c2e7f428a9fe997c93df0b,
+    type: 3}
+  windPillar: {fileID: 8770671891692338676, guid: 243c3860548e00345a7cc5c0c372ddb0,
+    type: 3}
+  pillarHealAmount: 3
+  pillarHealTimer: 10
+  zerrokObject: {fileID: 0}
+  zerrokFireAbility: {fileID: 0}
+  zerrokFrostAbility: {fileID: 0}
+  zerrokWindAbility: {fileID: 0}
+  zerrokArcaneAbility: {fileID: 0}
+  zerrokAbilityTimer: 5
+  zerrokFlameElemental: {fileID: 0}
+  lesserElemental: {fileID: 0}
+  lesserElementalSpawnLocations: []
+  lesserElementalSpawnCount: 2
+  lesserElementalSpawnTime: 15
+  aludyneUnit: {fileID: 0}
+  aludyneChaosVolley: {fileID: 0}
+  aludyneGroundRupture: {fileID: 0}
+  aludyneErruption: {fileID: 0}

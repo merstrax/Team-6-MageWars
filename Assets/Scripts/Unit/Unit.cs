@@ -63,6 +63,9 @@ public class Unit : MonoBehaviour, IDamage
     private Dictionary<int, Ability> effects = new();
     public Dictionary<int, Ability> GetEffects() { return effects; }
 
+    bool isInvulnerable;
+    public void SetInvulnerable(bool isInvulnerable) { this.isInvulnerable = isInvulnerable; }
+
     //Healthbar
     [Header("Interface")]
     [SerializeField] UnitInterface unitInterface;
@@ -325,6 +328,8 @@ public class Unit : MonoBehaviour, IDamage
     //Overridable but not recommended
     public virtual void TakeDamage(Damage damage, Unit other = null)
     {
+        if (isInvulnerable) return;
+
         float _reducedDamage = CalculateDefense(damage.Amount);
         healthCurrent -= _reducedDamage;
 
