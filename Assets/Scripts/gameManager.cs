@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [Header("User Interface")]
+    [SerializeField] Canvas mainInterface;
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
     {
         return isPaused;
     }
+
+    public Canvas GetMainCanvas() { return mainInterface; }
 
     // Start is called before the first frame update
     void Awake()

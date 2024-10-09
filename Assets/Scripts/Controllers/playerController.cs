@@ -67,7 +67,7 @@ public class PlayerController : Unit
     void Update()
     {
 #if UNITY_EDITOR
-        Vector3 screenCenter = new Vector3(0.5f, 0.66f, 0f);
+        Vector3 screenCenter = new Vector3(0.5f, 0.75f, 0f);
         Ray ray = Camera.main.ViewportPointToRay(screenCenter);
         Debug.DrawRay(ray.GetPoint(0), ray.direction * 200.0f, Color.red);
 #endif

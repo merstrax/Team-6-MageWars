@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Unit : MonoBehaviour, IDamage
 {
@@ -61,11 +63,17 @@ public class Unit : MonoBehaviour, IDamage
     private Dictionary<int, Ability> effects = new();
     public Dictionary<int, Ability> GetEffects() { return effects; }
 
+    //Healthbar
+    [Header("Interface")]
+    [SerializeField] UnitInterface unitInterface;
+
     #region Stat Handling
     protected virtual void Start()
     {
         UpdateStats();
         healthCurrent = healthMax;
+
+        UpdateInterface();
     }
 
 
@@ -286,6 +294,8 @@ public class Unit : MonoBehaviour, IDamage
             effects.Add(_id, ability);
         }
         UpdateStats();
+
+        UpdateInterface();
     }
     
     public void RemoveEffect(Ability ability)
@@ -297,6 +307,8 @@ public class Unit : MonoBehaviour, IDamage
             effects.Remove(_id);
         }
         UpdateStats();
+
+        UpdateInterface();
     }
 
     public virtual void InterruptCasting()
@@ -327,6 +339,11 @@ public class Unit : MonoBehaviour, IDamage
         {
             OnDeath(other);
         }
+        if (unitInterface != null)
+        {
+            UpdateInterface();
+            unitInterface.CreateFloatingNumber((int)damage.Amount);
+        }
 
         string damageOutput = unitName + " took " + _reducedDamage + " damage";
         damageOutput += damage.IsCritical ? " (Critical)." : ".";
@@ -354,6 +371,14 @@ public class Unit : MonoBehaviour, IDamage
         foreach(Ability ability in effects.Values)
         {
             ability.CleanUp(true);
+        }
+    }
+
+    private void UpdateInterface()
+    {
+        if(unitInterface != null)
+        {
+            unitInterface.UpdateHealthBar(healthCurrent, healthMax);
         }
     }
 }
