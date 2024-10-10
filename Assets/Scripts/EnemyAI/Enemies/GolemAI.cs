@@ -11,7 +11,8 @@ public class GolemAI : enemyAI
     [Range(0, 30)][SerializeField] int minimumThrowDist;
     [Range(0, 4.0f)][SerializeField] float rangedCooldown;
     [SerializeField] private GameObject rockPrefab; 
-    private float lastRangedAttackTime; 
+    private float lastRangedAttackTime;
+    [SerializeField] Ability throwBoulder; 
 
     // Golem Melee
     [Range(0, 3.0f)][SerializeField] float meleeRate;
@@ -43,7 +44,7 @@ public class GolemAI : enemyAI
             else
             {
                 // Perform melee attack
-                MeleeAttack();
+                //MeleeAttack();
 
                 yield return new WaitForSeconds(meleeRate);
             }
@@ -84,29 +85,6 @@ public class GolemAI : enemyAI
         yield return new WaitForSeconds(rangedCooldown);
     }
 
-    private void MeleeAttack()
-    {
-
-        animator.Play("Giant@UnarmedAttack01"); 
-
-        //// Play left melee attack animation
-        //animator.Play("Attack01");  
-
-        //// Wait for the animation to finish
-        //yield return new WaitForSeconds(meleeRate);
-
-        //// Play right melee attack animation
-        //animator.SetTrigger("RightMeleeAttack");
-
-        //// Wait for the animation to finish
-        //yield return new WaitForSeconds(meleeRate);
-
-        //// Deal damage to the player
-        //GameManager.instance.player.GetComponent<Unit>().TakeDamage(15, this as Unit);
-
-        // Wait for melee cooldown
-        
-    }
 
     private void LeftMeleeAttackHit()
     {
@@ -123,12 +101,23 @@ public class GolemAI : enemyAI
     public void LeftFootEnable()
     {
         //LeftFoot.gameObject.SetActive(true);
-        Ability _stomp = Instantiate(stomp, LeftFoot.transform);
+        Ability _stomp = Instantiate(stomp, LeftFoot.transform); 
         _stomp.StartCast(this, transform.position);
     }
 
     public void LeftFootDisabled()
     {
         //LeftFoot.gameObject.SetActive(false);
+    }
+
+    public void OnThrowEnable()
+    {
+        Ability _throwBoulder = Instantiate(_throwBoulder, rightHandPos.transform); 
+        _throwBoulder.StartCast(this, transform.position);   
+    }
+
+    public void OnThrowDisable()
+    {
+
     }
 }
