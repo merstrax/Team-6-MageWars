@@ -25,7 +25,7 @@ MonoBehaviour:
   EffectType: 3
   EffectTargetType: 0
   StatusType: 0
-  AttributeFlags: 1
+  AttributeFlags: 3
   ElementFlags: 0
   TriggerFlags: 128
   ModifierType: 1
