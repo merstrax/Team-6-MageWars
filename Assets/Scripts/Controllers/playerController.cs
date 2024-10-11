@@ -39,6 +39,8 @@ public class PlayerController : Unit
     [SerializeField] AudioClip[] audioJump;
     [Range(0, 1)][SerializeField] float audioJumpVolume;
 
+    Unit target;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -66,11 +68,27 @@ public class PlayerController : Unit
     // Update is called once per frame
     void Update()
     {
-#if UNITY_EDITOR
-        Vector3 screenCenter = new Vector3(0.5f, 0.75f, 0f);
+
+        Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
         Ray ray = Camera.main.ViewportPointToRay(screenCenter);
         Debug.DrawRay(ray.GetPoint(0), ray.direction * 200.0f, Color.red);
-#endif
+
+
+
+        if(Physics.Raycast(ray, out RaycastHit hit, 200.0f))
+        {
+            Unit targetHit = hit.collider.gameObject.GetComponentInParent<Unit>();
+
+            if (targetHit != null && !hit.collider.CompareTag("Player"))
+            {
+                if (target != null) target.TargetOutline(false);
+                targetHit.TargetOutline();
+                target = targetHit;
+            }else if(target != null) { 
+                target.TargetOutline(false); 
+                target = null;
+            }
+        }
         
         for(int i = 0; i < inputController.ability.Length; i++)
         {
@@ -95,10 +113,23 @@ public class PlayerController : Unit
             return;
         }
 
-        Vector3 screenCenter = new Vector3(0.5f, 0.66f, 0f);
-        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+        Vector3 toCastPos = Vector3.zero;
 
-        _ability.StartCast(this, ray.GetPoint(200.0f));
+        if (target == null)
+        {
+            Vector3 screenCenter = new Vector3(0.5f, 0.66f, 0f);
+            Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+
+            toCastPos = ray.GetPoint(200.0f);
+        }
+        else
+        {
+            toCastPos = target.transform.position; 
+            toCastPos.y += (target.GetComponent<CapsuleCollider>().height * 0.75f);
+        }
+
+        _ability.StartCast(this, toCastPos);
+
     }
 
     public override void TakeDamage(Damage damage, Unit other = null)

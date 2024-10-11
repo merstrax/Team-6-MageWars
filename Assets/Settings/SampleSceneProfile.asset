@@ -121,6 +121,28 @@ MonoBehaviour:
   bladeRotation:
     m_OverrideState: 0
     m_Value: 4
+--- !u!114 &-4970942633763270909
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b1a62f66e932148a8218d84e67d448, type: 3}
+  m_Name: TargetOutline
+  m_EditorClassIdentifier: 
+  active: 1
+  thickness:
+    m_OverrideState: 1
+    m_Value: 1
+  depthMin:
+    m_OverrideState: 1
+    m_Value: 1
+  depthMax:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +161,7 @@ MonoBehaviour:
   - {fileID: -7011558710299706105}
   - {fileID: -5325602110069516652}
   - {fileID: 2104977373616792463}
+  - {fileID: -4970942633763270909}
 --- !u!114 &849379129802519247
 MonoBehaviour:
   m_ObjectHideFlags: 3

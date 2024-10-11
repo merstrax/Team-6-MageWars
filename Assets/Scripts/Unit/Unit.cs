@@ -69,6 +69,8 @@ public class Unit : MonoBehaviour, IDamage
     //Healthbar
     [Header("Interface")]
     [SerializeField] UnitInterface unitInterface;
+    Material outlineMaterial;
+    
 
     #region Stat Handling
     protected virtual void Start()
@@ -77,8 +79,31 @@ public class Unit : MonoBehaviour, IDamage
         healthCurrent = healthMax;
 
         UpdateInterface();
+        outlineMaterial = Resources.Load<Material>("Materials/OutlineMaterial");
+        outlineMaterial = Instantiate(outlineMaterial);
+        if (outlineMaterial != null)
+        {
+            List<Renderer> renderers = new List<Renderer>();
+
+            foreach(Renderer renderer in GetComponentsInChildren<Renderer>())
+            {
+                List<Material> materials = new(){ outlineMaterial};
+                materials.AddRange(renderer.materials);
+                renderer.SetMaterials(materials);
+            }
+        }
+
+        outlineMaterial.SetFloat("_OutlineWidth", 0f);
     }
 
+    public void TargetOutline(bool target = true)
+    {
+        if (target)
+        {
+            outlineMaterial.SetFloat("_OutlineWidth", 0.075f);
+        }else
+            outlineMaterial.SetFloat("_OutlineWidth", 0f);
+    }
 
     protected void UpdateStats()
     {
