@@ -19,9 +19,9 @@ MonoBehaviour:
   AbilitySpeed: 0
   AbilityRange: 25
   ElementType: 0
-  AbilityType: 0
-  CastType: 2
-  Cooldown: 8
+  AbilityType: 1
+  CastType: 0
+  Cooldown: 2
   EffectType: 0
   EffectTargetType: 0
   StatusType: 0

@@ -96,7 +96,7 @@ public class Unit : MonoBehaviour, IDamage
         outlineMaterial.SetFloat("_OutlineWidth", 0f);
     }
 
-    public void TargetOutline(bool target = true)
+    public virtual void TargetOutline(bool target = true)
     {
         if (target)
         {

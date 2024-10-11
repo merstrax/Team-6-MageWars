@@ -112,7 +112,7 @@ public class GolemAI : enemyAI
 
     public void OnThrowEnable()
     {
-        Ability _throwBoulder = Instantiate(_throwBoulder, rightHandPos.transform); 
+        Ability _throwBoulder = Instantiate(throwBoulder, rightHandPos.transform); 
         _throwBoulder.StartCast(this, transform.position);   
     }
 

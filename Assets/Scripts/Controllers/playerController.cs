@@ -23,6 +23,9 @@ public class PlayerController : Unit
     readonly AbilityHandler[] abilityHandlers = new AbilityHandler[4];
     Ability movementAbility;
 
+    [SerializeField] GameObject aoeTargetSelector;
+    public int selectedAbility = -1;
+
     public AbilityHandler GetAbility(uint handlerID)
     {
         if(handlerID > 3) return null;
@@ -44,7 +47,9 @@ public class PlayerController : Unit
     // Start is called before the first frame update
     protected override void Start()
     {
-        base.Start();
+        UpdateStats();
+        healthCurrent = healthMax;
+
         if (abilityPassive != null)
         {
             abilityPassive = Instantiate(abilityPassive, GetCastPos());
@@ -68,38 +73,103 @@ public class PlayerController : Unit
     // Update is called once per frame
     void Update()
     {
-
-        Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
-        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
-        Debug.DrawRay(ray.GetPoint(0), ray.direction * 200.0f, Color.red);
-
-
-
-        if(Physics.Raycast(ray, out RaycastHit hit, 200.0f))
-        {
-            Unit targetHit = hit.collider.gameObject.GetComponentInParent<Unit>();
-
-            if (targetHit != null && !hit.collider.CompareTag("Player"))
-            {
-                if (target != null) target.TargetOutline(false);
-                targetHit.TargetOutline();
-                target = targetHit;
-            }else if(target != null) { 
-                target.TargetOutline(false); 
-                target = null;
-            }
-        }
+        UpdateTargeting();
         
-        for(int i = 0; i < inputController.ability.Length; i++)
+
+        for (int i = 0; i < inputController.ability.Length; i++)
         {
             if (inputController.ability[i] && abilityHandlers[i].ReadyToCast())
             {
-                CastAbility(abilityHandlers[i]);
-                abilityHandlers[i].StartCooldown();
-                inputController.ability[i] = false;
+                if (selectedAbility != i && selectedAbility != -1)
+                {
+                    inputController.ability[selectedAbility] = false;
+                    inputController.ability[i] = false;
+                    selectedAbility = -1;
+                    aoeTargetSelector.SetActive(false);
+                    break;
+                }
+
+                if(selectedAbility != -1)
+                {
+                    continue;
+                }
+
+                if (abilityHandlers[i].GetAbility().Info().AbilityType == AbilityType.AREAOFEFFECT)
+                {
+                    aoeTargetSelector.SetActive(true);
+                    aoeTargetSelector.GetComponent<AoETargetSpin>().SetScale(1.8f * abilityHandlers[i].GetAbility().GetComponent<SphereCollider>().radius);
+                    selectedAbility = i;
+                }
+                else
+                {
+                    CastAbility(abilityHandlers[i]);
+                    abilityHandlers[i].StartCooldown();
+                    inputController.ability[i] = false;
+                }
+                break;
+            }
+        }
+
+        if (selectedAbility != -1)
+        {
+            if (!inputController.ability[selectedAbility])
+            {
+                CastAbility(abilityHandlers[selectedAbility]);
+                abilityHandlers[selectedAbility].StartCooldown();
+                aoeTargetSelector.SetActive(false);
+                selectedAbility= -1;
+                //inputController.ability[selectedAbility] = false;
             }
         }
     }
+
+    private void UpdateTargeting()
+    {
+        Vector3 screenCenter;
+        Ray ray;
+        RaycastHit hit;
+
+        if (selectedAbility == -1)
+        {
+            screenCenter = new Vector3(0.5f, 0.5f, 0f);
+            ray = Camera.main.ViewportPointToRay(screenCenter);
+
+            if (Physics.Raycast(ray, out hit, 200.0f))
+            {
+                Unit targetHit = hit.collider.gameObject.GetComponentInParent<Unit>();
+
+                if (targetHit != null && !hit.collider.CompareTag("Player"))
+                {
+                    if (target != null) target.TargetOutline(false);
+                    targetHit.TargetOutline();
+                    target = targetHit;
+                }
+                else if (target != null)
+                {
+                    target.TargetOutline(false);
+                    target = null;
+                }
+            }
+        }
+        else
+        {
+            screenCenter = new Vector3(0.5f, 0.45f, 0f);
+            ray = Camera.main.ViewportPointToRay(screenCenter);
+
+            if (Physics.Raycast(ray, out hit, 50.0f))
+            {
+                //hit.collider.CompareTag("Terrain") && 
+                if (aoeTargetSelector.activeInHierarchy)
+                {
+                    aoeTargetSelector.transform.position = Vector3.Lerp(aoeTargetSelector.transform.position, hit.point + (Vector3.up * 1.05f), 10.0f * Time.deltaTime);
+                }
+            }
+        }
+
+        Debug.DrawRay(ray.GetPoint(0), ray.direction * 200.0f, Color.red);
+    }
+
+    public override void TargetOutline(bool target = true) { } //Stop Target Outline from hitting player
 
     private void CastAbility(AbilityHandler ability)
     {
@@ -108,23 +178,26 @@ public class PlayerController : Unit
 
         if (ability.IsMovementAbility())
         {
-            
             _ability.CastMovement();
             return;
         }
 
-        Vector3 toCastPos = Vector3.zero;
+        Vector3 toCastPos;
 
-        if (target == null)
+        if (_ability.Info().AbilityType == AbilityType.AREAOFEFFECT)
         {
-            Vector3 screenCenter = new Vector3(0.5f, 0.66f, 0f);
+            toCastPos = aoeTargetSelector.transform.position;
+        }
+        else if (target == null)
+        {
+            Vector3 screenCenter = new Vector3(0.5f, 0.55f, 0f);
             Ray ray = Camera.main.ViewportPointToRay(screenCenter);
 
-            toCastPos = ray.GetPoint(200.0f);
+            toCastPos = ray.GetPoint(50.0f);
         }
         else
         {
-            toCastPos = target.transform.position; 
+            toCastPos = target.transform.position;
             toCastPos.y += (target.GetComponent<CapsuleCollider>().height * 0.75f);
         }
 

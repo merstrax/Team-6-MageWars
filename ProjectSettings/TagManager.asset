@@ -8,6 +8,7 @@ TagManager:
   - MapObject
   - Golem
   - AludyneBossFight
+  - Terrain
   layers:
   - Default
   - TransparentFX

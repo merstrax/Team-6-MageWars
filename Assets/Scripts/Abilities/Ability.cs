@@ -118,9 +118,14 @@ public class Ability : MonoBehaviour
 
     protected virtual void Cast(Transform end = null)
     {
-        transform.LookAt(castTarget);
-        if(myRigidbody != null) 
+        if (myRigidbody != null && !isTarget) {
+            transform.LookAt(castTarget);
             myRigidbody.velocity = transform.forward * AbilityInfo.AbilitySpeed;
+        }
+        else
+        {
+            transform.position = castTarget;
+        }
     }
 
     public virtual void CleanUp(bool instant = false)
