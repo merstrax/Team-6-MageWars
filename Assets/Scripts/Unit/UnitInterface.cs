@@ -23,7 +23,6 @@ public class UnitInterface : MonoBehaviour
 
     public void UpdateHealthBar(float current, float max)
     {
-        Debug.Log(current / max);
         healthBarSprite.fillAmount = (current / max);
     }
 

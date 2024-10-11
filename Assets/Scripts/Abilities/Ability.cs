@@ -34,7 +34,7 @@ public class Ability : MonoBehaviour
     private float EffectLastTick;
 
     [Header("Ability Components")]
-    [SerializeField] protected Collider myCollider;
+    [SerializeField] protected SphereCollider myCollider;
     [SerializeField] protected GameObject myVisual;
     [SerializeField] protected Rigidbody myRigidbody;
 
@@ -42,6 +42,9 @@ public class Ability : MonoBehaviour
     protected virtual void Start()
     {
         EffectTimeApplied = Time.time;
+
+        if (AbilityInfo.AbilityType == AbilityType.AREAOFEFFECT && AbilityInfo.EffectTickSpeed == 0)
+            AbilityInfo.EffectTickSpeed = 0.1f;
     }
 
     // Update is called once per frame
@@ -64,7 +67,7 @@ public class Ability : MonoBehaviour
             {
                 if (EffectLastTick + AbilityInfo.EffectTickSpeed < Time.time)
                 {
-                    DoDamage();
+                    DoDamage(other);
                     EffectLastTick = Time.time;
                 }
             }
@@ -143,9 +146,11 @@ public class Ability : MonoBehaviour
         switch (AbilityInfo.EffectTargetType)
         {
             case EffectTargetType.OWNER:
+                if(owner != null)
                 owner.RemoveEffect(this);
                 break;
             case EffectTargetType.OTHER:
+                if(other != null)
                 other.RemoveEffect(this);
                 break;
             default:
@@ -188,7 +193,7 @@ public class Ability : MonoBehaviour
         return _calcDamage;
     }
 
-    public virtual void DoDamage()
+    public virtual void DoDamage(Unit other)
     {
         Damage _damage = CalculatedDamage();
 
@@ -197,17 +202,19 @@ public class Ability : MonoBehaviour
             other.TakeDamage(_damage, owner);
 
             OnDamage();
-
         }
 
         if (AbilityInfo.AbilityType == AbilityType.PROJECTILE)
         {
             Destroy(gameObject, 1.0f);
         }
-        hasDamaged = true;
+        if (AbilityInfo.AbilityType != AbilityType.AREAOFEFFECT)
+        {
+            hasDamaged = true;
+        }
     }
 
-    public virtual void DoEffectApply()
+    public virtual void DoEffectApply(Unit other)
     {
         bool isSuccess = Random.Range(0, 1) < AbilityInfo.EffectTriggerChance;
         if (isSuccess && AbilityInfo.EffectAbility != null)
@@ -256,16 +263,16 @@ public class Ability : MonoBehaviour
         owner.OnCast();
     }
 
-    protected virtual void OnHit()
+    protected virtual void OnHit(Unit other)
     {
         if (AbilityInfo.EffectAmount > 0)
         {
             if(AbilityInfo.TriggerFlags.HasFlag(EffectTriggerFlags.ON_HIT))
             {
-                DoEffectApply();
+                DoEffectApply(other);
             }
             if(!hasDamaged)
-            DoDamage();
+            DoDamage(other);
         }else
         {
             Destroy(gameObject);
@@ -277,6 +284,7 @@ public class Ability : MonoBehaviour
         //Used for scripts
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.isTrigger)
@@ -286,10 +294,10 @@ public class Ability : MonoBehaviour
 
         if (this.other != owner && this.other != null)
         {
-            OnHit();
+            OnHit(this.other);
         }
 
-        if(other.CompareTag("MapObject"))
+        if(other.CompareTag("MapObject") && Info().AbilityType != AbilityType.AREAOFEFFECT)
         {
             Destroy(gameObject, 0.5f);
         }

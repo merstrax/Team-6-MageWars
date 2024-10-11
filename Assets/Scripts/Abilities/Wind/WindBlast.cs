@@ -82,7 +82,7 @@ public class WindBlast : Ability
                 if (attackCount < maxAttacks)
                 {
                     // First two attacks
-                    DoDamage();
+                    DoDamage(other);
                     attackCount++;
 
                      // Apply bleed effect
@@ -91,7 +91,7 @@ public class WindBlast : Ability
                 else
                 {
                     // Third attack
-                    DoDamage();
+                    DoDamage(other);
 
                     // Check if knockback is on cooldown
                     if (knockbackTimer <= 0)

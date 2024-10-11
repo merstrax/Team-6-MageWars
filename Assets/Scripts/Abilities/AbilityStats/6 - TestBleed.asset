@@ -23,7 +23,7 @@ MonoBehaviour:
   CastType: 0
   Cooldown: 0
   EffectType: 0
-  EffectTargetType: 0
+  EffectTargetType: 1
   StatusType: 0
   AttributeFlags: 0
   ElementFlags: 0

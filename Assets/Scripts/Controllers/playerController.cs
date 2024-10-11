@@ -159,7 +159,7 @@ public class PlayerController : Unit
             if (Physics.Raycast(ray, out hit, 50.0f))
             {
                 //hit.collider.CompareTag("Terrain") && 
-                if (aoeTargetSelector.activeInHierarchy)
+                if (hit.collider.CompareTag("Terrain") && aoeTargetSelector.activeInHierarchy)
                 {
                     aoeTargetSelector.transform.position = Vector3.Lerp(aoeTargetSelector.transform.position, hit.point + (Vector3.up * 1.05f), 10.0f * Time.deltaTime);
                 }

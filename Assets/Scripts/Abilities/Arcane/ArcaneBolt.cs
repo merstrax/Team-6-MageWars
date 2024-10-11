@@ -10,8 +10,8 @@ public class ArcaneBolt : Ability
         base.Update();
     }
 
-    public override void DoDamage()
+    public override void DoDamage(Unit other)
     {
-        base.DoDamage();
+        base.DoDamage(other);
     }
 }
