@@ -19,10 +19,8 @@ public class Ability : MonoBehaviour
     protected Unit owner;
     protected Unit other;
 
-    bool isCasting;
     float castStartTime;
     float cooldownStart;
-    bool canCast = true;
     Vector3 castTarget;
     bool hasDamaged;
 
@@ -93,7 +91,6 @@ public class Ability : MonoBehaviour
     public virtual void StartCast(Unit owner, Vector3 lookAt)
     {
         this.owner = owner;
-        isCasting = true;
         castStartTime = Time.time;
 
         if (AbilityInfo.CastType == CastType.INSTANT)
@@ -109,7 +106,6 @@ public class Ability : MonoBehaviour
 
     public virtual void InterruptCast()
     {
-        isCasting = false;
     }
 
     public virtual void FinishCast()

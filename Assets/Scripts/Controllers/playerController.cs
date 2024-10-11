@@ -24,6 +24,7 @@ public class PlayerController : Unit
     Ability movementAbility;
 
     [SerializeField] GameObject aoeTargetSelector;
+    [SerializeField] LayerMask targetLayerMask;
     public int selectedAbility = -1;
 
     public AbilityHandler GetAbility(uint handlerID)
@@ -156,10 +157,10 @@ public class PlayerController : Unit
             screenCenter = new Vector3(0.5f, 0.45f, 0f);
             ray = Camera.main.ViewportPointToRay(screenCenter);
 
-            if (Physics.Raycast(ray, out hit, 50.0f))
+            if (Physics.Raycast(ray, out hit, 100.0f, ~targetLayerMask))
             {
                 //hit.collider.CompareTag("Terrain") && 
-                if (hit.collider.CompareTag("Terrain") && aoeTargetSelector.activeInHierarchy)
+                if (aoeTargetSelector.activeInHierarchy)
                 {
                     aoeTargetSelector.transform.position = Vector3.Lerp(aoeTargetSelector.transform.position, hit.point + (Vector3.up * 1.05f), 10.0f * Time.deltaTime);
                 }

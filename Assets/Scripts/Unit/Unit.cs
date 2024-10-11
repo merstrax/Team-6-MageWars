@@ -375,9 +375,9 @@ public class Unit : MonoBehaviour, IDamage
             unitInterface.CreateFloatingNumber((int)damage.Amount);
         }
 
-        string damageOutput = unitName + " took " + _reducedDamage + " damage";
-        damageOutput += damage.IsCritical ? " (Critical)." : ".";
-        Debug.Log(damageOutput);
+        //string damageOutput = unitName + " took " + _reducedDamage + " damage";
+        //damageOutput += damage.IsCritical ? " (Critical)." : ".";
+        //Debug.Log(damageOutput);
     }
 
     //Scriptable functions
