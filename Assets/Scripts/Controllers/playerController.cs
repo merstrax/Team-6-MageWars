@@ -176,9 +176,9 @@ public class PlayerController : Unit
             if (Physics.Raycast(ray, out hit, 100.0f, ~targetLayerMask))
             {
                 //hit.collider.CompareTag("Terrain") && 
-                if (aoeTargetSelector.activeInHierarchy)
+                if (hit.collider.CompareTag("Terrain") && aoeTargetSelector.activeInHierarchy)
                 {
-                    aoeTargetSelector.transform.position = Vector3.Lerp(aoeTargetSelector.transform.position, hit.point + (Vector3.up * 1.05f), 10.0f * Time.deltaTime);
+                    aoeTargetSelector.transform.position = Vector3.Lerp(aoeTargetSelector.transform.position, hit.point + Vector3.up, 10.0f * Time.deltaTime);
                 }
             }
         }
