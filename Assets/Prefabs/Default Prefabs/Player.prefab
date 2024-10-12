@@ -1543,6 +1543,7 @@ MonoBehaviour:
   speedBase: 4
   critChanceBase: 0.1
   critDamageBase: 2
+  cooldownBase: 0
   healthCurrent: 10
   unitInterface: {fileID: 0}
   inputController: {fileID: 3660527585307201292}
@@ -1551,9 +1552,12 @@ MonoBehaviour:
   abilities:
   - {fileID: 39563482987813226, guid: c3d9db4364247a94e9b468761584e5e1, type: 3}
   - {fileID: -6657460586643874839, guid: 5dff209b4852d1f47886ec2810d2a1fb, type: 3}
-  - {fileID: 39563482987813226, guid: f7b2abc1a7cdbee4780ad5a7e96ad2de, type: 3}
+  - {fileID: 8394976232193250753, guid: ffa465c84745a3742be6ef08d77203ac, type: 3}
   - {fileID: 4427820751025286997, guid: f833d1966cdcbb04197dfe347dc6a102, type: 3}
   aoeTargetSelector: {fileID: 6008606222082367131}
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   selectedAbility: -1
   audioPlayer: {fileID: 0}
   audioDamage: []
