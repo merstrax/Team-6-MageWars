@@ -80,7 +80,6 @@ public class AludyneBossFight : MonoBehaviour
             default:
                 break;
         }
-        
     }
 
     private void ZerrokArcanePhase()
@@ -129,13 +128,23 @@ public class AludyneBossFight : MonoBehaviour
         }
     }
 
+    IEnumerator Fight_Start()
+    {
+
+        //Do RP here
+
+        yield return new WaitForSeconds(15.0f * Time.deltaTime);
+
+        currentPhase = Phases.PHASE_1;
+    }
+
     IEnumerator Phase1_End()
     {
         currentPhase = Phases.PHASE_1_END;
 
         //Do cinematic stuff here
 
-        yield return new WaitForSeconds(pillarHealTimer);
+        yield return new WaitForSeconds(15.0f * Time.deltaTime);
 
         currentPhase = Phases.PHASE_2;
         aludyneUnit.RemoveStatus(StatusFlag.INVULNERABLE);
@@ -145,7 +154,7 @@ public class AludyneBossFight : MonoBehaviour
     {
         currentPhase = Phases.PHASE_1_END;
 
-        yield return new WaitForSeconds(pillarHealTimer);
+        yield return new WaitForSeconds(15.0f * Time.deltaTime);
 
         currentPhase = Phases.PHASE_2;
     }
@@ -156,7 +165,7 @@ public class AludyneBossFight : MonoBehaviour
         if(aludyneUnit.GetHealthCurrent() <= 0.05)
         {
             aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
-            //TODO - Set Stunned
+            aludyneUnit.ApplyStatus(StatusFlag.STUNNED);
             StartCoroutine(Phase2_End());
             return;
         }
@@ -166,7 +175,7 @@ public class AludyneBossFight : MonoBehaviour
     {
         currentPhase = Phases.END;
 
-        yield return new WaitForSeconds(pillarHealTimer);
+        yield return new WaitForSeconds(15.0f * Time.deltaTime);
 
         //Game complete logic
     }

@@ -28,6 +28,8 @@ public class Ability : MonoBehaviour
     [SerializeField] protected GameObject myVisual;
     [SerializeField] protected Rigidbody myRigidbody;
 
+    Damage _calcDamage;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -160,9 +162,9 @@ public class Ability : MonoBehaviour
     //Damage Handlers
     public virtual Damage CalculatedDamage()
     {
-        if (owner == null) return new Damage();
+        if (owner == null) return _calcDamage;
 
-        Damage _calcDamage = owner.CalculateDamage(AbilityInfo.EffectAmount, AbilityInfo.DamageCoefficent);
+        _calcDamage = owner.CalculateDamage(AbilityInfo.EffectAmount, AbilityInfo.DamageCoefficent);
         _calcDamage.Amount *= EffectStackCount;
 
         return _calcDamage;
@@ -216,7 +218,7 @@ public class Ability : MonoBehaviour
 
     public virtual void AddStack()
     {
-        if(AbilityInfo.EffectStackMax > 0)
+        if(AbilityInfo.EffectStackMax > 1)
         {
             if(EffectStackCount < AbilityInfo.EffectStackMax)
             {

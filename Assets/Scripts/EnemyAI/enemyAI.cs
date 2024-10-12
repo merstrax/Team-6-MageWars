@@ -228,7 +228,6 @@ public class enemyAI : Unit
 
             if (Physics.Raycast(headPos.position, directionToPlayer, out RaycastHit hit, aggroRange))
             {
-                Debug.Log(hit);
                 if (hit.collider.gameObject.TryGetComponent<Unit>(out Unit unit))
                 {
                     target = unit;
