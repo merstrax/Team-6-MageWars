@@ -16,11 +16,11 @@ public class PlayerController : Unit
     [Header("Player Movement")]
     [SerializeField] float dashTiming;
 
-    //Player Shoot
-    [Header("Player Abilities")]
+    //Player Shoot[Header("Player Abilities")]
     [SerializeField] Ability abilityPassive;
     [SerializeField] Ability[] abilities;
     readonly AbilityHandler[] abilityHandlers = new AbilityHandler[4];
+    
     Ability movementAbility;
 
     [SerializeField] GameObject aoeTargetSelector;

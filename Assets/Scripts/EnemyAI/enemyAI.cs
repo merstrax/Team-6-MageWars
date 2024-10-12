@@ -1,20 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
+
 public class enemyAI : Unit
 {
+    [Header("Enemy Stats")]
+    [SerializeField] protected enemyStats enemyStats;
     // Define AI States
-    protected enum AIState { Idle, Roaming, Chasing, Attacking, Dead, Searching }
+    protected enum AIState { Idle, Reset, Chasing, Attacking, Dead }
     protected AIState currentState = AIState.Idle;
 
     [Header("Render Components")]
     [SerializeField] protected Animator animator;
     [SerializeField] protected Renderer model;
-    [SerializeField] protected ParticleSystem particle;
-    [SerializeField] protected Image healthBar;
     [SerializeField] protected CapsuleCollider bodyCollider;
     [SerializeField] protected CapsuleCollider headCollider;
 
@@ -23,68 +25,114 @@ public class enemyAI : Unit
     [SerializeField] protected Transform headPos;
     [SerializeField] protected int faceTargetSpeed;
 
-    [Header("Enemy Combat")]
-    [SerializeField] protected GameObject rightHandPos;
-    [SerializeField] protected GameObject leftHandPos;
-    [SerializeField] protected GameObject bolt;
-    [Range(0, 3f)] [SerializeField] protected float attackRate;
-    [Range(0, 3f)] [SerializeField] protected float meleeAttackRange;
-    [Range(6, 15f)] [SerializeField] protected float rangedAttackRange;
-
     [Header("Aggro and Roaming")]
-    [SerializeField] protected float aggroRange;
-    [SerializeField] protected float roamRange;
-    [SerializeField] protected float renderDistance;
-    [SerializeField] protected int viewAngle;
-    [SerializeField] protected int roamDist;
-    [SerializeField] protected int roamTimer;
+    protected float aggroRange;
+    protected float kiteRange;
+    protected int viewAngle;
 
     [Header("Health Drop")]
     [SerializeField] protected GameObject healthDropPrefab;
-    [Range(0f, 1f)] [SerializeField] protected float dropChance;
+    protected float dropChance;
+
+    [Header("AI Abilities")]
+    Ability[] abilityPassive;
+    Ability[] abilities;
+    float abilityRate;
+    protected bool canCastAbility = true;
+    AbilityHandler[] abilityHandlers;
 
     // Variables 
+    protected Unit target;
     protected Vector3 playerDir;
     protected Vector3 startPos;
     protected Vector3 lastAttackPosition;
     protected bool isAttacking;
     protected bool isDead;
-    protected bool isRoaming;
     protected bool canAttack = true;
-    protected Coroutine roamCoroutine;
-
     protected override void Start()
     {
-        base.Start();
+        healthRegen = enemyStats.healthRegen;
+        healthBase = enemyStats.healthBase;
+        damageBase = enemyStats.damageBase;
+        defenseBase = enemyStats.defenseBase;
+        speedBase = enemyStats.speedBase;
+        critChanceBase = enemyStats.critChanceBase;
+        critDamageBase = enemyStats.critDamageBase;
+        cooldownBase = enemyStats.cooldownBase;
+        abilityPassive = enemyStats.abilityPassive;
+        abilities = enemyStats.abilities;
+        abilityRate = enemyStats.abilityRate;
+        aggroRange = enemyStats.aggroRange;
+        kiteRange = enemyStats.kiteRange;
+        dropChance = enemyStats.dropChance;
+        viewAngle = enemyStats.viewAngle;
+
+        //base.Start();
         startPos = transform.position;
         currentState = AIState.Idle;
+
+        // keeps track of charges, CD, targeting type
+        abilityHandlers = new AbilityHandler[abilities.Length];
+
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            if (abilities[i] != null)
+            {
+                abilityHandlers[i] = gameObject.AddComponent<AbilityHandler>();
+                abilityHandlers[i].Setup(this, abilities[i]);
+            }
+        }
+
+        base.Start();
     }
 
     protected virtual void Update()
     {
         if (isDead) return;
 
+        //UpdateTargeting();
+
         switch (currentState)
         {
             case AIState.Idle:
                 IdleState();
                 break;
-            case AIState.Roaming:
-                RoamingState();
-                break;
             case AIState.Chasing:
                 ChasingState();
+                break;
+            case AIState.Reset:
+                ResetState();
                 break;
             case AIState.Attacking:
                 AttackingState();
                 break;
-            case AIState.Searching:
-                SearchingState();
+            default:
                 break;
         }
     }
 
     // --- State Methods ---
+
+    protected virtual void UpdateTargeting()
+    {
+
+        int layerMask = LayerMask.GetMask(new string[] {"Player"}); 
+
+        if (Physics.Raycast(headPos.position, Vector3.forward, out RaycastHit hit, aggroRange, layerMask))
+        {
+            Debug.Log(hit);
+            Unit targetHit = hit.collider.gameObject.GetComponentInParent<Unit>();
+
+            if (targetHit != null)
+            {
+                target = targetHit; 
+            }
+            else
+            {
+                target = null;
+            }
+        }
+    }
 
     protected void IdleState()
     {
@@ -92,58 +140,43 @@ public class enemyAI : Unit
         {
             currentState = AIState.Chasing;
         }
-        else if (!isRoaming)
-        {
-            StartRoaming();
-        }
     }
 
-    protected void SearchingState()
+    protected void ResetState()
     {
-        // Move to the last attack position
-        agent.SetDestination(lastAttackPosition);
+        agent.SetDestination(startPos);
+        animator.SetBool("isMoving", true);
 
-        // TODO: Implement patrolling logic around last known position
-        // You could implement a small loop with random positions around `lastAttackPosition`
+        float distanceFromStart = Vector3.Distance(transform.position, startPos);
 
-        // Check visibility of the player
-        if (IsPlayerVisible())
+        if (distanceFromStart <= 0.01f)
         {
-            currentState = AIState.Chasing; // Transition to chasing state if player is visible
+            currentState = AIState.Idle;
+            RemoveStatus(StatusFlag.INVULNERABLE);
         }
-        else
-        {
-            // Optional: Return to idle after some time if the player is not found
-            StartCoroutine(IdleAfterSearching()); // Start idle timer
-        }
-    }
 
-    protected void RoamingState()
-    {
-        if (IsPlayerInRange() && IsPlayerVisible())
-        {
-            StopRoaming();
-            currentState = AIState.Chasing;
-        }
+
     }
 
     protected void ChasingState()
     {
+        float distanceFromStart = Vector3.Distance(transform.position, startPos);
+
+        if (distanceFromStart >= kiteRange)
+        {
+            currentState = AIState.Reset;
+            ApplyStatus(StatusFlag.INVULNERABLE);
+
+            //RemoveAllEffects();
+
+            return;
+        }
+
         float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
 
-        if (distanceToPlayer <= meleeAttackRange)
+        if (AnyAbilityInRange(distanceToPlayer))
         {
             currentState = AIState.Attacking;
-            StartCoroutine(Attack("melee"));
-        }
-        else if (distanceToPlayer <= rangedAttackRange)
-        {
-            currentState = AIState.Attacking;
-            StartCoroutine(Attack("ranged"));
-        }
-        else if (!IsPlayerInRange() || !IsPlayerVisible())
-        {
-            currentState = AIState.Idle;
         }
         else
         {
@@ -153,49 +186,49 @@ public class enemyAI : Unit
 
     protected void AttackingState()
     {
+        // Fetch ability>cast>CD
+        AbilityHandler abilityHandler = ChooseAttack();
+        if (abilityHandler != null && canCastAbility && target != null)
+        {
+            CastAbility(abilityHandler);
+            StartCoroutine(Attack());
+            abilityHandler.StartCooldown();
+        }
+
         // Handle attacking through coroutines
-        if (!isAttacking)
+        float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
+
+        if (!AnyAbilityInRange(distanceToPlayer))
         {
             currentState = AIState.Chasing;
         }
     }
 
+    private void CastAbility(AbilityHandler ability)
+    {
+        Ability _ability = Instantiate(ability.GetAbility(), GetCastPos().position, transform.rotation);
+        _ability.SetOwner(this);
+
+        Vector3 toCastPos = target.gameObject.transform.position;
+
+        if (_ability.Info().AbilityType == AbilityType.PROJECTILE)
+        {
+            toCastPos = target.gameObject.transform.position;
+            toCastPos.y += (target.GetComponent<CapsuleCollider>().height * 0.75f);
+        }
+
+        _ability.StartCast(this, toCastPos);
+    }
+
     // --- AI Utility Methods ---
-
-    protected void StartRoaming()
-    {
-        if (roamCoroutine == null)
-        {
-            roamCoroutine = StartCoroutine(Roam());
-        }
-    }
-
-    protected void StopRoaming()
-    {
-        if (roamCoroutine != null)
-        {
-            StopCoroutine(roamCoroutine);
-            roamCoroutine = null;
-        }
-    }
-
-    protected IEnumerator Roam()
-    {
-        isRoaming = true;
-        yield return new WaitForSeconds(roamTimer);
-
-        Vector3 randomPos = Random.insideUnitSphere * roamDist + startPos;
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
-        agent.SetDestination(hit.position);
-        currentState = AIState.Roaming;
-        isRoaming = false;
-    }
 
     protected void MoveTowardsPlayer()
     {
-        agent.SetDestination(GameManager.instance.player.transform.position);
-        animator.SetBool("isMoving", true);
+        if (target != null)
+        {
+            agent.SetDestination(target.gameObject.transform.position);
+            animator.SetBool("isMoving", true);
+        }
     }
 
     protected bool IsPlayerInRange()
@@ -208,19 +241,20 @@ public class enemyAI : Unit
     {
         Vector3 directionToPlayer = (GameManager.instance.player.transform.position - headPos.position).normalized;
         float angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
-
         if (angleToPlayer < viewAngle) return true;
+        int layerMask = LayerMask.GetMask(new string[] { "Player" }); 
 
-        RaycastHit hit;
-        int layerMask = LayerMask.GetMask("Player");
-
-        if (Physics.Raycast(headPos.position, directionToPlayer, out hit, aggroRange, layerMask))
+        if (Physics.Raycast(headPos.position, directionToPlayer, out RaycastHit hit, aggroRange, layerMask))
         {
-            if (hit.collider.CompareTag("Player"))
+            if (hit.collider.gameObject.TryGetComponent<Unit>(out Unit unit))
             {
+                target = unit;
+
                 return true;
             }
         }
+
+        target = null;
         return false;
     }
 
@@ -231,27 +265,13 @@ public class enemyAI : Unit
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
 
-    public virtual IEnumerator Attack(string attackType)
+    protected virtual IEnumerator Attack()
     {
-        isAttacking = true;
-        canAttack = false;
+        canCastAbility = false;
+         
+        yield return new WaitForSeconds(abilityRate * Time.deltaTime); 
 
-        if (attackType == "melee")
-        {
-            animator.SetTrigger("MeleeAttack");
-            yield return new WaitForSeconds(attackRate);
-            // TODO: Damage logic for melee attack
-        }
-        else if (attackType == "ranged")
-        {
-            animator.SetTrigger("RangedAttack");
-            yield return new WaitForSeconds(attackRate);
-            Instantiate(bolt, rightHandPos.transform.position, Quaternion.identity);
-        }
-
-        isAttacking = false;
-        canAttack = true;
-        currentState = AIState.Chasing;
+        canCastAbility = true;
     }
 
     // --- Combat and Health ---
@@ -259,7 +279,6 @@ public class enemyAI : Unit
     public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
         isDead = true;
-        agent.SetDestination(transform.position);
         animator.SetTrigger("Die");
         TryDropHealthPickup();
         base.OnDeath(other);
@@ -274,36 +293,99 @@ public class enemyAI : Unit
             Instantiate(healthDropPrefab, transform.position, Quaternion.identity);
         }
     }
-
-    private void OnTriggerEnter(Collider other)
+    protected virtual AbilityHandler ChooseAttack()
     {
-        if (other.CompareTag("Player"))
+        float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
+
+        foreach (AbilityHandler abilityHandler in abilityHandlers)
         {
-            // If the player is out of aggro range, go into searching state
-            if (!IsPlayerInRange())
+            float abilityDist = abilityHandler.GetAbility().Info().AbilityRange;
+
+            if (abilityHandler.ReadyToCast() && abilityDist > distanceToPlayer)
             {
-                lastAttackPosition = GameManager.instance.player.transform.position; // Store the player's position
-                currentState = AIState.Searching; // Switch to Searching state
-            }
-            else
-            {
-                // Handle combat initiation or player interaction
+                return abilityHandler;
             }
         }
+
+        return null;
     }
 
-    private void OnTriggerExit(Collider other)
+    protected bool AnyAbilityInRange(float dist)
     {
-        if (other.CompareTag("Player"))
+        foreach (AbilityHandler abilityHandler in abilityHandlers)
         {
-            // Handle player exiting range
+            float abilityDist = abilityHandler.GetAbility().Info().AbilityRange;
+
+            if (abilityHandler.ReadyToCast() && abilityDist > dist)
+            {
+                return true;
+            }
         }
+        return false;
     }
 
-    // Coroutine to wait and then return to idle state after searching
-    private IEnumerator IdleAfterSearching()
-    {
-        yield return new WaitForSeconds(2f); // Wait before transitioning
-        currentState = AIState.Idle; // Transition back to idle
-    }
+
+    //protected void SearchingState()
+    //{
+    //    // Move to the last attack position
+    //    agent.SetDestination(lastAttackPosition);
+
+    //    // TODO: Implement patrolling logic around last known position
+    //    // You could implement a small loop with random positions around `lastAttackPosition`
+
+    //    // Check visibility of the player
+    //    if (IsPlayerVisible())
+    //    {
+    //        currentState = AIState.Chasing; // Transition to chasing state if player is visible
+    //    }
+    //    else
+    //    {
+    //        // Optional: Return to idle after some time if the player is not found
+    //        StartCoroutine(IdleAfterSearching()); // Start idle timer
+    //    }
+    //}
+
+    //protected void RoamingState()
+    //{
+    //    if (IsPlayerInRange() && IsPlayerVisible())
+    //    {
+    //        StopRoaming();
+    //        currentState = AIState.Chasing;
+    //    }
+    //}
+    //protected void StartRoaming()
+    //{
+    //    if (roamCoroutine == null)
+    //    {
+    //        roamCoroutine = StartCoroutine(Roam());
+    //    }
+    //}
+
+    //protected void StopRoaming()
+    //{
+    //    if (roamCoroutine != null)
+    //    {
+    //        StopCoroutine(roamCoroutine);
+    //        roamCoroutine = null;
+    //    }
+    //}
+
+    //protected IEnumerator Roam()
+    //{
+    //    isRoaming = true;
+    //    yield return new WaitForSeconds(roamTimer);
+
+    //    Vector3 randomPos = Random.insideUnitSphere * roamDist + startPos;
+    //    NavMeshHit hit;
+    //    NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+    //    agent.SetDestination(hit.position);
+    //    currentState = AIState.Roaming;
+    //    isRoaming = false;
+    //}
+    //private IEnumerator IdleAfterSearching()
+    //{
+    //    yield return new WaitForSeconds(2f); // Wait before transitioning
+    //    currentState = AIState.Idle; // Transition back to idle
+    //}
+
 }

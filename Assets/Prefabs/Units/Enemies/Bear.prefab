@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 5985327198308241527}
   - component: {fileID: 3981901809153578413}
   - component: {fileID: 5374361442519037542}
+  - component: {fileID: -6499523026902809493}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Untagged
@@ -426,6 +427,54 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6499523026902809493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106588113570647217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feda6d4fa5924fe488772f03d1ca0b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: 
+  castPos: {fileID: 0}
+  healthRegen: 0
+  healthBase: 0
+  damageBase: 0
+  defenseBase: 0
+  speedBase: 0
+  critChanceBase: 0
+  critDamageBase: 0
+  cooldownBase: 0
+  healthCurrent: 0
+  unitInterface: {fileID: 0}
+  animator: {fileID: 0}
+  model: {fileID: 0}
+  bodyCollider: {fileID: 0}
+  headCollider: {fileID: 0}
+  agent: {fileID: 0}
+  headPos: {fileID: 0}
+  faceTargetSpeed: 0
+  rightHandPos: {fileID: 0}
+  leftHandPos: {fileID: 0}
+  bolt: {fileID: 0}
+  attackRate: 0
+  meleeAttackRange: 0
+  rangedAttackRange: 6
+  aggroRange: 0
+  kiteRange: 0
+  renderDistance: 0
+  viewAngle: 0
+  roamDist: 0
+  roamTimer: 0
+  healthDropPrefab: {fileID: 0}
+  dropChance: 0
+  abilityPassive: []
+  abilities: []
+  abilityRate: 0
 --- !u!1 &1362568911156001296
 GameObject:
   m_ObjectHideFlags: 0

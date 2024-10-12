@@ -1382,11 +1382,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1693871861271195532}
-  - component: {fileID: 1689115498796893134}
   - component: {fileID: 6036635453473558285}
   - component: {fileID: 3620549948210513988}
   - component: {fileID: 3638051124665397020}
   - component: {fileID: 4947504186526812065}
+  - component: {fileID: -7920499531102777241}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -1411,55 +1411,6 @@ Transform:
   - {fileID: 5092340947715641295}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1689115498796893134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7901598093719267408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a065f60b434252848862128be992ff69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitName: Skeleton
-  castPos: {fileID: 0}
-  healthRegen: 0
-  healthBase: 50
-  damageBase: 0
-  defenseBase: 10
-  speedBase: 8
-  critChanceBase: 0
-  critDamageBase: 0
-  healthCurrent: 50
-  unitInterface: {fileID: 0}
-  animator: {fileID: 6036635453473558285}
-  model: {fileID: 5084379265514629020}
-  particle: {fileID: 0}
-  healthBar: {fileID: 0}
-  bodyCollider: {fileID: 3620549948210513988}
-  headCollider: {fileID: 3638051124665397020}
-  agent: {fileID: 0}
-  headPos: {fileID: 0}
-  faceTargetSpeed: 0
-  rightHandPos: {fileID: 4761042435670290445}
-  leftHandPos: {fileID: 0}
-  bolt: {fileID: 0}
-  attackRate: 3
-  meleeAttackRange: 1.04
-  rangedAttackRange: 6
-  aggroRange: 90
-  roamRange: 0
-  renderDistance: 50
-  viewAngle: 85
-  roamDist: 0
-  roamTimer: 0
-  healthDropPrefab: {fileID: 3093282128322826495, guid: 047890308f70f024396e802c8d04c091,
-    type: 3}
-  dropChance: 0.5
-  meleeRate: 0
-  movementSpeed: 0
 --- !u!95 &6036635453473558285
 Animator:
   serializedVersion: 5
@@ -1549,6 +1500,54 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-7920499531102777241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7901598093719267408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feda6d4fa5924fe488772f03d1ca0b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: 
+  castPos: {fileID: 0}
+  healthRegen: 0
+  healthBase: 0
+  damageBase: 0
+  defenseBase: 0
+  speedBase: 0
+  critChanceBase: 0
+  critDamageBase: 0
+  cooldownBase: 0
+  healthCurrent: 0
+  unitInterface: {fileID: 0}
+  animator: {fileID: 0}
+  model: {fileID: 0}
+  bodyCollider: {fileID: 0}
+  headCollider: {fileID: 0}
+  agent: {fileID: 0}
+  headPos: {fileID: 0}
+  faceTargetSpeed: 0
+  rightHandPos: {fileID: 0}
+  leftHandPos: {fileID: 0}
+  bolt: {fileID: 0}
+  attackRate: 0
+  meleeAttackRange: 0
+  rangedAttackRange: 0
+  aggroRange: 0
+  kiteRange: 0
+  renderDistance: 0
+  viewAngle: 0
+  roamDist: 0
+  roamTimer: 0
+  healthDropPrefab: {fileID: 0}
+  dropChance: 0
+  abilityPassive: []
+  abilities: []
+  abilityRate: 0
 --- !u!1 &8014333598968938438
 GameObject:
   m_ObjectHideFlags: 0

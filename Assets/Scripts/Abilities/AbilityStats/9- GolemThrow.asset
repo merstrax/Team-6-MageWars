@@ -15,9 +15,8 @@ MonoBehaviour:
   AbilityName: Golem Melee
   AbilityDescription: 
   AbilityID: 9
-  AbilityFlag: 0
   AbilitySpeed: 0
-  AbilityRange: 0
+  AbilityRange: 20
   ElementType: 0
   AbilityType: 0
   CastType: 0
@@ -36,8 +35,6 @@ MonoBehaviour:
   EffectAmount: 10
   DamageCoefficent: 0
   EffectTriggerChance: 0
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
   EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 1
