@@ -94,7 +94,7 @@ public class BearsAI : enemyAI
         yield return new WaitForSeconds(meleeRate);
 
         // Deal damage to the player
-        GameManager.instance.player.GetComponent<Unit>().TakeDamage(10, this as Unit);
+        GameManager.instance.player.GetComponent<Unit>().TakeDamage(10, other: this as Unit);
 
         // Wait for melee cooldown
         yield return new WaitForSeconds(meleeRate);
@@ -103,12 +103,12 @@ public class BearsAI : enemyAI
     private void LeftMeleeAttackHit()
     {
         // Deal damage to the player
-        GameManager.instance.player.GetComponent<Unit>().TakeDamage(10, this as Unit);
+        GameManager.instance.player.GetComponent<Unit>().TakeDamage(10, other: this as Unit);
     }
 
     private void RightMeleeAttackHit()
     {
         // Deal damage to the player
-        GameManager.instance.player.GetComponent<Unit>().TakeDamage(10, this as Unit);
+        GameManager.instance.player.GetComponent<Unit>().TakeDamage(10, other: this as Unit);
     }
 }

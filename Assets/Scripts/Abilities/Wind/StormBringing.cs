@@ -105,7 +105,7 @@ public class StormBringing : Ability
             if (enemyUnit != null && enemyUnit != owner)
             {
                 // Apply damage each second
-                enemyUnit.TakeDamage(vortexDamage * Time.deltaTime);
+                enemyUnit.TakeDamage(vortexDamage * Time.deltaTime, this);
                 Debug.Log("Dealt vortex damage to " + enemyUnit.name);
             }
         }

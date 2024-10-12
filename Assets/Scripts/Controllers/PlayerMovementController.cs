@@ -19,7 +19,6 @@ public class PlayerMovementController : MonoBehaviour
     [Range(0, 15)][SerializeField] int jumpSpeed;
     [Range(0, 50)][SerializeField] int gravity;
 
-    float originalSpeed;
 
     Vector3 playerVel;
     int jumpCount;
@@ -28,16 +27,11 @@ public class PlayerMovementController : MonoBehaviour
 
     bool isJumping;
 
-    private void Start()
-    {
-        originalSpeed = speed;
-    }
-
     // Update is called once per frame
     private void Update()
     {
-        UpdateMovement();
         UpdateSprint();
+        UpdateMovement();
     }
 
     void UpdateMovement()
@@ -85,4 +79,18 @@ public class PlayerMovementController : MonoBehaviour
             isSprinting = false;
         }
     }
+
+    public IEnumerator DashMovement(float speed, float duration)
+    {
+        float startTime = Time.time;
+        Vector3 _direction = player.GetMoveDir() * speed;
+
+        while (Time.time < startTime + duration)
+        {
+            characterController.Move(_direction * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    public void TeleportMovement(Vector3 location){ }
 }

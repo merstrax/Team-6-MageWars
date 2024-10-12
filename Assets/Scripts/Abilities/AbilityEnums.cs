@@ -61,50 +61,49 @@ public enum EffectTargetType
 public enum EffectStatusType
 {
     NONE,
-    STUN,
-    SLOW,
-    ROOT,
-    KNOCKBACK
+    SLOWED = 1,
+    ROOTED = 2,
+    STUNNED = 4,
+    INVULNERABLE = 8,
+    CASTING = 16,
 }
 
 public enum EffectModifierType
 {
+    NONE,
     ADD,
     MULTIPLY
 }
 
 //These flags choose when this effect can trigger
-[Flags] public enum EffectTriggerFlags
+[Flags] public enum TriggerFlags
 {
-    ON_CAST_START = 0x01,
-    ON_CAST = 0x02,
-    ON_CAST_END = 0x04,
-    ON_HIT = 0x08,
-    ON_DAMAGE = 0x10,
-    ON_DAMAGED = 0x20,
-    ON_KILL = 0x40,
-    ON_UPDATE = 0x80,
+    NONE = 0,
+    ON_CAST_START = 1,
+    ON_CAST = 2,
+    ON_CAST_END = 4,
+    ON_HIT = 8,
+    ON_DAMAGE = 16,
+    ON_DAMAGED = 32,
+    ON_KILL = 64,
+    ON_UPDATE = 128,
+    ON_HEAL = 256,
+    ON_INTERRUPT = 512,
+    ON_SLOW= 1024,
+    ON_ROOT = 2048,
+    ON_STUN = 4096,
+    ON_DEATH = 8192,
 }
 
-//These flags choose which attribute the effect is applied to
-[Flags] public enum EffectAttributeFlags
-{
-    DAMAGE = 0x01,
-    DEFENSE = 0x02,
-    COOLDOWN = 0x04,
-    MOVESPEED = 0x08,
-    JUMPHEIGHT = 0x10,
-    JUMPSPEED = 0x20,
-    CRIT_CHANCE = 0x40,
-    CRIT_DAMAGE = 0x80,
-}
+
 
 //These flags choose which element the effect is applied to
 [Flags] public enum EffectElementFlags
 {
-    ARCANE = 0x01,
-    FROST = 0x02,
-    FIRE = 0x04,
-    WIND = 0x08,
-    PHYSICAL = 0x10
+    NONE = 0,
+    ARCANE = 1,
+    FROST = 2,
+    FIRE = 4,
+    WIND = 8,
+    PHYSICAL = 16
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -10,28 +11,29 @@ public class AbilityStats : ScriptableObject
     public string AbilityName;
     public string AbilityDescription;
     public int AbilityID;
-    public int AbilityFlag;
     public float AbilitySpeed;
     public float AbilityRange;
     public ElementType ElementType;
     public AbilityType AbilityType;
     public CastType CastType;
     public float Cooldown;
+    public float CastTime;
+    public bool IsRooted;
+    public bool IsTarget;
 
     [Header("Effect Info")]
     public EffectType EffectType;
-    public EffectTargetType EffectTargetType;
+    [Description("What unit to add the EffectAbility to")] public EffectTargetType EffectTargetType;
     public EffectStatusType StatusType;
-    public EffectAttributeFlags AttributeFlags;
+    [Description("Only valid with EffectType modifier")] public AttributeFlags AttributeFlags;
     public EffectElementFlags ElementFlags;
-    public EffectTriggerFlags TriggerFlags;
-    public EffectModifierType ModifierType;
+    [Description("Event to trigger the EffectAbility")] public TriggerFlags TriggerFlags;
+    [Description("Only valid with EffectType modifier")] public EffectModifierType ModifierType;
     public AbilityStats EffectAbility;
     public float EffectAmount;
     public float DamageCoefficent;
     public float EffectTriggerChance;
-    public int EffectAbilityID;
-    public int EffectAbilityFlag;
+    public int EffectStackAmount;
     public int EffectStackMax;
     public float EffectDuration;
     public float EffectTickSpeed;
@@ -57,8 +59,8 @@ public class AbilityStats : ScriptableObject
 
         string output = AbilityDescription;
 
-        output.Replace("{$d}", Colorize(EffectAmount.ToString("000"), damageColor));
-        output.Replace("{$r}", Colorize(AbilityRange.ToString("00.0"), rangeColor));
+        output = output.Replace("{$d}", Colorize(EffectAmount.ToString("0.00"), damageColor));
+        output = output.Replace("{$r}", Colorize(AbilityRange.ToString("0"), rangeColor));
 
         return output;
     }
@@ -67,8 +69,8 @@ public class AbilityStats : ScriptableObject
     {
         string output = AbilityDescription;
 
-        output.Replace("{$d}", Colorize(EffectAmount.ToString("000") + " + (" + (DamageCoefficent * 100.0f).ToString("000") + "% Damage Bonus)", damageColor));
-        output.Replace("{$r}", Colorize(AbilityRange.ToString("00.0"), rangeColor));
+        output = output.Replace("{$d}", Colorize(EffectAmount.ToString() + " + (" + (DamageCoefficent * 100.0f).ToString("0.00") + "% Damage Bonus)", damageColor));
+        output = output.Replace("{$r}", Colorize(AbilityRange.ToString("0"), rangeColor));
 
         return output;
     }
@@ -77,15 +79,15 @@ public class AbilityStats : ScriptableObject
     {
         string output = AbilityDescription;
 
-        output.Replace("{$d}", Colorize(unit.CalculateDamage(EffectAmount, DamageCoefficent, false).Amount.ToString("000"), damageColor));
-        output.Replace("{$r}", Colorize(AbilityRange.ToString("00.0"), rangeColor));
+        output = output.Replace("{$d}", Colorize(unit.CalculateDamage(EffectAmount, DamageCoefficent, false).Amount.ToString("0.00"), damageColor));
+        output = output.Replace("{$r}", Colorize(AbilityRange.ToString("0"), rangeColor));
 
         return output;
     }
 
     private string Colorize(string value, string color)
     {
-        value = color + value + "</color>";
+        value = " <color=#" + color + ">" + value + "</color>";
         return value;
     }
 }

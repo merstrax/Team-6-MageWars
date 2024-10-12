@@ -48,6 +48,8 @@ public class PlayerController : Unit
     // Start is called before the first frame update
     protected override void Start()
     {
+        stats = new(healthBase, damageBase, defenseBase, speedBase, critChanceBase, critDamageBase, cooldownBase);
+
         UpdateStats();
         healthCurrent = healthMax;
 
@@ -95,7 +97,7 @@ public class PlayerController : Unit
                     continue;
                 }
 
-                if (abilityHandlers[i].GetAbility().Info().AbilityType == AbilityType.AREAOFEFFECT)
+                if (abilityHandlers[i].GetAbility().Info().AbilityType == AbilityType.AREAOFEFFECT && abilityHandlers[i].GetAbility().Info().IsTarget)
                 {
                     aoeTargetSelector.SetActive(true);
                     aoeTargetSelector.GetComponent<AoETargetSpin>().SetScale(1.8f * abilityHandlers[i].GetAbility().GetComponent<SphereCollider>().radius);
@@ -103,17 +105,26 @@ public class PlayerController : Unit
                 }
                 else
                 {
-                    CastAbility(abilityHandlers[i]);
-                    abilityHandlers[i].StartCooldown();
+                    if (!IsStunned())
+                    {
+                        CastAbility(abilityHandlers[i]);
+                        abilityHandlers[i].StartCooldown();
+                    }
                     inputController.ability[i] = false;
                 }
                 break;
             }
         }
 
+        if (IsStunned())
+        {
+            aoeTargetSelector.SetActive(false);
+            selectedAbility = -1;
+        }
+
         if (selectedAbility != -1)
         {
-            if (!inputController.ability[selectedAbility])
+            if (!inputController.ability[selectedAbility] && !IsStunned())
             {
                 CastAbility(abilityHandlers[selectedAbility]);
                 abilityHandlers[selectedAbility].StartCooldown();
@@ -154,6 +165,11 @@ public class PlayerController : Unit
         }
         else
         {
+            if (target != null)
+            {
+                target.TargetOutline(false);
+                target = null;
+            }
             screenCenter = new Vector3(0.5f, 0.45f, 0f);
             ray = Camera.main.ViewportPointToRay(screenCenter);
 
@@ -185,7 +201,7 @@ public class PlayerController : Unit
 
         Vector3 toCastPos;
 
-        if (_ability.Info().AbilityType == AbilityType.AREAOFEFFECT)
+        if (_ability.Info().AbilityType == AbilityType.AREAOFEFFECT && _ability.Info().IsTarget)
         {
             toCastPos = aoeTargetSelector.transform.position;
         }
@@ -203,16 +219,21 @@ public class PlayerController : Unit
         }
 
         _ability.StartCast(this, toCastPos);
-
     }
 
-    public override void TakeDamage(Damage damage, Unit other = null)
+    public override void TakeDamage(Damage damage, Ability source = null, Unit other = null)
     {
-        healthCurrent -= CalculateDefense(damage.Amount);
+        if (IsInvulnerable()) return;
 
-        if (healthCurrent <= 0)
+        damage.Amount = CalculateDefense(damage.Amount);
+
+        if (other != null)
         {
-            //Player Death Handling
+            other.ProccessEvent(TriggerFlags.ON_DAMAGE, this, source, damage);
         }
+
+        ProccessEvent(TriggerFlags.ON_DAMAGED, other, source, damage);
+
+        healthCurrent -= damage.Amount;
     }
 }

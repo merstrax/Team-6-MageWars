@@ -89,13 +89,13 @@ public class GolemAI : enemyAI
     private void LeftMeleeAttackHit()
     {
         // Deal damage to the player
-        GameManager.instance.player.GetComponent<Unit>().TakeDamage(15, this as Unit);
+        GameManager.instance.player.GetComponent<Unit>().TakeDamage(15, other: this);
     }
 
     private void RightMeleeAttackHit()
     {
         // Deal damage to the player
-        GameManager.instance.player.GetComponent<Unit>().TakeDamage(15, this as Unit);
+        GameManager.instance.player.GetComponent<Unit>().TakeDamage(15, other: this);
     }
 
     public void LeftFootEnable()

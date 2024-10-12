@@ -22,19 +22,23 @@ MonoBehaviour:
   AbilityType: 2
   CastType: 0
   Cooldown: 0
+  CastTime: 0
+  IsRooted: 0
+  IsTarget: 0
   EffectType: 3
   EffectTargetType: 0
   StatusType: 0
   AttributeFlags: 3
   ElementFlags: 0
   TriggerFlags: 128
-  ModifierType: 1
+  ModifierType: 2
   EffectAbility: {fileID: 0}
-  EffectAmount: 1.2
+  EffectAmount: 0.8
   DamageCoefficent: 0
   EffectTriggerChance: 0
   EffectAbilityID: 0
   EffectAbilityFlag: 0
+  EffectStackAmount: 0
   EffectStackMax: 3
   EffectDuration: 10
   EffectTickSpeed: 0

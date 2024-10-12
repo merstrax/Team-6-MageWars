@@ -10,21 +10,13 @@ public class Ability : MonoBehaviour
     public AbilityStats GetAbilityInfo() { return AbilityInfo; }
     public AbilityStats Info() { return AbilityInfo; }
 
-    [SerializeField] protected bool isTarget;
-
     public int GetID() { return AbilityInfo.AbilityID; }
     public CastType GetCastType() { return AbilityInfo.CastType; }
     public AbilityType GetAbilityType() {  return AbilityInfo.AbilityType; }
 
     protected Unit owner;
     protected Unit other;
-
-    float castStartTime;
-    float cooldownStart;
     Vector3 castTarget;
-    bool hasDamaged;
-
-    int chargesCurrent;
 
     private int EffectStackCount = 1;
     public int GetStacks() { return EffectStackCount; }
@@ -91,7 +83,7 @@ public class Ability : MonoBehaviour
     public virtual void StartCast(Unit owner, Vector3 lookAt)
     {
         this.owner = owner;
-        castStartTime = Time.time;
+        owner.ProccessEvent(TriggerFlags.ON_CAST, other, this);
 
         if (AbilityInfo.CastType == CastType.INSTANT)
         {
@@ -117,7 +109,7 @@ public class Ability : MonoBehaviour
 
     protected virtual void Cast(Transform end = null)
     {
-        if (myRigidbody != null && !isTarget) {
+        if (myRigidbody != null && !Info().IsTarget) {
             transform.LookAt(castTarget);
             myRigidbody.velocity = transform.forward * AbilityInfo.AbilitySpeed;
         }
@@ -157,24 +149,12 @@ public class Ability : MonoBehaviour
     //Movement Ability Handling
     public virtual void CastMovement()
     {
-        StartCoroutine(DashMovement());
-        OnCast();
-        CleanUp();
-    }
-
-    IEnumerator DashMovement()
-    {
-        if (owner.TryGetComponent<CharacterController>(out var _controller))
+        if (owner.TryGetComponent<PlayerMovementController>(out PlayerMovementController controller))
         {
-            float startTime = Time.time;
-            Vector3 _direction = owner.GetMoveDir() * AbilityInfo.AbilitySpeed;
-
-            while (Time.time < startTime + AbilityInfo.EffectDuration)
-            {
-                _controller.Move(_direction * Time.deltaTime);
-                yield return null;
-            }
+            StartCoroutine(controller.DashMovement(Info().AbilitySpeed, Info().EffectDuration));
+            OnCast();
         }
+        CleanUp();
     }
 
     //Damage Handlers
@@ -185,7 +165,6 @@ public class Ability : MonoBehaviour
         Damage _calcDamage = owner.CalculateDamage(AbilityInfo.EffectAmount, AbilityInfo.DamageCoefficent);
         _calcDamage.Amount *= EffectStackCount;
 
-
         return _calcDamage;
     }
 
@@ -195,18 +174,14 @@ public class Ability : MonoBehaviour
 
         if (other != null)
         {
-            other.TakeDamage(_damage, owner);
+            other.TakeDamage(_damage, this, owner);
 
             OnDamage();
         }
 
         if (AbilityInfo.AbilityType == AbilityType.PROJECTILE)
         {
-            Destroy(gameObject, 1.0f);
-        }
-        if (AbilityInfo.AbilityType != AbilityType.AREAOFEFFECT)
-        {
-            hasDamaged = true;
+            Destroy(gameObject);
         }
     }
 
@@ -243,31 +218,30 @@ public class Ability : MonoBehaviour
             if(EffectStackCount < AbilityInfo.EffectStackMax)
             {
                 EffectStackCount++;
-                //Debug.Log(AbilityInfo.AbilityName + ": Stacks increased to " + EffectStackCount);
             }
         }
         
         //Reset effect duration
         EffectTimeApplied = Time.time;
-        //Debug.Log(AbilityInfo.AbilityName + ": Reset Time Applied with " + ((EffectTimeApplied + AbilityInfo.EffectDuration) - Time.time) + " Seconds Remaining");
     }
 
     //Triggers
     protected virtual void OnCast() 
     {
         //Used for scripts
-        owner.OnCast();
+        owner.ProccessEvent(TriggerFlags.ON_CAST, other, this);
     }
 
     protected virtual void OnHit(Unit other)
     {
         if (AbilityInfo.EffectAmount > 0)
         {
-            if(AbilityInfo.TriggerFlags.HasFlag(EffectTriggerFlags.ON_HIT))
+            if(AbilityInfo.TriggerFlags.HasFlag(TriggerFlags.ON_HIT))
             {
                 DoEffectApply(other);
             }
-            if(!hasDamaged)
+            owner.ProccessEvent(TriggerFlags.ON_HIT, other, this);
+
             DoDamage(other);
         }else
         {
@@ -295,7 +269,7 @@ public class Ability : MonoBehaviour
 
         if(other.CompareTag("MapObject") && Info().AbilityType != AbilityType.AREAOFEFFECT)
         {
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject);
         }
         
     }

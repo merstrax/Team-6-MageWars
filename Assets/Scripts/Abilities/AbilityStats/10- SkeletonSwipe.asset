@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Skeleton Swipe
   AbilityDescription: 
-  AbilityID: 9
+  AbilityID: 10
   AbilityFlag: 0
   AbilitySpeed: 0
   AbilityRange: 0
@@ -22,6 +22,9 @@ MonoBehaviour:
   AbilityType: 0
   CastType: 0
   Cooldown: 0
+  CastTime: 0
+  IsRooted: 0
+  IsTarget: 0
   EffectType: 0
   EffectTargetType: 0
   StatusType: 0
@@ -35,6 +38,7 @@ MonoBehaviour:
   EffectTriggerChance: 0
   EffectAbilityID: 0
   EffectAbilityFlag: 0
+  EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 1
   EffectTickSpeed: 0

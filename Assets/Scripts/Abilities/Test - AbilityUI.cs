@@ -42,10 +42,10 @@ public class Test_AbilityUI : MonoBehaviour
 
         playerHealth.text = "Health: " + player.GetHealthCurrent() + " / " + player.GetHealthMax();
 
-        playerAbility1.text = player.GetAbility(0) != null ? player.GetAbility(0).ToString() : "null";
-        playerAbility2.text = player.GetAbility(1) != null ? player.GetAbility(1).ToString() : "null";
-        playerAbility3.text = player.GetAbility(2) != null ? player.GetAbility(2).ToString() : "null";
-        playerAbility4.text = player.GetAbility(3) != null ? player.GetAbility(3).ToString() : "null";
+        playerAbility1.text = player.GetAbility(0) != null ? player.GetAbility(0).ToString() + " : " + player.GetAbility(0).GetAbility().GetAbilityInfo().GetDescription(player) : "null";
+        playerAbility2.text = player.GetAbility(1) != null ? player.GetAbility(1).ToString() + " : " + player.GetAbility(1).GetAbility().GetAbilityInfo().GetDescription(player) : "null";
+        playerAbility3.text = player.GetAbility(2) != null ? player.GetAbility(2).ToString() + " : " + player.GetAbility(2).GetAbility().GetAbilityInfo().GetDescription(player) : "null";
+        playerAbility4.text = player.GetAbility(3) != null ? player.GetAbility(3).ToString() + " : " + player.GetAbility(3).GetAbility().GetAbilityInfo().GetDescription(player) : "null";
 
         playerDamage.text = "Damage: " + player.GetDamageBonus() + " (" + (player.GetDamageModifier() * 100) + "%)";
         playerDefense.text = "Defense: " + player.GetDefenseBonus() + " (" + (player.GetDefenseModifier() * 100) + "%)";

@@ -1,8 +1,95 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Flags] public enum StatusFlag
+{
+    NONE,
+    SLOWED = 1,
+    ROOTED = 2,
+    STUNNED = 4,
+    INVULNERABLE = 8,
+    CASTING = 16,
+}
+
+//These flags choose which attribute the effect is applied to
+[System.Flags]
+public enum AttributeFlags
+{
+    NONE = 0,
+    HEALTH = 1,
+    DAMAGE = 2,
+    DEFENSE = 4,
+    MOVESPEED = 8,
+    CRIT_CHANCE = 16,
+    CRIT_DAMAGE = 32,
+    COOLDOWN = 64,
+    JUMPHEIGHT = 128,
+    JUMPSPEED = 256,
+}
+
+public struct Stats
+{
+    public float Health { get; set; }
+    public float Damage { get; set; }
+    public float Defense { get; set; }
+    public float Speed { get; set; }
+    public float CritChance { get; set; }
+    public float CritDamage { get; set; }
+    public float Cooldown { get; set; }
+
+    private float[] values;
+    private float[] valueModifiers;
+
+    public Stats(float health, float damage, float defense, float speed, float critChance, float critDamage, float cooldown)
+    {
+        Health = health;
+        Damage = damage;
+        Defense = defense;
+        Speed = speed;
+        CritChance = critChance;
+        CritDamage = critDamage;
+        Cooldown = cooldown;
+
+        values = new[] {Health, Damage, Defense, Speed, CritChance, CritDamage, Cooldown};
+        valueModifiers = new float[] { 1, 1, 1, 1, 1, 1, 1 };
+    }
+
+    public void ResetValues()
+    {
+        values = new[] { Health, Damage, Defense, Speed, CritChance, CritDamage, Cooldown };
+        valueModifiers = new float[] { 1, 1, 1, 1, 1, 1, 1 };
+    }
+
+    public float this[AttributeFlags attribute]
+    {
+        get
+        {
+            int index = (int)(Mathf.Log((int)attribute) / Mathf.Log(2));
+            return values[index];
+        }
+        set
+        {
+            int index = (int)(Mathf.Log((int)attribute) / Mathf.Log(2));
+            values[index] = value;
+        }
+    }
+
+    public void UpdateModifier(AttributeFlags attribute, float amount, int stackcount = 1)
+    {
+        amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
+        int index = (int)(Mathf.Log((int)attribute) / Mathf.Log(2));
+        valueModifiers[index] *= amount;
+    }
+
+    public float GetModifier(AttributeFlags attribute)
+    {
+        int index = (int)(Mathf.Log((int)attribute) / Mathf.Log(2));
+        return valueModifiers[index];
+    }
+}
 
 public class Unit : MonoBehaviour, IDamage
 {
@@ -22,20 +109,9 @@ public class Unit : MonoBehaviour, IDamage
     [SerializeField] protected float speedBase;
     [SerializeField] protected float critChanceBase;
     [SerializeField] protected float critDamageBase;
+    [SerializeField] protected float cooldownBase;
 
-    protected float healthBonus;
-    protected float damageBonus;
-    protected float defenseBonus;
-    protected float speedBonus;
-    protected float critChanceBonus;
-    protected float critDamageBonus;
-
-    protected float healthModifier;
-    protected float damageModifier;
-    protected float defenseModifier;
-    protected float speedModifier;
-    protected float critChanceModifier;
-    protected float critDamageModifier;
+    protected Stats stats;
 
     public float healthCurrent;
     protected float healthMax;
@@ -49,32 +125,50 @@ public class Unit : MonoBehaviour, IDamage
     public float GetHealthRegen() { return healthRegen; }
     public void SetHealthRegen(float healthRegen) { this.healthRegen = healthRegen; }
 
-    public float GetDamageBonus() { return damageBonus; }
-    public float GetDamageModifier() { return damageModifier; }
-    public void SetDamageModifier(float damageModifier) { this.damageModifier = damageModifier; }
+    public float GetDamageBonus() { return stats[AttributeFlags.DAMAGE]; }
+    public float GetDamageModifier() { return stats.GetModifier(AttributeFlags.DAMAGE); }
 
-    public float GetDefenseBonus() {  return defenseBonus; }
-    public float GetDefenseModifier() { return defenseModifier; }
-    public void SetDefenseModifier(float defenseModifier) { this.defenseModifier = defenseModifier; }
+    public float GetDefenseBonus() { return stats[AttributeFlags.DEFENSE]; }
+    public float GetDefenseModifier() { return stats.GetModifier(AttributeFlags.DEFENSE); }
+    
+    public float GetCritChanceBonus() { return stats[AttributeFlags.CRIT_CHANCE]; }
+    public float GetCritDamageBonus() { return stats[AttributeFlags.CRIT_DAMAGE]; }
 
-    public float GetCritChanceBonus() {  return critChanceBonus; }
-    public float GetCritDamageBonus() { return critDamageBonus; }
+    public float GetStat(AttributeFlags attribute) { return stats[attribute]; }
+    public float GetStatModifier(AttributeFlags attribute) { return stats.GetModifier(attribute); }
 
     private Dictionary<int, Ability> effects = new();
     public Dictionary<int, Ability> GetEffects() { return effects; }
 
-    bool isInvulnerable;
-    public void SetInvulnerable(bool isInvulnerable) { this.isInvulnerable = isInvulnerable; }
 
     //Healthbar
     [Header("Interface")]
     [SerializeField] UnitInterface unitInterface;
     Material outlineMaterial;
-    
+
+    private static Dictionary<TriggerFlags, MethodInfo> Events = new() 
+    {
+        { TriggerFlags.ON_CAST_START, typeof(Unit).GetMethod("OnCastStart") },
+        { TriggerFlags.ON_CAST, typeof(Unit).GetMethod("OnCast") },
+        { TriggerFlags.ON_CAST_END, typeof(Unit).GetMethod("OnCastEnd")},
+        { TriggerFlags.ON_HIT, typeof(Unit).GetMethod("OnHit")},
+        { TriggerFlags.ON_DAMAGE, typeof(Unit).GetMethod("OnDamage")},
+        { TriggerFlags.ON_DAMAGED, typeof(Unit).GetMethod("OnDamaged")},
+        { TriggerFlags.ON_KILL, typeof(Unit).GetMethod("OnKill")},
+        { TriggerFlags.ON_UPDATE, typeof(Unit).GetMethod("OnUpdate")},
+        { TriggerFlags.ON_HEAL, typeof(Unit).GetMethod("OnHeal")},
+        { TriggerFlags.ON_DEATH, typeof(Unit).GetMethod("OnDeath")},
+        { TriggerFlags.ON_INTERRUPT, typeof(Unit).GetMethod("OnInterrupt")},
+        { TriggerFlags.ON_SLOW, typeof(Unit).GetMethod("OnSlow")},
+        { TriggerFlags.ON_ROOT, typeof(Unit).GetMethod("OnRoot")},
+        { TriggerFlags.ON_STUN, typeof(Unit).GetMethod("OnStun")},
+    };
 
     #region Stat Handling
     protected virtual void Start()
     {
+        stats = new(healthBase, damageBase, defenseBase, speedBase, critChanceBase, critDamageBase, cooldownBase);
+
         UpdateStats();
         healthCurrent = healthMax;
 
@@ -85,9 +179,9 @@ public class Unit : MonoBehaviour, IDamage
         {
             List<Renderer> renderers = new List<Renderer>();
 
-            foreach(Renderer renderer in GetComponentsInChildren<Renderer>())
+            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
             {
-                List<Material> materials = new(){ outlineMaterial};
+                List<Material> materials = new() { outlineMaterial };
                 materials.AddRange(renderer.materials);
                 renderer.SetMaterials(materials);
             }
@@ -101,174 +195,95 @@ public class Unit : MonoBehaviour, IDamage
         if (target)
         {
             outlineMaterial.SetFloat("_OutlineWidth", 0.075f);
-        }else
+        } else
             outlineMaterial.SetFloat("_OutlineWidth", 0f);
     }
 
     protected void UpdateStats()
     {
         //Reset Bonus to base
-        healthBonus = healthBase;
-        damageBonus = damageBase;
-        defenseBonus = defenseBase;
-        speedBonus = speedBase;
-        critChanceBonus = critChanceBase;
-        critDamageBonus = critDamageBase;
-
-        //Reset modifiers to 1
-        healthModifier = 1;
-        damageModifier = 1;
-        defenseModifier = 1;
-        speedModifier = 1;
-        critChanceModifier = 1;
-        critDamageModifier = 1;
+        stats.ResetValues();
 
         foreach (Ability ability in effects.Values)
         {
-            if(ability.Info().TriggerFlags.HasFlag(EffectTriggerFlags.ON_UPDATE) && ability.Info().EffectType == EffectType.MODIFIER)
+            if (ability.Info().EffectType == EffectType.MODIFIER)
             {
                 var modifyFlag = ability.Info().AttributeFlags;
+                int currentFlag = 1;
 
-                if(modifyFlag.HasFlag(EffectAttributeFlags.DAMAGE))
+                while(currentFlag < (int)AttributeFlags.COOLDOWN)
                 {
-                    UpdateDamage(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
-                }
+                    if (modifyFlag.HasFlag((AttributeFlags)currentFlag))
+                    {
+                        switch (ability.Info().ModifierType)
+                        {
+                            case EffectModifierType.ADD:
+                                stats[(AttributeFlags)currentFlag] += (ability.Info().EffectAmount * ability.GetStacks());
+                                break;
+                            case EffectModifierType.MULTIPLY:
+                                stats.UpdateModifier((AttributeFlags)currentFlag, ability.Info().EffectAmount, ability.GetStacks());
+                                break;
+                        }
+                    }
 
-                if (modifyFlag.HasFlag(EffectAttributeFlags.DEFENSE))
-                {
-                    UpdateDefense(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
-                }
-
-                if (modifyFlag.HasFlag(EffectAttributeFlags.MOVESPEED))
-                {
-                    UpdateSpeed(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
-                }
-
-                if (modifyFlag.HasFlag(EffectAttributeFlags.CRIT_CHANCE))
-                {
-                    UpdateCritChance(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
-                }
-
-                if (modifyFlag.HasFlag(EffectAttributeFlags.CRIT_DAMAGE))
-                {
-                    UpdateCritDamage(ability.Info().EffectAmount, ability.Info().ModifierType, ability.GetStacks());
+                    currentFlag = currentFlag << 1;
                 }
             }
         }
 
-        healthMax = healthBonus * healthModifier;
+        healthMax = stats[AttributeFlags.HEALTH] * stats.GetModifier(AttributeFlags.HEALTH);
         healthCurrent = Mathf.Min(healthCurrent, healthMax);
 
-        defenseBonus *= defenseModifier;
-        speedBonus *= speedModifier;
-        critChanceBonus *= critChanceModifier;
-        critDamageBonus *= critDamageModifier;
-    }
+        stats[AttributeFlags.MOVESPEED] *= stats.GetModifier(AttributeFlags.MOVESPEED);
+        if (stats[AttributeFlags.MOVESPEED] < stats.Speed) { ApplyStatus(StatusFlag.SLOWED); }
+        else { RemoveStatus(StatusFlag.SLOWED); }
 
-    protected void UpdateHealthMax(float amount, EffectModifierType modType, int stackcount = 1)
-    {
-        switch(modType)
-        {
-            case EffectModifierType.ADD:
-                healthBonus += (amount * stackcount);
-                break;
-            case EffectModifierType.MULTIPLY:
-                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
-                healthModifier *= amount;
-                break;
-        }
-    }
-
-    protected void UpdateDamage(float amount, EffectModifierType modType, int stackcount = 1)
-    {
-        switch (modType)
-        {
-            case EffectModifierType.ADD:
-                damageBonus += (amount * stackcount);
-                break;
-            case EffectModifierType.MULTIPLY:
-                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
-                damageModifier *= amount;
-                break;
-        }
-    }
-
-    protected void UpdateDefense(float amount, EffectModifierType modType, int stackcount = 1)
-    {
-        switch (modType)
-        {
-            case EffectModifierType.ADD:
-                defenseBonus += (amount * stackcount);
-                break;
-            case EffectModifierType.MULTIPLY:
-                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
-                defenseModifier *= amount;
-                break;
-        }
-    }
-
-    protected void UpdateSpeed(float amount, EffectModifierType modType, int stackcount = 1)
-    {
-        switch (modType)
-        {
-            case EffectModifierType.ADD:
-                speedBonus += (amount * stackcount);
-                break;
-            case EffectModifierType.MULTIPLY:
-                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
-                speedModifier *= amount;
-                break;
-        }
-    }
-
-    protected void UpdateCritChance(float amount, EffectModifierType modType, int stackcount = 1)
-    {
-        switch (modType)
-        {
-            case EffectModifierType.ADD:
-                amount = amount > 1 ? amount / 100 : amount;
-                critChanceBonus += (amount * stackcount);
-                break;
-            case EffectModifierType.MULTIPLY:
-                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
-                critChanceModifier *= amount;
-                break;
-        }
-    }
-
-    protected void UpdateCritDamage(float amount, EffectModifierType modType, int stackcount = 1)
-    {
-        switch (modType)
-        {
-            case EffectModifierType.ADD:
-                amount = amount > 1 ? amount / 100 : amount;
-                critDamageBonus += (amount * stackcount);
-                break;
-            case EffectModifierType.MULTIPLY:
-                amount = amount < 1.0f ? 1.0f - ((1.0f - amount) * stackcount) : 1 + ((amount - 1.0f) * stackcount);
-                critDamageModifier *= amount;
-                break;
-        }
+        stats[AttributeFlags.CRIT_CHANCE] *= stats.GetModifier(AttributeFlags.CRIT_CHANCE);
+        stats[AttributeFlags.CRIT_DAMAGE] *= stats.GetModifier(AttributeFlags.CRIT_DAMAGE);
     }
     #endregion
 
     //Status Effects
-    private bool isCasting;
-    private bool isSlowed;
-    private bool isStunned;
-    private bool isRooted;
+    StatusFlag statusFlag = StatusFlag.NONE;
+    public void ApplyStatus(StatusFlag status, Ability source = null, Unit other = null) 
+    { 
+        statusFlag |= status;
+        if (source != null)
+        {
+            ProccessEvent(GetStatusTrigger(status), other, source);
+        }
+    }
+    public void RemoveStatus(StatusFlag status, Ability source = null, Unit other = null) 
+    {
+        if (source != null)
+        {
+            foreach (Ability ability in effects.Values)
+            {
+                if (ability.GetID() == source.GetID()) continue;
+                if ((StatusFlag)ability.Info().StatusType == status) return;
+            }
+        }
+        statusFlag &= ~status; 
+    }
 
-    public bool IsCasting() { return isCasting; }
-    public void SetCasting(bool isCasting) { this.isCasting = isCasting; }
+    TriggerFlags GetStatusTrigger(StatusFlag status)
+    {
+        return status switch
+        {
+            StatusFlag.SLOWED => TriggerFlags.ON_SLOW,
+            StatusFlag.ROOTED => TriggerFlags.ON_ROOT,
+            StatusFlag.STUNNED => TriggerFlags.ON_STUN,
+            StatusFlag.INVULNERABLE => TriggerFlags.NONE,
+            StatusFlag.CASTING => TriggerFlags.ON_CAST,
+            _ => TriggerFlags.NONE,
+        };
+    }
 
-    public bool IsSlowed() { return isSlowed; }
-    public void SetSlowed(bool isSlowed) { this.isSlowed = isSlowed; }
-
-    public bool IsStunned() { return isStunned; }
-    public void SetStunned(bool isStunned) { this.isStunned = isStunned; }
-
-    public bool IsRooted() { return isRooted; }
-    public void SetRooted(bool isRooted) { this.isRooted = isRooted; }
+    public bool IsInvulnerable() { return statusFlag.HasFlag(StatusFlag.INVULNERABLE);}
+    public bool IsCasting() { return statusFlag.HasFlag(StatusFlag.CASTING); }
+    public bool IsSlowed() { return statusFlag.HasFlag(StatusFlag.SLOWED); }
+    public bool IsStunned() { return statusFlag.HasFlag(StatusFlag.STUNNED); }
+    public bool IsRooted() { return statusFlag.HasFlag(StatusFlag.ROOTED); }
 
     protected Vector3 moveDir;
     public Vector3 GetMoveDir() { return moveDir; }
@@ -278,15 +293,22 @@ public class Unit : MonoBehaviour, IDamage
         moveDir = move.x * transform.right +
                     move.y * transform.forward;
     }
-    public float GetSpeed() { return speedBonus; }
+    public float GetSpeed() 
+    { 
+        if(IsStunned() ||  IsRooted())
+        {
+            return 0.0f;
+        }
+        return stats[AttributeFlags.MOVESPEED];
+    }
 
     public Damage CalculateDamage(float damage, float coefficient, bool canCrit = true)
     {
-        damage += (coefficient * damageBonus);
-        damage *= damageModifier;
+        damage += (coefficient * stats[AttributeFlags.DAMAGE]);
+        damage *= stats.GetModifier(AttributeFlags.DAMAGE);
 
-        bool isCritical = Random.Range(0.0f, 1.0f) < critChanceBonus;
-        damage *= isCritical && canCrit ? critDamageBonus : 1.0f;
+        bool isCritical = Random.Range(0.0f, 1.0f) < stats[AttributeFlags.CRIT_CHANCE];
+        damage *= isCritical && canCrit ? stats[AttributeFlags.CRIT_DAMAGE] : 1.0f;
 
         return new Damage(damage, isCritical);
     }
@@ -302,8 +324,11 @@ public class Unit : MonoBehaviour, IDamage
          * Defense 60 : Damage 25 (Average 1.25% per defense)
          * Defense 140 : Damage 12.5 (Average 0.625% per defense)
          */
-        float damageReduction = (IDamage.DefenseCoefficient / (IDamage.DefenseCoefficient + defenseBonus)); 
+        float damageReduction = (IDamage.DefenseCoefficient / (IDamage.DefenseCoefficient + stats[AttributeFlags.DEFENSE])); 
         damage *= damageReduction;
+
+        if(stats.GetModifier(AttributeFlags.DEFENSE) != 0)
+            damage /= stats.GetModifier(AttributeFlags.DEFENSE);
 
         return damage;
     }
@@ -324,6 +349,11 @@ public class Unit : MonoBehaviour, IDamage
         UpdateStats();
 
         UpdateInterface();
+
+        if(ability.Info().StatusType != EffectStatusType.NONE)
+        {
+            ApplyStatus((StatusFlag)ability.Info().StatusType, ability);
+        }
     }
     
     public void RemoveEffect(Ability ability)
@@ -331,6 +361,11 @@ public class Unit : MonoBehaviour, IDamage
         int _id = ability.GetID();
         if (effects.ContainsKey(_id))
         {
+            if(ability.Info().StatusType != EffectStatusType.NONE)
+            {
+                RemoveStatus((StatusFlag)ability.Info().StatusType, ability);
+            }
+
             effects[_id].CleanUp(true);
             effects.Remove(_id);
         }
@@ -339,58 +374,87 @@ public class Unit : MonoBehaviour, IDamage
         UpdateInterface();
     }
 
-    public virtual void InterruptCasting()
+    public virtual void InterruptCasting(Ability source = null, Unit other = null)
     {
-        SetCasting(false);
-        OnInterrupted();
+        RemoveStatus(StatusFlag.CASTING);
+        ProccessEvent(TriggerFlags.ON_INTERRUPT, other, source);
     }
 
-    public virtual void TakeDamage(float amount, Unit other = null)
+    public virtual void TakeDamage(float amount, Ability source = null, Unit other = null)
     {
-        TakeDamage(new Damage(amount), other);
+        TakeDamage(new Damage(amount), source, other);
     }
 
     //Overridable but not recommended
-    public virtual void TakeDamage(Damage damage, Unit other = null)
+    public virtual void TakeDamage(Damage damage, Ability source = null, Unit other = null)
     {
-        if (isInvulnerable) return;
+        if (IsInvulnerable()) return;
 
-        float _reducedDamage = CalculateDefense(damage.Amount);
-        healthCurrent -= _reducedDamage;
+        damage.Amount = CalculateDefense(damage.Amount);
 
         if (other != null)
         {
-            other.OnDamage(damage, this);
+            other.ProccessEvent(TriggerFlags.ON_DAMAGE, other, source, damage);
         }
-        
-        OnDamaged(damage, other);
 
-        if(healthCurrent <= 0)
+        ProccessEvent(TriggerFlags.ON_DAMAGED, damage: damage, source: source, other: other);
+
+        healthCurrent -= damage.Amount;
+
+        if (healthCurrent <= 0)
         {
-            OnDeath(other);
+            ProccessEvent(TriggerFlags.ON_DEATH, source: source, other: other);
         }
         if (unitInterface != null)
         {
             UpdateInterface();
             unitInterface.CreateFloatingNumber((int)damage.Amount);
         }
+    }
 
-        //string damageOutput = unitName + " took " + _reducedDamage + " damage";
-        //damageOutput += damage.IsCritical ? " (Critical)." : ".";
-        //Debug.Log(damageOutput);
+    public virtual void ProccessEvent(TriggerFlags trigger, Unit other = null, Ability source = null, Damage damage = new Damage())
+    {
+        int effectsCount = effects.Count;
+
+        foreach (Ability ability in effects.Values)
+        {
+            if (ability.Info().TriggerFlags.HasFlag(trigger))
+            {
+                if(source != ability)
+                    ability.DoEffectApply(other);
+                if (effectsCount != effects.Count) break;
+            }
+        }
+
+        if (trigger == TriggerFlags.ON_DEATH)
+        {
+            OnDeath();
+        }
+
+        Events[trigger]?.Invoke(this, new object[] { other, source, damage });
     }
 
     //Scriptable functions
-    public virtual void OnHit(Unit other, Ability ability) { }
-    public virtual void OnDamage(Damage damage, Unit other = null) { }
-    public virtual void OnDamaged(Damage damage, Unit other = null){ }
-    public virtual void OnHealed(Damage damage, GameObject obj = null) { }
-    public virtual void OnKill(Unit other){ }
-    public virtual void OnInterrupted(Unit other = null){ }
-    public virtual void OnCast(Ability ability = null) { }
-    public virtual void OnDeath(Unit other = null)
+    public virtual void OnCastStart(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnCast(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnCastEnd(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnHit(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnDamage(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnDamaged(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnKill(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnUpdate(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnHealed(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnInterrupted(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnSlow(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnRoot(Unit other = null, Ability source = null, Damage damage = default) { }
+    public virtual void OnStun(Unit other = null, Ability source = null, Damage damage = default) { }
+
+    public virtual void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
-        if(other != null) { other.OnKill(this); }
+        if(other != null) 
+        { 
+            other.ProccessEvent(TriggerFlags.ON_KILL, other: this);
+        }
         CleanUp();
         Destroy(gameObject);
     }

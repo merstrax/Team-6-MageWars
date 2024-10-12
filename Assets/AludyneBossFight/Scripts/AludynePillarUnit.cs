@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AludynePillarUnit : Unit
 {
-    public override void OnDeath(Unit other = null)
+    public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
         AludyneBossFight aludyneBossFight = FindAnyObjectByType<AludyneBossFight>();
 

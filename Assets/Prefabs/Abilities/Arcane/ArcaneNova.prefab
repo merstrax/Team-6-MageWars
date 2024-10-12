@@ -33952,8 +33952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc070a14ad163a34cb2881e781bf85fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityInfo: {fileID: 11400000, guid: 0771f03505eda2d4fa1f65d4f04080a1, type: 2}
-  isTarget: 1
+  AbilityInfo: {fileID: 11400000, guid: 97af1f791d945d745b665b39187b2dbc, type: 2}
+  isTarget: 0
   myCollider: {fileID: 8207237486296091878}
   myVisual: {fileID: 4908466441265615265}
   myRigidbody: {fileID: 6983015272762165662}

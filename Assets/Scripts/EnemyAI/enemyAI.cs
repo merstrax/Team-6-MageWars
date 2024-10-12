@@ -256,7 +256,7 @@ public class enemyAI : Unit
 
     // --- Combat and Health ---
 
-    public override void OnDeath(Unit other = null)
+    public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
         isDead = true;
         agent.SetDestination(transform.position);

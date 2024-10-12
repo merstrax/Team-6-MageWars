@@ -56,7 +56,7 @@ public class AludyneBossFight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        aludyneUnit.SetInvulnerable(true);
+        aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
         //TODO - Add stun to unit and AI
         aludyneUnit.SetHealthCurrent(1.0f);
 
@@ -138,7 +138,7 @@ public class AludyneBossFight : MonoBehaviour
         yield return new WaitForSeconds(pillarHealTimer);
 
         currentPhase = Phases.PHASE_2;
-        aludyneUnit.SetInvulnerable(false);
+        aludyneUnit.RemoveStatus(StatusFlag.INVULNERABLE);
     }
 
     IEnumerator Phase1_EndBad()
@@ -155,7 +155,7 @@ public class AludyneBossFight : MonoBehaviour
         //Add get health current percent to unit
         if(aludyneUnit.GetHealthCurrent() <= 0.05)
         {
-            aludyneUnit.SetInvulnerable(true);
+            aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
             //TODO - Set Stunned
             StartCoroutine(Phase2_End());
             return;

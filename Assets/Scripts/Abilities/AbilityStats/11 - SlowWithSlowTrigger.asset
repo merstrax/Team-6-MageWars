@@ -10,37 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 9- GolemThrow
+  m_Name: 11 - SlowWithSlowTrigger
   m_EditorClassIdentifier: 
-  AbilityName: Golem Melee
+  AbilityName: Slow with Slow Trigger Effect
   AbilityDescription: 
-  AbilityID: 9
+  AbilityID: 11
   AbilityFlag: 0
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0
-  AbilityType: 0
+  AbilityType: 2
   CastType: 0
   Cooldown: 0
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
-  EffectType: 0
+  EffectType: 3
   EffectTargetType: 0
-  StatusType: 0
-  AttributeFlags: 0
+  StatusType: 1
+  AttributeFlags: 8
   ElementFlags: 0
-  TriggerFlags: 0
-  ModifierType: 0
-  EffectAbility: {fileID: 0}
-  EffectAmount: 10
+  TriggerFlags: 1024
+  ModifierType: 2
+  EffectAbility: {fileID: 11400000, guid: 33138b22c6bab344cb4de49187468b7b, type: 2}
+  EffectAmount: 0.5
   DamageCoefficent: 0
-  EffectTriggerChance: 0
+  EffectTriggerChance: 100
   EffectAbilityID: 0
   EffectAbilityFlag: 0
   EffectStackAmount: 0
   EffectStackMax: 0
-  EffectDuration: 1
+  EffectDuration: 3
   EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0

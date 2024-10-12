@@ -15,13 +15,15 @@ MonoBehaviour:
   AbilityName: Arcane Bolt
   AbilityDescription: Fire a bolt of Arcane Damage dealing {$d} damage.
   AbilityID: 1
-  AbilityFlag: 0
   AbilitySpeed: 35
   AbilityRange: 20
   ElementType: 1
   AbilityType: 0
   CastType: 0
   Cooldown: 1
+  CastTime: 0
+  IsRooted: 0
+  IsTarget: 0
   EffectType: 0
   EffectTargetType: 0
   StatusType: 0
@@ -29,12 +31,11 @@ MonoBehaviour:
   ElementFlags: 0
   TriggerFlags: 8
   ModifierType: 0
-  EffectAbility: {fileID: 11400000, guid: 3ab51a0f7d80de847b58ba5a880b6be3, type: 2}
+  EffectAbility: {fileID: 11400000, guid: 407b7c58d14866f4e9913e2309897258, type: 2}
   EffectAmount: 10
   DamageCoefficent: 0.3
   EffectTriggerChance: 100
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
+  EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 5
   EffectTickSpeed: 0

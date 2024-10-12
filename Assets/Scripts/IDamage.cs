@@ -9,12 +9,12 @@ public struct Damage
     public float Amount { get; set; }
     public bool IsCritical { get; set; }
 
-    public Damage(float amount, bool isCritical = false) { Amount = amount; IsCritical = isCritical; }
+    public Damage(float amount = 0, bool isCritical = false) { Amount = amount; IsCritical = isCritical; }
 }
 
 public interface IDamage
 {
     protected const float DefenseCoefficient = 20.0f;
     //void TakeDamage(float amount, Unit other = null);
-    void TakeDamage(Damage damage, Unit other = null);
+    void TakeDamage(Damage damage, Ability source = null, Unit other = null);
 }

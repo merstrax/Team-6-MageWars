@@ -22,6 +22,9 @@ MonoBehaviour:
   AbilityType: 1
   CastType: 0
   Cooldown: 2
+  CastTime: 0
+  IsRooted: 0
+  IsTarget: 1
   EffectType: 0
   EffectTargetType: 0
   StatusType: 0
@@ -35,6 +38,7 @@ MonoBehaviour:
   EffectTriggerChance: 1
   EffectAbilityID: 0
   EffectAbilityFlag: 0
+  EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 3
   EffectTickSpeed: 0.1

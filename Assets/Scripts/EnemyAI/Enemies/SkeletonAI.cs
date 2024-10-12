@@ -41,7 +41,7 @@ public class SkeletonAI : enemyAI
         animator.Play("MeleeAttack");
 
         // Deal damage to the player
-        GameManager.instance.player.GetComponent<Unit>().TakeDamage(7, this as Unit); 
+        GameManager.instance.player.GetComponent<Unit>().TakeDamage(7, other: this as Unit); 
     }
 
     public void RightHandEnable()
