@@ -56,8 +56,8 @@ public class PlayerController : Unit
 
         if (abilityPassive != null)
         {
-            abilityPassive[0] = Instantiate(abilityPassive[0], GetCastPos());
-            abilityHandlers[0].Setup(this, abilityPassive[0]);
+            //abilityPassive[0] = Instantiate(abilityPassive[0], GetCastPos());
+            //abilityHandlers[0].Setup(this, abilityPassive[0]);
         }
         
         for (int i = 0; i < abilities.Length; i++)
