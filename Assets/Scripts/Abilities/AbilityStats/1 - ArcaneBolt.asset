@@ -31,7 +31,7 @@ MonoBehaviour:
   ElementFlags: 0
   TriggerFlags: 8
   ModifierType: 0
-  EffectAbility: {fileID: 11400000, guid: 407b7c58d14866f4e9913e2309897258, type: 2}
+  EffectAbility: {fileID: 11400000, guid: 3ab51a0f7d80de847b58ba5a880b6be3, type: 2}
   EffectAmount: 10
   DamageCoefficent: 0.3
   EffectTriggerChance: 100

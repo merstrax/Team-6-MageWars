@@ -93,7 +93,7 @@
                     "id": "cf8a1695-29ca-4ac0-ae5e-1a2abd63b6a1",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "StickDeadzone",
+                    "processors": "NormalizeVector2",
                     "groups": ";Default",
                     "action": "Look",
                     "isComposite": false,
