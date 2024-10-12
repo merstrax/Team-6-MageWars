@@ -193,6 +193,8 @@ public class Ability : MonoBehaviour
             GameObject _effect = new(AbilityInfo.EffectAbility.AbilityName);
             Ability toApply = _effect.AddComponent<Ability>();
 
+            if (other == null) other = this.other;
+
             toApply.SetAbilityInfo(AbilityInfo.EffectAbility);
             toApply.SetOwner(owner);
             toApply.SetOther(other);
@@ -203,7 +205,8 @@ public class Ability : MonoBehaviour
                     owner.ApplyEffect(toApply);
                     break;
                 case EffectTargetType.OTHER:
-                    other.ApplyEffect(toApply);
+                    if(other != null)
+                        other.ApplyEffect(toApply);
                     break;
                 default:
                     break;
@@ -262,7 +265,7 @@ public class Ability : MonoBehaviour
 
         this.other = other.GetComponent<Unit>();
 
-        if (this.other != owner && this.other != null)
+        if (this.other != owner && this.other != null && !other.CompareTag(owner.tag))
         {
             OnHit(this.other);
         }

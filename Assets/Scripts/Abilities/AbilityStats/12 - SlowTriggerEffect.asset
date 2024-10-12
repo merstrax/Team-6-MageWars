@@ -15,7 +15,6 @@ MonoBehaviour:
   AbilityName: Stun Triggered By Slow
   AbilityDescription: 
   AbilityID: 12
-  AbilityFlag: 0
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0
@@ -26,7 +25,7 @@ MonoBehaviour:
   IsRooted: 0
   IsTarget: 0
   EffectType: 3
-  EffectTargetType: 0
+  EffectTargetType: 1
   StatusType: 4
   AttributeFlags: 0
   ElementFlags: 0
@@ -36,8 +35,6 @@ MonoBehaviour:
   EffectAmount: 0
   DamageCoefficent: 0
   EffectTriggerChance: 0
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
   EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 3

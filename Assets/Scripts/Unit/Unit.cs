@@ -436,7 +436,7 @@ public class Unit : MonoBehaviour, IDamage
             OnDeath();
         }
 
-        Events[trigger]?.Invoke(this, new object[] { other, source, damage });
+        Events[trigger].Invoke(this, new object[] { other, source, damage });
     }
 
     //Scriptable functions

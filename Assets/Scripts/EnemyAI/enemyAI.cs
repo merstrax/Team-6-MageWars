@@ -90,8 +90,6 @@ public class enemyAI : Unit
     {
         if (isDead) return;
 
-        //UpdateTargeting();
-
         switch (currentState)
         {
             case AIState.Idle:
@@ -112,30 +110,9 @@ public class enemyAI : Unit
     }
 
     // --- State Methods ---
-
-    protected virtual void UpdateTargeting()
-    {
-
-        int layerMask = LayerMask.GetMask(new string[] {"Player"}); 
-
-        if (Physics.Raycast(headPos.position, Vector3.forward, out RaycastHit hit, aggroRange, layerMask))
-        {
-            Debug.Log(hit);
-            Unit targetHit = hit.collider.gameObject.GetComponentInParent<Unit>();
-
-            if (targetHit != null)
-            {
-                target = targetHit; 
-            }
-            else
-            {
-                target = null;
-            }
-        }
-    }
-
     protected void IdleState()
     {
+        animator.SetBool("isMoving", false);
         if (IsPlayerInRange() && IsPlayerVisible())
         {
             currentState = AIState.Chasing;
@@ -153,9 +130,10 @@ public class enemyAI : Unit
         {
             currentState = AIState.Idle;
             RemoveStatus(StatusFlag.INVULNERABLE);
+            RemoveAllEffects();
         }
 
-
+        agent.speed = 10;
     }
 
     protected void ChasingState()
@@ -165,6 +143,7 @@ public class enemyAI : Unit
         if (distanceFromStart >= kiteRange)
         {
             currentState = AIState.Reset;
+            healthCurrent = healthMax;
             ApplyStatus(StatusFlag.INVULNERABLE);
 
             RemoveAllEffects();
@@ -186,9 +165,10 @@ public class enemyAI : Unit
 
     protected void AttackingState()
     {
+        animator.SetBool("isMoving", false);
         // Fetch ability>cast>CD
         AbilityHandler abilityHandler = ChooseAttack();
-        if (abilityHandler != null && canCastAbility && target != null)
+        if (abilityHandler != null && canCastAbility && target != null && !IsStunned())
         {
             CastAbility(abilityHandler);
             StartCoroutine(Attack());
@@ -226,8 +206,9 @@ public class enemyAI : Unit
     {
         if (target != null)
         {
+            agent.speed = GetSpeed();
             agent.SetDestination(target.gameObject.transform.position);
-            animator.SetBool("isMoving", true);
+            animator.SetBool("isMoving", !IsStunned() && !IsRooted());
         }
     }
 
@@ -241,19 +222,21 @@ public class enemyAI : Unit
     {
         Vector3 directionToPlayer = (GameManager.instance.player.transform.position - headPos.position).normalized;
         float angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
-        if (angleToPlayer < viewAngle) return true;
-        int layerMask = LayerMask.GetMask(new string[] { "Player" }); 
-
-        if (Physics.Raycast(headPos.position, directionToPlayer, out RaycastHit hit, aggroRange, layerMask))
+        if (angleToPlayer < viewAngle)
         {
-            if (hit.collider.gameObject.TryGetComponent<Unit>(out Unit unit))
-            {
-                target = unit;
+            int layerMask = LayerMask.GetMask(new string[] { "Player" });
 
-                return true;
+            if (Physics.Raycast(headPos.position, directionToPlayer, out RaycastHit hit, aggroRange))
+            {
+                Debug.Log(hit);
+                if (hit.collider.gameObject.TryGetComponent<Unit>(out Unit unit))
+                {
+                    target = unit;
+
+                    return true;
+                }
             }
         }
-
         target = null;
         return false;
     }
@@ -279,7 +262,7 @@ public class enemyAI : Unit
     public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
         isDead = true;
-        animator.SetTrigger("Die");
+        //animator.SetTrigger("Die");
         TryDropHealthPickup();
         base.OnDeath(other);
     }
@@ -324,6 +307,20 @@ public class enemyAI : Unit
         return false;
     }
 
+    public override void OnSlow(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        agent.speed = GetSpeed();
+    }
+
+    public override void OnStun(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        agent.speed = GetSpeed();
+    }
+
+    public override void OnRoot(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        agent.speed = GetSpeed();
+    }
 
     //protected void SearchingState()
     //{

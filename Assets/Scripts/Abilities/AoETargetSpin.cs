@@ -41,24 +41,18 @@ public class AoETargetSpin : MonoBehaviour
             targetScale = ((1 + scaleDelta) * originalScale).x;
             shrink = currentScale >= targetScale - 1;
         }
-
-        //outerRing.transform.localScale = Vector3.Lerp(outerRing.transform.localScale, currentScale * originalScale, Time.deltaTime);
     }
 
     public void SetScale(float scale)
     {
         outerRing.transform.localScale = scale * Vector3.one;
         originalScale = outerRing.transform.localScale;
-        //originalScaleValue = scale;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-       
         if (other.isTrigger)
             return;
-
-        Debug.Log(other);
 
         if (other.gameObject.TryGetComponent<Unit>(out var hit))
         {

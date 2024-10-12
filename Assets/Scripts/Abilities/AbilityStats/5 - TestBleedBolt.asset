@@ -15,13 +15,15 @@ MonoBehaviour:
   AbilityName: Test Bleed Bolt
   AbilityDescription: 
   AbilityID: 5
-  AbilityFlag: 0
   AbilitySpeed: 35
-  AbilityRange: 0
+  AbilityRange: 20
   ElementType: 5
   AbilityType: 0
   CastType: 0
-  Cooldown: 1
+  Cooldown: 3
+  CastTime: 0
+  IsRooted: 0
+  IsTarget: 0
   EffectType: 0
   EffectTargetType: 1
   StatusType: 0
@@ -33,8 +35,7 @@ MonoBehaviour:
   EffectAmount: 2
   DamageCoefficent: 0
   EffectTriggerChance: 1
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
+  EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 3
   EffectTickSpeed: 0
