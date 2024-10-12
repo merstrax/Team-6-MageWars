@@ -19,6 +19,8 @@ public class AoETargetSpin : MonoBehaviour
     public float targetScale;
     bool shrink;
 
+    [SerializeField] SphereCollider myCollider;
+
     // Update is called once per frame
     void Update()
     {
@@ -48,5 +50,27 @@ public class AoETargetSpin : MonoBehaviour
         outerRing.transform.localScale = scale * Vector3.one;
         originalScale = outerRing.transform.localScale;
         //originalScaleValue = scale;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+       
+        if (other.isTrigger)
+            return;
+
+        Debug.Log(other);
+
+        if (other.gameObject.TryGetComponent<Unit>(out var hit))
+        {
+            hit.TargetOutline();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<Unit>(out var hit))
+        {
+            hit.TargetOutline(false);
+        }
     }
 }
