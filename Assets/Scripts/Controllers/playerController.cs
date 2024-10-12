@@ -16,8 +16,9 @@ public class PlayerController : Unit
     [Header("Player Movement")]
     [SerializeField] float dashTiming;
 
-    //Player Shoot[Header("Player Abilities")]
-    [SerializeField] Ability abilityPassive;
+    //Player Shoot
+    [Header("Player Abilities")]
+    [SerializeField] Ability[] abilityPassive;
     [SerializeField] Ability[] abilities;
     readonly AbilityHandler[] abilityHandlers = new AbilityHandler[4];
     
@@ -55,8 +56,8 @@ public class PlayerController : Unit
 
         if (abilityPassive != null)
         {
-            abilityPassive = Instantiate(abilityPassive, GetCastPos());
-            abilityHandlers[0].Setup(this, abilityPassive);
+            abilityPassive[0] = Instantiate(abilityPassive[0], GetCastPos());
+            abilityHandlers[0].Setup(this, abilityPassive[0]);
         }
         
         for (int i = 0; i < abilities.Length; i++)

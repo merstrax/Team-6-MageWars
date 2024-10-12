@@ -167,7 +167,7 @@ public class enemyAI : Unit
             currentState = AIState.Reset;
             ApplyStatus(StatusFlag.INVULNERABLE);
 
-            //RemoveAllEffects();
+            RemoveAllEffects();
 
             return;
         }

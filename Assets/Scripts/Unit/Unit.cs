@@ -226,7 +226,7 @@ public class Unit : MonoBehaviour, IDamage
                         }
                     }
 
-                    currentFlag = currentFlag << 1;
+                    currentFlag <<= 1;
                 }
             }
         }
@@ -374,6 +374,11 @@ public class Unit : MonoBehaviour, IDamage
         UpdateInterface();
     }
 
+    public void RemoveAllEffects()
+    {
+        CleanUp();
+    }
+
     public virtual void InterruptCasting(Ability source = null, Unit other = null)
     {
         RemoveStatus(StatusFlag.CASTING);
@@ -466,6 +471,7 @@ public class Unit : MonoBehaviour, IDamage
         {
             ability.CleanUp(true);
         }
+        effects.Clear();
     }
 
     private void UpdateInterface()
