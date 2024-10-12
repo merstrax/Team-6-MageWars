@@ -100,14 +100,14 @@ public class GolemAI : enemyAI
 
     public void LeftFootEnable()
     {
-        //LeftFoot.gameObject.SetActive(true);
+        LeftFoot.gameObject.SetActive(true);
         Ability _stomp = Instantiate(stomp, LeftFoot.transform); 
         _stomp.StartCast(this, transform.position);
     }
 
     public void LeftFootDisabled()
     {
-        //LeftFoot.gameObject.SetActive(false);
+      LeftFoot.gameObject.SetActive(false);
     }
 
     public void OnThrowEnable()
