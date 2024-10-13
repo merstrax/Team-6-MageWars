@@ -18,7 +18,7 @@ public class enemyStats : ScriptableObject
     [Header("Aggro and Roaming")]
     public float aggroRange;
     public float kiteRange;
-    public int viewAngle;
+    public int viewAngle; 
 
     [Header("AI Abilities")]
     public Ability[] abilityPassive;

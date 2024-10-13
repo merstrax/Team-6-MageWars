@@ -68,10 +68,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityInfo: {fileID: 11400000, guid: 252e8f4af7845f945975d436111cd8ae, type: 2}
-  isTarget: 0
   myCollider: {fileID: 5548569805544827344}
-  myVisual: {fileID: 0}
+  myVisual: {fileID: 100010, guid: 0779ad1cf28e6924c8bccb279d18eccf, type: 3}
   myRigidbody: {fileID: 0}
+  scriptName: 
 --- !u!1001 &4790922516671478790
 PrefabInstance:
   m_ObjectHideFlags: 0

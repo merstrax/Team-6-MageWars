@@ -16,11 +16,11 @@ MonoBehaviour:
   AbilityDescription: 
   AbilityID: 8
   AbilitySpeed: 0
-  AbilityRange: 5
-  ElementType: 0
-  AbilityType: 0
+  AbilityRange: 7
+  ElementType: 5
+  AbilityType: 1
   CastType: 0
-  Cooldown: 5
+  Cooldown: 3
   CastTime: 0
   IsRooted: 0
   IsTarget: 0

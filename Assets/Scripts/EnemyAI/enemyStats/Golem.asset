@@ -25,6 +25,6 @@ MonoBehaviour:
   viewAngle: 90
   abilityPassive: []
   abilities:
-  - {fileID: 39563482987813226, guid: f7b2abc1a7cdbee4780ad5a7e96ad2de, type: 3}
+  - {fileID: 5482782143325043695, guid: f2b27d56e521f104cb4071db95ba0721, type: 3}
   abilityRate: 2
   dropChance: 0

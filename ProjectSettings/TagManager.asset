@@ -9,6 +9,8 @@ TagManager:
   - Golem
   - AludyneBossFight
   - Terrain
+  - Skeleton
+  - Bear
   layers:
   - Default
   - TransparentFX
