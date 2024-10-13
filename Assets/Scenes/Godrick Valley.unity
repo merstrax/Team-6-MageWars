@@ -4054,11 +4054,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7920499531102777241, guid: a6ccbfa9e924d7d44ad60620c01b2898,
         type: 3}
-      propertyPath: unitName
-      value: Skeleton
-      objectReference: {fileID: 0}
-    - target: {fileID: -7920499531102777241, guid: a6ccbfa9e924d7d44ad60620c01b2898,
-        type: 3}
       propertyPath: unitInterface
       value: 
       objectReference: {fileID: 1522592649}

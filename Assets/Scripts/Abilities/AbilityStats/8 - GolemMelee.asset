@@ -16,7 +16,7 @@ MonoBehaviour:
   AbilityDescription: 
   AbilityID: 8
   AbilitySpeed: 0
-  AbilityRange: 7
+  AbilityRange: 2
   ElementType: 5
   AbilityType: 1
   CastType: 0

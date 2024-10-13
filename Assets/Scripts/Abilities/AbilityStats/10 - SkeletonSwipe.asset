@@ -15,13 +15,12 @@ MonoBehaviour:
   AbilityName: Skeleton Swipe
   AbilityDescription: 
   AbilityID: 10
-  AbilityFlag: 0
   AbilitySpeed: 0
-  AbilityRange: 0
+  AbilityRange: 2
   ElementType: 0
   AbilityType: 0
   CastType: 0
-  Cooldown: 0
+  Cooldown: 3
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
@@ -36,8 +35,6 @@ MonoBehaviour:
   EffectAmount: 10
   DamageCoefficent: 0
   EffectTriggerChance: 0
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
   EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 1
