@@ -191,7 +191,7 @@ public class PlayerController : Unit
 
     private void CastAbility(AbilityHandler ability)
     {
-        Ability _ability = Instantiate(ability.GetAbility(), GetCastPos().position, transform.rotation);
+        Ability _ability = Instantiate(ability.GetAbility(), GetCastPos(0).position, transform.rotation);
         _ability.SetOwner(this);
 
         if (ability.IsMovementAbility())
@@ -216,7 +216,7 @@ public class PlayerController : Unit
         else
         {
             toCastPos = target.transform.position;
-            toCastPos.y += (target.GetComponent<CapsuleCollider>().height * 0.75f);
+            toCastPos.y += ((target.GetComponent<CapsuleCollider>().height * target.transform.localScale.y) * 0.75f);
         }
 
         _ability.StartCast(this, toCastPos);

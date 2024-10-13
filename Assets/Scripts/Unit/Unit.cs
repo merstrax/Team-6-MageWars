@@ -98,8 +98,21 @@ public class Unit : MonoBehaviour, IDamage
     [Header("Unit Info")]
     [SerializeField] protected string unitName;
     public string GetUnitName() { return unitName; }
-    [SerializeField] Transform castPos;
-    public Transform GetCastPos() { return castPos; }
+
+    [SerializeField] protected AnimationContainer animations;
+    public string GetAnimation(AnimationType animation) { return animations[animation]; }
+
+    [SerializeField] protected Transform[] castPositions;
+    public Transform GetCastPos(uint castPos)
+    {
+        if (castPos > castPositions.Length)
+            castPos = 0;
+
+        if(castPositions.Length == 0)
+            return transform;
+
+        return castPositions[castPos];
+    }
 
     [Header("Unit Stats")]
     [SerializeField] protected float healthRegen;
