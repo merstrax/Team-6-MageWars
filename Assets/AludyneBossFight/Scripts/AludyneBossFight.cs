@@ -67,9 +67,9 @@ public class AludyneBossFight : MonoBehaviour
     {
         if (aludyneUnit != null)
         {
-            aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
+            //aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
             //TODO - Add stun to unit and AI
-            aludyneUnit.SetHealthCurrent(1.0f);
+            //aludyneUnit.SetHealthCurrent(1.0f);
         }
         pillarList = new List<AludynePillarUnit>() { arcanePillar, firePillar, frostPillar, windPillar };
     }
