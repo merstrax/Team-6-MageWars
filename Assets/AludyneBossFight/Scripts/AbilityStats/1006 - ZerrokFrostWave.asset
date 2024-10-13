@@ -34,7 +34,7 @@ MonoBehaviour:
   EffectAbility: {fileID: 11400000, guid: 3201bcb7db0977d409c35b7358a99c7d, type: 2}
   EffectAmount: 15
   DamageCoefficent: 0
-  EffectTriggerChance: 100
+  EffectTriggerChance: 1
   EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 4
