@@ -73,7 +73,7 @@ public class PlayerInputController : MonoBehaviour
     {
         if (context.performed)
         {
-            Instantiate(testDummy, transform.position + (Vector3.right * 5), transform.rotation);
+            Instantiate(testDummy);
         }
     }
 

@@ -10,37 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 10- SkeletonSwipe
+  m_Name: 1007 - ZerrokFrostWaveRoot
   m_EditorClassIdentifier: 
-  AbilityName: Skeleton Swipe
+  AbilityName: 
   AbilityDescription: 
-  AbilityID: 10
-  AbilityFlag: 0
+  AbilityID: 1007
   AbilitySpeed: 0
   AbilityRange: 0
-  ElementType: 0
-  AbilityType: 0
+  ElementType: 2
+  AbilityType: 2
   CastType: 0
   Cooldown: 0
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
-  EffectType: 0
-  EffectTargetType: 0
-  StatusType: 0
+  EffectType: 2
+  EffectTargetType: 1
+  StatusType: 2
   AttributeFlags: 0
   ElementFlags: 0
   TriggerFlags: 0
   ModifierType: 0
   EffectAbility: {fileID: 0}
-  EffectAmount: 10
+  EffectAmount: 0
   DamageCoefficent: 0
   EffectTriggerChance: 0
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
   EffectStackAmount: 0
   EffectStackMax: 0
-  EffectDuration: 1
+  EffectDuration: 3
   EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0

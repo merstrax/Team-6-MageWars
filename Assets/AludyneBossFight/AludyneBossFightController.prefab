@@ -44,28 +44,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d603208f5952d45a4a28b54a752c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frostPillar: {fileID: 4800605422500310663, guid: fa148fc5593d5794c9e6c0cdafa4871a,
-    type: 3}
-  firePillar: {fileID: 5614397671776344584, guid: 8f25575818d62994fb4e9cc36bf3f8b2,
-    type: 3}
-  arcanePillar: {fileID: 7808638750030571196, guid: 6630efdd96c2e7f428a9fe997c93df0b,
-    type: 3}
-  windPillar: {fileID: 8770671891692338676, guid: 243c3860548e00345a7cc5c0c372ddb0,
-    type: 3}
+  frostPillar: {fileID: 0}
+  firePillar: {fileID: 0}
+  arcanePillar: {fileID: 0}
+  windPillar: {fileID: 0}
   pillarHealAmount: 3
   pillarHealTimer: 10
-  zerrokObject: {fileID: 0}
-  zerrokFireAbility: {fileID: 0}
+  zerrokObject: {fileID: 2801480409112572924, guid: 62792610287faf2499ce9f1668e466e4,
+    type: 3}
+  zerrokFireAbility: {fileID: 287626724397333200, guid: 02d1c5f2d3d0a69408057b13212fa3b1,
+    type: 3}
   zerrokFrostAbility: {fileID: 0}
-  zerrokWindAbility: {fileID: 0}
+  zerrokWindAbility: {fileID: 6453696354812325218, guid: 6d73d7e71d9fea64f86267f916169a35,
+    type: 3}
   zerrokArcaneAbility: {fileID: 0}
   zerrokAbilityTimer: 5
+  zerrokPillarTimer: 0
   zerrokFlameElemental: {fileID: 0}
-  lesserElemental: {fileID: 0}
+  lesserElemental: {fileID: 3650769174419778765, guid: d158125c94d862944ab7b090cc909bf7,
+    type: 3}
   lesserElementalSpawnLocations: []
   lesserElementalSpawnCount: 2
   lesserElementalSpawnTime: 15
-  aludyneUnit: {fileID: 0}
+  aludyneUnit: {fileID: 8978973148482023752, guid: 39105ab43fce52442a724463553e6e2c,
+    type: 3}
   aludyneChaosVolley: {fileID: 0}
   aludyneGroundRupture: {fileID: 0}
   aludyneErruption: {fileID: 0}

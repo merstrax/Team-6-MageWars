@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 1 - ArcaneBolt
+  m_Name: 1005 - ZerrokArcaneMissile
   m_EditorClassIdentifier: 
-  AbilityName: Arcane Bolt
-  AbilityDescription: Fire a bolt of Arcane Damage dealing {$d} damage.
-  AbilityID: 1
-  AbilitySpeed: 35
-  AbilityRange: 20
-  ElementType: 1
+  AbilityName: 
+  AbilityDescription: 
+  AbilityID: 1005
+  AbilitySpeed: 0
+  AbilityRange: 0
+  ElementType: 0
   AbilityType: 0
   CastType: 0
-  Cooldown: 1
+  Cooldown: 0
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
@@ -31,10 +31,10 @@ MonoBehaviour:
   ElementFlags: 0
   TriggerFlags: 8
   ModifierType: 0
-  EffectAbility: {fileID: 11400000, guid: 3ab51a0f7d80de847b58ba5a880b6be3, type: 2}
-  EffectAmount: 10
-  DamageCoefficent: 0.3
-  EffectTriggerChance: 100
+  EffectAbility: {fileID: 11400000, guid: 0b34b2d86cb31d94fb293595ffc47f12, type: 2}
+  EffectAmount: 25
+  DamageCoefficent: 0
+  EffectTriggerChance: 1
   EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 5
@@ -44,5 +44,5 @@ MonoBehaviour:
   ResourceCooldown: 0
   ResourceReset: 0
   ComboAbilities: []
-  AbilityIcon: {fileID: 2800000, guid: 59f654c034abb334a8ba4591c79f4464, type: 3}
-  AbilityVisual: {fileID: 104516, guid: 62de476edefb27d4fa2d5681775e8586, type: 3}
+  AbilityIcon: {fileID: 0}
+  AbilityVisual: {fileID: 0}

@@ -20,10 +20,10 @@ public class Ability : MonoBehaviour
     protected List<Unit> others;
     protected Vector3 castTarget;
 
-    private int EffectStackCount = 1;
+    protected int EffectStackCount = 1;
     public int GetStacks() { return EffectStackCount; }
-    private float EffectTimeApplied = 0;
-    private float EffectLastTick;
+    protected float EffectTimeApplied = 0;
+    protected float EffectLastTick;
 
     [Header("Ability Components")]
     [SerializeField] protected Collider myCollider;
@@ -40,12 +40,6 @@ public class Ability : MonoBehaviour
         EffectTimeApplied = Time.time;
 
         others = new List<Unit>();
-
-        if (AbilityInfo.AbilityType == AbilityType.AREAOFEFFECT && AbilityInfo.EffectTickSpeed == 0)
-            AbilityInfo.EffectTickSpeed = 0.1f;
-
-
-        gameObject.tag = "Golem";
     }
 
     // Update is called once per frame
@@ -54,7 +48,8 @@ public class Ability : MonoBehaviour
         if (AbilityInfo.AbilityType == AbilityType.EFFECT)
             UpdateEffect();
 
-        if (AbilityInfo.AbilityType == AbilityType.AREAOFEFFECT)
+        //Area Effects with matching TickSpeed and Duration are handled like single target onHit effects
+        if (AbilityInfo.AbilityType == AbilityType.AREAOFEFFECT && Info().EffectTickSpeed != 0)
             UpdateAreaEffect();
 
         if (EffectTimeApplied + AbilityInfo.EffectDuration < Time.time)
@@ -95,7 +90,7 @@ public class Ability : MonoBehaviour
         if (owner == null) return;
 
         this.owner = owner;
-        gameObject.tag = owner.tag;
+        transform.gameObject.tag = owner.tag;
     }
 
     public void SetOther(Unit other)
@@ -108,7 +103,7 @@ public class Ability : MonoBehaviour
     //Basic Cast Handling
     public virtual void StartCast(Unit owner, Vector3 lookAt)
     {
-        this.owner = owner;
+        SetOwner(owner);
         owner.ProccessEvent(TriggerFlags.ON_CAST, other, this);
 
         if (AbilityInfo.CastType == CastType.INSTANT)
@@ -163,10 +158,14 @@ public class Ability : MonoBehaviour
             case EffectTargetType.OWNER:
                 if (owner != null)
                     owner.RemoveEffect(this);
+                else
+                    CleanUp(true);
                 break;
             case EffectTargetType.OTHER:
                 if (other != null)
                     other.RemoveEffect(this);
+                else
+                    CleanUp(true);
                 break;
             default:
                 break;
@@ -323,7 +322,7 @@ public class Ability : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.isTrigger)
             return;
@@ -333,7 +332,8 @@ public class Ability : MonoBehaviour
 
         if (this.other != owner && this.other != null && !other.CompareTag(gameObject.tag))
         {
-            if (Info().AbilityType == AbilityType.AREAOFEFFECT)
+            //Area Effects that dont persist should be treated as single target abilities that hit multiple targets
+            if (Info().AbilityType == AbilityType.AREAOFEFFECT && Info().EffectTickSpeed != 0)
             {
                 if (!others.Contains(_unit))
                 {
@@ -346,12 +346,10 @@ public class Ability : MonoBehaviour
             }
         }
 
-
-        if (other.CompareTag("MapObject") && Info().AbilityType != AbilityType.AREAOFEFFECT)
+        if ((other.CompareTag("MapObject") || other.gameObject.layer == LayerMask.NameToLayer("Terrain")) && Info().AbilityType != AbilityType.AREAOFEFFECT)
         {
             Destroy(gameObject);
         }
-
     }
 
     private void OnTriggerExit(Collider other)
