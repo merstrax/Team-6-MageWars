@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Bear
-  castPos: {fileID: 0}
+  castPos: {fileID: 4948058417776825329}
   healthRegen: 0
   healthBase: 0
   damageBase: 0
@@ -405,7 +405,7 @@ Animator:
   m_GameObject: {fileID: 1106588113570647217}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
-  m_Controller: {fileID: 9100000, guid: f8e25cbe36bef4442bab5b9f10540472, type: 2}
+  m_Controller: {fileID: 9100000, guid: ad9081b9672509247b6d991ac59bffc1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

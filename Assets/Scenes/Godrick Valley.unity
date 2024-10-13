@@ -1017,11 +1017,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6499523026902809493, guid: 0720c440dcea63c468f5568588e035cd,
         type: 3}
-      propertyPath: castPos
-      value: 
-      objectReference: {fileID: 270117601}
-    - target: {fileID: -6499523026902809493, guid: 0720c440dcea63c468f5568588e035cd,
-        type: 3}
       propertyPath: unitInterface
       value: 
       objectReference: {fileID: 1522592649}
@@ -1085,12 +1080,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0720c440dcea63c468f5568588e035cd, type: 3}
---- !u!4 &270117601 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4948058417776825329, guid: 0720c440dcea63c468f5568588e035cd,
-    type: 3}
-  m_PrefabInstance: {fileID: 270117597}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &288746646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4138,11 +4127,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7920499531102777241, guid: a6ccbfa9e924d7d44ad60620c01b2898,
         type: 3}
-      propertyPath: model
-      value: 
-      objectReference: {fileID: 1793493287}
-    - target: {fileID: -7920499531102777241, guid: a6ccbfa9e924d7d44ad60620c01b2898,
-        type: 3}
       propertyPath: unitInterface
       value: 
       objectReference: {fileID: 1522592649}
@@ -4196,11 +4180,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6036635453473558285, guid: a6ccbfa9e924d7d44ad60620c01b2898,
+    - target: {fileID: 4947504186526812065, guid: a6ccbfa9e924d7d44ad60620c01b2898,
         type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 23af1e38498851048aba66a0b9b91d3f, type: 2}
+      propertyPath: m_AgentTypeID
+      value: -1923039037
+      objectReference: {fileID: 0}
     - target: {fileID: 7901598093719267408, guid: a6ccbfa9e924d7d44ad60620c01b2898,
         type: 3}
       propertyPath: m_Name
@@ -4530,12 +4514,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2946757239679633591, guid: 2d8051828e40b384c8c9d1394f1fdfb1,
     type: 3}
   m_PrefabInstance: {fileID: 1711502616}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &1793493287 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5084379265514629020, guid: a6ccbfa9e924d7d44ad60620c01b2898,
-    type: 3}
-  m_PrefabInstance: {fileID: 1569743864}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1794841199
 PrefabInstance:

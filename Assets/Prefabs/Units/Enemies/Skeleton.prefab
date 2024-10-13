@@ -1437,12 +1437,12 @@ MonoBehaviour:
   unitInterface: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: 02f19d7db02cd8a4ea435877f37700b2, type: 2}
   animator: {fileID: 6036635453473558285}
-  model: {fileID: 0}
+  model: {fileID: 5084379265514629020}
   bodyCollider: {fileID: 3620549948210513988}
   headCollider: {fileID: 3638051124665397020}
   agent: {fileID: 4947504186526812065}
   headPos: {fileID: 7482975054958508614}
-  faceTargetSpeed: 45
+  faceTargetSpeed: 50
   healthDropPrefab: {fileID: 0}
 --- !u!95 &6036635453473558285
 Animator:
@@ -1454,7 +1454,7 @@ Animator:
   m_GameObject: {fileID: 7901598093719267408}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a58154c350c4ccf47a6cdad03a8dca1a, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6e092ad3d6b50a14bac692ea833c646a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5416b451c3f8d9147b04f212b674f0c4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1

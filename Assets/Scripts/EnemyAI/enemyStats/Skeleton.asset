@@ -16,7 +16,7 @@ MonoBehaviour:
   healthBase: 50
   damageBase: 0
   defenseBase: 0
-  speedBase: 6
+  speedBase: 5
   critChanceBase: 0.3
   critDamageBase: 2
   cooldownBase: 0
