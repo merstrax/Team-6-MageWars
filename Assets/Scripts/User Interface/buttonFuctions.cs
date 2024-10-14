@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 
 public class buttonFuctions : MonoBehaviour
@@ -20,6 +19,11 @@ public class buttonFuctions : MonoBehaviour
 
     public void resume()
     {
+        GameManager.instance.StateUnpause();
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.instance.StateUnpause();
     }
 

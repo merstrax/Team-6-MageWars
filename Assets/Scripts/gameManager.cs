@@ -38,12 +38,10 @@ public class GameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        menuSettings.SetActive(true);
-
     }
 
     // Update is called once per frame
-    public void OnPause(InputAction.CallbackContext context)
+    public void OnPause()
     {
         if (menuActive == null)
         {
@@ -64,9 +62,10 @@ public class GameManager : MonoBehaviour
     public void StatePause()
     {
         isPaused = !isPaused;
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        player.GetComponent<PlayerInput>().enabled = false;
     }
 
     public void StateUnpause()
@@ -77,6 +76,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(isPaused);
         menuActive = null;
+        player.GetComponent<PlayerInput>().enabled = true;
     }
 
 
