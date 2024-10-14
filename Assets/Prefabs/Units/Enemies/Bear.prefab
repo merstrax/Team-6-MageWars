@@ -375,7 +375,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Bear
-  castPos: {fileID: 4948058417776825329}
+  animations: {fileID: 0}
+  castPositions: []
   healthRegen: 0
   healthBase: 0
   damageBase: 0
@@ -385,6 +386,7 @@ MonoBehaviour:
   critDamageBase: 0
   cooldownBase: 0
   healthCurrent: 0
+  isTargetable: 1
   unitInterface: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: aca2c75d6cc83c1449aaa23c78fa3404, type: 2}
   animator: {fileID: 5985327198308241527}
@@ -394,7 +396,7 @@ MonoBehaviour:
   agent: {fileID: 3981901809153578413}
   headPos: {fileID: 4948058417776825329}
   faceTargetSpeed: 30
-  healthDropPrefab: {fileID: 0}
+  dropPrefab: []
 --- !u!95 &5985327198308241527
 Animator:
   serializedVersion: 5

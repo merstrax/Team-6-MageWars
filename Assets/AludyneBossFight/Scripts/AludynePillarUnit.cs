@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AludynePillarUnit : Unit
 {
+    [SerializeField] string pillarAbility;
+
     public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
         AludyneBossFight aludyneBossFight = FindAnyObjectByType<AludyneBossFight>();
@@ -11,5 +13,10 @@ public class AludynePillarUnit : Unit
         aludyneBossFight.OnDeath(this);
 
         base.OnDeath(other);
+    }
+
+    public string PillarAbility()
+    {
+        return pillarAbility;
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AludyneStats
   m_EditorClassIdentifier: 
   healthRegen: 0
-  healthBase: 2000
+  healthBase: 1000
   damageBase: 0
   defenseBase: 0
   speedBase: 0

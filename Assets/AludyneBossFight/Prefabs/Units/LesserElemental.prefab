@@ -444,6 +444,7 @@ MonoBehaviour:
   critDamageBase: 0
   cooldownBase: 0
   healthCurrent: 0
+  isTargetable: 1
   unitInterface: {fileID: 8422400686019964869}
   enemyStats: {fileID: 11400000, guid: 4eafa883d95fa4a43945658c188a28f2, type: 2}
   animator: {fileID: 5663918749682702063}
@@ -453,7 +454,7 @@ MonoBehaviour:
   agent: {fileID: 6332267895436848291}
   headPos: {fileID: 7884165309031046978}
   faceTargetSpeed: 50
-  healthDropPrefab: {fileID: 0}
+  dropPrefab: []
 --- !u!95 &5663918749682702063
 Animator:
   serializedVersion: 5
@@ -463,11 +464,11 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2917085908127289139}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b3681b15fa0a0ad4e936d65ce5c2a0fb, type: 3}
-  m_Controller: {fileID: 9100000, guid: 501148f92a06ed34fab3d2928995753c, type: 2}
+  m_Avatar: {fileID: 9000000, guid: cfbfb95b5f2b90949be0b5faab2775fb, type: 3}
+  m_Controller: {fileID: 9100000, guid: f2b107dc9c02dbf439c708cd8112bced, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -484,7 +485,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2917085908127289139}
   m_Enabled: 1
   m_AgentTypeID: -334000983
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

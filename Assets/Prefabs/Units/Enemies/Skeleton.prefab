@@ -1424,7 +1424,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Skeleton
-  castPos: {fileID: 447021278307998809}
+  animations: {fileID: 0}
+  castPositions: []
   healthRegen: 0
   healthBase: 0
   damageBase: 0
@@ -1434,6 +1435,7 @@ MonoBehaviour:
   critDamageBase: 0
   cooldownBase: 0
   healthCurrent: 0
+  isTargetable: 1
   unitInterface: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: 02f19d7db02cd8a4ea435877f37700b2, type: 2}
   animator: {fileID: 6036635453473558285}
@@ -1443,7 +1445,7 @@ MonoBehaviour:
   agent: {fileID: 4947504186526812065}
   headPos: {fileID: 7482975054958508614}
   faceTargetSpeed: 50
-  healthDropPrefab: {fileID: 0}
+  dropPrefab: []
 --- !u!95 &6036635453473558285
 Animator:
   serializedVersion: 5

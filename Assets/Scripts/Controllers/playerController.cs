@@ -216,7 +216,7 @@ public class PlayerController : Unit
         else
         {
             toCastPos = target.transform.position;
-            toCastPos.y += ((target.GetComponent<CapsuleCollider>().height * target.transform.localScale.y) * 0.75f);
+            toCastPos += ((target.GetComponent<CapsuleCollider>().center) * target.transform.lossyScale.magnitude);
         }
 
         _ability.StartCast(this, toCastPos);

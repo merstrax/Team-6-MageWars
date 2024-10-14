@@ -4,7 +4,8 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Flags] public enum StatusFlag
+[System.Flags]
+public enum StatusFlag
 {
     NONE,
     SLOWED = 1,
@@ -53,7 +54,7 @@ public struct Stats
         CritDamage = critDamage;
         Cooldown = cooldown;
 
-        values = new[] {Health, Damage, Defense, Speed, CritChance, CritDamage, Cooldown};
+        values = new[] { Health, Damage, Defense, Speed, CritChance, CritDamage, Cooldown };
         valueModifiers = new float[] { 1, 1, 1, 1, 1, 1, 1 };
     }
 
@@ -108,7 +109,7 @@ public class Unit : MonoBehaviour, IDamage
         if (castPos > castPositions.Length)
             castPos = 0;
 
-        if(castPositions.Length == 0)
+        if (castPositions.Length == 0)
             return transform;
 
         return castPositions[castPos];
@@ -131,6 +132,7 @@ public class Unit : MonoBehaviour, IDamage
 
     public float GetHealthCurrent() { return healthCurrent; }
     public void SetHealthCurrent(float healthCurrent) { this.healthCurrent = healthCurrent; }
+    public float GetHealthPercent() { return healthCurrent / healthMax; }
 
     public float GetHealthMax() { return healthMax; }
     public void SetHealthMax(float healthMax) { this.healthMax = healthMax; }
@@ -143,7 +145,7 @@ public class Unit : MonoBehaviour, IDamage
 
     public float GetDefenseBonus() { return stats[AttributeFlags.DEFENSE]; }
     public float GetDefenseModifier() { return stats.GetModifier(AttributeFlags.DEFENSE); }
-    
+
     public float GetCritChanceBonus() { return stats[AttributeFlags.CRIT_CHANCE]; }
     public float GetCritDamageBonus() { return stats[AttributeFlags.CRIT_DAMAGE]; }
 
@@ -156,10 +158,13 @@ public class Unit : MonoBehaviour, IDamage
 
     //Healthbar
     [Header("Interface")]
+    [SerializeField] bool isTargetable = true;
+    public void SetTargetable(bool isTarget) { isTargetable = isTarget; }
+
     [SerializeField] UnitInterface unitInterface;
     Material outlineMaterial;
 
-    private static Dictionary<TriggerFlags, MethodInfo> Events = new() 
+    private static Dictionary<TriggerFlags, MethodInfo> Events = new()
     {
         { TriggerFlags.ON_CAST_START, typeof(Unit).GetMethod("OnCastStart") },
         { TriggerFlags.ON_CAST, typeof(Unit).GetMethod("OnCast") },
@@ -169,7 +174,7 @@ public class Unit : MonoBehaviour, IDamage
         { TriggerFlags.ON_DAMAGED, typeof(Unit).GetMethod("OnDamaged")},
         { TriggerFlags.ON_KILL, typeof(Unit).GetMethod("OnKill")},
         { TriggerFlags.ON_UPDATE, typeof(Unit).GetMethod("OnUpdate")},
-        { TriggerFlags.ON_HEAL, typeof(Unit).GetMethod("OnHeal")},
+        { TriggerFlags.ON_HEAL, typeof(Unit).GetMethod("OnHealed")},
         { TriggerFlags.ON_DEATH, typeof(Unit).GetMethod("OnDeath")},
         { TriggerFlags.ON_INTERRUPT, typeof(Unit).GetMethod("OnInterrupt")},
         { TriggerFlags.ON_SLOW, typeof(Unit).GetMethod("OnSlow")},
@@ -186,30 +191,37 @@ public class Unit : MonoBehaviour, IDamage
         healthCurrent = healthMax;
 
         UpdateInterface();
-        outlineMaterial = Resources.Load<Material>("Materials/OutlineMaterial");
-        outlineMaterial = Instantiate(outlineMaterial);
-        if (outlineMaterial != null)
+
+        if (isTargetable)
         {
-            List<Renderer> renderers = new List<Renderer>();
-
-            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+            outlineMaterial = Resources.Load<Material>("Materials/OutlineMaterial");
+            outlineMaterial = Instantiate(outlineMaterial);
+            if (outlineMaterial != null)
             {
-                List<Material> materials = new() { outlineMaterial };
-                materials.AddRange(renderer.materials);
-                renderer.SetMaterials(materials);
-            }
-        }
+                List<Renderer> renderers = new List<Renderer>();
 
-        outlineMaterial.SetFloat("_OutlineWidth", 0f);
-        animations.Inititialize();
+                foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+                {
+                    List<Material> materials = new() { outlineMaterial };
+                    materials.AddRange(renderer.materials);
+                    renderer.SetMaterials(materials);
+                }
+            }
+
+            outlineMaterial.SetFloat("_OutlineWidth", 0f);
+        }
+        if (animations != null)
+            animations.Inititialize();
     }
 
     public virtual void TargetOutline(bool target = true)
     {
+        if (!isTargetable) return;
         if (target)
         {
             outlineMaterial.SetFloat("_OutlineWidth", 0.075f);
-        } else
+        }
+        else
             outlineMaterial.SetFloat("_OutlineWidth", 0f);
     }
 
@@ -225,7 +237,7 @@ public class Unit : MonoBehaviour, IDamage
                 var modifyFlag = ability.Info().AttributeFlags;
                 int currentFlag = 1;
 
-                while(currentFlag < (int)AttributeFlags.COOLDOWN)
+                while (currentFlag < (int)AttributeFlags.COOLDOWN)
                 {
                     if (modifyFlag.HasFlag((AttributeFlags)currentFlag))
                     {
@@ -259,15 +271,15 @@ public class Unit : MonoBehaviour, IDamage
 
     //Status Effects
     StatusFlag statusFlag = StatusFlag.NONE;
-    public void ApplyStatus(StatusFlag status, Ability source = null, Unit other = null) 
-    { 
+    public void ApplyStatus(StatusFlag status, Ability source = null, Unit other = null)
+    {
         statusFlag |= status;
         if (source != null)
         {
             ProccessEvent(GetStatusTrigger(status), other, source);
         }
     }
-    public void RemoveStatus(StatusFlag status, Ability source = null, Unit other = null) 
+    public void RemoveStatus(StatusFlag status, Ability source = null, Unit other = null)
     {
         if (source != null)
         {
@@ -277,7 +289,7 @@ public class Unit : MonoBehaviour, IDamage
                 if ((StatusFlag)ability.Info().StatusType == status) return;
             }
         }
-        statusFlag &= ~status; 
+        statusFlag &= ~status;
     }
 
     TriggerFlags GetStatusTrigger(StatusFlag status)
@@ -293,7 +305,7 @@ public class Unit : MonoBehaviour, IDamage
         };
     }
 
-    public bool IsInvulnerable() { return statusFlag.HasFlag(StatusFlag.INVULNERABLE);}
+    public bool IsInvulnerable() { return statusFlag.HasFlag(StatusFlag.INVULNERABLE); }
     public bool IsCasting() { return statusFlag.HasFlag(StatusFlag.CASTING); }
     public bool IsSlowed() { return statusFlag.HasFlag(StatusFlag.SLOWED); }
     public bool IsStunned() { return statusFlag.HasFlag(StatusFlag.STUNNED); }
@@ -302,14 +314,14 @@ public class Unit : MonoBehaviour, IDamage
     protected Vector3 moveDir;
     public Vector3 GetMoveDir() { return moveDir; }
     public void SetMoveDir(Vector3 moveDir) { this.moveDir = moveDir; }
-    public void UpdateMoveDir(Vector2 move) 
-    { 
+    public void UpdateMoveDir(Vector2 move)
+    {
         moveDir = move.x * transform.right +
                     move.y * transform.forward;
     }
-    public float GetSpeed() 
-    { 
-        if(IsStunned() ||  IsRooted())
+    public float GetSpeed()
+    {
+        if (IsStunned() || IsRooted())
         {
             return 0.0f;
         }
@@ -338,10 +350,10 @@ public class Unit : MonoBehaviour, IDamage
          * Defense 60 : Damage 25 (Average 1.25% per defense)
          * Defense 140 : Damage 12.5 (Average 0.625% per defense)
          */
-        float damageReduction = (IDamage.DefenseCoefficient / (IDamage.DefenseCoefficient + stats[AttributeFlags.DEFENSE])); 
+        float damageReduction = (IDamage.DefenseCoefficient / (IDamage.DefenseCoefficient + stats[AttributeFlags.DEFENSE]));
         damage *= damageReduction;
 
-        if(stats.GetModifier(AttributeFlags.DEFENSE) != 0)
+        if (stats.GetModifier(AttributeFlags.DEFENSE) != 0)
             damage /= stats.GetModifier(AttributeFlags.DEFENSE);
 
         return damage;
@@ -364,18 +376,18 @@ public class Unit : MonoBehaviour, IDamage
 
         UpdateInterface();
 
-        if(ability.Info().StatusType != EffectStatusType.NONE)
+        if (ability.Info().StatusType != EffectStatusType.NONE)
         {
             ApplyStatus((StatusFlag)ability.Info().StatusType, ability);
         }
     }
-    
+
     public void RemoveEffect(Ability ability)
     {
         int _id = ability.GetID();
         if (effects.ContainsKey(_id))
         {
-            if(ability.Info().StatusType != EffectStatusType.NONE)
+            if (ability.Info().StatusType != EffectStatusType.NONE)
             {
                 RemoveStatus((StatusFlag)ability.Info().StatusType, ability);
             }
@@ -431,6 +443,38 @@ public class Unit : MonoBehaviour, IDamage
         }
     }
 
+    public virtual void Heal(Damage damage, Ability source = null, Unit other = null)
+    {
+        healthCurrent += damage.Amount;
+        healthCurrent = Mathf.Min(healthCurrent, healthMax);
+
+        ProccessEvent(TriggerFlags.ON_HEAL, damage: damage, source: source, other: other);
+
+        if (unitInterface != null)
+        {
+            UpdateInterface();
+            //unitInterface.CreateFloatingNumber((int)damage.Amount); Add Heal Color
+        }
+    }
+
+    public virtual void HealPercent(Damage damage, Ability source = null, Unit other = null)
+    {
+        damage.Amount = (healthMax * damage.Amount);
+
+        healthCurrent += damage.Amount;
+        healthCurrent = Mathf.Min(healthCurrent, healthMax);
+
+        Debug.Log("Healed: " + damage.Amount);
+
+        ProccessEvent(TriggerFlags.ON_HEAL, damage: damage, source: source, other: other);
+
+        if (unitInterface != null)
+        {
+            UpdateInterface();
+            //unitInterface.CreateFloatingNumber((int)damage.Amount); Add Heal Color
+        }
+    }
+
     public virtual void ProccessEvent(TriggerFlags trigger, Unit other = null, Ability source = null, Damage damage = new Damage())
     {
         int effectsCount = effects.Count;
@@ -439,7 +483,7 @@ public class Unit : MonoBehaviour, IDamage
         {
             if (ability.Info().TriggerFlags.HasFlag(trigger))
             {
-                if(source != ability)
+                if (source != ability)
                     ability.DoEffectApply(other);
                 if (effectsCount != effects.Count) break;
             }
@@ -470,8 +514,8 @@ public class Unit : MonoBehaviour, IDamage
 
     public virtual void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
-        if(other != null) 
-        { 
+        if (other != null)
+        {
             other.ProccessEvent(TriggerFlags.ON_KILL, other: this);
         }
         CleanUp();
@@ -481,16 +525,16 @@ public class Unit : MonoBehaviour, IDamage
     private void CleanUp()
     {
         //Clears any effects that might not have a cleanup timer attached to it
-        foreach(Ability ability in effects.Values)
+        foreach (Ability ability in effects.Values)
         {
             ability.CleanUp(true);
         }
         effects.Clear();
     }
 
-    private void UpdateInterface()
+    public void UpdateInterface()
     {
-        if(unitInterface != null)
+        if (unitInterface != null)
         {
             unitInterface.UpdateHealthBar(healthCurrent, healthMax);
         }

@@ -444,6 +444,7 @@ MonoBehaviour:
   critDamageBase: 0
   cooldownBase: 0
   healthCurrent: 0
+  isTargetable: 1
   unitInterface: {fileID: 8422400686019964869}
   enemyStats: {fileID: 11400000, guid: 8e16037ac8af20b4780f49cd2a07ca5d, type: 2}
   animator: {fileID: 5663918749682702063}

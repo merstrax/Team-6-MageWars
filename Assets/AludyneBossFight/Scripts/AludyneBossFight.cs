@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AludyneBossFight : MonoBehaviour
 {
     enum Phases
     {
-        START, PHASE_1, PHASE_1_END, PHASE_2, END
+        START, PHASE_1, PHASE_1_END, PHASE_2_START, PHASE_2, END
     }
 
     [Header("Elemental Pillars")]
@@ -19,15 +19,10 @@ public class AludyneBossFight : MonoBehaviour
     [SerializeField] float pillarHealTimer;
 
     List<AludynePillarUnit> pillarList;
-
-    bool isFrostDead;
-    bool isFireDead;
-    bool isArcaneDead;
-    bool isWindDead;
     Coroutine pillarHeal;
 
     [Header("Zerrok Info")]
-    [SerializeField] GameObject zerrokObject;
+    [SerializeField] Unit zerrokUnit;
     [SerializeField] Ability zerrokFireAbility;
     [SerializeField] Ability zerrokFrostAbility;
     [SerializeField] Ability zerrokWindAbility;
@@ -38,13 +33,13 @@ public class AludyneBossFight : MonoBehaviour
 
     [SerializeField] Unit zerrokFlameElemental;
 
-    string currentAbilityPhase;
+    string currentAbilityPhase = "";
     bool abilityPhaseFinished;
     AludynePillarUnit zerrokCurrentPillar;
 
+    Coroutine pillarSelect;
     Coroutine abilityCoroutine;
     int zerrokBurningDevotionCurrent = 0;
-    
 
     [Header("Lesser Elemental Info")]
     [SerializeField] Unit lesserElemental;
@@ -60,87 +55,194 @@ public class AludyneBossFight : MonoBehaviour
     [SerializeField] Ability aludyneGroundRupture;
     [SerializeField] Ability aludyneErruption;
 
+    [Header("Audio and Effects")]
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;
+
     Phases currentPhase = Phases.START;
-    Coroutine fightStarted;
-    // Start is called before the first frame update
+    Coroutine roleplayCoroutine;
+
+
     void Start()
     {
-        if (aludyneUnit != null)
+        if (zerrokUnit != null)
         {
-            //aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
-            //TODO - Add stun to unit and AI
-            //aludyneUnit.SetHealthCurrent(1.0f);
+            zerrokUnit.ApplyStatus(StatusFlag.INVULNERABLE);
         }
+
         pillarList = new List<AludynePillarUnit>() { arcanePillar, firePillar, frostPillar, windPillar };
+        foreach (AludynePillarUnit pillar in pillarList)
+        {
+            pillar.ApplyStatus(StatusFlag.INVULNERABLE);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (fightStarted != null) return;
+        if (roleplayCoroutine != null) return;
 
         switch (currentPhase)
         {
             case Phases.START:
-                Debug.Log("Fight Started");
-                fightStarted = StartCoroutine(Fight_Start());
+                roleplayCoroutine = StartCoroutine(Fight_Start());
                 break;
             case Phases.PHASE_1:
                 UpdatePhase1();
                 break;
+            case Phases.PHASE_1_END:
+                roleplayCoroutine = StartCoroutine(Phase1_End());
+                break;
+            case Phases.PHASE_2_START:
+                roleplayCoroutine = StartCoroutine(Phase2_Start());
+                break;
             case Phases.PHASE_2:
                 UpdatePhase2();
+                break;
+            case Phases.END:
+                roleplayCoroutine = StartCoroutine(Phase2_End());
                 break;
             default:
                 break;
         }
     }
 
+    IEnumerator Fight_Start()
+    {
+        audioSource.Stop();
+        audioSource.clip = audioClips[0];
+        audioSource.Play();
+
+        aludyneUnit.SetHealthCurrent(1.0f);
+        aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
+        aludyneUnit.UpdateInterface();
+        aludyneUnit.TargetOutline(false);
+        aludyneUnit.SetTargetable(false);
+
+        yield return new WaitForSeconds(audioClips[0].length + 1.0f);
+        //yield return new WaitForSeconds(3.0f);
+
+        currentPhase = Phases.PHASE_1;
+        roleplayCoroutine = null;
+        StartCoroutine(Phase1_Start());
+    }
+
+    #region Phase 1
+    //Phase1
+    private void UpdatePhase1()
+    {
+        if (pillarList.Count <= 0)
+        {
+            currentPhase = Phases.PHASE_1_END;
+            return;
+        }
+
+        //Update to unit getcurrentpercent
+        if (aludyneUnit.GetHealthCurrent() >= aludyneUnit.GetHealthMax())
+        {
+            currentPhase = Phases.PHASE_1_END;
+            return;
+        }
+
+        pillarHeal ??= StartCoroutine(PillarHeal());
+        elementalSpawn ??= StartCoroutine(ElementalSpawn());
+
+        if (pillarSelect == null)
+        {
+            SelectPillar();
+        }
+
+        if (abilityPhaseFinished)
+        {
+            SelectAbility();
+            abilityPhaseFinished = false;
+        }
+
+        if (currentAbilityPhase != "")
+            Invoke(currentAbilityPhase, 0.0f);
+    }
+
+    IEnumerator Phase1_Start()
+    {
+        audioSource.Stop();
+        audioSource.clip = audioClips[1];
+        audioSource.Play();
+
+        foreach (AludynePillarUnit pillar in pillarList)
+        {
+            pillar.RemoveStatus(StatusFlag.INVULNERABLE);
+        }
+
+        yield return new WaitForSeconds(audioClips[1].length);
+
+        SelectAbility();
+    }
+
+    IEnumerator Phase1_End()
+    {
+        audioSource.Stop();
+        audioSource.clip = audioClips[6];
+        audioSource.Play();
+
+        yield return new WaitForSeconds(audioClips[6].length);
+
+        Destroy(zerrokUnit.gameObject);
+        aludyneUnit.HealPercent(new Damage(0.15f));
+        roleplayCoroutine = null;
+        currentPhase = Phases.PHASE_2_START;
+    }
+
+    IEnumerator Phase1_EndBad()
+    {
+        currentPhase = Phases.PHASE_1_END;
+
+        yield return new WaitForSeconds(15.0f);
+
+        currentPhase = Phases.PHASE_2;
+    }
+
+    #region Zerrok Ability Handling
     private void SelectAbility()
     {
-        int rand = Random.Range(0, 2);
-        /*switch (rand)
+        if (pillarList.Count <= 1)
         {
-            case 0:
-                currentAbilityPhase = "ZerrokArcanePhase";
-                break;
-            case 1:
-                currentAbilityPhase = "ZerrokFirePhase";
-                zerrokBurningDevotionCurrent = 0;
-                break;
-            case 2:
-                currentAbilityPhase = "ZerrokFrostPhase";
-                break;
-            case 3:
-                currentAbilityPhase = "ZerrokWindPhase";
-                break;
-            default:
-                break;
-        }*/
-        switch(rand)
+            zerrokBurningDevotionCurrent = 0;
+            currentAbilityPhase = pillarList[0].PillarAbility();
+            return;
+        }
+
+        int rand = Random.Range(0, pillarList.Count);
+        string oldAbility = currentAbilityPhase;
+        currentAbilityPhase = pillarList[rand].PillarAbility();
+
+        if (oldAbility == currentAbilityPhase)
+            SelectAbility();
+
+        if (currentAbilityPhase == "ZerrokFirePhase")
         {
-            case 0:
-                currentAbilityPhase = "ZerrokFirePhase";
-                zerrokBurningDevotionCurrent = 0;
-                break;
-            case 1:
-                currentAbilityPhase = "ZerrokWindPhase";
-                break;
+            zerrokBurningDevotionCurrent = 0;
         }
     }
 
     private void ZerrokArcanePhase()
     {
+        if (abilityCoroutine != null) return;
+        audioSource.Stop();
+        audioSource.clip = audioClips[3];
+        audioSource.Play();
+
+
+        abilityCoroutine = StartCoroutine(ArcaneWaveTimer());
+    }
+
+    IEnumerator ArcaneWaveTimer()
+    {
+        yield return new WaitForSeconds(audioClips[3].length + zerrokAbilityTimer);
         abilityPhaseFinished = true;
+        abilityCoroutine = null;
     }
 
     private void ZerrokFirePhase()
     {
-        if (zerrokBurningDevotionCurrent == 0)
-        {
-            //Play audio cue
-        }
-
         if (zerrokBurningDevotionCurrent >= zerrokBurningDevotionCount && abilityCoroutine == null)
         {
             abilityPhaseFinished = true;
@@ -156,6 +258,13 @@ public class AludyneBossFight : MonoBehaviour
 
     IEnumerator CastBurningDevotion()
     {
+        if (zerrokBurningDevotionCurrent == 0)
+        {
+            audioSource.Stop();
+            audioSource.clip = audioClips[2];
+            audioSource.Play();
+        }
+
         zerrokBurningDevotionCurrent++;
         Instantiate(zerrokFireAbility);
 
@@ -166,7 +275,39 @@ public class AludyneBossFight : MonoBehaviour
 
     private void ZerrokFrostPhase()
     {
+        if (abilityCoroutine != null) return;
+        audioSource.Stop();
+        audioSource.clip = audioClips[4];
+        audioSource.Play();
+
+
+        List<enemyAI> enemies = new();
+        enemies.AddRange(FindObjectsOfType<enemyAI>());
+
+        Ability frost;
+
+        foreach (enemyAI enemyAI in enemies)
+        {
+            if (enemyAI == aludyneUnit) continue;
+
+            frost = Instantiate(zerrokFrostAbility, enemyAI.transform.position, Quaternion.identity);
+            frost.StartCast(enemyAI, enemyAI.transform.position);
+        }
+
+        foreach (AludynePillarUnit pillar in pillarList)
+        {
+            frost = Instantiate(zerrokFrostAbility, pillar.transform.position, Quaternion.identity);
+            frost.StartCast(pillar, pillar.transform.position);
+        }
+
+        abilityCoroutine = StartCoroutine(FrostWaveTimer());
+    }
+
+    IEnumerator FrostWaveTimer()
+    {
+        yield return new WaitForSeconds(audioClips[4].length + zerrokAbilityTimer);
         abilityPhaseFinished = true;
+        abilityCoroutine = null;
     }
 
     private void ZerrokWindPhase()
@@ -174,6 +315,10 @@ public class AludyneBossFight : MonoBehaviour
         //Player Phase Audio
 
         if (abilityCoroutine != null) return;
+
+        audioSource.Stop();
+        audioSource.clip = audioClips[5];
+        audioSource.Play();
 
         int whirlingTempestCount = 1 + (4 - pillarList.Count);
 
@@ -196,86 +341,46 @@ public class AludyneBossFight : MonoBehaviour
         abilityPhaseFinished = true;
         abilityCoroutine = null;
     }
+    #endregion
 
-    private void UpdatePhase1()
+    #region Pillar Handling
+    private void SelectPillar()
     {
-        if (GetPillarsRemaining() <= 0)
+        if (pillarSelect != null) return;
+
+        if (pillarList.Count <= 1)
         {
-            StartCoroutine(Phase1_End());
+            zerrokCurrentPillar = pillarList[0];
+            zerrokUnit.transform.position = zerrokCurrentPillar.transform.position + (Vector3.up * 5f);
+
+            zerrokCurrentPillar.RemoveStatus(StatusFlag.INVULNERABLE);
+            pillarSelect = StartCoroutine(PillarSelectTimer());
             return;
         }
 
-        //Update to unit getcurrentpercent
-        if (aludyneUnit.GetHealthCurrent() <= aludyneUnit.GetHealthMax())
+        int rand = Random.Range(0, pillarList.Count);
+        AludynePillarUnit oldPillar = zerrokCurrentPillar;
+        zerrokCurrentPillar = pillarList[rand];
+
+        if (oldPillar == zerrokCurrentPillar)
         {
-            StartCoroutine(Phase1_EndBad());
+            SelectPillar();
             return;
         }
 
-        pillarHeal ??= StartCoroutine(PillarHeal());
-        elementalSpawn ??= StartCoroutine(ElementalSpawn());
+        if (oldPillar != null)
+            oldPillar.RemoveStatus(StatusFlag.INVULNERABLE);
 
-        if (abilityPhaseFinished)
-        {
-            SelectAbility();
-            abilityPhaseFinished = false;
-        }
+        zerrokCurrentPillar.ApplyStatus(StatusFlag.INVULNERABLE);
 
-        Invoke(currentAbilityPhase, 0.0f);
+        zerrokUnit.transform.position = zerrokCurrentPillar.transform.position + (Vector3.up * 5f);
+        pillarSelect = StartCoroutine(PillarSelectTimer());
     }
 
-    IEnumerator Fight_Start()
+    IEnumerator PillarSelectTimer()
     {
-        //Do RP here
-        currentPhase = Phases.START;
-
-        yield return new WaitForSeconds(5.0f); //Set to RP audio timing
-
-        currentPhase = Phases.PHASE_1;
-        fightStarted = null;
-        SelectAbility();
-    }
-
-    IEnumerator Phase1_End()
-    {
-        currentPhase = Phases.PHASE_1_END;
-
-        //Do cinematic stuff here
-
-        yield return new WaitForSeconds(15.0f);
-
-        currentPhase = Phases.PHASE_2;
-        aludyneUnit.RemoveStatus(StatusFlag.INVULNERABLE);
-    }
-
-    IEnumerator Phase1_EndBad()
-    {
-        currentPhase = Phases.PHASE_1_END;
-
-        yield return new WaitForSeconds(15.0f);
-
-        currentPhase = Phases.PHASE_2;
-    }
-
-    private void UpdatePhase2()
-    {
-        //Add get health current percent to unit
-        if (aludyneUnit.GetHealthCurrent() <= 0.05)
-        {
-            aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
-            aludyneUnit.ApplyStatus(StatusFlag.STUNNED);
-            StartCoroutine(Phase2_End());
-            return;
-        }
-    }
-
-    IEnumerator Phase2_End()
-    {
-        currentPhase = Phases.END;
-
-        yield return new WaitForSeconds(15.0f);
-
-        //Game complete logic
+        yield return new WaitForSeconds(zerrokPillarTimer);
+        pillarSelect = null;
     }
 
     private int GetPillarsRemaining()
@@ -289,12 +394,65 @@ public class AludyneBossFight : MonoBehaviour
         {
             if (unit == null) continue;
 
-            //Do Heal
+            aludyneUnit.HealPercent(new Damage(pillarHealAmount));
         }
 
         yield return new WaitForSeconds(pillarHealTimer);
         pillarHeal = null;
     }
+
+    public void OnDeath(AludynePillarUnit unit)
+    {
+        pillarList.Remove(unit);
+
+        if (zerrokCurrentPillar == unit)
+        {
+            //Do Zerrok pillar swap}
+        }
+    }
+    #endregion
+    #endregion
+
+    #region Phase 2
+    private void UpdatePhase2()
+    {
+        //Add get health current percent to unit
+        if (aludyneUnit.GetHealthPercent() <= 0.05)
+        {
+            currentPhase = Phases.END;
+            aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
+            aludyneUnit.ApplyStatus(StatusFlag.STUNNED);
+            return;
+        }
+    }
+
+    IEnumerator Phase2_Start()
+    {
+        audioSource.Stop();
+        audioSource.clip = audioClips[7];
+        audioSource.Play();
+
+        yield return new WaitForSeconds(audioClips[7].length + 1.0f);
+
+        aludyneUnit.RemoveStatus(StatusFlag.INVULNERABLE);
+        aludyneUnit.RemoveStatus(StatusFlag.STUNNED);
+        aludyneUnit.SetTargetable(true);
+        currentPhase = Phases.PHASE_2;
+        roleplayCoroutine = null;
+    }
+
+    IEnumerator Phase2_End()
+    {
+        audioSource.Stop();
+        audioSource.clip = audioClips[10];
+        audioSource.Play();
+
+        yield return new WaitForSeconds(15.0f);
+
+        //Game complete logic
+        Destroy(aludyneUnit);
+    }
+    #endregion
 
     IEnumerator ElementalSpawn()
     {
@@ -307,20 +465,5 @@ public class AludyneBossFight : MonoBehaviour
 
         yield return new WaitForSeconds(lesserElementalSpawnTime);
         elementalSpawn = null;
-    }
-
-    public void OnDeath(AludynePillarUnit unit)
-    {
-        pillarList.Remove(unit);
-
-        isFrostDead = frostPillar == null;
-        isFireDead = firePillar == null;
-        isArcaneDead = arcanePillar == null;
-        isWindDead = windPillar == null;
-
-        if (zerrokCurrentPillar == unit)
-        {
-            //Do Zerrok pillar swap}
-        }
     }
 }
