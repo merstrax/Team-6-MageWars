@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
+  m_Name: 202 - decreasedCooldown
+  m_EditorClassIdentifier: 
+  AbilityName: decreasedCooldown
+  AbilityDescription: decreasedCooldown
+  AbilityID: 202
+  AbilitySpeed: 0
+  AbilityRange: 0
+  ElementType: 0
+  AbilityType: 2
+  CastType: 0
+  Cooldown: 0
+  CastTime: 0
+  IsRooted: 0
+  IsTarget: 0
+  EffectType: 3
+  EffectTargetType: 1
+  StatusType: 0
+  AttributeFlags: 64
+  ElementFlags: 0
+  TriggerFlags: 0
+  ModifierType: 2
+  EffectAbility: {fileID: 0}
+  EffectAmount: 1.2
+  DamageCoefficent: 0
+  EffectTriggerChance: 0
+  EffectStackAmount: 1
+  EffectStackMax: 5
+  EffectDuration: 10
+  EffectTickSpeed: 0
+  ResourceType: 0
+  ResourceMax: 0
+  ResourceCooldown: 0
+  ResourceReset: 0
+  ComboAbilities: []
+  AbilityIcon: {fileID: 0}
+  AbilityVisual: {fileID: 0}
+  CastPosition: 0
+  AnimationType: 0

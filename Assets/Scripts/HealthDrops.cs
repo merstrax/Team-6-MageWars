@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
+public enum DropType { maxHealth, decreasedCooldown, increasedMovSpeed, increasedDMG }
 public class HealthDrops : MonoBehaviour
 {
     // time before drop disappears 
-    [SerializeField] float lifeSpan = 15f;
+    [SerializeField] float lifeSpan;
+    [SerializeField] DropType dropType;
+    [SerializeField] AbilityStats AbilityDrops;
 
-    private void Start()
+    private Coroutine destroyTimer;
+
+    private void Update()
     {
-        //Start Coroutine to handle automatic destruction 
-        StartCoroutine(DestroyAfterTime());
-
+        if (destroyTimer == null)
+        {
+            destroyTimer = StartCoroutine(DestroyAfterTime());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,19 +28,39 @@ public class HealthDrops : MonoBehaviour
 
         if (playerUnit != null && other.CompareTag("Player"))
         {
-            // Restore player's health to maximum using the Unit methods
-            playerUnit.SetHealthCurrent(playerUnit.GetHealthMax());
+            // apply the effect of the drop
+            ApplyDropEffect(playerUnit);
 
-            // Destroy the health drop once picked up
+            // Destroy the drop once picked up
+            StopCoroutine(DestroyAfterTime()); 
             Destroy(gameObject);
         }
     }
 
     private IEnumerator DestroyAfterTime()
     {
+
         yield return new WaitForSeconds(lifeSpan);
 
-        // Destroys Drop after after lifespan
-        Destroy(gameObject);
+        destroyTimer = null; 
+
+        if (gameObject != null)
+        {
+            // Destroys Drop after after lifespan
+            Destroy(gameObject);
+        }
+    }
+
+    private void ApplyDropEffect(Unit playerUnit)
+    {
+        Ability drops = gameObject.AddComponent<Ability>();
+        drops.DoEffectApply(playerUnit, AbilityDrops);
+
+        //drops.DoEffectApply(playerUnit, AbilityDrops.EffectAbility); 
+
+        /// Implemented Soon!!
+        //drops.OnHit(playerUnit);   
+
+        Destroy(drops); 
     }
 }

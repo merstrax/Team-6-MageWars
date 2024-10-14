@@ -428,7 +428,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Golem
-  castPos: {fileID: 5531715024012879244}
+  animations: {fileID: 0}
+  castPositions: []
   healthRegen: 0
   healthBase: 0
   damageBase: 0
@@ -447,7 +448,11 @@ MonoBehaviour:
   agent: {fileID: 6332267895436848291}
   headPos: {fileID: 7884165309031046978}
   faceTargetSpeed: 50
-  healthDropPrefab: {fileID: 0}
+  dropPrefab:
+  - {fileID: 2194540399978094853, guid: fa0c1337d62dcea48ae473bef1697265, type: 3}
+  - {fileID: 3384724169496912414, guid: 02ce964d5d046d94da5853a29b80948a, type: 3}
+  - {fileID: 3093282128322826495, guid: 047890308f70f024396e802c8d04c091, type: 3}
+  - {fileID: 1936345988254126526, guid: 59731e7ba49bcdf4f827e8574d2ff13a, type: 3}
 --- !u!95 &5663918749682702063
 Animator:
   serializedVersion: 5
@@ -458,7 +463,7 @@ Animator:
   m_GameObject: {fileID: 2917085908127289139}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b3681b15fa0a0ad4e936d65ce5c2a0fb, type: 3}
-  m_Controller: {fileID: 9100000, guid: 501148f92a06ed34fab3d2928995753c, type: 2}
+  m_Controller: {fileID: 9100000, guid: f2b107dc9c02dbf439c708cd8112bced, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -477,7 +482,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2917085908127289139}
   m_Enabled: 1
-  m_AgentTypeID: -334000983
+  m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
@@ -501,16 +506,16 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.2
   m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}

@@ -30,9 +30,9 @@ public class enemyAI : Unit
     protected float kiteRange;
     protected int viewAngle;
 
-    [Header("Health Drop")]
-    [SerializeField] protected GameObject healthDropPrefab;
-    protected float dropChance;
+    [Header("Drop")]
+    [SerializeField] protected GameObject[] dropPrefab;  
+    protected float dropChance = 1;
 
     [Header("AI Abilities")]
     Ability[] abilityPassive;
@@ -67,7 +67,7 @@ public class enemyAI : Unit
         dropChance = enemyStats.dropChance;
         viewAngle = enemyStats.viewAngle;
 
-        //base.Start();
+        animator = GetComponent<Animator>(); 
         startPos = transform.position;
         currentState = AIState.Idle;
 
@@ -262,17 +262,19 @@ public class enemyAI : Unit
     {
         isDead = true;
         //animator.SetTrigger("Die");
-        TryDropHealthPickup();
+        TryDropPickup();
         base.OnDeath(other);
     }
 
-    protected void TryDropHealthPickup()
+    protected void TryDropPickup()
     {
         // Health drop logic - chance to drop health item
         float randomValue = Random.Range(0f, 1f);
-        if (randomValue <= dropChance && healthDropPrefab != null)
+        if (randomValue >= dropChance && dropPrefab != null && dropPrefab.Length > 0)
         {
-            Instantiate(healthDropPrefab, transform.position, Quaternion.identity);
+            int randomIndex = Random.Range(0, dropPrefab.Length);
+
+            Instantiate(dropPrefab[randomIndex], transform.position, Quaternion.identity);
         }
     }
     protected virtual AbilityHandler ChooseAttack()
