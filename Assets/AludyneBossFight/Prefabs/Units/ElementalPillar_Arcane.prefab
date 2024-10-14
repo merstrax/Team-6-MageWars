@@ -52,7 +52,7 @@ MonoBehaviour:
   animations: {fileID: 0}
   castPositions: []
   healthRegen: 0
-  healthBase: 1000
+  healthBase: 200
   damageBase: 0
   defenseBase: 0
   speedBase: 0
@@ -60,6 +60,7 @@ MonoBehaviour:
   critDamageBase: 0
   cooldownBase: 0
   healthCurrent: 0
+  isTargetable: 0
   unitInterface: {fileID: 335168255359362262}
   pillarAbility: ZerrokArcanePhase
 --- !u!33 &404051969351968083

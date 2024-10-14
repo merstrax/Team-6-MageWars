@@ -50,7 +50,7 @@ public class AludyneBossFight : MonoBehaviour
     Coroutine elementalSpawn;
 
     [Header("Aludyne Info")]
-    [SerializeField] Unit aludyneUnit;
+    [SerializeField] AludyneUnitAI aludyneUnit;
     [SerializeField] Ability aludyneChaosVolley;
     [SerializeField] Ability aludyneGroundRupture;
     [SerializeField] Ability aludyneErruption;
@@ -112,11 +112,7 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.clip = audioClips[0];
         audioSource.Play();
 
-        aludyneUnit.SetHealthCurrent(1.0f);
-        aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
-        aludyneUnit.UpdateInterface();
-        aludyneUnit.TargetOutline(false);
-        aludyneUnit.SetTargetable(false);
+        aludyneUnit.SetSleeping();
 
         yield return new WaitForSeconds(audioClips[0].length + 1.0f);
         //yield return new WaitForSeconds(3.0f);
@@ -420,8 +416,7 @@ public class AludyneBossFight : MonoBehaviour
         if (aludyneUnit.GetHealthPercent() <= 0.05)
         {
             currentPhase = Phases.END;
-            aludyneUnit.ApplyStatus(StatusFlag.INVULNERABLE);
-            aludyneUnit.ApplyStatus(StatusFlag.STUNNED);
+            aludyneUnit.OnDeath();
             return;
         }
     }
@@ -432,11 +427,12 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.clip = audioClips[7];
         audioSource.Play();
 
+        aludyneUnit.preAwaken();
+
         yield return new WaitForSeconds(audioClips[7].length + 1.0f);
 
-        aludyneUnit.RemoveStatus(StatusFlag.INVULNERABLE);
-        aludyneUnit.RemoveStatus(StatusFlag.STUNNED);
-        aludyneUnit.SetTargetable(true);
+        aludyneUnit.Awaken();
+        
         currentPhase = Phases.PHASE_2;
         roleplayCoroutine = null;
     }
@@ -450,7 +446,7 @@ public class AludyneBossFight : MonoBehaviour
         yield return new WaitForSeconds(15.0f);
 
         //Game complete logic
-        Destroy(aludyneUnit);
+        aludyneUnit.DoDeathAnimation();
     }
     #endregion
 
