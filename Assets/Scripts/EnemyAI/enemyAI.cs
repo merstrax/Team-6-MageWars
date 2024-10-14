@@ -186,7 +186,7 @@ public class enemyAI : Unit
 
     private void CastAbility(AbilityHandler ability)
     {
-        Ability _ability = Instantiate(ability.GetAbility(), GetCastPos(0).position, transform.rotation);
+        Ability _ability = Instantiate(ability.GetAbility(), GetCastPos(ability.GetAbility().Info().CastPosition).position, transform.rotation);
         _ability.SetOwner(this);
 
         Vector3 toCastPos = target.gameObject.transform.position;
@@ -251,7 +251,6 @@ public class enemyAI : Unit
         canCastAbility = false;
         animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 1);
         animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);
-        Debug.Log(animation);
         animator.SetTrigger(animation);
 
         yield return new WaitForSeconds(abilityRate);

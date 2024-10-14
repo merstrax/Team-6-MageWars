@@ -430,7 +430,11 @@ MonoBehaviour:
   unitName: Golem
   animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
   castPositions:
+  - {fileID: 804161772246463729}
   - {fileID: 5531715024012879244}
+  - {fileID: 4524686289332757113}
+  - {fileID: 6912524636815814707}
+  - {fileID: 9179144128604486663}
   healthRegen: 0
   healthBase: 0
   damageBase: 0
@@ -467,7 +471,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: f2b107dc9c02dbf439c708cd8112bced, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -484,7 +488,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2917085908127289139}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.25
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -516,7 +520,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.2
+  m_Radius: 1
   m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
