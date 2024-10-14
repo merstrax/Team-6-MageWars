@@ -48,7 +48,7 @@ public class AbilityStats : ScriptableObject
     [Header("Visuals")]
     public Texture2D AbilityIcon;
     public GameObject AbilityVisual;
-    public int CastPosition;
+    public uint CastPosition;
     public AnimationType AnimationType;
 
     //Replace string tokens with values of the Ability

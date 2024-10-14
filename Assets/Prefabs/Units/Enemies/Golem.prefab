@@ -428,8 +428,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Golem
-  animations: {fileID: 0}
-  castPositions: []
+  animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
+  castPositions:
+  - {fileID: 5531715024012879244}
   healthRegen: 0
   healthBase: 0
   damageBase: 0

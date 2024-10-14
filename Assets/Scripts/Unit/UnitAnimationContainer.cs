@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum AnimationType
 {
-    NONE,
     IDLE,
     WALK,
     RUN,
@@ -35,9 +34,14 @@ public class AnimationContainer : ScriptableObject
 
     private List<string> _animations;
 
-    AnimationContainer()
+    public AnimationContainer()
     {
-        _animations = new() {Idle, Idle, Walk, Run, Jump, Attack1, Attack2, Attack3, Hit, Knockback, Stun, Death};
+        _animations = new() {Idle, Walk, Run, Jump, Attack1, Attack2, Attack3, Hit, Knockback, Stun, Death};
+    }
+
+    public void Inititialize()
+    {
+        _animations = new() {Idle, Walk, Run, Jump, Attack1, Attack2, Attack3, Hit, Knockback, Stun, Death };
     }
 
     public string this[AnimationType type]

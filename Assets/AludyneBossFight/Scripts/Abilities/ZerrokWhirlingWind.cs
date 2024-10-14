@@ -15,7 +15,7 @@ public class ZerrokWhirlingWind : Ability
         //myRigidbody.MovePosition(GameManager.instance.player.transform.position);
     }
 
-    protected override void OnDamage(Unit other)
+    public override void OnDamage(Unit other)
     {
         base.OnDamage(other);
         DoEffectApply(other, whirlingWindSlow);

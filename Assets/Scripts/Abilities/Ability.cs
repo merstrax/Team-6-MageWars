@@ -279,7 +279,7 @@ public class Ability : MonoBehaviour
         {
             if (EffectStackCount < AbilityInfo.EffectStackMax)
             {
-                EffectStackCount++;
+                EffectStackCount += Info().EffectStackAmount;
             }
         }
 
@@ -294,7 +294,7 @@ public class Ability : MonoBehaviour
         owner.ProccessEvent(TriggerFlags.ON_CAST, other, this);
     }
 
-    protected virtual void OnHit(Unit other)
+    public virtual void OnHit(Unit other)
     {
         if (AbilityInfo.EffectAmount > 0)
         {
@@ -313,7 +313,7 @@ public class Ability : MonoBehaviour
         }
     }
 
-    protected virtual void OnDamage(Unit other)
+    public virtual void OnDamage(Unit other)
     {
         if (Info().TriggerFlags.HasFlag(TriggerFlags.ON_DAMAGE))
         {

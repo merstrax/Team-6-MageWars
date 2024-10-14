@@ -1474,10 +1474,6 @@ MonoBehaviour:
     m_ActionId: 661bbc18-db6a-4f73-9842-183df21f34bb
     m_ActionName: Player/Sprint[/Keyboard/shift]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 27ee6710-2292-4f86-882a-faae5d679dc8
-    m_ActionName: UI/Pause[/Keyboard/escape]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3660527585307201292}
         m_TargetAssemblyTypeName: PlayerInputController, Assembly-CSharp
@@ -1493,6 +1489,50 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c57612e5-b544-4e5b-a9da-3269b1bb4bca
     m_ActionName: Player/DebugSummon[/Keyboard/t]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d3ca8e67-a29b-4bbc-b44c-9cba7dfe3194
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: baa81a3e-1035-4116-8948-80d976f8a60a
+    m_ActionName: UI/Navigate
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f884fd42-1d70-4b30-9074-aa601cfac0e1
+    m_ActionName: UI/Submit
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 10683581-b9e5-4e86-bea6-216f39c37edf
+    m_ActionName: UI/Cancel
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b07b7b5-ea0a-490f-8ee6-6c60e9196298
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3e9d61d5-3a8e-448d-90da-45f1bb14513a
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 64d480ce-ce08-4a7c-bda8-969872e30bdd
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1ccdc93f-ab3b-4dcc-8054-5ba8d191268d
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0d4f560e-c4d5-4072-ac7f-80d1138cd871
+    m_ActionName: UI/Tracked Device Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50505d93-e34f-4fbd-8f5b-43680caf7aeb
+    m_ActionName: UI/Tracked Device Orientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f6ff234f-7710-44cb-a180-583bf2c309ff
+    m_ActionName: UI/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1535,7 +1575,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Player
-  castPos: {fileID: 7802814478744346973}
+  animations: {fileID: 0}
+  castPositions:
+  - {fileID: 7802814478744346973}
   healthRegen: 5
   healthBase: 100
   damageBase: 0
@@ -1548,7 +1590,8 @@ MonoBehaviour:
   unitInterface: {fileID: 0}
   inputController: {fileID: 3660527585307201292}
   dashTiming: 0.5
-  abilityPassive: {fileID: 0}
+  abilityPassive:
+  - {fileID: 0}
   abilities:
   - {fileID: 39563482987813226, guid: c3d9db4364247a94e9b468761584e5e1, type: 3}
   - {fileID: -6657460586643874839, guid: 5dff209b4852d1f47886ec2810d2a1fb, type: 3}
@@ -2968,6 +3011,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3910117947109258256}
     m_Modifications:
+    - target: {fileID: 2567328168471475587, guid: 8dcdc62e46c00e4409b9066f911b82bc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4136478620248554959, guid: 8dcdc62e46c00e4409b9066f911b82bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3018,10 +3066,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4224638662360848264, guid: 8dcdc62e46c00e4409b9066f911b82bc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8321156525133950138, guid: 8dcdc62e46c00e4409b9066f911b82bc,
         type: 3}
       propertyPath: m_Name
       value: AoE_Target
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321156525133950138, guid: 8dcdc62e46c00e4409b9066f911b82bc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321156525133950138, guid: 8dcdc62e46c00e4409b9066f911b82bc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3066,7 +3129,7 @@ Rigidbody:
     m_Bits: 63
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 62

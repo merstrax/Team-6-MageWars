@@ -40,6 +40,7 @@ public class enemyAI : Unit
     float abilityRate;
     protected bool canCastAbility = true;
     AbilityHandler[] abilityHandlers;
+    AbilityHandler abilityChosen;
 
     // Variables 
     protected Unit target;
@@ -67,7 +68,6 @@ public class enemyAI : Unit
         dropChance = enemyStats.dropChance;
         viewAngle = enemyStats.viewAngle;
 
-        animator = GetComponent<Animator>(); 
         startPos = transform.position;
         currentState = AIState.Idle;
 
@@ -84,6 +84,8 @@ public class enemyAI : Unit
         }
 
         base.Start();
+
+        agent.speed = GetSpeed();
     }
 
     protected virtual void Update()
@@ -112,7 +114,6 @@ public class enemyAI : Unit
     // --- State Methods ---
     protected void IdleState()
     {
-        animator.SetBool("isMoving", false);
         if (IsPlayerInRange() && IsPlayerVisible())
         {
             currentState = AIState.Chasing;
@@ -122,7 +123,6 @@ public class enemyAI : Unit
     protected void ResetState()
     {
         agent.SetDestination(startPos);
-        animator.SetBool("isMoving", true);
 
         float distanceFromStart = Vector3.Distance(transform.position, startPos);
 
@@ -165,14 +165,14 @@ public class enemyAI : Unit
 
     protected void AttackingState()
     {
-        animator.SetBool("isMoving", false);
         // Fetch ability>cast>CD
-        AbilityHandler abilityHandler = ChooseAttack();
-        if (abilityHandler != null && canCastAbility && target != null && !IsStunned())
+        abilityChosen = ChooseAttack();
+        if (abilityChosen != null && canCastAbility && target != null && !IsStunned())
         {
-            CastAbility(abilityHandler);
-            StartCoroutine(Attack());
-            abilityHandler.StartCooldown();
+            
+            string animation = animations[abilityChosen.GetAbility().Info().AnimationType];
+            StartCoroutine(Attack(animation));
+            abilityChosen.StartCooldown();
         }
 
         // Handle attacking through coroutines
@@ -206,9 +206,8 @@ public class enemyAI : Unit
     {
         if (target != null)
         {
-            agent.speed = GetSpeed();
             agent.SetDestination(target.gameObject.transform.position);
-            animator.SetBool("isMoving", !IsStunned() && !IsRooted());
+            animator.SetFloat("Speed", agent.velocity.magnitude / GetSpeed());
         }
     }
 
@@ -247,13 +246,24 @@ public class enemyAI : Unit
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
 
-    protected virtual IEnumerator Attack()
+    protected virtual IEnumerator Attack(string animation)
     {
         canCastAbility = false;
-         
-        yield return new WaitForSeconds(abilityRate * Time.deltaTime); 
+        animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);
+        Debug.Log(animation);
+        animator.SetTrigger(animation);
+
+        yield return new WaitForSeconds(abilityRate);
 
         canCastAbility = true;
+        animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 1);
+    }
+
+    public void CastByAnimation()
+    {
+        CastAbility(abilityChosen);
     }
 
     // --- Combat and Health ---
