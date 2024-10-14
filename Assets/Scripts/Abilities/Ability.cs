@@ -324,7 +324,7 @@ public class Ability : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.isTrigger)
+        if (other.isTrigger || AbilityInfo == null)
             return;
 
         Unit _unit = other.GetComponent<Unit>();

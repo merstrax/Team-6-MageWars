@@ -15,13 +15,15 @@ MonoBehaviour:
   AbilityName: Test Bleed
   AbilityDescription: 
   AbilityID: 6
-  AbilityFlag: 0
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 5
   AbilityType: 2
   CastType: 0
   Cooldown: 0
+  CastTime: 0
+  IsRooted: 0
+  IsTarget: 0
   EffectType: 0
   EffectTargetType: 1
   StatusType: 0
@@ -33,8 +35,7 @@ MonoBehaviour:
   EffectAmount: 3
   DamageCoefficent: 0
   EffectTriggerChance: 0
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
+  EffectStackAmount: 1
   EffectStackMax: 3
   EffectDuration: 5
   EffectTickSpeed: 1
@@ -45,3 +46,5 @@ MonoBehaviour:
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
   AbilityVisual: {fileID: 0}
+  CastPosition: 0
+  AnimationType: 0

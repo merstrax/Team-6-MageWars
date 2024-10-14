@@ -35,7 +35,7 @@ MonoBehaviour:
   EffectAmount: 1.2
   DamageCoefficent: 0
   EffectTriggerChance: 0
-  EffectStackAmount: 0
+  EffectStackAmount: 1
   EffectStackMax: 3
   EffectDuration: 10
   EffectTickSpeed: 0
@@ -46,3 +46,5 @@ MonoBehaviour:
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
   AbilityVisual: {fileID: 0}
+  CastPosition: 0
+  AnimationType: 0
