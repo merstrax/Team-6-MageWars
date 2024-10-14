@@ -79,7 +79,7 @@ MonoBehaviour:
   - {fileID: 9166728649734195318}
   - {fileID: 9056741967293430573}
   - {fileID: 7015340228779744529}
-  lesserElementalSpawnCount: 0
+  lesserElementalSpawnCount: 1
   lesserElementalSpawnTime: 30
   aludyneUnit: {fileID: 5461272799005101667}
   aludyneChaosVolley: {fileID: 0}
