@@ -226,13 +226,16 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.clip = audioClips[3];
         audioSource.Play();
 
+        Ability _arcaneBarrage = Instantiate(zerrokArcaneAbility);
+        _arcaneBarrage.SetOwner(zerrokUnit);
 
+        Destroy(_arcaneBarrage.gameObject, _arcaneBarrage.Info().EffectDuration);
         abilityCoroutine = StartCoroutine(ArcaneWaveTimer());
     }
 
     IEnumerator ArcaneWaveTimer()
     {
-        yield return new WaitForSeconds(audioClips[3].length + zerrokAbilityTimer);
+        yield return new WaitForSeconds(zerrokArcaneAbility.Info().EffectDuration);
         abilityPhaseFinished = true;
         abilityCoroutine = null;
     }

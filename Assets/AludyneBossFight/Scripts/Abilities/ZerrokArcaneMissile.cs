@@ -8,11 +8,10 @@ public class ZerrokArcaneMissile : Ability
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.isTrigger)
+        if (other.isTrigger || other.gameObject.CompareTag(gameObject.tag))
             return;
 
         Unit _unit = other.GetComponent<Unit>();
-        
         if (_unit != owner && _unit != null && !other.CompareTag(gameObject.tag))
         {
             SetOther(_unit);
@@ -20,10 +19,5 @@ public class ZerrokArcaneMissile : Ability
         }
 
         Instantiate(arcaneExplosion, transform.position, Quaternion.Euler(0, 0, 0));
-
-        if (other.CompareTag("MapObject") || other.gameObject.layer == LayerMask.NameToLayer("Terrain"))
-        {
-            Destroy(gameObject);
-        } 
     }
 }

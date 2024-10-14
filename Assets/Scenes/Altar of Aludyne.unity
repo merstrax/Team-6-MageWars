@@ -413,8 +413,8 @@ Transform:
   m_GameObject: {fileID: 575272894}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.09, z: 0}
-  m_LocalScale: {x: 150, y: 0.1, z: 150}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 150, y: 1, z: 150}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1342,23 +1342,18 @@ PrefabInstance:
       objectReference: {fileID: 616282442}
     - target: {fileID: 623519230297201632, guid: b81aabdbe3f986a40823405cae802cc9,
         type: 3}
-      propertyPath: healthBase
-      value: 50
+      propertyPath: pillarAbility
+      value: ZerrokArcanePhase
       objectReference: {fileID: 0}
     - target: {fileID: 1841949358072867171, guid: b81aabdbe3f986a40823405cae802cc9,
         type: 3}
       propertyPath: m_Name
       value: AludyneBossFightController
       objectReference: {fileID: 0}
-    - target: {fileID: 3402681116430143994, guid: b81aabdbe3f986a40823405cae802cc9,
-        type: 3}
-      propertyPath: healthBase
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 4471718347122142796, guid: b81aabdbe3f986a40823405cae802cc9,
         type: 3}
-      propertyPath: healthBase
-      value: 50
+      propertyPath: pillarAbility
+      value: ZerrokArcanePhase
       objectReference: {fileID: 0}
     - target: {fileID: 5560284816569688524, guid: b81aabdbe3f986a40823405cae802cc9,
         type: 3}
@@ -1410,15 +1405,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6562373362117471229, guid: b81aabdbe3f986a40823405cae802cc9,
-        type: 3}
-      propertyPath: lesserElementalSpawnCount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7010832213870537445, guid: b81aabdbe3f986a40823405cae802cc9,
         type: 3}
-      propertyPath: healthBase
-      value: 50
+      propertyPath: pillarAbility
+      value: ZerrokArcanePhase
       objectReference: {fileID: 0}
     - target: {fileID: 7318609084038409971, guid: b81aabdbe3f986a40823405cae802cc9,
         type: 3}
