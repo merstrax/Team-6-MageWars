@@ -270,9 +270,16 @@ public class enemyAI : Unit
     public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
         isDead = true;
-        //animator.SetTrigger("Die");
-        TryDropPickup();
-        base.OnDeath(other);
+        ApplyStatus(StatusFlag.INVULNERABLE);
+        agent.speed = 0;
+        agent.isStopped = true;     
+        animator.SetTrigger("Death"); 
+    }
+
+    public void DeathAfterAnimation()
+    {
+        TryDropPickup(); 
+        base.OnDeath(); 
     }
 
     protected void TryDropPickup()
