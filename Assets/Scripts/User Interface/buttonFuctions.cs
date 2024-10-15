@@ -11,6 +11,7 @@ public class buttonFuctions : MonoBehaviour
     public GameObject graphicsScreen;
     public GameObject soundScreen;
 
+
     public void mainMenuSettings(GameObject menuSettings)
     {
         menuSettings.SetActive(!menuSettings.activeSelf);
@@ -23,19 +24,26 @@ public class buttonFuctions : MonoBehaviour
 
     public void Graphicssettings()
     {
-        graphicsScreen.SetActive(true);
         settingScreen.SetActive(false);
+        soundScreen.SetActive(false);
+        graphicsScreen.SetActive(true);
+
     }
     public void soundSettings()
     {
+        settingScreen.SetActive(false);
+        graphicsScreen.SetActive(false);
         soundScreen.SetActive(true);
-        settingScreen.SetActive(false); 
+
+    
     }
 
     public void Close()
     {
         settingScreen.SetActive(false);
         graphicsScreen.SetActive(false);
+        soundScreen.SetActive(false);
+
     }
 
     public void resume()
