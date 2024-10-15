@@ -1575,7 +1575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Player
-  animations: {fileID: 0}
+  animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
   castPositions:
   - {fileID: 7802814478744346973}
   healthRegen: 5
@@ -1589,12 +1589,12 @@ MonoBehaviour:
   healthCurrent: 10
   unitInterface: {fileID: 0}
   inputController: {fileID: 3660527585307201292}
-  dashTiming: 0.5
+  animator: {fileID: 3362101406424869945}
   abilityPassive:
   - {fileID: 0}
   abilities:
   - {fileID: 39563482987813226, guid: c3d9db4364247a94e9b468761584e5e1, type: 3}
-  - {fileID: -6657460586643874839, guid: 5dff209b4852d1f47886ec2810d2a1fb, type: 3}
+  - {fileID: 39563482987813226, guid: 3fff6522b52a42f4f97fdf807c202d3a, type: 3}
   - {fileID: 8394976232193250753, guid: ffa465c84745a3742be6ef08d77203ac, type: 3}
   - {fileID: 4427820751025286997, guid: f833d1966cdcbb04197dfe347dc6a102, type: 3}
   aoeTargetSelector: {fileID: 6008606222082367131}

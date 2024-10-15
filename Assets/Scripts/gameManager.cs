@@ -104,6 +104,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void UpdateCastbar(bool Show, float Cast = 1f, float maxCast = 1f)
+    {
+        playerInterface.UpdatePlayerCast(Show, Cast, maxCast);
+    }
+
+    public void UpdateHealthbar(float healthCurrent, float healthMax)
+    {
+        playerInterface.UpdatePlayerHealth(healthCurrent, healthMax);
+    }
+
     internal void SetInteractMessage(string message)
     {
         playerInterface.UpdateInteractMessage(message);

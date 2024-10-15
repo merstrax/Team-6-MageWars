@@ -76,6 +76,12 @@ public class PlayerController : Unit
     {
         UpdateTargeting();
         
+        if(abilityChannel != null)
+        {
+            float current = Time.time;
+            float end = castStart + abilityHandler.GetAbility().Info().CastTime;
+            GameManager.instance.UpdateCastbar(true, current, end);
+        }
 
         for (int i = 0; i < inputController.ability.Length; i++)
         {
@@ -241,7 +247,8 @@ public class PlayerController : Unit
 
     public void CastByAnimation()
     {
-        castStart = Time.time;
+        float tickSpeed = abilityCasting.Info().EffectTickSpeed;
+        castStart = Time.time - tickSpeed;
         if (abilityCasting.Info().CastType == CastType.CHANNEL)
         {
             isChanneling = true;
@@ -252,15 +259,18 @@ public class PlayerController : Unit
     
     public override void OnCast(Unit other = null, Ability source = null, Damage damage = default)
     {
-        if(source.Info().CastType == CastType.CHANNEL && abilityChannel == null && (castStart + source.Info().CastTime < Time.time))
+        float tickSpeed = source.Info().EffectTickSpeed;
+        float nextCast = castStart + source.Info().CastTime + tickSpeed;
+
+        if (source.Info().CastType == CastType.CHANNEL && (nextCast < Time.time))
         {
-            abilityChannel = StartCoroutine(ChannelCast(source.Info().EffectTickSpeed));
+            isChanneling = false;
         }
     }
 
     IEnumerator ChannelCast(float tickSpeed)
     {
-        if (castStart + abilityHandler.GetAbility().Info().CastTime < Time.time)
+        if (castStart + abilityHandler.GetAbility().Info().CastTime < Time.time + tickSpeed)
             isChanneling = false;
 
         yield return new WaitForSeconds(tickSpeed);
@@ -269,7 +279,7 @@ public class PlayerController : Unit
         abilityCasting.Cast(GetCastLocation());
 
         if(isChanneling)
-            abilityChannel = StartCoroutine(ChannelCast(abilityHandler.GetAbility().Info().EffectTickSpeed));
+            abilityChannel = StartCoroutine(ChannelCast(tickSpeed));
     }
 
     public override void OnCastEnd(Unit other = null, Ability source = null, Damage damage = default)
@@ -281,6 +291,8 @@ public class PlayerController : Unit
         abilityHandler = null;
         abilityChannel = null;
         castStart = 0.0f;
+
+        GameManager.instance.UpdateCastbar(false);
     }
     #endregion
 
@@ -310,6 +322,7 @@ public class PlayerController : Unit
     public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
     {
         animator.SetTrigger("Hit");
+        GameManager.instance.UpdateHealthbar(healthCurrent, healthMax);
     }
 
     public override void OnStun(Unit other = null, Ability source = null, Damage damage = default)

@@ -220,9 +220,8 @@ public class EnemyAI : Unit, ITargetable
         abilityChosen = ChooseAttack();
         if (abilityChosen != null && canCastAbility && target != null && !IsStunned())
         {
-
             string animation = animations[abilityChosen.GetAbility().Info().AnimationType];
-            StartCoroutine(Attack(animation));
+            CastAbility(abilityChosen);
             abilityChosen.StartCooldown();
         }
 
@@ -235,9 +234,10 @@ public class EnemyAI : Unit, ITargetable
         }
     }
 
+    Ability _ability;
     private void CastAbility(AbilityHandler ability)
     {
-        Ability _ability = Instantiate(ability.GetAbility(), GetCastPos(ability.GetAbility().Info().CastPosition).position, transform.rotation);
+        _ability = Instantiate(ability.GetAbility(), GetCastPos(ability.GetAbility().Info().CastPosition).position, transform.rotation);
         _ability.SetOwner(this);
 
         Vector3 toCastPos = target.gameObject.transform.position;
@@ -249,6 +249,17 @@ public class EnemyAI : Unit, ITargetable
         }
 
         _ability.CastStart(this, toCastPos);
+    }
+
+    public override void OnCastStart(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        string animation = animations[source.Info().AnimationType];
+        animator.SetTrigger(animation);
+
+        canCastAbility = false;
+        animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);
+        animator.SetTrigger(animation);
     }
 
     protected virtual IEnumerator Attack(string animation)
@@ -267,7 +278,14 @@ public class EnemyAI : Unit, ITargetable
 
     public void CastByAnimation()
     {
-        CastAbility(abilityChosen);
+        _ability.Cast();
+    }
+
+    protected virtual void OnCastEnd()
+    {
+        canCastAbility = true;
+        animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 1);
     }
 
     protected virtual AbilityHandler ChooseAttack()

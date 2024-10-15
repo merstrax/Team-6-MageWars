@@ -8,6 +8,7 @@ public class PlayerInterface : MonoBehaviour
 {
     [SerializeField] Image playerHealthBar;
     [SerializeField] Image PlayerCastBar;
+    [SerializeField] Image PlayerCastBarFill;
     [SerializeField] Image NormalAttack;
     [SerializeField] Image NormalSpecial;
     [SerializeField] Image Special;
@@ -19,7 +20,7 @@ public class PlayerInterface : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        PlayerCastBar.enabled = false;
     }
 
     private void Update()
@@ -29,13 +30,16 @@ public class PlayerInterface : MonoBehaviour
 
 
     // Update is called once per frame
-    public void UpdatePlayerHealth(int health, int maxHealth)
+    public void UpdatePlayerHealth(float health, float maxHealth)
     {
-        playerHealthBar.fillAmount = (float)health / maxHealth;
+        playerHealthBar.fillAmount = health / maxHealth;
     }
-    public void UpdatePlayerCast(int Cast, int maxCast)
+
+    public void UpdatePlayerCast(bool show, float Cast, float maxCast)
     {
-        PlayerCastBar.fillAmount = (float)Cast / maxCast;
+        PlayerCastBar.enabled = show;
+        PlayerCastBarFill.enabled = show;
+        PlayerCastBarFill.fillAmount = Cast / maxCast;
     }
 
     public void UpdateInteractMessage(string message)
