@@ -290,13 +290,13 @@ public class AludyneBossFight : MonoBehaviour
             if (enemyAI == aludyneUnit) continue;
 
             frost = Instantiate(zerrokFrostAbility, enemyAI.transform.position, Quaternion.identity);
-            frost.StartCast(enemyAI, enemyAI.transform.position);
+            frost.CastStart(enemyAI, enemyAI.transform.position);
         }
 
         foreach (AludynePillarUnit pillar in pillarList)
         {
             frost = Instantiate(zerrokFrostAbility, pillar.transform.position, Quaternion.identity);
-            frost.StartCast(pillar, pillar.transform.position);
+            frost.CastStart(pillar, pillar.transform.position);
         }
 
         abilityCoroutine = StartCoroutine(FrostWaveTimer());

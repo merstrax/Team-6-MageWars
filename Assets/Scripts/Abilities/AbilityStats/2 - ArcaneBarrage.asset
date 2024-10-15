@@ -15,17 +15,17 @@ MonoBehaviour:
   AbilityName: Arcane Barrage
   AbilityDescription: 
   AbilityID: 2
-  AbilitySpeed: 0
+  AbilitySpeed: 35
   AbilityRange: 25
   ElementType: 0
-  AbilityType: 1
-  CastType: 0
+  AbilityType: 0
+  CastType: 2
   Cooldown: 2
-  CastTime: 0
+  CastTime: 3
   IsRooted: 0
-  IsTarget: 1
+  IsTarget: 0
   EffectType: 0
-  EffectTargetType: 0
+  EffectTargetType: 1
   StatusType: 0
   AttributeFlags: 0
   ElementFlags: 0
@@ -37,8 +37,8 @@ MonoBehaviour:
   EffectTriggerChance: 1
   EffectStackAmount: 0
   EffectStackMax: 0
-  EffectDuration: 0.5
-  EffectTickSpeed: 0
+  EffectDuration: 2
+  EffectTickSpeed: 0.5
   ResourceType: 0
   ResourceMax: 0
   ResourceCooldown: 0
@@ -46,3 +46,5 @@ MonoBehaviour:
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
   AbilityVisual: {fileID: 0}
+  CastPosition: 0
+  AnimationType: 5

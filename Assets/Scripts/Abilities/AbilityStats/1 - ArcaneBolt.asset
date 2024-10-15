@@ -46,3 +46,5 @@ MonoBehaviour:
   ComboAbilities: []
   AbilityIcon: {fileID: 2800000, guid: 59f654c034abb334a8ba4591c79f4464, type: 3}
   AbilityVisual: {fileID: 104516, guid: 62de476edefb27d4fa2d5681775e8586, type: 3}
+  CastPosition: 0
+  AnimationType: 4

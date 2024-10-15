@@ -1384,12 +1384,11 @@ GameObject:
   - component: {fileID: 1693871861271195532}
   - component: {fileID: -7920499531102777241}
   - component: {fileID: 6036635453473558285}
-  - component: {fileID: 3620549948210513988}
   - component: {fileID: 3638051124665397020}
   - component: {fileID: 4947504186526812065}
   m_Layer: 6
   m_Name: Skeleton
-  m_TagString: Skeleton
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1445,8 +1444,8 @@ MonoBehaviour:
   enemyStats: {fileID: 11400000, guid: 02f19d7db02cd8a4ea435877f37700b2, type: 2}
   animator: {fileID: 6036635453473558285}
   model: {fileID: 5084379265514629020}
-  bodyCollider: {fileID: 3620549948210513988}
-  headCollider: {fileID: 3638051124665397020}
+  bodyCollider: {fileID: 6997852639410806426}
+  headCollider: {fileID: 6997852639410806426}
   targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
   agent: {fileID: 4947504186526812065}
   headPos: {fileID: 7482975054958508614}
@@ -1465,7 +1464,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5416b451c3f8d9147b04f212b674f0c4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1473,29 +1472,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &3620549948210513988
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7901598093719267408}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Height: 5
-  m_Direction: 1
-  m_Center: {x: 0, y: 2.64, z: 0}
 --- !u!136 &3638051124665397020
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1515,10 +1491,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 1.5
+  m_Height: 6
   m_Direction: 1
-  m_Center: {x: -0.11, y: 5.5, z: 0.45}
+  m_Center: {x: 0, y: 3, z: 0}
 --- !u!195 &4947504186526812065
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1584,9 +1560,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5092340947715641295}
   - component: {fileID: 5084379265514629020}
+  - component: {fileID: 6997852639410806426}
   m_Layer: 6
   m_Name: skeleton_mesh
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1599,7 +1576,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8171531605378982423}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1690,6 +1667,29 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.09016192, y: -0.101312995, z: 0.001445055}
     m_Extent: {x: 3.3079643, y: 0.9062954, z: 1.589275}
   m_DirtyAABB: 0
+--- !u!136 &6997852639410806426
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8171531605378982423}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Height: 6
+  m_Direction: 1
+  m_Center: {x: 0, y: 3, z: 0}
 --- !u!1 &8519988778398501452
 GameObject:
   m_ObjectHideFlags: 0
