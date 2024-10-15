@@ -54,17 +54,18 @@ public class AoETargetSpin : MonoBehaviour
         if (other.isTrigger)
             return;
 
-        if (other.gameObject.TryGetComponent<Unit>(out var hit))
+        if (other.gameObject.TryGetComponent<ITargetable>(out var hit))
         {
-            hit.TargetOutline();
+            if(hit.GameObject().CompareTag("Enemy"))
+                hit.OnTarget(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.TryGetComponent<Unit>(out var hit))
+        if (other.gameObject.TryGetComponent<ITargetable>(out var hit))
         {
-            hit.TargetOutline(false);
+            hit.OnTarget(false);
         }
     }
 }

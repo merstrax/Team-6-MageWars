@@ -1,33 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class AludynePillarUnit : Unit, ITargetable
+public class PillarObjective : MonoBehaviour, IInteractable
 {
-    [SerializeField] string pillarAbility;
-    [SerializeField] Material targetMaterial;
+    [SerializeField] Material outlineMaterial;
+    [SerializeField] string interactMessage;
+    [SerializeField] PillarFlags type;
 
-    protected override void Start()
-    {  
-        base.Start();
-        SetupTarget(targetMaterial);
-    }
-
-    public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
+    // Start is called before the first frame update
+    void Start()
     {
-        AludyneBossFight aludyneBossFight = FindAnyObjectByType<AludyneBossFight>();
-
-        aludyneBossFight.OnDeath(this);
-
-        base.OnDeath(other);
+        SetupTarget(Instantiate(outlineMaterial));
+        Message = interactMessage;
     }
 
-    public string PillarAbility()
+    public void SetComplete(bool isComplete)
     {
-        return pillarAbility;
+        IsTargetDisabled = isComplete;
     }
+
+    #region Interactable Implementation
+    public string Message { get; set; }
+
+    public void OnInteract()
+    {
+        if (IsTargetDisabled) return;
+        GodrickValleyController.instance.SetPillarComplete(type);
+
+        IsTargetDisabled = true;
+    }
+    #endregion
 
     #region Targetable Implementation
+    //Targetable Implement
     public Material TargetMaterial { get; set; }
     public bool IsTargetDisabled { get; set; }
 
@@ -53,10 +61,12 @@ public class AludynePillarUnit : Unit, ITargetable
 
         if (setTarget && !IsTargetDisabled)
         {
+            GameManager.instance.SetInteractMessage(Message);
             TargetMaterial.SetFloat("_OutlineWidth", 0.075f);
         }
         else
         {
+            GameManager.instance.SetInteractMessage("");
             TargetMaterial.SetFloat("_OutlineWidth", 0f);
         }
     }

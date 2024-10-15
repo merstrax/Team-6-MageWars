@@ -4,13 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Head
   - MapObject
-  - Golem
-  - AludyneBossFight
   - Terrain
-  - Skeleton
-  - Bear
+  - Enemy
+  - AludyneBossFight
   layers:
   - Default
   - TransparentFX

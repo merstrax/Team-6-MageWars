@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -103,4 +104,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    internal void SetInteractMessage(string message)
+    {
+        playerInterface.UpdateInteractMessage(message);
+    }
 }

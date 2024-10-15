@@ -12,6 +12,7 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField] Image NormalSpecial;
     [SerializeField] Image Special;
     [SerializeField] GameObject damagePanel;
+    [SerializeField] TextMeshProUGUI interactMessage;
 
 
 
@@ -35,5 +36,17 @@ public class PlayerInterface : MonoBehaviour
     public void UpdatePlayerCast(int Cast, int maxCast)
     {
         PlayerCastBar.fillAmount = (float)Cast / maxCast;
+    }
+
+    public void UpdateInteractMessage(string message)
+    {
+        if (message == "")
+        {
+            interactMessage.enabled = false;
+            return;
+        }
+
+        interactMessage.enabled = true;
+        interactMessage.text = message;
     }
 }

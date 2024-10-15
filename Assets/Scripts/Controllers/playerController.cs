@@ -44,7 +44,7 @@ public class PlayerController : Unit
     [SerializeField] AudioClip[] audioJump;
     [Range(0, 1)][SerializeField] float audioJumpVolume;
 
-    Unit target;
+    ITargetable target;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -149,17 +149,17 @@ public class PlayerController : Unit
 
             if (Physics.Raycast(ray, out hit, 200.0f))
             {
-                Unit targetHit = hit.collider.gameObject.GetComponentInParent<Unit>();
+                ITargetable targetHit = hit.collider.gameObject.GetComponentInParent<ITargetable>();
 
-                if (targetHit != null && !hit.collider.CompareTag("Player"))
+                if (targetHit != null)
                 {
-                    if (target != null) target.TargetOutline(false);
-                    targetHit.TargetOutline();
+                    target?.OnTarget(false);
+                    targetHit.OnTarget(true);
                     target = targetHit;
                 }
-                else if (target != null)
+                else
                 {
-                    target.TargetOutline(false);
+                    target?.OnTarget(false);
                     target = null;
                 }
             }
@@ -168,7 +168,7 @@ public class PlayerController : Unit
         {
             if (target != null)
             {
-                target.TargetOutline(false);
+                target.OnTarget(false);
                 target = null;
             }
             screenCenter = new Vector3(0.5f, 0.45f, 0f);
@@ -187,8 +187,6 @@ public class PlayerController : Unit
         Debug.DrawRay(ray.GetPoint(0), ray.direction * 200.0f, Color.red);
     }
 
-    public override void TargetOutline(bool target = true) { } //Stop Target Outline from hitting player
-
     private void CastAbility(AbilityHandler ability)
     {
         Ability _ability = Instantiate(ability.GetAbility(), GetCastPos(0).position, transform.rotation);
@@ -206,17 +204,21 @@ public class PlayerController : Unit
         {
             toCastPos = aoeTargetSelector.transform.position;
         }
-        else if (target == null)
-        {
-            Vector3 screenCenter = new Vector3(0.5f, 0.55f, 0f);
-            Ray ray = Camera.main.ViewportPointToRay(screenCenter);
-
-            toCastPos = ray.GetPoint(50.0f);
-        }
         else
         {
-            toCastPos = target.transform.position;
-            toCastPos += ((target.GetComponent<CapsuleCollider>().center) * target.transform.lossyScale.magnitude);
+            Unit hit = target.GameObject().GetComponentInParent<Unit>();
+            if (hit)
+            {
+                toCastPos = hit.transform.position;
+                toCastPos += ((hit.GetComponent<CapsuleCollider>().center) * hit.transform.lossyScale.magnitude);
+            }
+            else
+            {
+                Vector3 screenCenter = new Vector3(0.5f, 0.55f, 0f);
+                Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+
+                toCastPos = ray.GetPoint(_ability.Info().AbilityRange);
+            }
         }
 
         _ability.StartCast(this, toCastPos);

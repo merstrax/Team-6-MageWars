@@ -60,9 +60,9 @@ MonoBehaviour:
   critDamageBase: 0
   cooldownBase: 0
   healthCurrent: 0
-  isTargetable: 0
   unitInterface: {fileID: 335168255359362262}
   pillarAbility: ZerrokArcanePhase
+  targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
 --- !u!33 &404051969351968083
 MeshFilter:
   m_ObjectHideFlags: 0

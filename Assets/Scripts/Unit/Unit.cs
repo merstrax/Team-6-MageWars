@@ -158,11 +158,7 @@ public class Unit : MonoBehaviour, IDamage
 
     //Healthbar
     [Header("Interface")]
-    [SerializeField] bool isTargetable = true;
-    public void SetTargetable(bool isTarget) { isTargetable = isTarget; }
-
     [SerializeField] UnitInterface unitInterface;
-    Material outlineMaterial;
 
     private static Dictionary<TriggerFlags, MethodInfo> Events = new()
     {
@@ -192,37 +188,8 @@ public class Unit : MonoBehaviour, IDamage
 
         UpdateInterface();
 
-        if (isTargetable)
-        {
-            outlineMaterial = Resources.Load<Material>("Materials/OutlineMaterial");
-            outlineMaterial = Instantiate(outlineMaterial);
-            if (outlineMaterial != null)
-            {
-                List<Renderer> renderers = new List<Renderer>();
-
-                foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-                {
-                    List<Material> materials = new() { outlineMaterial };
-                    materials.AddRange(renderer.materials);
-                    renderer.SetMaterials(materials);
-                }
-            }
-
-            outlineMaterial.SetFloat("_OutlineWidth", 0f);
-        }
         if (animations != null)
             animations.Inititialize();
-    }
-
-    public virtual void TargetOutline(bool target = true)
-    {
-        if (!isTargetable) return;
-        if (target)
-        {
-            outlineMaterial.SetFloat("_OutlineWidth", 0.075f);
-        }
-        else
-            outlineMaterial.SetFloat("_OutlineWidth", 0f);
     }
 
     protected void UpdateStats()

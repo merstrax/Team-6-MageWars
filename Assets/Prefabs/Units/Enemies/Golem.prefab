@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 9142772966208370348}
   m_Layer: 6
   m_Name: Golem
-  m_TagString: Golem
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -444,13 +444,13 @@ MonoBehaviour:
   critDamageBase: 0
   cooldownBase: 0
   healthCurrent: 0
-  isTargetable: 1
   unitInterface: {fileID: 8422400686019964869}
   enemyStats: {fileID: 11400000, guid: 8e16037ac8af20b4780f49cd2a07ca5d, type: 2}
   animator: {fileID: 5663918749682702063}
   model: {fileID: 2852112183291550114}
   bodyCollider: {fileID: 2967938953222354635}
   headCollider: {fileID: 2163259340079371921}
+  targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
   agent: {fileID: 6332267895436848291}
   headPos: {fileID: 7884165309031046978}
   faceTargetSpeed: 50

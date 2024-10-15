@@ -62,6 +62,7 @@ MonoBehaviour:
   healthCurrent: 0
   unitInterface: {fileID: 4457770151646356774}
   pillarAbility: ZerrokWindPhase
+  targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
 --- !u!33 &8208818749224608060
 MeshFilter:
   m_ObjectHideFlags: 0

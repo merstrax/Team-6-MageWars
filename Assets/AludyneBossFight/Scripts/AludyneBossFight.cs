@@ -280,12 +280,12 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.Play();
 
 
-        List<enemyAI> enemies = new();
-        enemies.AddRange(FindObjectsOfType<enemyAI>());
+        List<EnemyAI> enemies = new();
+        enemies.AddRange(FindObjectsOfType<EnemyAI>());
 
         Ability frost;
 
-        foreach (enemyAI enemyAI in enemies)
+        foreach (EnemyAI enemyAI in enemies)
         {
             if (enemyAI == aludyneUnit) continue;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AludyneUnitAI : enemyAI
+public class AludyneUnitAI : EnemyAI
 {
 
     public void SetSleeping()
@@ -11,8 +11,8 @@ public class AludyneUnitAI : enemyAI
         ApplyStatus(StatusFlag.INVULNERABLE);
         ApplyStatus(StatusFlag.STUNNED);
         UpdateInterface();
-        TargetOutline(false);
-        SetTargetable(false);
+        OnTarget(false);
+        IsTargetDisabled = false;
 
         animator.SetTrigger("Sleep");
     }
@@ -26,7 +26,7 @@ public class AludyneUnitAI : enemyAI
     {
         RemoveStatus(StatusFlag.INVULNERABLE);
         RemoveStatus(StatusFlag.STUNNED);
-        SetTargetable(true);
+        IsTargetDisabled = false;
     }
 
     public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
@@ -35,7 +35,7 @@ public class AludyneUnitAI : enemyAI
         ApplyStatus(StatusFlag.STUNNED);
 
         animator.SetTrigger("Kneel");
-        SetTargetable(false);
+        IsTargetDisabled = true;
     }
 
     public void DoDeathAnimation()

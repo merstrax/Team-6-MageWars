@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 
-public class enemyAI : Unit
+public class EnemyAI : Unit, ITargetable
 {
     [Header("Enemy Stats")]
     [SerializeField] protected enemyStats enemyStats;
@@ -19,6 +19,7 @@ public class enemyAI : Unit
     [SerializeField] protected Renderer model;
     [SerializeField] protected CapsuleCollider bodyCollider;
     [SerializeField] protected CapsuleCollider headCollider;
+    [SerializeField] protected Material targetMaterial;
 
     [Header("AI Nav")]
     [SerializeField] protected NavMeshAgent agent;
@@ -44,12 +45,13 @@ public class enemyAI : Unit
 
     // Variables 
     protected Unit target;
-    protected Vector3 playerDir;
+    protected Vector3 targetDirection;
     protected Vector3 startPos;
     protected Vector3 lastAttackPosition;
     protected bool isAttacking;
     protected bool isDead;
     protected bool canAttack = true;
+
     protected override void Start()
     {
         healthRegen = enemyStats.healthRegen;
@@ -86,6 +88,7 @@ public class enemyAI : Unit
         base.Start();
 
         agent.speed = GetSpeed();
+        SetupTarget(targetMaterial);
     }
 
     protected virtual void Update()
@@ -111,29 +114,13 @@ public class enemyAI : Unit
         }
     }
 
-    // --- State Methods ---
+    #region Movement and Targeting
     protected void IdleState()
     {
-        if (IsPlayerInRange() && IsPlayerVisible())
+        if (IsTargetInRange() && IsTargetVisible())
         {
             currentState = AIState.Chasing;
         }
-    }
-
-    protected void ResetState()
-    {
-        agent.SetDestination(startPos);
-
-        float distanceFromStart = Vector3.Distance(transform.position, startPos);
-
-        if (distanceFromStart <= 0.01f)
-        {
-            currentState = AIState.Idle;
-            RemoveStatus(StatusFlag.INVULNERABLE);
-            RemoveAllEffects();
-        }
-
-        agent.speed = 10;
     }
 
     protected void ChasingState()
@@ -151,25 +138,89 @@ public class enemyAI : Unit
             return;
         }
 
-        float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
+        float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
-        if (AnyAbilityInRange(distanceToPlayer))
+        if (AnyAbilityInRange(distanceToTarget))
         {
             currentState = AIState.Attacking;
         }
         else
         {
-            MoveTowardsPlayer();
+            MoveTowardsTarget();
         }
     }
 
+    protected void ResetState()
+    {
+        agent.SetDestination(startPos);
+
+        float distanceFromStart = Vector3.Distance(transform.position, startPos);
+
+        if (distanceFromStart <= 0.01f)
+        {
+            target = null;
+            currentState = AIState.Idle;
+            RemoveStatus(StatusFlag.INVULNERABLE);
+            RemoveAllEffects();
+        }
+
+        agent.speed = 10;
+    }
+
+    protected void MoveTowardsTarget()
+    {
+        if (target != null)
+        {
+            agent.SetDestination(target.gameObject.transform.position);
+            animator.SetFloat("Speed", agent.velocity.magnitude / GetSpeed());
+        }
+    }
+
+    protected bool IsTargetInRange()
+    {
+        Unit[] unitList = FindObjectsOfType<Unit>();
+        float distanceToTarget;
+
+        foreach (Unit unit in unitList)
+        {
+            if (unit.CompareTag(tag)) continue;
+            distanceToTarget = Vector3.Distance(transform.position, unit.transform.position);
+            target = unit;
+            return distanceToTarget <= aggroRange;
+        }
+
+        target = null;
+        return false;
+    }
+
+    protected bool IsTargetVisible()
+    {
+        Vector3 directionToTarget = (target.transform.position - headPos.position).normalized;
+        float angleToTarget = Vector3.Angle(directionToTarget, transform.forward);
+
+        if (angleToTarget < viewAngle)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    protected void FaceTarget()
+    {
+        targetDirection = (GameManager.instance.player.transform.position - transform.position).normalized;
+        Quaternion rot = Quaternion.LookRotation(targetDirection);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
+    }
+    #endregion
+
+    #region Attack Handling
     protected void AttackingState()
     {
         // Fetch ability>cast>CD
         abilityChosen = ChooseAttack();
         if (abilityChosen != null && canCastAbility && target != null && !IsStunned())
         {
-            
+
             string animation = animations[abilityChosen.GetAbility().Info().AnimationType];
             StartCoroutine(Attack(animation));
             abilityChosen.StartCooldown();
@@ -200,52 +251,6 @@ public class enemyAI : Unit
         _ability.StartCast(this, toCastPos);
     }
 
-    // --- AI Utility Methods ---
-
-    protected void MoveTowardsPlayer()
-    {
-        if (target != null)
-        {
-            agent.SetDestination(target.gameObject.transform.position);
-            animator.SetFloat("Speed", agent.velocity.magnitude / GetSpeed());
-        }
-    }
-
-    protected bool IsPlayerInRange()
-    {
-        float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
-        return distanceToPlayer <= aggroRange;
-    }
-
-    protected bool IsPlayerVisible()
-    {
-        Vector3 directionToPlayer = (GameManager.instance.player.transform.position - headPos.position).normalized;
-        float angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
-        if (angleToPlayer < viewAngle)
-        {
-            int layerMask = LayerMask.GetMask(new string[] { "Player" });
-
-            if (Physics.Raycast(headPos.position, directionToPlayer, out RaycastHit hit, aggroRange))
-            {
-                if (hit.collider.gameObject.TryGetComponent<Unit>(out Unit unit))
-                {
-                    target = unit;
-
-                    return true;
-                }
-            }
-        }
-        target = null;
-        return false;
-    }
-
-    protected void FaceTarget()
-    {
-        playerDir = (GameManager.instance.player.transform.position - transform.position).normalized;
-        Quaternion rot = Quaternion.LookRotation(playerDir);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
-    }
-
     protected virtual IEnumerator Attack(string animation)
     {
         canCastAbility = false;
@@ -265,34 +270,6 @@ public class enemyAI : Unit
         CastAbility(abilityChosen);
     }
 
-    // --- Combat and Health ---
-
-    public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
-    {
-        isDead = true;
-        ApplyStatus(StatusFlag.INVULNERABLE);
-        agent.speed = 0;
-        agent.isStopped = true;     
-        animator.SetTrigger("Death"); 
-    }
-
-    public void DeathAfterAnimation()
-    {
-        TryDropPickup(); 
-        base.OnDeath(); 
-    }
-
-    protected void TryDropPickup()
-    {
-        // Health drop logic - chance to drop health item
-        float randomValue = Random.Range(0f, 1f);
-        if (randomValue >= dropChance && dropPrefab != null && dropPrefab.Length > 0)
-        {
-            int randomIndex = Random.Range(0, dropPrefab.Length);
-
-            Instantiate(dropPrefab[randomIndex], transform.position, Quaternion.identity);
-        }
-    }
     protected virtual AbilityHandler ChooseAttack()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
@@ -323,6 +300,38 @@ public class enemyAI : Unit
         }
         return false;
     }
+    #endregion
+
+    #region Death Events
+    public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        isDead = true;
+        ApplyStatus(StatusFlag.INVULNERABLE);
+        agent.speed = 0;
+        agent.isStopped = true;     
+        animator.SetTrigger("Death"); 
+    }
+
+    public void DeathAfterAnimation()
+    {
+        TryDropPickup(); 
+        base.OnDeath(); 
+    }
+
+    protected void TryDropPickup()
+    {
+        // Health drop logic - chance to drop health item
+        float randomValue = Random.Range(0f, 1f);
+        if (randomValue >= dropChance && dropPrefab != null && dropPrefab.Length > 0)
+        {
+            int randomIndex = Random.Range(0, dropPrefab.Length);
+
+            Instantiate(dropPrefab[randomIndex], transform.position, Quaternion.identity);
+        }
+    }
+    #endregion
+
+    #region Trigger Events
     public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
     {
         animator.SetTrigger("Hit");
@@ -345,68 +354,45 @@ public class enemyAI : Unit
     {
         agent.speed = GetSpeed();
     }
+    #endregion
 
-    //protected void SearchingState()
-    //{
-    //    // Move to the last attack position
-    //    agent.SetDestination(lastAttackPosition);
+    #region Targetable Implementation
+    public Material TargetMaterial { get; set; }
+    public bool IsTargetDisabled { get; set; }
 
-    //    // TODO: Implement patrolling logic around last known position
-    //    // You could implement a small loop with random positions around `lastAttackPosition`
+    public void SetupTarget(Material resourceMaterial)
+    {
+        TargetMaterial = Instantiate(resourceMaterial);
+        if (TargetMaterial != null)
+        {
+            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+            {
+                List<Material> materials = new() { TargetMaterial };
+                materials.AddRange(renderer.materials);
+                renderer.SetMaterials(materials);
+            }
 
-    //    // Check visibility of the player
-    //    if (IsPlayerVisible())
-    //    {
-    //        currentState = AIState.Chasing; // Transition to chasing state if player is visible
-    //    }
-    //    else
-    //    {
-    //        // Optional: Return to idle after some time if the player is not found
-    //        StartCoroutine(IdleAfterSearching()); // Start idle timer
-    //    }
-    //}
+            TargetMaterial.SetFloat("_OutlineWidth", 0f);
+        }
+    }
 
-    //protected void RoamingState()
-    //{
-    //    if (IsPlayerInRange() && IsPlayerVisible())
-    //    {
-    //        StopRoaming();
-    //        currentState = AIState.Chasing;
-    //    }
-    //}
-    //protected void StartRoaming()
-    //{
-    //    if (roamCoroutine == null)
-    //    {
-    //        roamCoroutine = StartCoroutine(Roam());
-    //    }
-    //}
+    public void OnTarget(bool setTarget)
+    {
+        if (TargetMaterial == null) return;
 
-    //protected void StopRoaming()
-    //{
-    //    if (roamCoroutine != null)
-    //    {
-    //        StopCoroutine(roamCoroutine);
-    //        roamCoroutine = null;
-    //    }
-    //}
+        if (setTarget && !IsTargetDisabled)
+        {
+            TargetMaterial.SetFloat("_OutlineWidth", 0.075f);
+        }
+        else
+        {
+            TargetMaterial.SetFloat("_OutlineWidth", 0f);
+        }
+    }
 
-    //protected IEnumerator Roam()
-    //{
-    //    isRoaming = true;
-    //    yield return new WaitForSeconds(roamTimer);
-
-    //    Vector3 randomPos = Random.insideUnitSphere * roamDist + startPos;
-    //    NavMeshHit hit;
-    //    NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
-    //    agent.SetDestination(hit.position);
-    //    currentState = AIState.Roaming;
-    //    isRoaming = false;
-    //}
-    //private IEnumerator IdleAfterSearching()
-    //{
-    //    yield return new WaitForSeconds(2f); // Wait before transitioning
-    //    currentState = AIState.Idle; // Transition back to idle
-    //}
-
+    public GameObject GameObject()
+    {
+        return gameObject;
+    }
+    #endregion
 }
