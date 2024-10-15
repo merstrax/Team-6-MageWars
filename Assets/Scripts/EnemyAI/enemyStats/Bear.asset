@@ -24,6 +24,7 @@ MonoBehaviour:
   kiteRange: 150
   viewAngle: 90
   abilityPassive: []
-  abilities: []
-  abilityRate: 0
+  abilities:
+  - {fileID: 5482782143325043695, guid: ea3d93fc4a083bd4cb6bea4ddd67c947, type: 3}
+  abilityRate: 2
   dropChance: 0

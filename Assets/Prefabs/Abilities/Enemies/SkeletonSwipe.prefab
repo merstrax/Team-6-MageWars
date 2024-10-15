@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityInfo: {fileID: 11400000, guid: 89a306b48507881418135796284c0c39, type: 2}
-  isTarget: 0
   myCollider: {fileID: 5126240488271354769}
-  myVisual: {fileID: 0}
+  myVisual: {fileID: 7256118212578504324}
   myRigidbody: {fileID: 0}
+  scriptName: 
 --- !u!135 &5126240488271354769
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -66,7 +66,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -129,6 +129,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55eb5c86fc25872498803bffe237d32c, type: 3}
+--- !u!1 &7256118212578504324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 183712, guid: 55eb5c86fc25872498803bffe237d32c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7256118212578321188}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7256118212578750002 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 429334, guid: 55eb5c86fc25872498803bffe237d32c,
