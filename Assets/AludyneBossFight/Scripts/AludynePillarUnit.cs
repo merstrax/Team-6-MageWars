@@ -2,16 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AludynePillarUnit : Unit, ITargetable
+public class AludynePillarUnit : EnemyAI
 {
     [SerializeField] string pillarAbility;
-    [SerializeField] Material targetMaterial;
 
     protected override void Start()
-    {  
-        base.Start();
+    {
+        healthRegen = enemyStats.healthRegen;
+        healthBase = enemyStats.healthBase;
+        damageBase = enemyStats.damageBase;
+        defenseBase = enemyStats.defenseBase;
+        speedBase = enemyStats.speedBase;
+        critChanceBase = enemyStats.critChanceBase;
+        critDamageBase = enemyStats.critDamageBase;
+        cooldownBase = enemyStats.cooldownBase;
+        aggroRange = enemyStats.aggroRange;
+        kiteRange = enemyStats.kiteRange;
+        dropChance = enemyStats.dropChance;
+        viewAngle = enemyStats.viewAngle;
         SetupTarget(targetMaterial);
     }
+
+    protected override void Update(){}
 
     public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
@@ -19,7 +31,7 @@ public class AludynePillarUnit : Unit, ITargetable
 
         aludyneBossFight.OnDeath(this);
 
-        base.OnDeath(other);
+        DeathAfterAnimation();
     }
 
     public string PillarAbility()
@@ -27,43 +39,28 @@ public class AludynePillarUnit : Unit, ITargetable
         return pillarAbility;
     }
 
-    #region Targetable Implementation
-    public Material TargetMaterial { get; set; }
-    public bool IsTargetDisabled { get; set; }
-
-    public void SetupTarget(Material resourceMaterial)
+    public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
     {
-        TargetMaterial = Instantiate(resourceMaterial);
-        if (TargetMaterial != null)
-        {
-            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-            {
-                List<Material> materials = new() { TargetMaterial };
-                materials.AddRange(renderer.materials);
-                renderer.SetMaterials(materials);
-            }
 
-            TargetMaterial.SetFloat("_OutlineWidth", 0f);
-        }
     }
 
-    public void OnTarget(bool setTarget)
+    public override void OnSlow(Unit other = null, Ability source = null, Damage damage = default)
     {
-        if (TargetMaterial == null) return;
 
-        if (setTarget && !IsTargetDisabled)
-        {
-            TargetMaterial.SetFloat("_OutlineWidth", 0.075f);
-        }
-        else
-        {
-            TargetMaterial.SetFloat("_OutlineWidth", 0f);
-        }
     }
 
-    public GameObject GameObject()
+    public override void OnStun(Unit other = null, Ability source = null, Damage damage = default)
     {
-        return gameObject;
+
     }
-    #endregion
+
+    public override void OnStunEnd(Unit other = null, Ability source = null, Damage damage = default)
+    {
+
+    }
+
+    public override void OnRoot(Unit other = null, Ability source = null, Damage damage = default)
+    {
+
+    }
 }

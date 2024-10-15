@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityInfo: {fileID: 11400000, guid: a26192888a67f334c8d59f112f630bce, type: 2}
-  myCollider: {fileID: 0}
+  myCollider: {fileID: 4311406148830281340}
   myVisual: {fileID: 0}
-  myRigidbody: {fileID: 0}
+  myRigidbody: {fileID: 4526388636292400970}
   scriptName: 
 --- !u!54 &4526388636292400970
 Rigidbody:

@@ -28,6 +28,7 @@ public class ZerrokArcaneBarrage : Ability
 
             location = new Vector3(randX, 0, randZ);
             _missile.CastStart(owner, location);
+            _missile.Cast();
         }
 
         yield return new WaitForSeconds(0.5f);

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5380239632408069256}
   - component: {fileID: 2330037092026184353}
   - component: {fileID: 5088130606789540491}
+  - component: {fileID: -6808648509723758383}
   m_Layer: 0
   m_Name: ElementalPillar_Fire
   m_TagString: AludyneBossFight
@@ -49,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Aludyne Pillar of Flame
-  animations: {fileID: 0}
+  animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
   castPositions: []
   healthRegen: 0
   healthBase: 200
@@ -61,8 +62,17 @@ MonoBehaviour:
   cooldownBase: 0
   healthCurrent: 0
   unitInterface: {fileID: 4600005375214668383}
-  pillarAbility: ZerrokFirePhase
+  enemyStats: {fileID: 11400000, guid: 48248b9b8c2ca754b923457506d3b6e1, type: 2}
+  animator: {fileID: 0}
+  model: {fileID: 0}
+  bodyCollider: {fileID: 5088130606789540491}
+  headCollider: {fileID: 5088130606789540491}
   targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
+  agent: {fileID: -6808648509723758383}
+  headPos: {fileID: 7725897352423573498}
+  faceTargetSpeed: 0
+  dropPrefab: []
+  pillarAbility: ZerrokFirePhase
 --- !u!33 &5380239632408069256
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -136,6 +146,28 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!195 &-6808648509723758383
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7074726327476693468}
+  m_Enabled: 1
+  m_AgentTypeID: 1479372276
+  m_Radius: 0.5000001
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &5529559676335388669
 PrefabInstance:
   m_ObjectHideFlags: 0

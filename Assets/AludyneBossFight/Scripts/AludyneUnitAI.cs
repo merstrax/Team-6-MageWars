@@ -12,7 +12,7 @@ public class AludyneUnitAI : EnemyAI
         ApplyStatus(StatusFlag.STUNNED);
         UpdateInterface();
         OnTarget(false);
-        IsTargetDisabled = false;
+        IsTargetDisabled = true;
 
         animator.SetTrigger("Sleep");
     }

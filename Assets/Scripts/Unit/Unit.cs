@@ -435,8 +435,6 @@ public class Unit : MonoBehaviour, IDamage
         healthCurrent += damage.Amount;
         healthCurrent = Mathf.Min(healthCurrent, healthMax);
 
-        Debug.Log("Healed: " + damage.Amount);
-
         ProccessEvent(TriggerFlags.ON_HEAL, damage: damage, source: source, other: other);
 
         if (unitInterface != null)

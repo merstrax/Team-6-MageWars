@@ -105,8 +105,11 @@ public class Ability : MonoBehaviour
     {
         SetOwner(owner);
         castTarget = lookAt;
-        myCollider.enabled = false;
-        myVisual.SetActive(false);
+        if (myCollider != null)
+            myCollider.enabled = false;
+
+        if (myVisual != null)
+            myVisual.SetActive(false);
 
         OnCastStart();
     }
@@ -119,8 +122,11 @@ public class Ability : MonoBehaviour
 
     public virtual void Cast(Vector3 end = default)
     {
-        myCollider.enabled = true;
-        myVisual.SetActive(true);
+        if(myCollider != null)
+            myCollider.enabled = true;
+
+        if(myVisual != null)
+            myVisual.SetActive(true);
 
         if (end != default)
             castTarget = end;
@@ -160,7 +166,6 @@ public class Ability : MonoBehaviour
     {
         owner.ProccessEvent(TriggerFlags.ON_INTERRUPT, other, this);
     }
-
 
     public virtual void CleanUp(bool instant = false)
     {
@@ -230,6 +235,56 @@ public class Ability : MonoBehaviour
             other.TakeDamage(_damage, this, owner);
 
             OnDamage(other);
+        }
+
+        if (AbilityInfo.AbilityType == AbilityType.PROJECTILE)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public virtual void DoHeal(Unit other)
+    {
+        _calcDamage = new Damage(AbilityInfo.EffectAmount);
+        _calcDamage.Amount *= EffectStackCount;
+
+        switch (AbilityInfo.EffectTargetType)
+        {
+            case EffectTargetType.OWNER:
+                if (owner != null)
+                    owner.Heal(_calcDamage, this, other);
+                break;
+            case EffectTargetType.OTHER:
+                if (other != null)
+                    other.Heal(_calcDamage, this, owner);
+                break;
+            default:
+                break;
+        }
+
+        if (AbilityInfo.AbilityType == AbilityType.PROJECTILE)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public virtual void DoHealPercent(Unit other)
+    {
+        _calcDamage = new Damage(AbilityInfo.EffectAmount);
+        _calcDamage.Amount *= EffectStackCount;
+
+        switch (AbilityInfo.EffectTargetType)
+        {
+            case EffectTargetType.OWNER:
+                if (owner != null)
+                    owner.HealPercent(_calcDamage, this, other);
+                break;
+            case EffectTargetType.OTHER:
+                if (other != null)
+                    other.HealPercent(_calcDamage, this, other);
+                break;
+            default:
+                break;
         }
 
         if (AbilityInfo.AbilityType == AbilityType.PROJECTILE)
@@ -309,8 +364,6 @@ public class Ability : MonoBehaviour
     }
 
     //Triggers
-    
-
     public virtual void OnHit(Unit other)
     {
         if (AbilityInfo.EffectAmount > 0)
@@ -322,7 +375,20 @@ public class Ability : MonoBehaviour
             if (owner != null)
                 owner.ProccessEvent(TriggerFlags.ON_HIT, other, this);
 
-            DoDamage(other);
+            switch(AbilityInfo.EffectType)
+            {
+                case EffectType.HEAL:
+                    if (AbilityInfo.ModifierType == EffectModifierType.MULTIPLY)
+                        DoHealPercent(other);
+                    else
+                        DoHeal(other);
+                    break;
+                case EffectType.DAMAGE:
+                    DoDamage(other);
+                    break;
+                default:
+                    break;
+            }
         }
         else
         {
@@ -337,7 +403,6 @@ public class Ability : MonoBehaviour
             DoEffectApply(other);
         }
     }
-
 
     protected virtual void OnTriggerEnter(Collider other)
     {

@@ -18,7 +18,7 @@ public class PlayerController : Unit
     [SerializeField] Ability[] abilityPassive;
     [SerializeField] Ability[] abilities;
     readonly AbilityHandler[] abilityHandlers = new AbilityHandler[4];
-    
+
     Ability movementAbility;
 
     [SerializeField] GameObject aoeTargetSelector;
@@ -27,7 +27,7 @@ public class PlayerController : Unit
 
     public AbilityHandler GetAbility(uint handlerID)
     {
-        if(handlerID > 3) return null;
+        if (handlerID > 3) return null;
 
         return abilityHandlers[handlerID];
     }
@@ -57,7 +57,7 @@ public class PlayerController : Unit
             //abilityPassive[0] = Instantiate(abilityPassive[0], GetCastPos());
             //abilityHandlers[0].Setup(this, abilityPassive[0]);
         }
-        
+
         for (int i = 0; i < abilities.Length; i++)
         {
             if (abilities[i] != null)
@@ -76,8 +76,8 @@ public class PlayerController : Unit
     void Update()
     {
         UpdateTargeting();
-        
-        if(abilityChannel != null)
+
+        if (abilityChannel != null)
         {
             float current = Time.time;
             float end = castStart + abilityHandler.GetAbility().Info().CastTime;
@@ -97,7 +97,7 @@ public class PlayerController : Unit
                     break;
                 }
 
-                if(selectedAbility != -1)
+                if (selectedAbility != -1)
                 {
                     continue;
                 }
@@ -134,7 +134,7 @@ public class PlayerController : Unit
                 CastAbility(abilityHandlers[selectedAbility]);
                 abilityHandlers[selectedAbility].StartCooldown();
                 aoeTargetSelector.SetActive(false);
-                selectedAbility= -1;
+                selectedAbility = -1;
             }
         }
     }
@@ -229,18 +229,21 @@ public class PlayerController : Unit
         }
         else if (target != null)
         {
-            Unit hit = target.GameObject().GetComponentInParent<Unit>();
-            if (hit != null)
+            if (target.GameObject() != null)
             {
-                _castLoc = hit.transform.position;
-                _castLoc += ((hit.GetComponent<CapsuleCollider>().center) * hit.transform.lossyScale.magnitude);
-            }
-            else
-            {
-                Vector3 screenCenter = new Vector3(0.5f, 0.55f, 0f);
-                Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+                Unit hit = target.GameObject().GetComponentInParent<Unit>();
+                if (hit != null)
+                {
+                    _castLoc = hit.transform.position;
+                    _castLoc += ((hit.GetComponent<CapsuleCollider>().center) * hit.transform.lossyScale.magnitude);
+                }
+                else
+                {
+                    Vector3 screenCenter = new(0.5f, 0.55f, 0f);
+                    Ray ray = Camera.main.ViewportPointToRay(screenCenter);
 
-                _castLoc = ray.GetPoint(abilityCasting.Info().AbilityRange);
+                    _castLoc = ray.GetPoint(abilityCasting.Info().AbilityRange);
+                }
             }
         }
         else
@@ -286,7 +289,7 @@ public class PlayerController : Unit
         }
         abilityCasting.Cast();
     }
-    
+
     public override void OnCast(Unit other = null, Ability source = null, Damage damage = default)
     {
         float tickSpeed = source.Info().EffectTickSpeed;
@@ -308,7 +311,7 @@ public class PlayerController : Unit
         abilityCasting.SetOwner(this);
         abilityCasting.Cast(GetCastLocation());
 
-        if(isChanneling)
+        if (isChanneling)
             abilityChannel = StartCoroutine(ChannelCast(tickSpeed));
     }
 
@@ -341,7 +344,7 @@ public class PlayerController : Unit
 
         healthCurrent -= damage.Amount;
 
-        if(healthCurrent <= 0)
+        if (healthCurrent <= 0)
         {
             OnDeath();
         }

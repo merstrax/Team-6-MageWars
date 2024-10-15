@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6025034408682407252}
   - component: {fileID: 876739961619374418}
   - component: {fileID: 3339393677846587296}
+  - component: {fileID: -5735280859983681966}
   m_Layer: 0
   m_Name: ElementalPillar_Frost
   m_TagString: AludyneBossFight
@@ -49,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Aludyne Pillar of Frost
-  animations: {fileID: 0}
+  animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
   castPositions: []
   healthRegen: 0
   healthBase: 1000
@@ -61,8 +62,17 @@ MonoBehaviour:
   cooldownBase: 0
   healthCurrent: 0
   unitInterface: {fileID: 7976654940891307715}
-  pillarAbility: ZerrokFrostPhase
+  enemyStats: {fileID: 11400000, guid: 48248b9b8c2ca754b923457506d3b6e1, type: 2}
+  animator: {fileID: 0}
+  model: {fileID: 0}
+  bodyCollider: {fileID: 3339393677846587296}
+  headCollider: {fileID: 3339393677846587296}
   targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
+  agent: {fileID: -5735280859983681966}
+  headPos: {fileID: 5040736803306061101}
+  faceTargetSpeed: 0
+  dropPrefab: []
+  pillarAbility: ZerrokFrostPhase
 --- !u!33 &6025034408682407252
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -136,6 +146,28 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!195 &-5735280859983681966
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8877420711476480224}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5000001
+  m_Speed: 0
+  m_Acceleration: 0
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &2150667656866653025
 PrefabInstance:
   m_ObjectHideFlags: 0
