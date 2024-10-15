@@ -316,6 +316,12 @@ public class enemyAI : Unit
         }
         return false;
     }
+    public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        target = other;
+
+        currentState = AIState.Chasing; 
+    }
 
     public override void OnSlow(Unit other = null, Ability source = null, Damage damage = default)
     {
