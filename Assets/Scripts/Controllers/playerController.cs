@@ -42,6 +42,7 @@ public class PlayerController : Unit
     [Range(0, 1)][SerializeField] float audioJumpVolume;
 
     ITargetable target;
+    bool canInteract;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -149,9 +150,10 @@ public class PlayerController : Unit
             screenCenter = new Vector3(0.5f, 0.5f, 0f);
             ray = Camera.main.ViewportPointToRay(screenCenter);
 
-            if (Physics.Raycast(ray, out hit, 200.0f))
+            //Check for EnemyAI targetables first
+            if (Physics.Raycast(ray, out hit, 40.0f))
             {
-                ITargetable targetHit = hit.collider.gameObject.GetComponentInParent<ITargetable>();
+                EnemyAI targetHit = hit.collider.gameObject.GetComponentInParent<EnemyAI>();
 
                 if (targetHit != null)
                 {
@@ -165,6 +167,26 @@ public class PlayerController : Unit
                     target = null;
                 }
             }
+
+            //check for Interactables after enemies
+            if (Physics.Raycast(ray, out hit, 10.0f) && target == null)
+            {
+                IInteractable targetHit = hit.collider.gameObject.GetComponentInParent<IInteractable>();
+
+                if (targetHit != null)
+                {
+                    canInteract = true;
+                    target?.OnTarget(false);
+                    targetHit.OnTarget(true);
+                    target = targetHit;
+                }
+                else
+                {
+                    canInteract = false;
+                    target?.OnTarget(false);
+                    target = null;
+                }
+            }
         }
         else
         {
@@ -172,6 +194,7 @@ public class PlayerController : Unit
             {
                 target.OnTarget(false);
                 target = null;
+                canInteract = false;
             }
             screenCenter = new Vector3(0.5f, 0.45f, 0f);
             ray = Camera.main.ViewportPointToRay(screenCenter);
@@ -211,6 +234,13 @@ public class PlayerController : Unit
             {
                 _castLoc = hit.transform.position;
                 _castLoc += ((hit.GetComponent<CapsuleCollider>().center) * hit.transform.lossyScale.magnitude);
+            }
+            else
+            {
+                Vector3 screenCenter = new Vector3(0.5f, 0.55f, 0f);
+                Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+
+                _castLoc = ray.GetPoint(abilityCasting.Info().AbilityRange);
             }
         }
         else
@@ -340,4 +370,12 @@ public class PlayerController : Unit
         animator.SetTrigger("Death");
     }
     #endregion
+
+    public void Interact()
+    {
+        if (canInteract)
+        {
+            (target as IInteractable).OnInteract();
+        }
+    }
 }

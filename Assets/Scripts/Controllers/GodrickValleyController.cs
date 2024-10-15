@@ -38,7 +38,7 @@ public class GodrickValleyController : MonoBehaviour
 
         canEnterAltar = pillarFlags.HasFlag(PillarFlags.EVERYTHING);
 
-        Debug.Log(PillarFlags.EVERYTHING);
+        Debug.Log((int)PillarFlags.EVERYTHING);
     }
 
     // Update is called once per frame
@@ -50,5 +50,7 @@ public class GodrickValleyController : MonoBehaviour
     internal void SetPillarComplete(PillarFlags type)
     {
         pillarFlags |= type;
+
+        canEnterAltar = pillarFlags.HasFlag(PillarFlags.EVERYTHING);
     }
 }

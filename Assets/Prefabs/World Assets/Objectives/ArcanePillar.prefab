@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 1876672035419057076}
   - component: {fileID: 4887660067218482042}
   - component: {fileID: 2961733021496519841}
+  - component: {fileID: 8497870303688835434}
   m_Layer: 0
   m_Name: ArcanePillar
   m_TagString: Untagged
@@ -161,6 +162,29 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: c45a573292c01414884ab31f9a89b521, type: 2}
   interactMessage: Activate Arcane Pillar
   type: 4
+--- !u!136 &8497870303688835434
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4620004163722846821}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5100488360520590860
 GameObject:
   m_ObjectHideFlags: 0

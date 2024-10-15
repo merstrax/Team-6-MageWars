@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerInputController : MonoBehaviour
@@ -73,7 +74,7 @@ public class PlayerInputController : MonoBehaviour
     {
         if (context.performed)
         {
-            Instantiate(testDummy);
+            SceneManager.LoadScene("Altar of Aludyne");
         }
     }
 

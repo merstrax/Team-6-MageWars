@@ -2680,7 +2680,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2961252510647957642
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2698,7 +2698,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 180}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6727850967594872126
 CanvasRenderer:
@@ -4815,7 +4815,7 @@ MonoBehaviour:
   NormalSpecial: {fileID: 0}
   Special: {fileID: 0}
   damagePanel: {fileID: 0}
-  interactMessage: {fileID: 0}
+  interactMessage: {fileID: 6623620590729597898}
 --- !u!1 &5180885923639141430
 GameObject:
   m_ObjectHideFlags: 0

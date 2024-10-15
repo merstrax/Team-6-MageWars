@@ -51,6 +51,6 @@ public class PlayerInterface : MonoBehaviour
         }
 
         interactMessage.enabled = true;
-        interactMessage.text = message;
+        interactMessage.text = "Press [F] - To " + message;
     }
 }

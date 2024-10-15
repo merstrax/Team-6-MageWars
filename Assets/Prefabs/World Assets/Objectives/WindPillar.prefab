@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 5804676968111438356}
   - component: {fileID: 8407420006228216365}
   - component: {fileID: 2757691173646265220}
+  - component: {fileID: 7433508540558438029}
   m_Layer: 0
   m_Name: WindPillar
   m_TagString: Untagged
@@ -244,6 +245,29 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: c45a573292c01414884ab31f9a89b521, type: 2}
   interactMessage: Activate Wind Pillar
   type: 8
+--- !u!136 &7433508540558438029
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283206394223089739}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7558544743017744630
 GameObject:
   m_ObjectHideFlags: 0
