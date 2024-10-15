@@ -58,11 +58,11 @@ public class WindBlast : Ability
 
     }
 
-    public override void StartCast(Unit owner, Vector3 lookAt)
+    public override void CastStart(Unit owner, Vector3 lookAt)
     {
         if (abilityTimer <= 0) // Check if the ability is off cooldown
         {
-            base.StartCast(owner, lookAt);
+            base.CastStart(owner, lookAt);
             comboTimer = comboResetTime; 
             // Additional logic to handle casting
         }
@@ -72,7 +72,7 @@ public class WindBlast : Ability
         }
     }
 
-    public override void FinishCast()
+    public override void CastEnd()
     {
         if (attackCooldown <= 0)
         { 
@@ -158,9 +158,9 @@ public class WindBlast : Ability
         comboTimer = 0; 
     }
 
-    public override void InterruptCast()
+    public override void CastInterrupt()
     {
-        base.InterruptCast();
+        base.CastInterrupt();
         // Reset the attack count if interrupted
         ResetCombo(); 
     }

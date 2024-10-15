@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArcaneNova : Ability
 {
-    protected override void Cast(Transform end = null)
+    public override void Cast(Vector3 end = default)
     {
         gameObject.transform.position = owner.transform.position;
         myCollider.enabled = true;

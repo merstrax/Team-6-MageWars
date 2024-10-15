@@ -92,10 +92,9 @@ public enum EffectModifierType
     ON_SLOW= 1024,
     ON_ROOT = 2048,
     ON_STUN = 4096,
-    ON_DEATH = 8192,
+    ON_STUN_END = 8192,
+    ON_DEATH = ON_STUN_END << 1,
 }
-
-
 
 //These flags choose which element the effect is applied to
 [Flags] public enum EffectElementFlags

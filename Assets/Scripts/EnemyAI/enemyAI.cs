@@ -248,7 +248,7 @@ public class EnemyAI : Unit, ITargetable
             toCastPos.y += (target.GetComponent<CapsuleCollider>().height * 0.75f);
         }
 
-        _ability.StartCast(this, toCastPos);
+        _ability.CastStart(this, toCastPos);
     }
 
     protected virtual IEnumerator Attack(string animation)
@@ -347,6 +347,13 @@ public class EnemyAI : Unit, ITargetable
 
     public override void OnStun(Unit other = null, Ability source = null, Damage damage = default)
     {
+        animator.SetTrigger("Stun");
+        agent.speed = GetSpeed();
+    }
+
+    public override void OnStunEnd(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        animator.SetTrigger("StunEnd");
         agent.speed = GetSpeed();
     }
 

@@ -39,7 +39,7 @@ public class PlayerMovementController : MonoBehaviour
         //Reset jump variables
         if (characterController.isGrounded)
         {
-            animator.SetBool("Jumping", false);
+            animator.SetTrigger("JumpEnd");
             if (inputController.jump)
                 DoJump();
         }
@@ -55,14 +55,17 @@ public class PlayerMovementController : MonoBehaviour
         animSpeed = animator.GetFloat("MoveZ");
         animator.SetFloat("MoveZ", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 5.0f));
 
+        agentSpeed = speed / player.GetSpeed();
+        animSpeed = animator.GetFloat("Speed");
+        animator.SetFloat("Speed", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 5.0f));
+
         characterController.Move(playerVel * Time.deltaTime);
         playerVel.y -= gravity * Time.deltaTime;
     }
 
     public void DoJump()
     {
-        animator.Play("JumpStart");
-        animator.SetBool("Jumping", true);
+        animator.SetTrigger("Jump");
         playerVel.y = jumpSpeed;
     }
 

@@ -176,6 +176,7 @@ public class Unit : MonoBehaviour, IDamage
         { TriggerFlags.ON_SLOW, typeof(Unit).GetMethod("OnSlow")},
         { TriggerFlags.ON_ROOT, typeof(Unit).GetMethod("OnRoot")},
         { TriggerFlags.ON_STUN, typeof(Unit).GetMethod("OnStun")},
+        { TriggerFlags.ON_STUN_END, typeof(Unit).GetMethod("OnStunEnd")},
     };
 
     #region Stat Handling
@@ -257,6 +258,9 @@ public class Unit : MonoBehaviour, IDamage
             }
         }
         statusFlag &= ~status;
+
+        if (status == StatusFlag.STUNNED)
+            ProccessEvent(TriggerFlags.ON_STUN_END, other, source);
     }
 
     TriggerFlags GetStatusTrigger(StatusFlag status)
@@ -478,7 +482,7 @@ public class Unit : MonoBehaviour, IDamage
     public virtual void OnSlow(Unit other = null, Ability source = null, Damage damage = default) { }
     public virtual void OnRoot(Unit other = null, Ability source = null, Damage damage = default) { }
     public virtual void OnStun(Unit other = null, Ability source = null, Damage damage = default) { }
-
+    public virtual void OnStunEnd(Unit other = null, Ability source = null, Damage damage = default) { }
     public virtual void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
         if (other != null)

@@ -101,35 +101,30 @@ public class Ability : MonoBehaviour
     }
 
     //Basic Cast Handling
-    public virtual void StartCast(Unit owner, Vector3 lookAt)
+    public virtual void CastStart(Unit owner, Vector3 lookAt)
     {
         SetOwner(owner);
-        owner.ProccessEvent(TriggerFlags.ON_CAST, other, this);
+        castTarget = lookAt;
+        myCollider.enabled = false;
+        myVisual.SetActive(false);
 
-        if (AbilityInfo.CastType == CastType.INSTANT)
-        {
-            castTarget = lookAt;
-            FinishCast();
-        }
-        else
-        {
-            Debug.Log("Wow");
-        }
+        OnCastStart();
     }
 
-    public virtual void InterruptCast()
+    protected virtual void OnCastStart()
     {
+        //Used for scripts
+        owner.ProccessEvent(TriggerFlags.ON_CAST_START, other, this);
     }
 
-    public virtual void FinishCast()
+    public virtual void Cast(Vector3 end = default)
     {
-        Cast();
-        OnCast();
-        CleanUp();
-    }
+        myCollider.enabled = true;
+        myVisual.SetActive(true);
 
-    protected virtual void Cast(Transform end = null)
-    {
+        if (end != default)
+            castTarget = end;
+
         if (myRigidbody != null && !Info().IsTarget)
         {
             transform.LookAt(castTarget);
@@ -139,7 +134,33 @@ public class Ability : MonoBehaviour
         {
             transform.position = castTarget;
         }
+
+        OnCast();
+        CastEnd();
     }
+
+    protected virtual void OnCast()
+    {
+        //Used for scripts
+        owner.ProccessEvent(TriggerFlags.ON_CAST, other, this);
+    }
+
+    public virtual void CastEnd()
+    {
+        OnCastEnd();
+        CleanUp();
+    }
+
+    protected virtual void OnCastEnd()
+    {
+        owner.ProccessEvent(TriggerFlags.ON_CAST_END, other, this);
+    }
+
+    public virtual void CastInterrupt()
+    {
+        owner.ProccessEvent(TriggerFlags.ON_INTERRUPT, other, this);
+    }
+
 
     public virtual void CleanUp(bool instant = false)
     {
@@ -288,11 +309,7 @@ public class Ability : MonoBehaviour
     }
 
     //Triggers
-    protected virtual void OnCast()
-    {
-        //Used for scripts
-        owner.ProccessEvent(TriggerFlags.ON_CAST, other, this);
-    }
+    
 
     public virtual void OnHit(Unit other)
     {
@@ -348,7 +365,7 @@ public class Ability : MonoBehaviour
 
         if ((other.CompareTag("MapObject") || other.gameObject.layer == LayerMask.NameToLayer("Terrain")) && Info().AbilityType != AbilityType.AREAOFEFFECT)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 

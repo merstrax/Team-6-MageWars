@@ -47,12 +47,12 @@ public class StormBringing : Ability
         }
     }
 
-    public override void StartCast(Unit owner, Vector3 lookAt)
+    public override void CastStart(Unit owner, Vector3 lookAt)
     {
         // Ensure the ability is off cooldown
         if (abilityTimer <= 0)
         {
-            base.StartCast(owner, lookAt);
+            base.CastStart(owner, lookAt);
             StartChanneling();
         }
         else
@@ -121,9 +121,9 @@ public class StormBringing : Ability
        
     }
 
-    public override void InterruptCast()
+    public override void CastInterrupt()
     {
-        base.InterruptCast();
+        base.CastInterrupt();
 
         // Stop channeling and unroot the player if interrupted
         isChanneling = false;

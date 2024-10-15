@@ -11,10 +11,7 @@ public class PlayerController : Unit
     //Player logic variables
     [Header("Player Controller")]
     [SerializeField] PlayerInputController inputController;
-
-    //Player Movement
-    [Header("Player Movement")]
-    [SerializeField] float dashTiming;
+    [SerializeField] Animator animator;
 
     //Player Shoot
     [Header("Player Abilities")]
@@ -106,7 +103,7 @@ public class PlayerController : Unit
                 }
                 else
                 {
-                    if (!IsStunned())
+                    if (!IsStunned() && abilityCasting == null)
                     {
                         CastAbility(abilityHandlers[i]);
                         abilityHandlers[i].StartCooldown();
@@ -125,13 +122,12 @@ public class PlayerController : Unit
 
         if (selectedAbility != -1)
         {
-            if (!inputController.ability[selectedAbility] && !IsStunned())
+            if (!inputController.ability[selectedAbility] && !IsStunned() && abilityCasting == null)
             {
                 CastAbility(abilityHandlers[selectedAbility]);
                 abilityHandlers[selectedAbility].StartCooldown();
                 aoeTargetSelector.SetActive(false);
                 selectedAbility= -1;
-                //inputController.ability[selectedAbility] = false;
             }
         }
     }
@@ -187,42 +183,106 @@ public class PlayerController : Unit
         Debug.DrawRay(ray.GetPoint(0), ray.direction * 200.0f, Color.red);
     }
 
-    private void CastAbility(AbilityHandler ability)
+    #region Ability Handling
+    AbilityHandler abilityHandler;
+    Ability abilityCasting;
+    Coroutine abilityChannel;
+    float castStart;
+    bool isChanneling;
+
+    private Vector3 GetCastLocation()
     {
-        Ability _ability = Instantiate(ability.GetAbility(), GetCastPos(0).position, transform.rotation);
-        _ability.SetOwner(this);
+        Vector3 _castLoc = Vector3.zero;
 
-        if (ability.IsMovementAbility())
+        if (abilityCasting.Info().AbilityType == AbilityType.AREAOFEFFECT && abilityCasting.Info().IsTarget)
         {
-            _ability.CastMovement();
-            return;
+            _castLoc = aoeTargetSelector.transform.position;
         }
-
-        Vector3 toCastPos;
-
-        if (_ability.Info().AbilityType == AbilityType.AREAOFEFFECT && _ability.Info().IsTarget)
+        else if (target != null)
         {
-            toCastPos = aoeTargetSelector.transform.position;
+            Unit hit = target.GameObject().GetComponentInParent<Unit>();
+            if (hit != null)
+            {
+                _castLoc = hit.transform.position;
+                _castLoc += ((hit.GetComponent<CapsuleCollider>().center) * hit.transform.lossyScale.magnitude);
+            }
         }
         else
         {
-            Unit hit = target.GameObject().GetComponentInParent<Unit>();
-            if (hit)
-            {
-                toCastPos = hit.transform.position;
-                toCastPos += ((hit.GetComponent<CapsuleCollider>().center) * hit.transform.lossyScale.magnitude);
-            }
-            else
-            {
-                Vector3 screenCenter = new Vector3(0.5f, 0.55f, 0f);
-                Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+            Vector3 screenCenter = new Vector3(0.5f, 0.55f, 0f);
+            Ray ray = Camera.main.ViewportPointToRay(screenCenter);
 
-                toCastPos = ray.GetPoint(_ability.Info().AbilityRange);
-            }
+            _castLoc = ray.GetPoint(abilityCasting.Info().AbilityRange);
         }
 
-        _ability.StartCast(this, toCastPos);
+        return _castLoc;
     }
+
+    private void CastAbility(AbilityHandler ability)
+    {
+        abilityHandler = ability;
+        abilityCasting = Instantiate(ability.GetAbility(), GetCastPos(0).position, transform.rotation);
+        abilityCasting.SetOwner(this);
+
+        if (ability.IsMovementAbility())
+        {
+            abilityCasting.CastMovement();
+            return;
+        }
+
+        abilityCasting.CastStart(this, GetCastLocation());
+    }
+
+    public override void OnCastStart(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        string animation = animations[source.Info().AnimationType];
+        animator.SetTrigger(animation);
+    }
+
+    public void CastByAnimation()
+    {
+        castStart = Time.time;
+        if (abilityCasting.Info().CastType == CastType.CHANNEL)
+        {
+            isChanneling = true;
+            abilityChannel = StartCoroutine(ChannelCast(abilityCasting.Info().EffectTickSpeed));
+        }
+        abilityCasting.Cast();
+    }
+    
+    public override void OnCast(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        if(source.Info().CastType == CastType.CHANNEL && abilityChannel == null && (castStart + source.Info().CastTime < Time.time))
+        {
+            abilityChannel = StartCoroutine(ChannelCast(source.Info().EffectTickSpeed));
+        }
+    }
+
+    IEnumerator ChannelCast(float tickSpeed)
+    {
+        if (castStart + abilityHandler.GetAbility().Info().CastTime < Time.time)
+            isChanneling = false;
+
+        yield return new WaitForSeconds(tickSpeed);
+        abilityCasting = Instantiate(abilityHandler.GetAbility(), GetCastPos(0).position, transform.rotation);
+        abilityCasting.SetOwner(this);
+        abilityCasting.Cast(GetCastLocation());
+
+        if(isChanneling)
+            abilityChannel = StartCoroutine(ChannelCast(abilityHandler.GetAbility().Info().EffectTickSpeed));
+    }
+
+    public override void OnCastEnd(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        if (isChanneling) return;
+
+        animator.SetTrigger("AttackEnd");
+        abilityCasting = null;
+        abilityHandler = null;
+        abilityChannel = null;
+        castStart = 0.0f;
+    }
+    #endregion
 
     public override void TakeDamage(Damage damage, Ability source = null, Unit other = null)
     {
@@ -238,5 +298,33 @@ public class PlayerController : Unit
         ProccessEvent(TriggerFlags.ON_DAMAGED, other, source, damage);
 
         healthCurrent -= damage.Amount;
+
+        if(healthCurrent <= 0)
+        {
+            OnDeath();
+        }
     }
+
+    #region Trigger Events
+
+    public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        animator.SetTrigger("Hit");
+    }
+
+    public override void OnStun(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        animator.SetTrigger("Stun");
+    }
+
+    public override void OnStunEnd(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        animator.SetTrigger("StunEnd");
+    }
+
+    public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        animator.SetTrigger("Death");
+    }
+    #endregion
 }
