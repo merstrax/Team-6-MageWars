@@ -27,4 +27,4 @@ MonoBehaviour:
   abilities:
   - {fileID: 5482782143325043695, guid: 852888d130cba764baf40c0bc98c64e3, type: 3}
   abilityRate: 2.5
-  dropChance: 0
+  dropChance: 0.5

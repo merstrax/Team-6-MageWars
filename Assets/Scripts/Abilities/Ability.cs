@@ -103,8 +103,11 @@ public class Ability : MonoBehaviour
     //Basic Cast Handling
     public virtual void CastStart(Unit owner, Vector3 lookAt)
     {
-        SetOwner(owner);
+        if (owner != null)
+            SetOwner(owner);
+
         castTarget = lookAt;
+
         if (myCollider != null)
             myCollider.enabled = false;
 
@@ -117,7 +120,8 @@ public class Ability : MonoBehaviour
     protected virtual void OnCastStart()
     {
         //Used for scripts
-        owner.ProccessEvent(TriggerFlags.ON_CAST_START, other, this);
+        if(owner != null)
+            owner.ProccessEvent(TriggerFlags.ON_CAST_START, other, this);
     }
 
     public virtual void Cast(Vector3 end = default)
@@ -148,7 +152,8 @@ public class Ability : MonoBehaviour
     protected virtual void OnCast()
     {
         //Used for scripts
-        owner.ProccessEvent(TriggerFlags.ON_CAST, other, this);
+        if(owner != null)
+            owner.ProccessEvent(TriggerFlags.ON_CAST, other, this);
     }
 
     public virtual void CastEnd()
@@ -159,12 +164,14 @@ public class Ability : MonoBehaviour
 
     protected virtual void OnCastEnd()
     {
-        owner.ProccessEvent(TriggerFlags.ON_CAST_END, other, this);
+        if (owner != null)
+            owner.ProccessEvent(TriggerFlags.ON_CAST_END, other, this);
     }
 
     public virtual void CastInterrupt()
     {
-        owner.ProccessEvent(TriggerFlags.ON_INTERRUPT, other, this);
+        if (owner != null)
+            owner.ProccessEvent(TriggerFlags.ON_INTERRUPT, other, this);
     }
 
     public virtual void CleanUp(bool instant = false)

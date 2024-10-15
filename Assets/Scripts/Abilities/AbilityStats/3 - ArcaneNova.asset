@@ -15,13 +15,15 @@ MonoBehaviour:
   AbilityName: Arcane Nova
   AbilityDescription: Deals {$d} damage to all enemies within {$r} yds.
   AbilityID: 3
-  AbilityFlag: 0
   AbilitySpeed: 0
   AbilityRange: 5
   ElementType: 1
   AbilityType: 1
   CastType: 0
   Cooldown: 5
+  CastTime: 0
+  IsRooted: 0
+  IsTarget: 0
   EffectType: 0
   EffectTargetType: 0
   StatusType: 0
@@ -33,8 +35,7 @@ MonoBehaviour:
   EffectAmount: 10
   DamageCoefficent: 0.1
   EffectTriggerChance: 0
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
+  EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 1
   EffectTickSpeed: 0
@@ -45,3 +46,5 @@ MonoBehaviour:
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
   AbilityVisual: {fileID: 0}
+  CastPosition: 0
+  AnimationType: 4

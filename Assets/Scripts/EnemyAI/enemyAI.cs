@@ -410,6 +410,8 @@ public class EnemyAI : Unit, ITargetable
 
     public GameObject GameObject()
     {
+        if (gameObject == null) return null;
+
         return gameObject;
     }
     #endregion

@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityInfo: {fileID: 11400000, guid: 4f2a08d05b0c8b549b3957948f54a9cf, type: 2}
   myCollider: {fileID: 5548569805544827344}
-  myVisual: {fileID: 0}
+  myVisual: {fileID: 4790922516671380142}
   myRigidbody: {fileID: 0}
   scriptName: 
 --- !u!1001 &4790922516671478790
@@ -132,6 +132,12 @@ PrefabInstance:
 --- !u!4 &4790922516671080078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400008, guid: 5815a7623bd959b46a88b3150245faae,
+    type: 3}
+  m_PrefabInstance: {fileID: 4790922516671478790}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4790922516671380142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 5815a7623bd959b46a88b3150245faae,
     type: 3}
   m_PrefabInstance: {fileID: 4790922516671478790}
   m_PrefabAsset: {fileID: 0}

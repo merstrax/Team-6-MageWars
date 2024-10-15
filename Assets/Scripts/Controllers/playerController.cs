@@ -151,7 +151,7 @@ public class PlayerController : Unit
             ray = Camera.main.ViewportPointToRay(screenCenter);
 
             //Check for EnemyAI targetables first
-            if (Physics.Raycast(ray, out hit, 40.0f))
+            if (Physics.Raycast(ray, out hit, 200.0f))
             {
                 EnemyAI targetHit = hit.collider.gameObject.GetComponentInParent<EnemyAI>();
 
@@ -229,8 +229,7 @@ public class PlayerController : Unit
         }
         else if (target != null)
         {
-            if (target.GameObject() != null)
-            {
+            try {
                 Unit hit = target.GameObject().GetComponentInParent<Unit>();
                 if (hit != null)
                 {
@@ -245,6 +244,7 @@ public class PlayerController : Unit
                     _castLoc = ray.GetPoint(abilityCasting.Info().AbilityRange);
                 }
             }
+            catch (Exception) { }
         }
         else
         {
@@ -280,6 +280,8 @@ public class PlayerController : Unit
 
     public void CastByAnimation()
     {
+        if (abilityCasting == null) return;
+
         float tickSpeed = abilityCasting.Info().EffectTickSpeed;
         castStart = Time.time - tickSpeed;
         if (abilityCasting.Info().CastType == CastType.CHANNEL)
@@ -287,6 +289,7 @@ public class PlayerController : Unit
             isChanneling = true;
             abilityChannel = StartCoroutine(ChannelCast(abilityCasting.Info().EffectTickSpeed));
         }
+
         abilityCasting.Cast();
     }
 
@@ -309,6 +312,7 @@ public class PlayerController : Unit
         yield return new WaitForSeconds(tickSpeed);
         abilityCasting = Instantiate(abilityHandler.GetAbility(), GetCastPos(0).position, transform.rotation);
         abilityCasting.SetOwner(this);
+
         abilityCasting.Cast(GetCastLocation());
 
         if (isChanneling)

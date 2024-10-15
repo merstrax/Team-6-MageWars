@@ -21,6 +21,13 @@ public class AludynePillarUnit : EnemyAI
         dropChance = enemyStats.dropChance;
         viewAngle = enemyStats.viewAngle;
         SetupTarget(targetMaterial);
+
+        stats = new(healthBase, damageBase, defenseBase, speedBase, critChanceBase, critDamageBase, cooldownBase);
+
+        UpdateStats();
+        healthCurrent = healthMax;
+
+        UpdateInterface();
     }
 
     protected override void Update(){}
@@ -38,7 +45,8 @@ public class AludynePillarUnit : EnemyAI
     {
         return pillarAbility;
     }
-
+    public override void OnCastStart(Unit other = null, Ability source = null, Damage damage = default) { }
+    public override void OnCastEnd(Unit other = null, Ability source = null, Damage damage = default) { }
     public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
     {
 

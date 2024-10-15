@@ -16,9 +16,9 @@ MonoBehaviour:
   AbilityDescription: 
   AbilityID: 1100
   AbilitySpeed: 0
-  AbilityRange: 5
+  AbilityRange: 2
   ElementType: 5
-  AbilityType: 1
+  AbilityType: 0
   CastType: 0
   Cooldown: 3
   CastTime: 0

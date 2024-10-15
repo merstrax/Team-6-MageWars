@@ -114,8 +114,8 @@ public class AludyneBossFight : MonoBehaviour
 
         aludyneUnit.SetSleeping();
 
-        yield return new WaitForSeconds(audioClips[0].length + 1.0f);
-        //yield return new WaitForSeconds(3.0f);
+        //yield return new WaitForSeconds(audioClips[0].length + 1.0f);
+        yield return new WaitForSeconds(3.0f);
 
         currentPhase = Phases.PHASE_1;
         roleplayCoroutine = null;
@@ -279,25 +279,14 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.clip = audioClips[4];
         audioSource.Play();
 
-
-        List<EnemyAI> enemies = new();
-        enemies.AddRange(FindObjectsOfType<EnemyAI>());
-
         Ability frost;
 
-        foreach (EnemyAI enemyAI in enemies)
+        foreach (EnemyAI enemyAI in FindObjectsOfType<EnemyAI>(false))
         {
-            if (enemyAI == aludyneUnit) continue;
+            if (enemyAI == aludyneUnit || enemyAI == null) continue;
 
             frost = Instantiate(zerrokFrostAbility, enemyAI.transform.position, Quaternion.identity);
-            frost.CastStart(enemyAI, enemyAI.transform.position);
-            frost.Cast();
-        }
-
-        foreach (AludynePillarUnit pillar in pillarList)
-        {
-            frost = Instantiate(zerrokFrostAbility, pillar.transform.position, Quaternion.identity);
-            frost.CastStart(pillar, pillar.transform.position);
+            frost.CastStart(null, enemyAI.transform.position);
             frost.Cast();
         }
 
