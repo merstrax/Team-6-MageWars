@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 201 - maxHealthHeal
+  m_Name: 201 - healOverTime
   m_EditorClassIdentifier: 
-  AbilityName: maxHealthHeal
-  AbilityDescription: maxHealthHeal
+  AbilityName: healOverTime
+  AbilityDescription: healOverTime
   AbilityID: 201
   AbilitySpeed: 0
   AbilityRange: 0

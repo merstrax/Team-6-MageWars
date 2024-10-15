@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-public enum DropType { maxHealth, decreasedCooldown, increasedMovSpeed, increasedDMG }
+public enum DropType { maxHealth, decreasedCooldown, increasedMovSpeed, increasedDMG, healOvertime }
 public class HealthDrops : MonoBehaviour
 {
     // time before drop disappears 
