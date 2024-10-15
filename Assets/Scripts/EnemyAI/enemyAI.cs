@@ -91,9 +91,12 @@ public class EnemyAI : Unit, ITargetable
         SetupTarget(targetMaterial);
     }
 
+    float distanceToPlayer;
+
     protected virtual void Update()
     {
-        if (isDead) return;
+        distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
+        if (isDead || (distanceToPlayer > 50.0f && target == null)) return;
 
         switch (currentState)
         {

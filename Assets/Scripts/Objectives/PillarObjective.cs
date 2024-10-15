@@ -9,6 +9,7 @@ public class PillarObjective : MonoBehaviour, IInteractable
     [SerializeField] Material outlineMaterial;
     [SerializeField] string interactMessage;
     [SerializeField] PillarFlags type;
+    [SerializeField] GameObject visual;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class PillarObjective : MonoBehaviour, IInteractable
     public void SetComplete(bool isComplete)
     {
         IsTargetDisabled = isComplete;
+        visual.SetActive(!isComplete);
     }
 
     #region Interactable Implementation
@@ -29,6 +31,7 @@ public class PillarObjective : MonoBehaviour, IInteractable
     {
         if (IsTargetDisabled) return;
         GodrickValleyController.instance.SetPillarComplete(type);
+        visual.SetActive(false);
 
         IsTargetDisabled = true;
     }
@@ -44,8 +47,9 @@ public class PillarObjective : MonoBehaviour, IInteractable
         TargetMaterial = Instantiate(resourceMaterial);
         if (TargetMaterial != null)
         {
-            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+            foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
             {
+                if (renderer.material.shader == Shader.Find("Universal Render Pipeline/Particles/Unlit")) continue;
                 List<Material> materials = new() { TargetMaterial };
                 materials.AddRange(renderer.materials);
                 renderer.SetMaterials(materials);

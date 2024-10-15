@@ -25,6 +25,8 @@ public class GodrickValleyController : MonoBehaviour
     [SerializeField] PillarObjective windPillar;
     private PillarFlags pillarFlags;
 
+
+    [SerializeField] AludyneAltar aludyneAltar;
     private bool canEnterAltar;
 
     // Start is called before the first frame update
@@ -37,14 +39,7 @@ public class GodrickValleyController : MonoBehaviour
         windPillar.SetComplete(pillarFlags.HasFlag(PillarFlags.WIND));
 
         canEnterAltar = pillarFlags.HasFlag(PillarFlags.EVERYTHING);
-
-        Debug.Log((int)PillarFlags.EVERYTHING);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        aludyneAltar.SetComplete(true);
     }
 
     internal void SetPillarComplete(PillarFlags type)
@@ -52,5 +47,9 @@ public class GodrickValleyController : MonoBehaviour
         pillarFlags |= type;
 
         canEnterAltar = pillarFlags.HasFlag(PillarFlags.EVERYTHING);
+        if (canEnterAltar)
+        {
+            aludyneAltar.SetComplete(false);
+        }
     }
 }
