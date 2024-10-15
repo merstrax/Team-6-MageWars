@@ -254,21 +254,14 @@ public class EnemyAI : Unit, ITargetable
     public override void OnCastStart(Unit other = null, Ability source = null, Damage damage = default)
     {
         string animation = animations[source.Info().AnimationType];
-        animator.SetTrigger(animation);
-
         canCastAbility = false;
         animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 1);
         animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);
         animator.SetTrigger(animation);
     }
 
-    protected virtual IEnumerator Attack(string animation)
+    protected virtual IEnumerator Attack()
     {
-        canCastAbility = false;
-        animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);
-        animator.SetTrigger(animation);
-
         yield return new WaitForSeconds(abilityRate);
 
         canCastAbility = true;
@@ -281,7 +274,7 @@ public class EnemyAI : Unit, ITargetable
         _ability.Cast();
     }
 
-    protected virtual void OnCastEnd()
+    public override void OnCastEnd(Unit other = null, Ability source = null, Damage damage = default)
     {
         canCastAbility = true;
         animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 0);
