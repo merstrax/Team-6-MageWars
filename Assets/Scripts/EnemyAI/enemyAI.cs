@@ -318,6 +318,7 @@ public class enemyAI : Unit
     }
     public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
     {
+        animator.SetTrigger("Hit");
         target = other;
 
         currentState = AIState.Chasing; 
