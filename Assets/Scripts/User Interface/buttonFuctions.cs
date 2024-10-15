@@ -7,14 +7,29 @@ using UnityEngine.SceneManagement;
 
 public class buttonFuctions : MonoBehaviour
 {
+    public GameObject settingScreen;
+    public GameObject graphicsScreen;
+
     public void mainMenuSettings(GameObject menuSettings)
     {
         menuSettings.SetActive(!menuSettings.activeSelf);
     }
 
-    public void settings()
+    public void Opensettings()
     {
-        GameManager.instance.ToggleSettings();
+        settingScreen.SetActive(true);
+    }
+
+    public void Graphicssettings()
+    {
+        graphicsScreen.SetActive(true);
+        settingScreen.SetActive(false);
+    }
+
+    public void Close()
+    {
+        settingScreen.SetActive(false);
+        graphicsScreen.SetActive(false);
     }
 
     public void resume()
