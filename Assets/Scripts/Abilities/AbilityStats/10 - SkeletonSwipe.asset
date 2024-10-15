@@ -38,7 +38,7 @@ MonoBehaviour:
   EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 1
-  EffectTickSpeed: 1
+  EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0
   ResourceCooldown: 0
