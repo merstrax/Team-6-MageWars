@@ -9,6 +9,7 @@ public class buttonFuctions : MonoBehaviour
 {
     public GameObject settingScreen;
     public GameObject graphicsScreen;
+    public GameObject soundScreen;
 
     public void mainMenuSettings(GameObject menuSettings)
     {
@@ -24,6 +25,11 @@ public class buttonFuctions : MonoBehaviour
     {
         graphicsScreen.SetActive(true);
         settingScreen.SetActive(false);
+    }
+    public void soundSettings()
+    {
+        soundScreen.SetActive(true);
+        settingScreen.SetActive(false); 
     }
 
     public void Close()
