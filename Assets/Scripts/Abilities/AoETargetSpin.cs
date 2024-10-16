@@ -56,7 +56,7 @@ public class AoETargetSpin : MonoBehaviour
 
         if (other.gameObject.TryGetComponent<ITargetable>(out var hit))
         {
-            if(hit.GameObject().CompareTag("Enemy"))
+            if(hit.GameObject().CompareTag("Enemy") || hit.GameObject().CompareTag("AludyneBossFight"))
                 hit.OnTarget(true);
         }
     }

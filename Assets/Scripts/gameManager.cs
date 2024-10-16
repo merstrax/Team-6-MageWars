@@ -80,6 +80,13 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerInput>().enabled = true;
     }
 
+    public void Victory()
+    {
+        playerScript.audioPlayer.Play();
+        StatePause();
+        menuActive = menuWin;
+        menuActive.SetActive(true);
+    }
 
     public void youLose()
     {

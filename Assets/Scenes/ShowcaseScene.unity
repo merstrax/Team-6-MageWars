@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 59573b088aaea0442bf29e0a0e9d1339, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1708466323}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -96,8 +96,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: d2a3b3531d0360e4687af3355d501e32,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: bd9b9dd26da081f4b8d5b0efc236b1a9,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2376,9 +2378,9 @@ GameObject:
   - component: {fileID: 1138097160}
   - component: {fileID: 1138097159}
   - component: {fileID: 1138097158}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -2792,6 +2794,11 @@ PrefabInstance:
     - target: {fileID: 2776355590213774633, guid: 93ab347366922a446b19a5682cf3e2ef,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830816760953625047, guid: 93ab347366922a446b19a5682cf3e2ef,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4521,6 +4528,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea04d87bf11166c4eb15b461e0cd9894, type: 3}
+--- !u!108 &1708466323 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 5629191598555734091, guid: ea04d87bf11166c4eb15b461e0cd9894,
+    type: 3}
+  m_PrefabInstance: {fileID: 1708466322}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1721208361
 PrefabInstance:
   m_ObjectHideFlags: 0

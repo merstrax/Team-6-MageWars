@@ -20,21 +20,21 @@ MonoBehaviour:
   ElementType: 1
   AbilityType: 1
   CastType: 0
-  Cooldown: 5
+  Cooldown: 3
   CastTime: 0
   IsRooted: 0
-  IsTarget: 0
+  IsTarget: 1
   EffectType: 0
-  EffectTargetType: 0
+  EffectTargetType: 1
   StatusType: 0
   AttributeFlags: 0
   ElementFlags: 0
-  TriggerFlags: 0
+  TriggerFlags: 8
   ModifierType: 0
-  EffectAbility: {fileID: 0}
+  EffectAbility: {fileID: 11400000, guid: 35ba2b21c0ad83f42b87662ad9d5377d, type: 2}
   EffectAmount: 10
   DamageCoefficent: 0.1
-  EffectTriggerChance: 0
+  EffectTriggerChance: 1
   EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 1

@@ -26,12 +26,12 @@ public class Graphics : MonoBehaviour
             vsyncTog.isOn = true;
         }
 
-        bool foundRes = false;
+        //bool foundRes = false;
         for(int i = 0; i < resolutions.Count; i++)
         {
             if(Screen.width == resolutions[i].horizontal && Screen.height == resolutions[i].vertical)
             {
-                foundRes = true;
+                //foundRes = true;
 
                 selectedRes = i;
 

@@ -28,6 +28,8 @@ public class AludynePillarUnit : EnemyAI
         healthCurrent = healthMax;
 
         UpdateInterface();
+
+        ApplyStatus(StatusFlag.INVULNERABLE);
     }
 
     protected override void Update(){}

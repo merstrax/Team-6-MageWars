@@ -33914,7 +33914,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2090218566172012038}
-  - component: {fileID: 8394976232193250753}
+  - component: {fileID: -6657460586643874839}
   - component: {fileID: 8207237486296091878}
   - component: {fileID: 6983015272762165662}
   m_Layer: 0
@@ -33940,7 +33940,7 @@ Transform:
   - {fileID: 8819841032645716315}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8394976232193250753
+--- !u!114 &-6657460586643874839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -33949,14 +33949,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 9141199438187141208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc070a14ad163a34cb2881e781bf85fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 541234e85887dcf4e8ffaf0626d9e3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityInfo: {fileID: 11400000, guid: 97af1f791d945d745b665b39187b2dbc, type: 2}
-  isTarget: 0
   myCollider: {fileID: 8207237486296091878}
   myVisual: {fileID: 4908466441265615265}
-  myRigidbody: {fileID: 6983015272762165662}
+  myRigidbody: {fileID: 0}
+  scriptName: 
 --- !u!135 &8207237486296091878
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -33976,7 +33976,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6983015272762165662
 Rigidbody:

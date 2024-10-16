@@ -30,6 +30,8 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if(player.IsDead) return;
+
         UpdateSprint();
         UpdateMovement();
     }

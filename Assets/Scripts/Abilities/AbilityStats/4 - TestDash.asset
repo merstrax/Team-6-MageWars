@@ -15,12 +15,12 @@ MonoBehaviour:
   AbilityName: Test Dash
   AbilityDescription: 
   AbilityID: 4
-  AbilitySpeed: 100
+  AbilitySpeed: 40
   AbilityRange: 0
   ElementType: 0
   AbilityType: 3
   CastType: 0
-  Cooldown: 1
+  Cooldown: 5
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
@@ -37,10 +37,10 @@ MonoBehaviour:
   EffectTriggerChance: 0
   EffectStackAmount: 0
   EffectStackMax: 0
-  EffectDuration: 0.33
+  EffectDuration: 0.25
   EffectTickSpeed: 0
   ResourceType: 1
-  ResourceMax: 100
+  ResourceMax: 3
   ResourceCooldown: 0
   ResourceReset: 0
   ComboAbilities: []

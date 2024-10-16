@@ -33,7 +33,7 @@ public class PlayerController : Unit
     }
 
     [Header("Player Audio")]
-    [SerializeField] AudioSource audioPlayer;
+    [SerializeField] public AudioSource audioPlayer;
     [SerializeField] AudioClip[] audioDamage;
     [Range(0, 1)][SerializeField] float audioDamageVolume;
     [SerializeField] AudioClip[] audioWalk;
@@ -43,6 +43,7 @@ public class PlayerController : Unit
 
     ITargetable target;
     bool canInteract;
+    public bool IsDead;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -75,12 +76,13 @@ public class PlayerController : Unit
     // Update is called once per frame
     void Update()
     {
+        if (IsDead) return;
         UpdateTargeting();
 
         if (abilityChannel != null)
         {
-            float current = Time.time;
-            float end = castStart + abilityHandler.GetAbility().Info().CastTime;
+            float current = Time.time - castStart;
+            float end = abilityHandler.GetAbility().Info().CastTime;
             GameManager.instance.UpdateCastbar(true, current, end);
         }
 
@@ -202,7 +204,7 @@ public class PlayerController : Unit
             if (Physics.Raycast(ray, out hit, 100.0f, ~targetLayerMask))
             {
                 //hit.collider.CompareTag("Terrain") && 
-                if (hit.collider.CompareTag("Terrain") && aoeTargetSelector.activeInHierarchy)
+                if (!hit.collider.CompareTag("Player") && aoeTargetSelector.activeInHierarchy)
                 {
                     aoeTargetSelector.transform.position = Vector3.Lerp(aoeTargetSelector.transform.position, hit.point + Vector3.up, 10.0f * Time.deltaTime);
                 }
@@ -310,10 +312,14 @@ public class PlayerController : Unit
             isChanneling = false;
 
         yield return new WaitForSeconds(tickSpeed);
-        abilityCasting = Instantiate(abilityHandler.GetAbility(), GetCastPos(0).position, transform.rotation);
-        abilityCasting.SetOwner(this);
+        try
+        {
+            abilityCasting = Instantiate(abilityHandler.GetAbility(), GetCastPos(0).position, transform.rotation);
+            abilityCasting.SetOwner(this);
 
-        abilityCasting.Cast(GetCastLocation());
+            abilityCasting.Cast(GetCastLocation());
+        }
+        catch (Exception) { }
 
         if (isChanneling)
             abilityChannel = StartCoroutine(ChannelCast(tickSpeed));
@@ -374,9 +380,19 @@ public class PlayerController : Unit
 
     public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)
     {
+        if (IsDead) return;
+
         animator.SetTrigger("Death");
+        StartCoroutine(ShowDeathScreen());
     }
     #endregion
+
+    IEnumerator ShowDeathScreen()
+    {
+        IsDead = true;
+        yield return new WaitForSeconds(3.0f);
+        GameManager.instance.youLose();
+    }
 
     public void Interact()
     {

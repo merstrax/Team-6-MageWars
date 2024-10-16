@@ -11,7 +11,11 @@ public class AludyneFightTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.isTrigger) return;
+
+        PlayerController controller = other.GetComponent<PlayerController>();
+
+        if(controller != null)
         {
             fightObject.enabled = true;
             if(wall != null)
