@@ -66,6 +66,6 @@ public class buttonFuctions : MonoBehaviour
     }
     public void startgame()
     {
-        SceneManager.LoadScene("Game Scene");
+        SceneManager.LoadScene("Godrick Valley");
     }
 }
