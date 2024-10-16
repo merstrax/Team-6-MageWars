@@ -96,7 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c939c5627190c4e41b8485846d73f14f,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -556,74 +557,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1439809131db7a04a9b6fdf47536aeb7, type: 3}
---- !u!1 &69580826
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 69580829}
-  - component: {fileID: 69580828}
-  - component: {fileID: 69580827}
-  m_Layer: 0
-  m_Name: AludyneFightTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &69580827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69580826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab6afe6c438bdf14f92532d621debfc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fightObject: {fileID: 1169946593}
-  wall: {fileID: 1925216981}
---- !u!135 &69580828
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69580826}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 8
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &69580829
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69580826}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.48, y: 1.17, z: 59.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &88648821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10627,6 +10560,84 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eeb5ee498aa61ff4297f90ae7deaf9ca, type: 3}
+--- !u!1001 &4737983173743107973
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2010270052179906587, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: wall
+      value: 
+      objectReference: {fileID: 1925216981}
+    - target: {fileID: 2010270052179906587, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: fightObject
+      value: 
+      objectReference: {fileID: 1169946593}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 59.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704198579770182773, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997283676369005976, guid: c410527357f6a6e4ab3fdfeab97da971,
+        type: 3}
+      propertyPath: m_Name
+      value: AludyneFightTrigger
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c410527357f6a6e4ab3fdfeab97da971, type: 3}
 --- !u!1001 &5085332928455752036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11056,4 +11067,4 @@ SceneRoots:
   - {fileID: 1435548181}
   - {fileID: 2095631906}
   - {fileID: 934098300}
-  - {fileID: 69580829}
+  - {fileID: 4737983173743107973}

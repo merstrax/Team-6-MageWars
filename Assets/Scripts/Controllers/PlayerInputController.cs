@@ -74,7 +74,10 @@ public class PlayerInputController : MonoBehaviour
     {
         if (context.performed)
         {
-            SceneManager.LoadScene("Altar of Aludyne");
+            if (SceneManager.GetActiveScene().name == "ShowcaseScene")
+                SceneManager.LoadScene("Godrick Valley");
+            else
+                SceneManager.LoadScene("ShowcaseScene");
         }
     }
 
