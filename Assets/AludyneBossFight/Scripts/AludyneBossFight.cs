@@ -114,8 +114,8 @@ public class AludyneBossFight : MonoBehaviour
 
         aludyneUnit.SetSleeping();
 
-        yield return new WaitForSeconds(audioClips[0].length + 1.0f);
-        //yield return new WaitForSeconds(3.0f);
+        //yield return new WaitForSeconds(audioClips[0].length + 1.0f);
+        yield return new WaitForSeconds(3.0f);
 
         currentPhase = Phases.PHASE_1;
         roleplayCoroutine = null;

@@ -16,8 +16,8 @@ public class PlayerMovementController : MonoBehaviour
     [Range(0, 10)][SerializeField] float speed;
     [Range(0, 3)][SerializeField] float sprintMod;
     [Range(0, 3)][SerializeField] int jumpMax;
-    [Range(0, 15)][SerializeField] int jumpSpeed;
-    [Range(0, 50)][SerializeField] int gravity;
+    [SerializeField] int jumpSpeed;
+    [SerializeField] int gravity;
 
 
     Vector3 playerVel;
@@ -39,7 +39,7 @@ public class PlayerMovementController : MonoBehaviour
     void UpdateMovement()
     {
         //Reset jump variables
-        if (characterController.isGrounded)
+        if (characterController.isGrounded && playerVel.y < 0.1)
         {
             animator.SetTrigger("JumpEnd");
             if (inputController.jump)
