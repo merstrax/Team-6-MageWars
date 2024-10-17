@@ -25,7 +25,7 @@ public class Test_AbilityUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameManager.instance.playerScript;
+        player = PlayerController.instance;
         playerName.text += " " + player.GetUnitName();
     }
 

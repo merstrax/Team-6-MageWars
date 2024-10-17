@@ -6,11 +6,12 @@ public class PlayerMovementController : MonoBehaviour
 {
     [Header("Player Controller")]
     [SerializeField] PlayerController player;
-    [SerializeField] PlayerInputController inputController;
+    [SerializeField] InputController inputController;
     [SerializeField] CharacterController characterController;
     [SerializeField] LayerMask ignoreMask;
     [SerializeField] Animator animator;
-
+    [SerializeField] Rigidbody rigidBody;
+ 
     //Player Movement
     [Header("Player Movement")]
     [Range(0, 10)][SerializeField] float speed;
@@ -36,24 +37,30 @@ public class PlayerMovementController : MonoBehaviour
         UpdateMovement();
     }
 
+    private void FixedUpdate()
+    {
+        UpdateMovement();
+    }
+
     void UpdateMovement()
     {
         //Reset jump variables
-        if (characterController.isGrounded && playerVel.y < 0.1)
+        if (characterController.isGrounded)
         {
             animator.SetTrigger("JumpEnd");
-            if (inputController.jump)
+            if (inputController.Jump)
                 DoJump();
         }
 
         //Transform and move based on local space
-        characterController.Move(speed * Time.deltaTime * player.GetMoveDir());
+        Vector3 _moveVector = player.GetMoveDir() * player.GetSpeed();
+        rigidBody.AddForce(_moveVector.normalized * 10f, ForceMode.Force);
 
-        float agentSpeed = inputController.move.x;
+        float agentSpeed = inputController.Move.x;
         float animSpeed = animator.GetFloat("MoveX");
         animator.SetFloat("MoveX", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 5.0f));
 
-        agentSpeed = inputController.move.y;
+        agentSpeed = inputController.Move.y;
         animSpeed = animator.GetFloat("MoveZ");
         animator.SetFloat("MoveZ", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 5.0f));
 
@@ -61,19 +68,19 @@ public class PlayerMovementController : MonoBehaviour
         animSpeed = animator.GetFloat("Speed");
         animator.SetFloat("Speed", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 5.0f));
 
-        characterController.Move(playerVel * Time.deltaTime);
-        playerVel.y -= gravity * Time.deltaTime;
+        //rigidBody.Move(playerVel * Time.deltaTime, Quaternion.identity);
+        //playerVel.y -= gravity * Time.deltaTime;
     }
 
     public void DoJump()
     {
         animator.SetTrigger("Jump");
-        playerVel.y = jumpSpeed;
+        rigidBody.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
     }
 
     void UpdateSprint()
     {
-        if (inputController.sprint)
+        if (inputController.Sprint)
         {
             speed = player.GetSpeed() * sprintMod;
             isSprinting = true;
@@ -92,7 +99,8 @@ public class PlayerMovementController : MonoBehaviour
 
         while (Time.time < startTime + duration)
         {
-            characterController.Move(_direction * Time.deltaTime);
+            rigidBody.AddForce(_direction, ForceMode.Impulse);
+            //rigidBody.velocity = _direction * Time.deltaTime;
             yield return null;
         }
     }

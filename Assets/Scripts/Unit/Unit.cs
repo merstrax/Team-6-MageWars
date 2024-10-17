@@ -285,12 +285,11 @@ public class Unit : MonoBehaviour, IDamage
     protected Vector3 moveDir;
     public Vector3 GetMoveDir() { return moveDir; }
     public void SetMoveDir(Vector3 moveDir) { this.moveDir = moveDir; }
-    public void UpdateMoveDir(Vector2 move)
+    public void UpdateMoveDir(float x, float z)
     {
-        moveDir = move.x * transform.right +
-                    move.y * transform.forward;
+        moveDir = new Vector3(x * GetSpeed(), 0, z * GetSpeed());
     }
-    public float GetSpeed()
+    public virtual float GetSpeed()
     {
         if (IsStunned() || IsRooted())
         {

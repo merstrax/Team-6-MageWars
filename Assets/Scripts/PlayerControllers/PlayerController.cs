@@ -8,9 +8,10 @@ using UnityEngine;
 
 public class PlayerController : Unit
 {
+    public static PlayerController instance;
+
     //Player logic variables
     [Header("Player Controller")]
-    [SerializeField] PlayerInputController inputController;
     [SerializeField] Animator animator;
 
     //Player Shoot
@@ -44,6 +45,12 @@ public class PlayerController : Unit
     ITargetable target;
     bool canInteract;
     public bool IsDead;
+
+    private void Awake()
+    {
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -86,14 +93,14 @@ public class PlayerController : Unit
             GameManager.instance.UpdateCastbar(true, current, end);
         }
 
-        for (int i = 0; i < inputController.ability.Length; i++)
+        for (int i = 0; i < InputController.instance.Ability.Length; i++)
         {
-            if (inputController.ability[i] && abilityHandlers[i].ReadyToCast())
+            if (InputController.instance.Ability[i] && abilityHandlers[i].ReadyToCast())
             {
                 if (selectedAbility != i && selectedAbility != -1)
                 {
-                    inputController.ability[selectedAbility] = false;
-                    inputController.ability[i] = false;
+                    InputController.instance.Ability[selectedAbility] = false;
+                    InputController.instance.Ability[i] = false;
                     selectedAbility = -1;
                     aoeTargetSelector.SetActive(false);
                     break;
@@ -117,7 +124,7 @@ public class PlayerController : Unit
                         CastAbility(abilityHandlers[i]);
                         abilityHandlers[i].StartCooldown();
                     }
-                    inputController.ability[i] = false;
+                    InputController.instance.Ability[i] = false;
                 }
                 break;
             }
@@ -131,7 +138,7 @@ public class PlayerController : Unit
 
         if (selectedAbility != -1)
         {
-            if (!inputController.ability[selectedAbility] && !IsStunned() && abilityCasting == null)
+            if (!InputController.instance.Ability[selectedAbility] && !IsStunned() && abilityCasting == null)
             {
                 CastAbility(abilityHandlers[selectedAbility]);
                 abilityHandlers[selectedAbility].StartCooldown();

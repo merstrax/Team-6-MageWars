@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour
     public GameObject checkPointPopUp;
     public GameObject player;
 
-    public PlayerController playerScript;
-    private PlayerInput playerInput;
     float timeScaleOrig;
 
     private bool isPaused;
@@ -37,8 +35,10 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         timeScaleOrig = Time.timeScale;
+
         player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<PlayerController>();
+
+        DontDestroyOnLoad(gameObject.transform.parent);
     }
 
     // Update is called once per frame
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-        player.GetComponent<PlayerInput>().enabled = false;
+        InputController.instance.GetComponent<PlayerInput>().enabled = false;
     }
 
     public void StateUnpause()
@@ -77,12 +77,12 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(isPaused);
         menuActive = null;
-        player.GetComponent<PlayerInput>().enabled = true;
+        InputController.instance.GetComponent<PlayerInput>().enabled = true;
     }
 
     public void Victory()
     {
-        playerScript.audioPlayer.Play();
+        PlayerController.instance.audioPlayer.Play();
         StatePause();
         menuActive = menuWin;
         menuActive.SetActive(true);
