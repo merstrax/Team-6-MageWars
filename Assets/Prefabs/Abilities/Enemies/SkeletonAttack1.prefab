@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 91540206895485541}
   - component: {fileID: 5126240488271354769}
   m_Layer: 0
-  m_Name: SkeletonSwipe
+  m_Name: SkeletonAttack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

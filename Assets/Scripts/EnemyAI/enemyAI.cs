@@ -29,10 +29,12 @@ public class EnemyAI : Unit, ITargetable
     [Header("Aggro and Roaming")]
     protected float aggroRange;
     protected float kiteRange;
+    protected float roamRange;
+    protected float roamTimer;
     protected int viewAngle;
 
     [Header("Drop")]
-    [SerializeField] protected GameObject[] dropPrefab;  
+    [SerializeField] protected GameObject[] dropPrefab;
     protected float dropChance = 1;
 
     [Header("AI Abilities")]
@@ -51,6 +53,9 @@ public class EnemyAI : Unit, ITargetable
     protected bool isAttacking;
     protected bool isDead;
     protected bool canAttack = true;
+
+    // Coroutines
+    private Coroutine roamCoroutine;
 
     protected override void Start()
     {
@@ -89,6 +94,11 @@ public class EnemyAI : Unit, ITargetable
 
         agent.speed = GetSpeed();
         SetupTarget(targetMaterial);
+
+        if (roamCoroutine == null)
+        {
+            roamCoroutine = StartCoroutine(Roam());
+        }
     }
 
     float distanceToPlayer;
@@ -120,9 +130,20 @@ public class EnemyAI : Unit, ITargetable
     #region Movement and Targeting
     protected void IdleState()
     {
+        if (roamCoroutine == null)
+        {
+            roamCoroutine = StartCoroutine(Roam());
+        }
+
         if (IsTargetInRange() && IsTargetVisible())
         {
             currentState = AIState.Chasing;
+            
+            if (roamCoroutine != null)
+            {
+               StopCoroutine(roamCoroutine);
+                roamCoroutine = null; 
+            }
         }
     }
 
@@ -213,6 +234,25 @@ public class EnemyAI : Unit, ITargetable
         targetDirection = (GameManager.instance.player.transform.position - transform.position).normalized;
         Quaternion rot = Quaternion.LookRotation(targetDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
+    }
+
+    private IEnumerator Roam()
+    {
+        // Generate random offset withing the roam range
+        float randomX = Random.Range(-roamRange, roamRange);
+        float randomZ = Random.Range(-roamRange, roamRange);
+
+        // Calculate new position 
+        Vector3 newPos = startPos + new Vector3(randomX, 0, randomZ);  
+
+        // Move the AI to the new position
+        agent.SetDestination(newPos);
+        animator.SetFloat("Speed", agent.velocity.magnitude / GetSpeed());
+
+        // Wait for the specified roam timer before the next movement
+        yield return new WaitForSeconds(roamTimer);
+
+        roamCoroutine = null;
     }
     #endregion
 
@@ -322,14 +362,14 @@ public class EnemyAI : Unit, ITargetable
         isDead = true;
         ApplyStatus(StatusFlag.INVULNERABLE);
         agent.speed = 0;
-        agent.isStopped = true;     
-        animator.SetTrigger("Death"); 
+        agent.isStopped = true;
+        animator.SetTrigger("Death");
     }
 
     public void DeathAfterAnimation()
     {
-        TryDropPickup(); 
-        base.OnDeath(); 
+        TryDropPickup();
+        base.OnDeath();
     }
 
     protected void TryDropPickup()
@@ -351,7 +391,7 @@ public class EnemyAI : Unit, ITargetable
         animator.SetTrigger("Hit");
         target = other;
 
-        currentState = AIState.Chasing; 
+        currentState = AIState.Chasing;
     }
 
     public override void OnSlow(Unit other = null, Ability source = null, Damage damage = default)

@@ -16,15 +16,17 @@ MonoBehaviour:
   healthBase: 100
   damageBase: 0
   defenseBase: 0
-  speedBase: 5
+  speedBase: 4
   critChanceBase: 0.1
   critDamageBase: 2
   cooldownBase: 0
   aggroRange: 20
   kiteRange: 100
+  roamRange: 15
+  roamTimer: 50
   viewAngle: 90
   abilityPassive: []
   abilities:
   - {fileID: 5482782143325043695, guid: f2b27d56e521f104cb4071db95ba0721, type: 3}
   abilityRate: 2
-  dropChance: 0
+  dropChance: 0.1

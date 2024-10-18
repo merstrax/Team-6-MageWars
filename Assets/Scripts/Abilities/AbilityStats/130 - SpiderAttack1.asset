@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 23 - BearAttack1
+  m_Name: 130 - SpiderAttack1
   m_EditorClassIdentifier: 
-  AbilityName: BearAttack1
-  AbilityDescription: BearAttack1
-  AbilityID: 23
+  AbilityName: 
+  AbilityDescription: 
+  AbilityID: 0
   AbilitySpeed: 0
-  AbilityRange: 5
-  ElementType: 5
+  AbilityRange: 0
+  ElementType: 0
   AbilityType: 0
   CastType: 0
-  Cooldown: 3
+  Cooldown: 0
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
@@ -32,12 +32,12 @@ MonoBehaviour:
   TriggerFlags: 0
   ModifierType: 0
   EffectAbility: {fileID: 0}
-  EffectAmount: 8
+  EffectAmount: 0
   DamageCoefficent: 0
   EffectTriggerChance: 0
   EffectStackAmount: 0
   EffectStackMax: 0
-  EffectDuration: 1
+  EffectDuration: 0
   EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0
@@ -46,5 +46,5 @@ MonoBehaviour:
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
   AbilityVisual: {fileID: 0}
-  CastPosition: 1
-  AnimationType: 4
+  CastPosition: 0
+  AnimationType: 0

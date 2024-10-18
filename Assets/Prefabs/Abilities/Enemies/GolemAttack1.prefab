@@ -19297,10 +19297,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5054310563427980948}
-  - component: {fileID: 5548569805544827344}
   - component: {fileID: 5482782143325043695}
+  - component: {fileID: 5548569805544827344}
   m_Layer: 0
-  m_Name: GolemMelee
+  m_Name: GolemAttack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19322,6 +19322,23 @@ Transform:
   - {fileID: 4790922516671080078}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5482782143325043695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4920046067958256747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541234e85887dcf4e8ffaf0626d9e3d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityInfo: {fileID: 11400000, guid: 252e8f4af7845f945975d436111cd8ae, type: 2}
+  myCollider: {fileID: 5548569805544827344}
+  myVisual: {fileID: 4790922516671380142}
+  myRigidbody: {fileID: 0}
+  scriptName: 
 --- !u!135 &5548569805544827344
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -19343,20 +19360,3 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.65
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5482782143325043695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4920046067958256747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 541234e85887dcf4e8ffaf0626d9e3d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityInfo: {fileID: 11400000, guid: 252e8f4af7845f945975d436111cd8ae, type: 2}
-  myCollider: {fileID: 5548569805544827344}
-  myVisual: {fileID: 4790922516671380142}
-  myRigidbody: {fileID: 0}
-  scriptName: 

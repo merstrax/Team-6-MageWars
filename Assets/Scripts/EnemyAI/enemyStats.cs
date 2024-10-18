@@ -18,6 +18,8 @@ public class enemyStats : ScriptableObject
     [Header("Aggro and Roaming")]
     public float aggroRange;
     public float kiteRange;
+    public float roamRange;
+    public float roamTimer; 
     public int viewAngle; 
 
     [Header("AI Abilities")]
