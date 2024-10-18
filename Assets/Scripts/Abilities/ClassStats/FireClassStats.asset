@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a72d38844a0d44a9742a13897dd576, type: 3}
+  m_Name: FireClassStats
+  m_EditorClassIdentifier: 
+  ElementName: Fire
+  ElementType: 3
+  Ability1: {fileID: 39563482987813226, guid: 11db15c1e81d6ee43a1c44f2350fe23b, type: 3}
+  Ability2: {fileID: 39563482987813226, guid: 893375091b57c5941aeb489e862e8278, type: 3}
+  Ability3: {fileID: 39563482987813226, guid: d59b96b4e4e9a5649a7ddf4b7a26615c, type: 3}
+  Ability4: {fileID: 39563482987813226, guid: d917f3a6acd0f4f48aa09bbbf4f3c67d, type: 3}
+  passives: []

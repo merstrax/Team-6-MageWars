@@ -45,7 +45,7 @@ public class AoETargetSpin : MonoBehaviour
 
     public void SetScale(float scale)
     {
-        outerRing.transform.localScale = scale * Vector3.one;
+        outerRing.transform.localScale = (scale/2) * Vector3.one;
         originalScale = outerRing.transform.localScale;
     }
 

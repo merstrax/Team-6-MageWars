@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
+  m_Name: 701 - BlizzardStats
+  m_EditorClassIdentifier: 
+  AbilityName: 
+  AbilityDescription: 
+  AbilityID: 0
+  AbilitySpeed: 0
+  AbilityRange: 0
+  ElementType: 0
+  AbilityType: 0
+  CastType: 0
+  Cooldown: 0
+  CastTime: 0
+  IsRooted: 0
+  IsTarget: 0
+  EffectType: 0
+  EffectTargetType: 0
+  StatusType: 0
+  AttributeFlags: 0
+  ElementFlags: 0
+  TriggerFlags: 0
+  ModifierType: 0
+  EffectAbility: {fileID: 0}
+  EffectAmount: 0
+  DamageCoefficent: 0
+  EffectTriggerChance: 0
+  EffectStackAmount: 0
+  EffectStackMax: 0
+  EffectDuration: 0
+  EffectTickSpeed: 0
+  ResourceType: 0
+  ResourceMax: 0
+  ResourceCooldown: 0
+  ResourceReset: 0
+  ComboAbilities: []
+  AbilityIcon: {fileID: 0}
+  AbilityVisual: {fileID: 0}
+  AbilityImpact: {fileID: 0}
+  AbilityCast: {fileID: 0}
+  CastPosition: 0
+  AnimationType: 0

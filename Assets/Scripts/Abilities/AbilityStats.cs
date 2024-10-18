@@ -23,12 +23,12 @@ public class AbilityStats : ScriptableObject
 
     [Header("Effect Info")]
     public EffectType EffectType;
-    [Description("What unit to add the EffectAbility to")] public EffectTargetType EffectTargetType;
+    public EffectTargetType EffectTargetType;
     public EffectStatusType StatusType;
-    [Description("Only valid with EffectType modifier")] public AttributeFlags AttributeFlags;
+    public AttributeFlags AttributeFlags;
     public EffectElementFlags ElementFlags;
-    [Description("Event to trigger the EffectAbility")] public TriggerFlags TriggerFlags;
-    [Description("Only valid with EffectType modifier")] public EffectModifierType ModifierType;
+    public TriggerFlags TriggerFlags;
+    public EffectModifierType ModifierType;
     public AbilityStats EffectAbility;
     public float EffectAmount;
     public float DamageCoefficent;
@@ -48,12 +48,15 @@ public class AbilityStats : ScriptableObject
     [Header("Visuals")]
     public Texture2D AbilityIcon;
     public GameObject AbilityVisual;
+    public GameObject AbilityImpact;
+    public GameObject AbilityCast;
     public uint CastPosition;
     public AnimationType AnimationType;
 
     //Replace string tokens with values of the Ability
     private readonly string damageColor = ColorUtility.ToHtmlStringRGB(Color.red);
     private readonly string rangeColor = ColorUtility.ToHtmlStringRGB(Color.yellow);
+    private readonly string timeColor = ColorUtility.ToHtmlStringRGB(Color.green);
 
     public string GetDescription(bool showAdanced = false)
     {
@@ -63,6 +66,8 @@ public class AbilityStats : ScriptableObject
 
         output = output.Replace("{$d}", Colorize(EffectAmount.ToString("0.00"), damageColor));
         output = output.Replace("{$r}", Colorize(AbilityRange.ToString("0"), rangeColor));
+        output = output.Replace("{$ts}", Colorize(EffectTickSpeed.ToString("0.0") + "s", timeColor));
+        output = output.Replace("{$ct}", Colorize(CastTime.ToString("0.0") + "s", timeColor));
 
         return output;
     }
@@ -73,6 +78,8 @@ public class AbilityStats : ScriptableObject
 
         output = output.Replace("{$d}", Colorize(EffectAmount.ToString() + " + (" + (DamageCoefficent * 100.0f).ToString("0.00") + "% Damage Bonus)", damageColor));
         output = output.Replace("{$r}", Colorize(AbilityRange.ToString("0"), rangeColor));
+        output = output.Replace("{$ts}", Colorize(EffectTickSpeed.ToString("0.0") + "s", timeColor));
+        output = output.Replace("{$ct}", Colorize(CastTime.ToString("0.0") + "s", timeColor));
 
         return output;
     }
@@ -83,13 +90,15 @@ public class AbilityStats : ScriptableObject
 
         output = output.Replace("{$d}", Colorize(unit.CalculateDamage(EffectAmount, DamageCoefficent, false).Amount.ToString("0.00"), damageColor));
         output = output.Replace("{$r}", Colorize(AbilityRange.ToString("0"), rangeColor));
+        output = output.Replace("{$ts}", Colorize(EffectTickSpeed.ToString("0.0") + "s", timeColor));
+        output = output.Replace("{$ct}", Colorize(CastTime.ToString("0.0") + "s", timeColor));
 
         return output;
     }
 
     private string Colorize(string value, string color)
     {
-        value = " <color=#" + color + ">" + value + "</color>";
+        value = "<color=#" + color + ">" + value + "</color>";
         return value;
     }
 }

@@ -20,7 +20,8 @@ public enum AbilityType
     EFFECT,
     MOVEMENT,
     TELEPORT,
-    JUMP
+    JUMP,
+    MELEE
 }
 
 public enum CastType

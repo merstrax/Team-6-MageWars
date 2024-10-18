@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: testAbility
+  m_Name: 500 - ArcaneBoltStats
   m_EditorClassIdentifier: 
-  AbilityName: Test Bolt
-  AbilityDescription: 
-  AbilityID: 0
-  AbilityFlag: 0
-  AbilitySpeed: 0
-  AbilityRange: 0
+  AbilityName: Arcane Bolt
+  AbilityDescription: Fire a bolt of Arcane Damage dealing {$d} damage.
+  AbilityID: 500
+  AbilitySpeed: 35
+  AbilityRange: 20
   ElementType: 1
   AbilityType: 0
   CastType: 0
-  Cooldown: 5
+  Cooldown: 1
   CastTime: 0
+  IsRooted: 0
+  IsTarget: 0
   EffectType: 0
   EffectTargetType: 0
   StatusType: 0
@@ -31,19 +32,21 @@ MonoBehaviour:
   TriggerFlags: 0
   ModifierType: 0
   EffectAbility: {fileID: 0}
-  EffectAmount: 0
-  DamageCoefficent: 0
+  EffectAmount: 20
+  DamageCoefficent: 0.2
   EffectTriggerChance: 0
-  EffectAbilityID: 0
-  EffectAbilityFlag: 0
   EffectStackAmount: 0
   EffectStackMax: 0
-  EffectDuration: 0
+  EffectDuration: 2
   EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0
   ResourceCooldown: 0
   ResourceReset: 0
   ComboAbilities: []
-  AbilityIcon: {fileID: 0}
+  AbilityIcon: {fileID: 2800000, guid: 59f654c034abb334a8ba4591c79f4464, type: 3}
   AbilityVisual: {fileID: 0}
+  AbilityImpact: {fileID: 0}
+  AbilityCast: {fileID: 0}
+  CastPosition: 0
+  AnimationType: 4

@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541234e85887dcf4e8ffaf0626d9e3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityInfo: {fileID: 11400000, guid: 0771f03505eda2d4fa1f65d4f04080a1, type: 2}
-  isTarget: 0
+  AbilityInfo: {fileID: 11400000, guid: 411fa642e2d5737448b9ae2b31082d13, type: 2}
   myCollider: {fileID: 0}
   myVisual: {fileID: 0}
   myRigidbody: {fileID: 0}
+  scriptName: 
