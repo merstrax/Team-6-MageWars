@@ -208,9 +208,9 @@ public class Ability : MonoBehaviour
     //Movement Ability Handling
     public virtual void CastMovement()
     {
-        if (owner.TryGetComponent<PlayerMovementController>(out PlayerMovementController controller))
+        if (owner.TryGetComponent<PlayerMoveController>(out PlayerMoveController controller))
         {
-            StartCoroutine(controller.DashMovement(Info().AbilitySpeed, Info().EffectDuration));
+            controller.StartDash(Info().AbilitySpeed, Info().EffectDuration);
             OnCast();
         }
         CleanUp();

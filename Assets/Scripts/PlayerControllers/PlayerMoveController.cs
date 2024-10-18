@@ -27,6 +27,7 @@ public class PlayerMoveController : MonoBehaviour
     private float moveSpeed;
     private float horizontalMovement;
     private float verticalMovement;
+    private bool IsDashing;
 
     // Update is called once per frame
     private void Update()
@@ -49,16 +50,16 @@ public class PlayerMoveController : MonoBehaviour
 
     private void UpdateAnimations()
     {
-        float agentSpeed = InputController.instance.Move.x;
+        float agentSpeed = Mathf.Round(InputController.instance.Move.x);
         float animSpeed = animator.GetFloat("MoveX");
-        animator.SetFloat("MoveX", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 5.0f));
+        animator.SetFloat("MoveX", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 10.0f));
 
-        agentSpeed = InputController.instance.Move.y;
+        agentSpeed = Mathf.Round(InputController.instance.Move.y);
         animSpeed = animator.GetFloat("MoveZ");
-        animator.SetFloat("MoveZ", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 5.0f));
+        animator.SetFloat("MoveZ", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 10.0f));
 
         animSpeed = animator.GetFloat("Speed");
-        animator.SetFloat("Speed", Mathf.Lerp(animSpeed, moveSpeed, Time.deltaTime * 2.0f));
+        animator.SetFloat("Speed", Mathf.Lerp(animSpeed, moveSpeed, Time.deltaTime * 10.0f));
 
         animator.SetBool("IsGrounded", isGrounded);
     }
@@ -92,7 +93,7 @@ public class PlayerMoveController : MonoBehaviour
             rigidBody.AddForce(10f * walkSpeed * moveDirection, ForceMode.Force);
         }
 
-        if(InputController.instance.Jump && isGrounded)
+        if (InputController.instance.Jump && isGrounded)
         {
             animator.SetTrigger("Jump");
             rigidBody.AddForce(jumpSpeed * Vector3.up, ForceMode.Impulse);
@@ -108,7 +109,7 @@ public class PlayerMoveController : MonoBehaviour
 
         if (InputController.instance.Sprint)
         {
-            if (flatVel.magnitude > runSpeed)
+            if (flatVel.magnitude > runSpeed && !IsDashing)
             {
                 Vector3 limitedVal = flatVel.normalized * runSpeed;
                 rigidBody.velocity = new Vector3(limitedVal.x, rigidBody.velocity.y, limitedVal.z);
@@ -116,11 +117,37 @@ public class PlayerMoveController : MonoBehaviour
         }
         else
         {
-            if (flatVel.magnitude > walkSpeed)
+            if (flatVel.magnitude > walkSpeed && !IsDashing)
             {
                 Vector3 limitedVal = flatVel.normalized * walkSpeed;
                 rigidBody.velocity = new Vector3(limitedVal.x, rigidBody.velocity.y, limitedVal.z);
             }
         }
+    }
+
+    Coroutine dashCoroutine;
+    public void StartDash(float speed, float duration)
+    {
+        if (dashCoroutine == null)
+        {
+            dashCoroutine = StartCoroutine(DashMovement(speed, duration));
+        }
+        else
+        {
+            StopCoroutine(dashCoroutine);
+            dashCoroutine = StartCoroutine(DashMovement(speed, duration));
+        }
+    }
+
+    public IEnumerator DashMovement(float speed, float duration)
+    {
+        IsDashing = true;
+        Vector3 _direction = orientation.forward * speed;
+        rigidBody.AddForce(_direction, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(duration);
+        dashCoroutine = null;
+        IsDashing = false;
+
     }
 }
