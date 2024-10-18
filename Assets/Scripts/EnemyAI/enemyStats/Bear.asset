@@ -20,10 +20,10 @@ MonoBehaviour:
   critChanceBase: 0.1
   critDamageBase: 2
   cooldownBase: 0
-  aggroRange: 35
-  kiteRange: 150
-  roamRange: 50
-  roamTimer: 5
+  aggroRange: 25
+  kiteRange: 30
+  roamRange: 10
+  roamTimer: 3
   viewAngle: 90
   abilityPassive: []
   abilities:

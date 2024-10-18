@@ -70,8 +70,8 @@ public class EnemyAI : Unit, ITargetable
         aggroRange = enemyStats.aggroRange;
         kiteRange = enemyStats.kiteRange;
         roamRange = enemyStats.roamRange;
-
-       dropChance = enemyStats.dropChance;
+        roamTimer = enemyStats.roamTimer;
+        dropChance = enemyStats.dropChance;
         viewAngle = enemyStats.viewAngle;
 
         startPos = transform.position;
@@ -93,18 +93,13 @@ public class EnemyAI : Unit, ITargetable
 
         agent.speed = GetSpeed();
         SetupTarget(targetMaterial);
-
-        if (roamCoroutine == null)
-        {
-            roamCoroutine = StartCoroutine(Roam());
-        }
     }
 
     float distanceToPlayer;
 
     protected virtual void Update()
     {
-        distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
+        distanceToPlayer = Vector3.Distance(transform.position, PlayerController.instance.transform.position);
         if (isDead || (distanceToPlayer > 50.0f && target == null)) return;
 
         switch (currentState)
@@ -137,11 +132,11 @@ public class EnemyAI : Unit, ITargetable
         if (IsTargetInRange() && IsTargetVisible())
         {
             currentState = AIState.Chasing;
-            
+
             if (roamCoroutine != null)
             {
-               StopCoroutine(roamCoroutine);
-                roamCoroutine = null; 
+                StopCoroutine(roamCoroutine);
+                roamCoroutine = null;
             }
         }
     }
@@ -175,19 +170,21 @@ public class EnemyAI : Unit, ITargetable
 
     protected void ResetState()
     {
-        agent.SetDestination(startPos);
+
+        agent.speed = GetSpeed() * 2;
 
         float distanceFromStart = Vector3.Distance(transform.position, startPos);
 
-        if (distanceFromStart <= 0.01f)
+        if (distanceFromStart <= 0.1f)
         {
             target = null;
-            currentState = AIState.Idle;
             RemoveStatus(StatusFlag.INVULNERABLE);
             RemoveAllEffects();
+
+            currentState = AIState.Idle;
         }
 
-        agent.speed = 10;
+        agent.SetDestination(startPos);
     }
 
     protected void MoveTowardsTarget()
@@ -242,7 +239,7 @@ public class EnemyAI : Unit, ITargetable
         float randomZ = Random.Range(-roamRange, roamRange);
 
         // Calculate new position 
-        Vector3 newPos = startPos + new Vector3(randomX, 0, randomZ);  
+        Vector3 newPos = startPos + new Vector3(randomX, 0, randomZ);
 
         // Move the AI to the new position
         agent.SetDestination(newPos);
