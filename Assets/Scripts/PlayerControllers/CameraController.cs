@@ -13,20 +13,22 @@ public class cameraController : MonoBehaviour
 
     float rotX;
 
+    private CinemachineVirtualCamera playerCamera;
+
     // Start is called before the first frame update
     void Start()
     {
         //Setup cursor logic to be visisble and locked
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        if (playerCamera == null)
+        {
+            playerCamera = FindFirstObjectByType<CinemachineVirtualCamera>();
+            playerCamera.Follow = followTransform;
+        }
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        CinemachineVirtualCamera _playerCamera = FindFirstObjectByType<CinemachineVirtualCamera>();
-        _playerCamera.Follow = followTransform;
-    }
     // Update is called once per frame
     void Update()
     {

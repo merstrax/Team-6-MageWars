@@ -83,12 +83,14 @@ public class PlayerController : Unit
 
         GameManager.instance.SetInteractMessage("");
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
+        transform.position = _playerSpawn.transform.position;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
-        transform.position = _playerSpawn.transform.position;
+        
     }
 
     // Update is called once per frame
