@@ -8244,11 +8244,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InputController
       objectReference: {fileID: 0}
-    - target: {fileID: 4881537022638361207, guid: 84a6b383340c1124997c5cdff85a820e,
-        type: 3}
-      propertyPath: m_DefaultControlScheme
-      value: Default
-      objectReference: {fileID: 0}
     - target: {fileID: 7024008848686465084, guid: 84a6b383340c1124997c5cdff85a820e,
         type: 3}
       propertyPath: m_LocalPosition.x

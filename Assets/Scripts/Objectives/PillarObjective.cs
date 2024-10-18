@@ -32,7 +32,7 @@ public class PillarObjective : MonoBehaviour, IInteractable
         if (IsTargetDisabled) return;
         GodrickValleyController.instance.SetPillarComplete(type);
         visual.SetActive(false);
-
+        OnTarget(false);
         IsTargetDisabled = true;
     }
     #endregion

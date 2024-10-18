@@ -82,15 +82,17 @@ public class PlayerController : Unit
         }
 
         GameManager.instance.SetInteractMessage("");
-        SceneManager.sceneLoaded += OnSceneLoaded;
 
         PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
         transform.position = _playerSpawn.transform.position;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
+        PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
+        transform.position = _playerSpawn.transform.position;
     }
 
     // Update is called once per frame
@@ -98,6 +100,10 @@ public class PlayerController : Unit
     {
         if (IsDead) return;
         UpdateTargeting();
+        if (InputController.instance.Interact)
+        {
+            Interact();
+        }
 
         if (abilityChannel != null)
         {
@@ -256,7 +262,8 @@ public class PlayerController : Unit
         }
         else if (target != null)
         {
-            try {
+            try
+            {
                 Unit hit = target.GameObject().GetComponentInParent<Unit>();
                 if (hit != null)
                 {

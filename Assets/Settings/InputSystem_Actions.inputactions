@@ -78,7 +78,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DebugSummon",
+                    "name": "Debug",
                     "type": "Button",
                     "id": "c57612e5-b544-4e5b-a9da-3269b1bb4bca",
                     "expectedControlType": "",
@@ -236,7 +236,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "DebugSummon",
+                    "action": "Debug",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

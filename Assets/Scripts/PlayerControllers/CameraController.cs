@@ -27,6 +27,13 @@ public class cameraController : MonoBehaviour
             playerCamera = FindFirstObjectByType<CinemachineVirtualCamera>();
             playerCamera.Follow = followTransform;
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        playerCamera = FindFirstObjectByType<CinemachineVirtualCamera>();
+        playerCamera.Follow = followTransform;
     }
 
     // Update is called once per frame
