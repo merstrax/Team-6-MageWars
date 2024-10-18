@@ -16,7 +16,6 @@ public class EnemyAI : Unit, ITargetable
     [SerializeField] protected Animator animator;
     [SerializeField] protected Renderer model;
     [SerializeField] protected CapsuleCollider bodyCollider;
-    [SerializeField] protected CapsuleCollider headCollider;
     [SerializeField] protected Material targetMaterial;
 
     [Header("AI Nav")]

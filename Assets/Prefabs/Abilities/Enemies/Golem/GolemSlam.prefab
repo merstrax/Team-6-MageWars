@@ -19300,7 +19300,7 @@ GameObject:
   - component: {fileID: 5482782143325043695}
   - component: {fileID: 5548569805544827344}
   m_Layer: 0
-  m_Name: GolemAttack1
+  m_Name: GolemSlam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19334,7 +19334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541234e85887dcf4e8ffaf0626d9e3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityInfo: {fileID: 11400000, guid: 252e8f4af7845f945975d436111cd8ae, type: 2}
+  AbilityInfo: {fileID: 11400000, guid: 9d334ca399249684da6ac5a9a487e090, type: 2}
   myCollider: {fileID: 5548569805544827344}
   myVisual: {fileID: 4790922516671380142}
   myRigidbody: {fileID: 0}

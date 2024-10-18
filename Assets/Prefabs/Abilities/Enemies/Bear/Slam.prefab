@@ -19532,7 +19532,7 @@ GameObject:
   - component: {fileID: 5482782143325043695}
   - component: {fileID: 5548569805544827344}
   m_Layer: 0
-  m_Name: BearAttack4
+  m_Name: Slam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19568,7 +19568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityInfo: {fileID: 11400000, guid: 2a2884b9f3a0f38469874bce1db803bb, type: 2}
   myCollider: {fileID: 5548569805544827344}
-  myVisual: {fileID: 1959859426937345429}
+  myVisual: {fileID: 160150, guid: 135baa54467718346b4ec3b679824e50, type: 3}
   myRigidbody: {fileID: 0}
   scriptName: 
 --- !u!135 &5548569805544827344

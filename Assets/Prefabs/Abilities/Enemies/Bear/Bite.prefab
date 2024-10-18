@@ -19532,7 +19532,7 @@ GameObject:
   - component: {fileID: 5482782143325043695}
   - component: {fileID: 5548569805544827344}
   m_Layer: 0
-  m_Name: BearAttack2
+  m_Name: Bite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19566,7 +19566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541234e85887dcf4e8ffaf0626d9e3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityInfo: {fileID: 11400000, guid: 8f0ae513937ff754d9f9f3047adffcd6, type: 2}
+  AbilityInfo: {fileID: 11400000, guid: 242ed858651614b4f8107bd614637e6d, type: 2}
   myCollider: {fileID: 5548569805544827344}
   myVisual: {fileID: 1959859426937345429}
   myRigidbody: {fileID: 0}
