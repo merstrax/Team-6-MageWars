@@ -968,6 +968,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6867401686191789752}
+  - {fileID: 2297970556269243130}
   - {fileID: 9221049976479565730}
   - {fileID: 1985968913980030818}
   - {fileID: 6799163240728567604}
@@ -977,7 +978,6 @@ RectTransform:
   - {fileID: 1844294402352921851}
   - {fileID: 8023994576414362623}
   - {fileID: 2708877047597980476}
-  - {fileID: 2297970556269243130}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3248,6 +3248,8 @@ MonoBehaviour:
   menuLose: {fileID: 9015601140360784510}
   menuSettings: {fileID: 674660964675916414}
   playerInterface: {fileID: 5526378357754353155}
+  playerController: {fileID: 6820859554960133380, guid: b03e913d6f433234381b057731bd1d54,
+    type: 3}
   checkPointPopUp: {fileID: 0}
   player: {fileID: 0}
 --- !u!114 &1931554750077180462
@@ -8244,6 +8246,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InputController
       objectReference: {fileID: 0}
+    - target: {fileID: 4881537022638361207, guid: 84a6b383340c1124997c5cdff85a820e,
+        type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7024008848686465084, guid: 84a6b383340c1124997c5cdff85a820e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8446,7 +8453,7 @@ PrefabInstance:
     - target: {fileID: 5990818749422759409, guid: 5df928ef4ffeccf4da2975720d3082bb,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5990818749422759409, guid: 5df928ef4ffeccf4da2975720d3082bb,
         type: 3}
@@ -8456,7 +8463,7 @@ PrefabInstance:
     - target: {fileID: 5990818749422759409, guid: 5df928ef4ffeccf4da2975720d3082bb,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5990818749422759409, guid: 5df928ef4ffeccf4da2975720d3082bb,
         type: 3}
@@ -8511,7 +8518,7 @@ PrefabInstance:
     - target: {fileID: 5990818749422759409, guid: 5df928ef4ffeccf4da2975720d3082bb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 280
+      value: -840
       objectReference: {fileID: 0}
     - target: {fileID: 5990818749422759409, guid: 5df928ef4ffeccf4da2975720d3082bb,
         type: 3}

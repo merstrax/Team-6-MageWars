@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuSettings;
     [SerializeField] PlayerInterface playerInterface;
 
+    [SerializeField] PlayerController playerController;
+    
     public GameObject checkPointPopUp;
     public GameObject player;
 
@@ -35,6 +37,11 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         timeScaleOrig = Time.timeScale;
+
+        if (PlayerController.instance == null)
+        {
+            Instantiate(playerController);
+        }
 
         player = GameObject.FindWithTag("Player");
     }

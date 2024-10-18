@@ -2,7 +2,6 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -52,9 +51,8 @@ public class PlayerController : Unit
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
-    protected override void Start()
-    {/*
+    public void Setup()
+    {
         stats = new(healthBase, damageBase, defenseBase, speedBase, critChanceBase, critDamageBase, cooldownBase);
 
         UpdateStats();
@@ -78,47 +76,24 @@ public class PlayerController : Unit
                 }
             }
         }
+
+        if (SceneManager.GetActiveScene().name == "LoadGameScene") return;
+
         PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
         transform.position = _playerSpawn.transform.position;
         GameManager.instance.SetInteractMessage("");
-        */
+    }
+
+    // Start is called before the first frame update
+    protected override void Start()
+    {
+        Setup();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        stats = new(healthBase, damageBase, defenseBase, speedBase, critChanceBase, critDamageBase, cooldownBase);
-
-        IsDead = false;
-        animator.SetTrigger("Revive");
-        UpdateStats();
-        healthCurrent = healthMax;
-
-        if (abilityPassive != null)
-        {
-            //abilityPassive[0] = Instantiate(abilityPassive[0], GetCastPos());
-            //abilityHandlers[0].Setup(this, abilityPassive[0]);
-        }
-
-        for (int i = 0; i < abilities.Length; i++)
-        {
-            if (abilities[i] != null)
-            {
-                abilityHandlers[i] = gameObject.AddComponent<AbilityHandler>();
-                abilityHandlers[i].Setup(this, abilities[i]);
-                if (abilityHandlers[i].IsMovementAbility())
-                {
-                    movementAbility = abilityHandlers[i].GetAbility();
-                }
-            }
-        }
-
-        if (scene.name == "LoadGameScene") return;
-
-        PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
-        transform.position = _playerSpawn.transform.position;
-
-        GameManager.instance.SetInteractMessage("");
+        Setup();
     }
 
     // Update is called once per frame
