@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6877015095207538556}
   - component: {fileID: 3847342535400484079}
   - component: {fileID: 63694252416705850}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1947297207095772146}
   - component: {fileID: 4525980231993739976}
   - component: {fileID: 4486181143982594962}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 8407420006228216365}
   - component: {fileID: 2757691173646265220}
   - component: {fileID: 7433508540558438029}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WindPillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 1620534326022972514}
   - component: {fileID: 8217226996555246949}
   - component: {fileID: 6068184133243331969}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,6 +365,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: StormWallCircle
       objectReference: {fileID: 0}
+    - target: {fileID: 122254, guid: 8970300b7d7f44d46971138829256fc9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 167042, guid: 8970300b7d7f44d46971138829256fc9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 479444, guid: 8970300b7d7f44d46971138829256fc9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -416,6 +424,11 @@ PrefabInstance:
     - target: {fileID: 479444, guid: 8970300b7d7f44d46971138829256fc9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343721356656774759, guid: 8970300b7d7f44d46971138829256fc9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

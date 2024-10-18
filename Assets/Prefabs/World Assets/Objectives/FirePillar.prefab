@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8534762913981166790}
   - component: {fileID: 8854515727484267542}
   - component: {fileID: 7514664210235169475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1710657716331498005}
   - component: {fileID: 1358815346976387920}
   - component: {fileID: 3130133681410209894}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 8698013619887413750}
   - component: {fileID: 1523387723497897709}
   - component: {fileID: 5148854778203904621}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirePillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 4801424329964041298}
   - component: {fileID: 5747652029106213492}
   - component: {fileID: 4409639321131991625}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,9 +361,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7325698160535873095}
     m_Modifications:
+    - target: {fileID: 126568, guid: d378f9be06e3f7f4e972fac2a76e5fa3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 140886, guid: d378f9be06e3f7f4e972fac2a76e5fa3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 142614, guid: d378f9be06e3f7f4e972fac2a76e5fa3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 196820, guid: d378f9be06e3f7f4e972fac2a76e5fa3, type: 3}
       propertyPath: m_Name
       value: FireWallCircle
+      objectReference: {fileID: 0}
+    - target: {fileID: 196820, guid: d378f9be06e3f7f4e972fac2a76e5fa3, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 497212, guid: d378f9be06e3f7f4e972fac2a76e5fa3, type: 3}
       propertyPath: m_LocalScale.x

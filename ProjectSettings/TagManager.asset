@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - AludyneBossFight
   - Effects
+  - Targetable
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - Enemy
   - Terrain
-  - 
+  - Targetable
   - 
   - 
   - 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2515410694150395583}
   - component: {fileID: 8846175056549535731}
   - component: {fileID: 3226234332551585857}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8545843226905061881}
   - component: {fileID: 622982377268207560}
   - component: {fileID: 6032102553328794558}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 29395089274440533}
   - component: {fileID: 6199797395439171266}
   - component: {fileID: 6437102062984074468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 7902029939050307594}
   - component: {fileID: 5504839996360522224}
   - component: {fileID: 7662221204009733789}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrostPillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,9 +361,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2145422906109192458}
     m_Modifications:
+    - target: {fileID: 126260, guid: 12a0a5be982a0b345b402b19e512ffde, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 141976, guid: 12a0a5be982a0b345b402b19e512ffde, type: 3}
       propertyPath: m_Name
       value: FrostWallCircle
+      objectReference: {fileID: 0}
+    - target: {fileID: 141976, guid: 12a0a5be982a0b345b402b19e512ffde, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 177730, guid: 12a0a5be982a0b345b402b19e512ffde, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 424942, guid: 12a0a5be982a0b345b402b19e512ffde, type: 3}
       propertyPath: m_LocalScale.x

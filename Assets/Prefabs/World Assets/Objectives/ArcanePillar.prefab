@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3949882992393943439}
   - component: {fileID: 5608517836299174066}
   - component: {fileID: 8467699966489558143}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4887660067218482042}
   - component: {fileID: 2961733021496519841}
   - component: {fileID: 8497870303688835434}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ArcanePillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 7603376613616539399}
   - component: {fileID: 7382403831460996015}
   - component: {fileID: 543569039695659696}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 1398579193917033397}
   - component: {fileID: 7549917769518319344}
   - component: {fileID: 1888096161689161060}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PT_Menhir_Rock_02_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,9 +362,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1876672035419057076}
     m_Modifications:
+    - target: {fileID: 107334, guid: d012fbe8542f89b4eb619529cdec2808, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 146692, guid: d012fbe8542f89b4eb619529cdec2808, type: 3}
       propertyPath: m_Name
       value: ArcaneWallCircle
+      objectReference: {fileID: 0}
+    - target: {fileID: 146692, guid: d012fbe8542f89b4eb619529cdec2808, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 196816, guid: d012fbe8542f89b4eb619529cdec2808, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 455790, guid: d012fbe8542f89b4eb619529cdec2808, type: 3}
       propertyPath: m_LocalScale.x

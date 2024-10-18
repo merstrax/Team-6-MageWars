@@ -159,16 +159,21 @@ public class PlayerController : Unit
             screenCenter = new Vector3(0.5f, 0.5f, 0f);
             ray = Camera.main.ViewportPointToRay(screenCenter);
 
+            LayerMask _mask = LayerMask.NameToLayer("Targetable");
+
             //Check for EnemyAI targetables first
-            if (Physics.Raycast(ray, out hit, 200.0f))
+            if (Physics.Raycast(ray, out hit, 200.0f, ~_mask))
             {
-                EnemyAI targetHit = hit.collider.gameObject.GetComponentInParent<EnemyAI>();
+                ITargetable targetHit = hit.collider.gameObject.GetComponentInParent<ITargetable>();
 
                 if (targetHit != null)
                 {
-                    target?.OnTarget(false);
-                    targetHit.OnTarget(true);
-                    target = targetHit;
+                    if (targetHit.GameObject().GetComponent<EnemyAI>() != null)
+                    {
+                        target?.OnTarget(false);
+                        targetHit.OnTarget(true);
+                        target = targetHit;
+                    }
                 }
                 else
                 {
@@ -178,7 +183,7 @@ public class PlayerController : Unit
             }
 
             //check for Interactables after enemies
-            if (Physics.Raycast(ray, out hit, 10.0f) && target == null)
+            if (Physics.Raycast(ray, out hit, 10.0f, ~_mask) && target == null)
             {
                 IInteractable targetHit = hit.collider.gameObject.GetComponentInParent<IInteractable>();
 
