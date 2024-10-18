@@ -37,8 +37,6 @@ public class GameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
 
         player = GameObject.FindWithTag("Player");
-
-        DontDestroyOnLoad(gameObject.transform.parent);
     }
 
     // Update is called once per frame

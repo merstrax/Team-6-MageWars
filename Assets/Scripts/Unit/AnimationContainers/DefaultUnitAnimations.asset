@@ -19,6 +19,7 @@ MonoBehaviour:
   Attack1: Attack1
   Attack2: Attack2
   Attack3: Attack3
+  Attack4: Attack4
   Hit: Hit
   Knockback: Knockback
   Stun: Stun

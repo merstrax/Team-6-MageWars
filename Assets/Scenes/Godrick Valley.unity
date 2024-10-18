@@ -11080,6 +11080,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 1931554750077180462, guid: 93ab347366922a446b19a5682cf3e2ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2776355590213774633, guid: 93ab347366922a446b19a5682cf3e2ef,
         type: 3}
       propertyPath: m_Pivot.x
@@ -11179,6 +11184,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746842373851788043, guid: 93ab347366922a446b19a5682cf3e2ef,
+        type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14688,20 +14698,55 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6490684758714764877, guid: b03e913d6f433234381b057731bd1d54,
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
         type: 3}
-      propertyPath: runSpeed
-      value: 8
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6490684758714764877, guid: b03e913d6f433234381b057731bd1d54,
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
         type: 3}
-      propertyPath: walkSpeed
-      value: 4
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6490684758714764877, guid: b03e913d6f433234381b057731bd1d54,
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
         type: 3}
-      propertyPath: isGrounded
-      value: 0
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7129579630200473284, guid: b03e913d6f433234381b057731bd1d54,
         type: 3}
@@ -14758,7 +14803,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5525311489966409069, guid: b03e913d6f433234381b057731bd1d54, type: 3}
+    - {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

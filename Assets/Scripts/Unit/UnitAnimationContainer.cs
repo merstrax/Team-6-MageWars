@@ -11,6 +11,7 @@ public enum AnimationType
     ATTACK_1,
     ATTACK_2,
     ATTACK_3,
+    ATTACK_4,
     HIT,
     KNOCKBACK,
     STUN,
@@ -27,6 +28,7 @@ public class AnimationContainer : ScriptableObject
     public string Attack1;
     public string Attack2;
     public string Attack3;
+    public string Attack4;
     public string Hit;
     public string Knockback;
     public string Stun;
@@ -36,12 +38,12 @@ public class AnimationContainer : ScriptableObject
 
     public AnimationContainer()
     {
-        _animations = new() {Idle, Walk, Run, Jump, Attack1, Attack2, Attack3, Hit, Knockback, Stun, Death};
+        _animations = new() {Idle, Walk, Run, Jump, Attack1, Attack2, Attack3, Attack4, Hit, Knockback, Stun, Death};
     }
 
     public void Inititialize()
     {
-        _animations = new() {Idle, Walk, Run, Jump, Attack1, Attack2, Attack3, Hit, Knockback, Stun, Death };
+        _animations = new() {Idle, Walk, Run, Jump, Attack1, Attack2, Attack3, Attack4, Hit, Knockback, Stun, Death };
     }
 
     public string this[AnimationType type]
