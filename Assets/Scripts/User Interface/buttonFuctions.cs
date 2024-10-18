@@ -66,10 +66,6 @@ public class buttonFuctions : MonoBehaviour
     }
     public void startgame()
     {
-#if PLATFORM_WEBGL
-        SceneManager.LoadScene("Godrick Valley_WebGL");
-#else
-        SceneManager.LoadScene("Godrick Valley");
-#endif
+        SceneManager.LoadScene("LoadGameScene");
     }
 }

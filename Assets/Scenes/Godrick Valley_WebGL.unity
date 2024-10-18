@@ -7591,9 +7591,9 @@ GameObject:
   - component: {fileID: 1133363494}
   - component: {fileID: 1133363493}
   - component: {fileID: 1133363492}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14658,6 +14658,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8608821737314731923, guid: b03e913d6f433234381b057731bd1d54,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5525311489966409069, guid: b03e913d6f433234381b057731bd1d54, type: 3}
     - {fileID: 6880062172068360899, guid: b03e913d6f433234381b057731bd1d54, type: 3}
@@ -14840,7 +14845,7 @@ PrefabInstance:
     - target: {fileID: 6217336623071516652, guid: 37715886ff396ea4eb856102224fb5f9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.98
+      value: 10.66
       objectReference: {fileID: 0}
     - target: {fileID: 6217336623071516652, guid: 37715886ff396ea4eb856102224fb5f9,
         type: 3}
@@ -14899,6 +14904,7 @@ SceneRoots:
   - {fileID: 136511233}
   - {fileID: 1608386670}
   - {fileID: 1562384062}
+  - {fileID: 9167014800056368716}
   - {fileID: 6629788936433555917}
   - {fileID: 727489259}
   - {fileID: 1133363494}
@@ -15049,4 +15055,3 @@ SceneRoots:
   - {fileID: 631852160}
   - {fileID: 1552065384}
   - {fileID: 2032852073}
-  - {fileID: 9167014800056368716}

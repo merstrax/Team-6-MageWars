@@ -39,6 +39,8 @@ public class cameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (InputController.instance == null) return;
+
         float x = InputController.instance.Look.x * sensitivity * Time.deltaTime;
         float y = -InputController.instance.Look.y * sensitivity * Time.deltaTime;
         

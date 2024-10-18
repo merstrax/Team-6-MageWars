@@ -32,6 +32,8 @@ public class PlayerMoveController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if(InputController.instance == null) return;
+
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundMask);
 
         UpdateInput();
@@ -45,6 +47,8 @@ public class PlayerMoveController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (InputController.instance == null) return;
+
         UpdateMovement();
     }
 

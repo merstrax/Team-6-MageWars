@@ -1,5 +1,3 @@
-#define _DEBUG
-
 using Cinemachine;
 using System;
 using System.Collections;
@@ -56,7 +54,7 @@ public class PlayerController : Unit
 
     // Start is called before the first frame update
     protected override void Start()
-    {
+    {/*
         stats = new(healthBase, damageBase, defenseBase, speedBase, critChanceBase, critDamageBase, cooldownBase);
 
         UpdateStats();
@@ -80,25 +78,53 @@ public class PlayerController : Unit
                 }
             }
         }
-
-        GameManager.instance.SetInteractMessage("");
-
         PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
         transform.position = _playerSpawn.transform.position;
-
+        GameManager.instance.SetInteractMessage("");
+        */
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        stats = new(healthBase, damageBase, defenseBase, speedBase, critChanceBase, critDamageBase, cooldownBase);
+
+        IsDead = false;
+        animator.SetTrigger("Revive");
+        UpdateStats();
+        healthCurrent = healthMax;
+
+        if (abilityPassive != null)
+        {
+            //abilityPassive[0] = Instantiate(abilityPassive[0], GetCastPos());
+            //abilityHandlers[0].Setup(this, abilityPassive[0]);
+        }
+
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            if (abilities[i] != null)
+            {
+                abilityHandlers[i] = gameObject.AddComponent<AbilityHandler>();
+                abilityHandlers[i].Setup(this, abilities[i]);
+                if (abilityHandlers[i].IsMovementAbility())
+                {
+                    movementAbility = abilityHandlers[i].GetAbility();
+                }
+            }
+        }
+
+        if (scene.name == "LoadGameScene") return;
+
         PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
         transform.position = _playerSpawn.transform.position;
+
+        GameManager.instance.SetInteractMessage("");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsDead) return;
+        if (IsDead || InputController.instance == null) return;
         UpdateTargeting();
         if (InputController.instance.Interact)
         {

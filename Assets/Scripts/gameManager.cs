@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
+
     // Update is called once per frame
     public void OnPause()
     {
