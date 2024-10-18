@@ -252,7 +252,7 @@ public class PlayerController : Unit
                 }
                 else
                 {
-                    Vector3 screenCenter = new(0.5f, 0.55f, 0f);
+                    Vector3 screenCenter = new(0.5f, 0.5f, 0f);
                     Ray ray = Camera.main.ViewportPointToRay(screenCenter);
 
                     _castLoc = ray.GetPoint(abilityCasting.Info().AbilityRange);
@@ -262,7 +262,7 @@ public class PlayerController : Unit
         }
         else
         {
-            Vector3 screenCenter = new Vector3(0.5f, 0.55f, 0f);
+            Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0f);
             Ray ray = Camera.main.ViewportPointToRay(screenCenter);
 
             _castLoc = ray.GetPoint(abilityCasting.Info().AbilityRange);
@@ -304,7 +304,7 @@ public class PlayerController : Unit
             abilityChannel = StartCoroutine(ChannelCast(abilityCasting.Info().EffectTickSpeed));
         }
 
-        abilityCasting.Cast();
+        abilityCasting.Cast(GetCastPos(0).position, GetCastLocation());
     }
 
     public override void OnCast(Unit other = null, Ability source = null, Damage damage = default)

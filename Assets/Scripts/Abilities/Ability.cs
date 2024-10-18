@@ -124,12 +124,14 @@ public class Ability : MonoBehaviour
             owner.ProccessEvent(TriggerFlags.ON_CAST_START, other, this);
     }
 
-    public virtual void Cast(Vector3 end = default)
+    public virtual void Cast(Vector3 start, Vector3 end)
     {
-        if(myCollider != null)
+        transform.position = start;
+
+        if (myCollider != null)
             myCollider.enabled = true;
 
-        if(myVisual != null)
+        if (myVisual != null)
             myVisual.SetActive(true);
 
         if (end != default)
@@ -147,6 +149,11 @@ public class Ability : MonoBehaviour
 
         OnCast();
         CastEnd();
+    }
+
+    public virtual void Cast(Vector3 end = default)
+    {
+        Cast(transform.position, end);
     }
 
     protected virtual void OnCast()
