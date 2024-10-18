@@ -22,11 +22,11 @@ MonoBehaviour:
   cooldownBase: 0
   aggroRange: 35
   kiteRange: 150
-  roamRange: 15
-  roamTimer: 50
+  roamRange: 50
+  roamTimer: 5
   viewAngle: 90
   abilityPassive: []
   abilities:
   - {fileID: 5482782143325043695, guid: ea3d93fc4a083bd4cb6bea4ddd67c947, type: 3}
-  abilityRate: 2
+  abilityRate: 5
   dropChance: 0.1

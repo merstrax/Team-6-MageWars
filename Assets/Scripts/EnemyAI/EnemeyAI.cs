@@ -70,7 +70,9 @@ public class EnemyAI : Unit, ITargetable
         abilityRate = enemyStats.abilityRate;
         aggroRange = enemyStats.aggroRange;
         kiteRange = enemyStats.kiteRange;
-        dropChance = enemyStats.dropChance;
+        roamRange = enemyStats.roamRange;
+
+       dropChance = enemyStats.dropChance;
         viewAngle = enemyStats.viewAngle;
 
         startPos = transform.position;
