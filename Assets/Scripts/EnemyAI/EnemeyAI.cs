@@ -259,6 +259,9 @@ public class EnemyAI : Unit, ITargetable
     #region Attack Handling
     protected void AttackingState()
     {
+        // stop movement while attacking
+        agent.isStopped = true;
+
         // Fetch ability>cast>CD
         abilityChosen = ChooseAttack();
         if (abilityChosen != null && canCastAbility && target != null && !IsStunned())

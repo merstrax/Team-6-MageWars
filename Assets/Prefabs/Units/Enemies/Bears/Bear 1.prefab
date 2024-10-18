@@ -377,7 +377,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Bear 1
   animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
-  castPositions: []
+  castPositions:
+  - {fileID: 48297233032977080}
+  - {fileID: 6979550591150620521}
+  - {fileID: 3632569555946019737}
+  - {fileID: 3632569555946019737}
   healthRegen: 0
   healthBase: 0
   damageBase: 0
@@ -2486,6 +2490,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732923499204144839, guid: 010bc1ddc6ad1e44db3a2c2350c80468,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

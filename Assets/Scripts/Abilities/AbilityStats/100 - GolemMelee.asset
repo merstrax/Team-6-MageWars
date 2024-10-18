@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Golem Melee
   AbilityDescription: 
-  AbilityID: 8
+  AbilityID: 100
   AbilitySpeed: 0
   AbilityRange: 5
   ElementType: 5

@@ -427,14 +427,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feda6d4fa5924fe488772f03d1ca0b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Golem
+  unitName: 
   animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
   castPositions:
-  - {fileID: 804161772246463729}
-  - {fileID: 5531715024012879244}
   - {fileID: 4524686289332757113}
   - {fileID: 6912524636815814707}
-  - {fileID: 9179144128604486663}
+  - {fileID: 5531715024012879244}
+  - {fileID: 7884165309031046978}
   healthRegen: 0
   healthBase: 0
   damageBase: 0
@@ -448,15 +447,16 @@ MonoBehaviour:
   enemyStats: {fileID: 11400000, guid: 8e16037ac8af20b4780f49cd2a07ca5d, type: 2}
   animator: {fileID: 5663918749682702063}
   model: {fileID: 2852112183291550114}
-  bodyCollider: {fileID: 2967938953222354635}
-  headCollider: {fileID: 2163259340079371921}
-  targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
+  bodyCollider: {fileID: 9142772966208370348}
+  headCollider: {fileID: 9142772966208370348}
+  targetMaterial: {fileID: 2100000, guid: 508d2709b69178e4fba946ac37763476, type: 2}
   agent: {fileID: 6332267895436848291}
   headPos: {fileID: 7884165309031046978}
-  faceTargetSpeed: 50
+  faceTargetSpeed: 25
   dropPrefab:
   - {fileID: 2194540399978094853, guid: fa0c1337d62dcea48ae473bef1697265, type: 3}
   - {fileID: 3384724169496912414, guid: 02ce964d5d046d94da5853a29b80948a, type: 3}
+  - {fileID: 2766737942117070686, guid: 443551dfb290aa446818fd6a7b9eaf65, type: 3}
   - {fileID: 3093282128322826495, guid: 047890308f70f024396e802c8d04c091, type: 3}
   - {fileID: 1936345988254126526, guid: 59731e7ba49bcdf4f827e8574d2ff13a, type: 3}
 --- !u!95 &5663918749682702063
@@ -2461,6 +2461,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732923499204144839, guid: 010bc1ddc6ad1e44db3a2c2350c80468,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

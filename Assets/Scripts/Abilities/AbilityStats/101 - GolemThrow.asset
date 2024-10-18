@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Golem Melee
   AbilityDescription: 
-  AbilityID: 9
+  AbilityID: 101
   AbilitySpeed: 0
   AbilityRange: 20
   ElementType: 0
@@ -46,3 +46,5 @@ MonoBehaviour:
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
   AbilityVisual: {fileID: 0}
+  CastPosition: 0
+  AnimationType: 0

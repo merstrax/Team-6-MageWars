@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: 
   AbilityDescription: 
-  AbilityID: 0
+  AbilityID: 130
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0

@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: BearAttack1
   AbilityDescription: BearAttack1
-  AbilityID: 23
+  AbilityID: 120
   AbilitySpeed: 0
   AbilityRange: 5
   ElementType: 5
   AbilityType: 0
   CastType: 0
-  Cooldown: 3
+  Cooldown: 4
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
