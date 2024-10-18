@@ -73,3 +73,4 @@ crashlytics-build.properties
 .vsconfig
 Assets/Scenes/Godrick Valley/LightingData.asset
 Assets/Scenes/Godrick Valley/LightingData.asset.meta
+ProjectSettings/TimeManager.asset
