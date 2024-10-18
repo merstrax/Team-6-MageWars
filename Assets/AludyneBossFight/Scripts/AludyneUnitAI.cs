@@ -43,5 +43,6 @@ public class AludyneUnitAI : EnemyAI
         healthCurrent = 0;
         UpdateInterface();
         animator.SetTrigger("Death");
+        GameManager.instance.Victory();
     }
 }

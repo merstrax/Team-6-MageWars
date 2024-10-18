@@ -5209,7 +5209,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   selectedAbility: -1
-  audioPlayer: {fileID: 0}
+  audioPlayer: {fileID: 3729180233037613127}
   audioDamage: []
   audioDamageVolume: 0
   audioWalk: []
@@ -5292,8 +5292,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: ec6f801b29f53ec41b670471fcbc691f, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -89,11 +89,23 @@ public class PlayerController : Unit
     {
         Setup();
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        if(IsDead)
+        {
+            animator.SetTrigger("Revive");
+            IsDead = false;
+        }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Setup();
+
+        if (IsDead)
+        {
+            animator.SetTrigger("Revive");
+            IsDead = false;
+        }
     }
 
     // Update is called once per frame
