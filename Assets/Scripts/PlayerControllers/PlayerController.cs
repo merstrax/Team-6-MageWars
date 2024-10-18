@@ -1,10 +1,12 @@
 #define _DEBUG
 
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : Unit
 {
@@ -78,6 +80,15 @@ public class PlayerController : Unit
                 }
             }
         }
+
+        GameManager.instance.SetInteractMessage("");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
+        transform.position = _playerSpawn.transform.position;
     }
 
     // Update is called once per frame

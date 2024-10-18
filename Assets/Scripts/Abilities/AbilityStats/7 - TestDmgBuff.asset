@@ -25,7 +25,7 @@ MonoBehaviour:
   IsRooted: 0
   IsTarget: 0
   EffectType: 3
-  EffectTargetType: 1
+  EffectTargetType: 0
   StatusType: 0
   AttributeFlags: 2
   ElementFlags: 0

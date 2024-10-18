@@ -1,6 +1,8 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class cameraController : MonoBehaviour
 {
@@ -17,8 +19,14 @@ public class cameraController : MonoBehaviour
         //Setup cursor logic to be visisble and locked
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        CinemachineVirtualCamera _playerCamera = FindFirstObjectByType<CinemachineVirtualCamera>();
+        _playerCamera.Follow = followTransform;
+    }
     // Update is called once per frame
     void Update()
     {
