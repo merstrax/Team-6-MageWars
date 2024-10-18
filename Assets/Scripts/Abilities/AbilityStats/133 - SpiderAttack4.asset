@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 133 - SpiderAttack4
   m_EditorClassIdentifier: 
   AbilityName: SpiderAttack4
-  AbilityDescription: SpiderAttack4
+  AbilityDescription: Ranged Attack
   AbilityID: 133
   AbilitySpeed: 0
   AbilityRange: 15

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 121- BearAttack2
   m_EditorClassIdentifier: 
   AbilityName: BearAttack2
-  AbilityDescription: BearAttack2
+  AbilityDescription: Front L Paw
   AbilityID: 121
   AbilitySpeed: 0
   AbilityRange: 5

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 131 - SpiderAttack2
   m_EditorClassIdentifier: 
   AbilityName: SpiderAttack2
-  AbilityDescription: SpiderAttack2
+  AbilityDescription: Front L
   AbilityID: 131
   AbilitySpeed: 0
   AbilityRange: 5

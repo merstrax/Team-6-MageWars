@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 122 - BearAttack3
   m_EditorClassIdentifier: 
   AbilityName: BearAttack3
-  AbilityDescription: BearAttack3
+  AbilityDescription: Bite
   AbilityID: 122
   AbilitySpeed: 0
   AbilityRange: 6
