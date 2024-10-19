@@ -338,7 +338,7 @@ public class PlayerController : Unit
             abilityChannel = StartCoroutine(ChannelCast(abilityCasting.Info().EffectTickSpeed));
         }
 
-        abilityCasting.Cast(GetCastPos(0).position, GetCastLocation());
+        abilityCasting.Cast(GetCastPos(0), GetCastLocation());
     }
 
     public override void OnCast(Unit other = null, Ability source = null, Damage damage = default)

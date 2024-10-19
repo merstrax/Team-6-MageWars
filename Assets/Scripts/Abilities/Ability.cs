@@ -127,9 +127,16 @@ public class Ability : MonoBehaviour
             CastMovement();
     }
 
-    public virtual void Cast(Vector3 start, Vector3 end)
+    public virtual void Cast(Transform start, Vector3 end)
     {
-        transform.position = start;
+        if (Info().AbilityType == AbilityType.MELEE)
+        {
+            transform.parent = start;
+        }
+        else
+        {
+            transform.position = start.position;
+        }
 
         if (myCollider != null)
             myCollider.enabled = true;
@@ -156,7 +163,7 @@ public class Ability : MonoBehaviour
 
     public virtual void Cast(Vector3 end = default)
     {
-        Cast(transform.position, end);
+        Cast(transform, end);
     }
 
     protected virtual void OnCast()

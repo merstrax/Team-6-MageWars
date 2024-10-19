@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6132586822034229405}
   - component: {fileID: 1934673328398679344}
   - component: {fileID: 4660431107484518030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UnitInterface
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  m_BlockingObjects: 3
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 1349478619280626340}
   - component: {fileID: 8431144499756369233}
   - component: {fileID: 6732923499204144839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HealthbarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 7514708685762609642}
   - component: {fileID: 2432092954403046635}
   - component: {fileID: 6583265198796184897}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

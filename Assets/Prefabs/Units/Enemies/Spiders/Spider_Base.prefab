@@ -1415,7 +1415,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Spider
   animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
-  castPositions: []
+  castPositions:
+  - {fileID: 7609755251330772713}
+  - {fileID: 8693326714901601643}
+  - {fileID: 4072415248471980923}
+  - {fileID: 3693661870393782349}
+  - {fileID: 4799974619625418652}
   healthRegen: 0
   healthBase: 0
   damageBase: 0
@@ -1430,7 +1435,6 @@ MonoBehaviour:
   animator: {fileID: 6966241651665529386}
   model: {fileID: 6064832499847423097}
   bodyCollider: {fileID: 1505478551408906613}
-  headCollider: {fileID: 1505478551408906613}
   targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
   agent: {fileID: 7913742649719213812}
   headPos: {fileID: 7609755251330772713}
