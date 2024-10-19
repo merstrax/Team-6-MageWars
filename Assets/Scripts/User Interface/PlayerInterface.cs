@@ -15,19 +15,22 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField] GameObject damagePanel;
     [SerializeField] TextMeshProUGUI interactMessage;
 
+    [Header("Ability Icons")]
+    [SerializeField] AbilityIcon ability1;
+    [SerializeField] AbilityIcon ability2;
+    [SerializeField] AbilityIcon ability3;
+    [SerializeField] AbilityIcon ability4;
 
+    List<AbilityIcon> abilities;
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerCastBar.enabled = false;
+        interactMessage.enabled = false;
+
+        abilities = new List<AbilityIcon>() { ability1, ability2, ability3, ability4};
     }
-
-    private void Update()
-    {
-
-    }
-
 
     // Update is called once per frame
     public void UpdatePlayerHealth(float health, float maxHealth)
@@ -53,4 +56,22 @@ public class PlayerInterface : MonoBehaviour
         interactMessage.enabled = true;
         interactMessage.text = "Press [F] - To " + message;
     }
+
+    #region Abilities
+    public void UpdateAbilityCooldown(int ability, bool enabled, float cooldownCurrent = 0, float cooldownMax = 0)
+    {
+        abilities[ability].SetCooldownOverlay(enabled);
+        abilities[ability].UpdateCooldown(cooldownCurrent, cooldownMax);
+    }
+
+    public void UpdateAbilityIcon(int ability, Image icon)
+    {
+        abilities[ability].SetAbilityIcon(icon);
+    }
+
+    public void UpdateAbilityKeybind(int ability, Image icon)
+    {
+        abilities[ability].SetKeybindIcon(icon);
+    }
+    #endregion
 }
