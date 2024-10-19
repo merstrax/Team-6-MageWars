@@ -122,6 +122,9 @@ public class Ability : MonoBehaviour
         //Used for scripts
         if(owner != null)
             owner.ProccessEvent(TriggerFlags.ON_CAST_START, other, this);
+
+        if (AbilityInfo.AbilityType == AbilityType.MOVEMENT)
+            CastMovement();
     }
 
     public virtual void Cast(Vector3 start, Vector3 end)
@@ -219,6 +222,7 @@ public class Ability : MonoBehaviour
         {
             controller.StartDash(Info().AbilitySpeed, Info().EffectDuration);
             OnCast();
+            CastEnd();
         }
         CleanUp();
     }

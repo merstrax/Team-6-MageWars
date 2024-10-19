@@ -44,9 +44,9 @@ MonoBehaviour:
   ResourceCooldown: 0
   ResourceReset: 0
   ComboAbilities: []
-  AbilityIcon: {fileID: 0}
+  AbilityIcon: {fileID: 2800000, guid: d3a767d36f57570469651a17d929089b, type: 3}
   AbilityVisual: {fileID: 0}
   AbilityImpact: {fileID: 0}
   AbilityCast: {fileID: 0}
   CastPosition: 0
-  AnimationType: 0
+  AnimationType: 4

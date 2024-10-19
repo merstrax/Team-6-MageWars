@@ -127,6 +127,11 @@ public class GameManager : MonoBehaviour
         playerInterface.UpdatePlayerHealth(healthCurrent, healthMax);
     }
 
+    public void UpdateAbilityCooldown(int id, bool enabled, float cooldownCurrent = 0.0f, float cooldownMax = 0.0f)
+    {
+        playerInterface.UpdateAbilityCooldown(id, enabled, cooldownCurrent, cooldownMax);
+    }
+
     internal void SetInteractMessage(string message)
     {
         playerInterface.UpdateInteractMessage(message);

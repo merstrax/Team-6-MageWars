@@ -23,6 +23,7 @@ public class AbilityHandler : MonoBehaviour
 
     Ability ability;
     public Ability GetAbility() {  return ability; }
+    int index;
 
     protected Unit owner;
     protected Unit other;
@@ -51,10 +52,11 @@ public class AbilityHandler : MonoBehaviour
             Destroy(gameObject);
         }
 
-        UpdateCooldown();
+        if(!ReadyToCast())
+            UpdateCooldown();
     }
 
-    public void Setup(Unit owner, Ability ability)
+    public void Setup(Unit owner, Ability ability, int index = -1)
     {
         this.owner = owner;
         this.ability = ability;
@@ -69,6 +71,8 @@ public class AbilityHandler : MonoBehaviour
         {
             ResourceCurrent = ResourceMax;
         }
+
+        this.index = index;
     }
 
     public bool IsMovementAbility()
@@ -90,6 +94,15 @@ public class AbilityHandler : MonoBehaviour
             }
             CanCast = true;
         }
+
+        UpdateInterface();
+    }
+
+    void UpdateInterface()
+    {
+        if (index == -1) return;
+
+        GameManager.instance.UpdateAbilityCooldown(index, !CanCast, CooldownRemaining(), Cooldown);
     }
 
     //Cooldown Handling
@@ -115,9 +128,9 @@ public class AbilityHandler : MonoBehaviour
         }
     }
 
-    public int CooldownRemaining()
+    public float CooldownRemaining()
     {
-        return Mathf.Max(Mathf.RoundToInt(CooldownStart + Cooldown - Time.time), 0);
+        return Mathf.Max(CooldownStart + Cooldown - Time.time, 0);
     }
 
     //Charges Handling

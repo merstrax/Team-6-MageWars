@@ -69,7 +69,7 @@ public class PlayerController : Unit
             if (abilities[i] != null)
             {
                 abilityHandlers[i] = gameObject.AddComponent<AbilityHandler>();
-                abilityHandlers[i].Setup(this, abilities[i]);
+                abilityHandlers[i].Setup(this, abilities[i], i);
                 if (abilityHandlers[i].IsMovementAbility())
                 {
                     movementAbility = abilityHandlers[i].GetAbility();
@@ -120,8 +120,11 @@ public class PlayerController : Unit
 
         if (abilityChannel != null)
         {
+            float tickSpeed = abilityHandler.GetAbility().Info().EffectTickSpeed;
             float current = Time.time - castStart;
+            
             float end = abilityHandler.GetAbility().Info().CastTime;
+            Debug.Log(current + " : " + end);
             GameManager.instance.UpdateCastbar(true, current, end);
         }
 
@@ -154,7 +157,6 @@ public class PlayerController : Unit
                     if (!IsStunned() && abilityCasting == null)
                     {
                         CastAbility(abilityHandlers[i]);
-                        abilityHandlers[i].StartCooldown();
                     }
                     InputController.instance.Ability[i] = false;
                 }
@@ -173,7 +175,6 @@ public class PlayerController : Unit
             if (!InputController.instance.Ability[selectedAbility] && !IsStunned() && abilityCasting == null)
             {
                 CastAbility(abilityHandlers[selectedAbility]);
-                abilityHandlers[selectedAbility].StartCooldown();
                 aoeTargetSelector.SetActive(false);
                 selectedAbility = -1;
             }
@@ -375,6 +376,7 @@ public class PlayerController : Unit
         if (isChanneling) return;
 
         animator.SetTrigger("AttackEnd");
+        abilityHandler.StartCooldown();
         abilityCasting = null;
         abilityHandler = null;
         abilityChannel = null;

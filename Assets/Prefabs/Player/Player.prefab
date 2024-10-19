@@ -5236,7 +5236,7 @@ MonoBehaviour:
   groundDrag: 5
   walkSpeed: 4
   runSpeed: 8
-  jumpSpeed: 20
+  jumpSpeed: 15
   playerHeight: 1
   groundMask:
     serializedVersion: 2

@@ -11,6 +11,12 @@ public class AbilityIcon : MonoBehaviour
     [SerializeField] Image cooldownOverlay;
     [SerializeField] TextMeshProUGUI cooldownText;
 
+    private void Start()
+    {
+        cooldownOverlay.enabled = false;
+        cooldownText.enabled = false;
+    }
+
     public void UpdateCooldown(float cooldown, float cooldownMax)
     {
         cooldownText.text = cooldown.ToString("0.0");
@@ -30,5 +36,6 @@ public class AbilityIcon : MonoBehaviour
     public void SetCooldownOverlay(bool enabled = true)
     {
         cooldownOverlay.enabled = enabled;
+        cooldownText.enabled = enabled;
     }
 }
