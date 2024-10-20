@@ -16,7 +16,7 @@ MonoBehaviour:
   healthBase: 100
   damageBase: 0
   defenseBase: 0
-  speedBase: 5
+  speedBase: 10
   critChanceBase: 0.1
   critDamageBase: 2
   cooldownBase: 0
@@ -27,9 +27,9 @@ MonoBehaviour:
   viewAngle: 90
   abilityPassive: []
   abilities:
-  - {fileID: 5482782143325043695, guid: ea3d93fc4a083bd4cb6bea4ddd67c947, type: 3}
-  - {fileID: 5482782143325043695, guid: c80cbaa6b68db204299f842512be2aa9, type: 3}
-  - {fileID: 5482782143325043695, guid: 91e28f8ac88900b4983bbdb75706da4b, type: 3}
   - {fileID: 5482782143325043695, guid: f1537bbb1a844824f8ed6001a9fd65b0, type: 3}
-  abilityRate: 5
+  - {fileID: 5482782143325043695, guid: ea3d93fc4a083bd4cb6bea4ddd67c947, type: 3}
+  - {fileID: 5482782143325043695, guid: 91e28f8ac88900b4983bbdb75706da4b, type: 3}
+  - {fileID: 5482782143325043695, guid: c80cbaa6b68db204299f842512be2aa9, type: 3}
+  abilityRate: 3
   dropChance: 0.1

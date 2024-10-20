@@ -72975,7 +72975,7 @@ AnimationClip:
     m_KeepOriginalPositionY: 1
     m_KeepOriginalPositionXZ: 1
     m_HeightFromFeet: 0
-    m_Mirror: 0
+    m_Mirror: 1
   m_EditorCurves:
   - serializedVersion: 2
     curve:
@@ -144741,7 +144741,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.53333336
+  - time: 0.6333333
     functionName: CastByAnimation
     data: 
     objectReferenceParameter: {fileID: 0}
