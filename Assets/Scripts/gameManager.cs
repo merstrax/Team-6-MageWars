@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuSettings;
     [SerializeField] PlayerInterface playerInterface;
+    [SerializeField] GameObject menuGraphics;
+    [SerializeField] GameObject menuSound;
 
     [SerializeField] PlayerController playerController;
     
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
 
 
     // Update is called once per frame
-    public void OnPause()
+    public void OnPause() 
     {
         if (menuActive == null)
         {
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour
         }
         else if (menuActive == menuSettings)
         {
-            ToggleSettings();
+            ReturnToPrev();
         }
         else if (menuActive == menuPause)
         {
@@ -101,7 +103,7 @@ public class GameManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
-    public void ToggleSettings()
+    public void ReturnToPrev()
     {
         StatePause();
         menuActive.SetActive(false);
@@ -110,7 +112,12 @@ public class GameManager : MonoBehaviour
             menuActive = menuPause;
             menuActive.SetActive(true);
         }   
-        else
+        else if (menuActive == menuGraphics)
+        {
+            menuActive = menuSettings;
+            menuActive.SetActive(true);
+        }
+        else if (menuActive == menuSound)
         {
             menuActive = menuSettings;
             menuActive.SetActive(true);
@@ -135,5 +142,32 @@ public class GameManager : MonoBehaviour
     internal void SetInteractMessage(string message)
     {
         playerInterface.UpdateInteractMessage(message);
+    }
+    public void ToggleSettingsMenu()
+    {
+        if (menuActive == menuPause)
+        {
+            menuActive.SetActive(false);
+            menuActive = menuSettings;
+            menuActive.SetActive(true);
+        }
+    }
+    public void ToggleGraphicsMenu()
+    {
+        if (menuActive == menuSettings)
+        {
+            menuActive.SetActive(false);
+            menuActive = menuGraphics;
+            menuActive.SetActive(true);
+        }
+    }
+    public void ToggleSoundMenu()
+    {
+        if (menuActive == menuSettings)
+        {
+            menuActive.SetActive(false);
+            menuActive = menuSound;
+            menuActive.SetActive(true);
+        }
     }
 }

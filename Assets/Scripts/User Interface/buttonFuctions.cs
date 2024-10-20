@@ -19,31 +19,22 @@ public class buttonFuctions : MonoBehaviour
 
     public void Opensettings()
     {
-        settingScreen.SetActive(true);
+        GameManager.instance.ToggleSettingsMenu();
     }
 
     public void Graphicssettings()
     {
-        settingScreen.SetActive(false);
-        soundScreen.SetActive(false);
-        graphicsScreen.SetActive(true);
+        GameManager.instance.ToggleGraphicsMenu();
 
     }
     public void soundSettings()
     {
-        settingScreen.SetActive(false);
-        graphicsScreen.SetActive(false);
-        soundScreen.SetActive(true);
-
-    
+        GameManager.instance.ToggleSoundMenu();
     }
 
     public void Close()
     {
-        settingScreen.SetActive(false);
-        graphicsScreen.SetActive(false);
-        soundScreen.SetActive(false);
-
+       GameManager.instance.ReturnToPrev();
     }
 
     public void resume()
