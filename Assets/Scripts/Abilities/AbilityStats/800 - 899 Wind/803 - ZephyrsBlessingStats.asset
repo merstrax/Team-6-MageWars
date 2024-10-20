@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
   m_Name: 803 - ZephyrsBlessingStats
   m_EditorClassIdentifier: 
-  AbilityName: 
+  AbilityName: 'Wind Blessing '
   AbilityDescription: 
   AbilityID: 0
   AbilitySpeed: 0

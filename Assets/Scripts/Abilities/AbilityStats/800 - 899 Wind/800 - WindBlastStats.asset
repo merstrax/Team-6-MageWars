@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
   m_Name: 800 - WindBlastStats
   m_EditorClassIdentifier: 
-  AbilityName: 
-  AbilityDescription: 
-  AbilityID: 0
+  AbilityName: 'Wind Blast '
+  AbilityDescription: '3 Attack Combo, First 2 Attacks Apply bleed and small dmg,
+    3rd applies a knock back and double dmg, if knockback on cd apply big bleed stack. '
+  AbilityID: 800
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0

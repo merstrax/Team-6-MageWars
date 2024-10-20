@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
   m_Name: 802 - WindRushStats
   m_EditorClassIdentifier: 
-  AbilityName: 
-  AbilityDescription: 
-  AbilityID: 0
+  AbilityName: Wind Rush
+  AbilityDescription: 'Dash, when a dash collides with an enemy apply bleed, and
+    increase mov speed at the end by 10% '
+  AbilityID: 802
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
   m_Name: 801 - StormBringStats
   m_EditorClassIdentifier: 
-  AbilityName: 
-  AbilityDescription: 
-  AbilityID: 0
+  AbilityName: Storm Bring
+  AbilityDescription: 'Summon a tornado on the player applying damage to nearby enemies
+    and increaseing players move speed dash and jump '
+  AbilityID: 801
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0
