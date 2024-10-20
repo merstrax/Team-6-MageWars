@@ -432,10 +432,9 @@ MonoBehaviour:
   animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
   castPositions:
   - {fileID: 804161772246463729}
-  - {fileID: 5531715024012879244}
   - {fileID: 4524686289332757113}
   - {fileID: 6912524636815814707}
-  - {fileID: 9179144128604486663}
+  - {fileID: 5531715024012879244}
   healthRegen: 0
   healthBase: 0
   damageBase: 0

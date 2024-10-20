@@ -46,5 +46,7 @@ MonoBehaviour:
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
   AbilityVisual: {fileID: 0}
+  AbilityImpact: {fileID: 0}
+  AbilityCast: {fileID: 0}
   CastPosition: 4
   AnimationType: 5

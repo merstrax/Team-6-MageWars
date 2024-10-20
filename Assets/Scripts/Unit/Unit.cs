@@ -106,7 +106,7 @@ public class Unit : MonoBehaviour, IDamage
     [SerializeField] protected Transform[] castPositions;
     public Transform GetCastPos(uint castPos)
     {
-        if (castPos > castPositions.Length)
+        if (castPos >= castPositions.Length)
             castPos = 0;
 
         if (castPositions.Length == 0)
