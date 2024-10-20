@@ -40,6 +40,12 @@ public class Ability : MonoBehaviour
         EffectTimeApplied = Time.time;
 
         others = new List<Unit>();
+
+        if (myCollider != null)
+            myCollider.enabled = false;
+
+        if (myVisual != null)
+            myVisual.SetActive(false);
     }
 
     // Update is called once per frame
@@ -108,12 +114,6 @@ public class Ability : MonoBehaviour
 
         castTarget = lookAt;
 
-        if (myCollider != null)
-            myCollider.enabled = false;
-
-        if (myVisual != null)
-            myVisual.SetActive(false);
-
         OnCastStart();
     }
 
@@ -129,15 +129,6 @@ public class Ability : MonoBehaviour
 
     public virtual void Cast(Transform start, Vector3 end)
     {
-        if (Info().AbilityType == AbilityType.MELEE)
-        {
-            transform.parent = start;
-        }
-        else
-        {
-            transform.position = start.position;
-        }
-
         if (myCollider != null)
             myCollider.enabled = true;
 
@@ -147,12 +138,23 @@ public class Ability : MonoBehaviour
         if (end != default)
             castTarget = end;
 
+        if (Info().AbilityType == AbilityType.MELEE)
+        {
+            transform.parent = start;
+            transform.LookAt(castTarget);
+        }
+        else
+        {
+            transform.position = start.position;
+        }
+
+
         if (myRigidbody != null && !Info().IsTarget)
         {
             transform.LookAt(castTarget);
             myRigidbody.velocity = transform.forward * AbilityInfo.AbilitySpeed;
         }
-        else
+        else if(Info().IsTarget)
         {
             transform.position = castTarget;
         }

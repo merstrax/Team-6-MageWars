@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityInfo: {fileID: 11400000, guid: 7aa540f74a9097a4fbfcfa6b909c01f4, type: 2}
-  myCollider: {fileID: 0}
-  myVisual: {fileID: 0}
+  myCollider: {fileID: 8661730472152106802}
+  myVisual: {fileID: 1891112785668983559}
   myRigidbody: {fileID: 9208141243335929449}
   scriptName: 
   whirlingWindSlow: {fileID: 11400000, guid: 6ea4d4200e021a149b4e3aaa0bf638e9, type: 2}

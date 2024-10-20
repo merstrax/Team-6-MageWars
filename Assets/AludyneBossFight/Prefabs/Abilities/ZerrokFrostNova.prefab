@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityInfo: {fileID: 11400000, guid: a26192888a67f334c8d59f112f630bce, type: 2}
   myCollider: {fileID: 4311406148830281340}
-  myVisual: {fileID: 0}
+  myVisual: {fileID: 1738528971217653125}
   myRigidbody: {fileID: 4526388636292400970}
   scriptName: 
 --- !u!54 &4526388636292400970
@@ -74,11 +74,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &4311406148830281340
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -172,6 +172,12 @@ PrefabInstance:
 --- !u!4 &1738528971217178111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 428554, guid: 93dde01820cd8a44bbb998ba21c24e43,
+    type: 3}
+  m_PrefabInstance: {fileID: 1738528971217602549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1738528971217653125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 117360, guid: 93dde01820cd8a44bbb998ba21c24e43,
     type: 3}
   m_PrefabInstance: {fileID: 1738528971217602549}
   m_PrefabAsset: {fileID: 0}

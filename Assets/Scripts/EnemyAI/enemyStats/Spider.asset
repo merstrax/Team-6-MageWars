@@ -21,12 +21,15 @@ MonoBehaviour:
   critDamageBase: 0
   cooldownBase: 0
   aggroRange: 25
-  kiteRange: 30
+  kiteRange: 75
   roamRange: 5
-  roamTimer: 5
+  roamTimer: 10
   viewAngle: 90
   abilityPassive: []
   abilities:
+  - {fileID: 5165753592471728705, guid: 34160fdc16caa884092f16b102acdc55, type: 3}
   - {fileID: 5165753592471728705, guid: 2d40cc80f6802144d894c3bf0bc11142, type: 3}
-  abilityRate: 5
+  - {fileID: 5165753592471728705, guid: 77df1cfe25481d644a647ba7028005f7, type: 3}
+  - {fileID: 5165753592471728705, guid: 3e44c62b8ecd9fa4b9e380cfe492a812, type: 3}
+  abilityRate: 2
   dropChance: 0.15
