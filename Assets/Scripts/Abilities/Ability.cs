@@ -41,11 +41,7 @@ public class Ability : MonoBehaviour
 
         others = new List<Unit>();
 
-        if (myCollider != null)
-            myCollider.enabled = false;
-
-        if (myVisual != null)
-            myVisual.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -113,6 +109,12 @@ public class Ability : MonoBehaviour
             SetOwner(owner);
 
         castTarget = lookAt;
+
+        if (myCollider != null)
+            myCollider.enabled = false;
+
+        if (myVisual != null)
+            myVisual.SetActive(false);
 
         OnCastStart();
     }
