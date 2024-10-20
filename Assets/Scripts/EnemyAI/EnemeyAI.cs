@@ -272,7 +272,12 @@ public class EnemyAI : Unit, ITargetable
 
         if (!AnyAbilityInRange(distanceToPlayer))
         {
+            agent.isStopped = false;
             currentState = AIState.Chasing;
+        }
+        else if (distanceToPlayer > aggroRange)
+        {
+            currentState = AIState.Reset; 
         }
     }
 

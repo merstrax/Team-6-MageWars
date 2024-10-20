@@ -48,5 +48,5 @@ MonoBehaviour:
   AbilityVisual: {fileID: 0}
   AbilityImpact: {fileID: 0}
   AbilityCast: {fileID: 0}
-  CastPosition: 2
+  CastPosition: 4
   AnimationType: 7
