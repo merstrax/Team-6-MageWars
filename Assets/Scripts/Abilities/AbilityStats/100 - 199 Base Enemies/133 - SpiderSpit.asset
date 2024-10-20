@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
+  m_Name: 133 - SpiderSpit
+  m_EditorClassIdentifier: 
+  AbilityName: Poison Spit
+  AbilityDescription: Ranged Attack
+  AbilityID: 133
+  AbilitySpeed: 35
+  AbilityRange: 15
+  ElementType: 0
+  AbilityType: 0
+  CastType: 0
+  Cooldown: 6
+  CastTime: 0
+  IsRooted: 1
+  IsTarget: 0
+  EffectType: 0
+  EffectTargetType: 1
+  StatusType: 0
+  AttributeFlags: 0
+  ElementFlags: 0
+  TriggerFlags: 8
+  ModifierType: 0
+  EffectAbility: {fileID: 11400000, guid: 38b55fe889f61304b821779d933e7408, type: 2}
+  EffectAmount: 10
+  DamageCoefficent: 0
+  EffectTriggerChance: 1
+  EffectStackAmount: 0
+  EffectStackMax: 0
+  EffectDuration: 2
+  EffectTickSpeed: 0
+  ResourceType: 0
+  ResourceMax: 0
+  ResourceCooldown: 0
+  ResourceReset: 0
+  ComboAbilities: []
+  AbilityIcon: {fileID: 0}
+  AbilityVisual: {fileID: 0}
+  AbilityImpact: {fileID: 0}
+  AbilityCast: {fileID: 0}
+  CastPosition: 0
+  AnimationType: 7

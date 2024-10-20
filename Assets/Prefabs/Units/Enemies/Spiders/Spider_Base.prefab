@@ -1416,7 +1416,7 @@ MonoBehaviour:
   unitName: Spider
   animations: {fileID: 11400000, guid: 4a322c39138018f45ad09ae162ce76fc, type: 2}
   castPositions:
-  - {fileID: 7609755251330772713}
+  - {fileID: 3915579736363257308}
   - {fileID: 8693326714901601643}
   - {fileID: 4072415248471980923}
   - {fileID: 3693661870393782349}
