@@ -128,7 +128,7 @@ Material:
     - _SnowGradient: 0.83
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SubsurfaceIndirect: 0.019
+    - _SubsurfaceIndirect: 0.135
     - _SubsurfaceKwToggle: 1
     - _TRANSLUCENCYONOFF: 1
     - _TransAmbient: 0.2
@@ -148,10 +148,10 @@ Material:
     - _ZWrite: 0
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 0.49368104, g: 0.8113208, b: 0.5762615, a: 1}
+    - _Color: {r: 0.372864, g: 0.5943396, b: 0.4302836, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 1, g: 0, b: 0, a: 1}
     - _HueVariationColor: {r: 1, g: 0.5, b: 0, a: 0.1}
-    - _SubsurfaceColor: {r: 0.047541022, g: 0.2830189, b: 0.030704886, a: 1}
+    - _SubsurfaceColor: {r: 0.034843363, g: 0.2735849, b: 0.08259168, a: 1}
     - _TopColor: {r: 0, g: 0.2178235, b: 1, a: 1}
   m_BuildTextureStacks: []
