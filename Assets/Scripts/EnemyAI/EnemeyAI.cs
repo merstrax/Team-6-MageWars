@@ -101,7 +101,7 @@ public class EnemyAI : Unit, ITargetable
     protected virtual void Update()
     {
         distanceToPlayer = Vector3.Distance(transform.position, PlayerController.instance.transform.position);
-        if (isDead || (distanceToPlayer > 50.0f && target == null)) return;
+        if (isDead || (distanceToPlayer > 75.0f && target == null)) return;
 
         switch (currentState)
         {
@@ -131,7 +131,7 @@ public class EnemyAI : Unit, ITargetable
         }
 
         float distanceToRoam = Vector3.Distance(transform.position, roamPos);
-        if (distanceToRoam < 1.0f)
+        if (distanceToRoam < 0.5f)
         {
             agent.isStopped = true;
             animator.SetFloat("Speed", 0.0f);

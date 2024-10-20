@@ -23,7 +23,7 @@ MonoBehaviour:
   aggroRange: 20
   kiteRange: 70
   roamRange: 10
-  roamTimer: 10
+  roamTimer: 6
   viewAngle: 90
   abilityPassive: []
   abilities:

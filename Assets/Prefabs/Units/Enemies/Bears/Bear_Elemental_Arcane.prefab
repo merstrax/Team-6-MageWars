@@ -401,6 +401,9 @@ MonoBehaviour:
   agent: {fileID: 3981901809153578413}
   headPos: {fileID: 4948058417776825329}
   faceTargetSpeed: 30
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 128
   dropPrefab: []
 --- !u!95 &5985327198308241527
 Animator:

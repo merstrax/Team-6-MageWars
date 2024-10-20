@@ -1430,11 +1430,13 @@ MonoBehaviour:
   animator: {fileID: 6966241651665529386}
   model: {fileID: 6064832499847423097}
   bodyCollider: {fileID: 1505478551408906613}
-  headCollider: {fileID: 1505478551408906613}
   targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
   agent: {fileID: 7913742649719213812}
   headPos: {fileID: 7609755251330772713}
   faceTargetSpeed: 50
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 128
   dropPrefab: []
 --- !u!95 &6966241651665529386
 Animator:
