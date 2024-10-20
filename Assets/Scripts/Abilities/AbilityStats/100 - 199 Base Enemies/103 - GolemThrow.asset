@@ -20,7 +20,7 @@ MonoBehaviour:
   ElementType: 0
   AbilityType: 0
   CastType: 0
-  Cooldown: 10
+  Cooldown: 12
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
@@ -48,5 +48,5 @@ MonoBehaviour:
   AbilityVisual: {fileID: 0}
   AbilityImpact: {fileID: 0}
   AbilityCast: {fileID: 0}
-  CastPosition: 0
+  CastPosition: 2
   AnimationType: 7

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 102 - GolemAttack3
+  m_Name: 102 - GolemOverheadSmash
   m_EditorClassIdentifier: 
   AbilityName: GolemAttack3
   AbilityDescription: Overhead Smash
@@ -20,7 +20,7 @@ MonoBehaviour:
   ElementType: 5
   AbilityType: 1
   CastType: 0
-  Cooldown: 6
+  Cooldown: 10
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
@@ -48,5 +48,5 @@ MonoBehaviour:
   AbilityVisual: {fileID: 0}
   AbilityImpact: {fileID: 0}
   AbilityCast: {fileID: 0}
-  CastPosition: 4
+  CastPosition: 3
   AnimationType: 6

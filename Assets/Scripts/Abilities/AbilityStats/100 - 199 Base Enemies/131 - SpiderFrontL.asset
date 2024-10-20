@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 122 - BearAttack3
+  m_Name: 131 - SpiderFrontL
   m_EditorClassIdentifier: 
-  AbilityName: BearAttack3
-  AbilityDescription: Bite
-  AbilityID: 122
+  AbilityName: SpiderAttack2
+  AbilityDescription: Front L
+  AbilityID: 131
   AbilitySpeed: 0
-  AbilityRange: 6
-  ElementType: 5
-  AbilityType: 1
+  AbilityRange: 5
+  ElementType: 0
+  AbilityType: 0
   CastType: 0
   Cooldown: 4
   CastTime: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   TriggerFlags: 0
   ModifierType: 0
   EffectAbility: {fileID: 0}
-  EffectAmount: 8
+  EffectAmount: 4
   DamageCoefficent: 0
   EffectTriggerChance: 0
   EffectStackAmount: 0
@@ -47,4 +47,4 @@ MonoBehaviour:
   AbilityIcon: {fileID: 0}
   AbilityVisual: {fileID: 0}
   CastPosition: 0
-  AnimationType: 6
+  AnimationType: 5
