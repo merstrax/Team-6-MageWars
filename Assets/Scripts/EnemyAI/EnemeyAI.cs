@@ -439,6 +439,7 @@ public class EnemyAI : Unit, ITargetable
         animator.SetTrigger("Hit");
         target = other;
 
+        agent.isStopped = false;
         currentState = AIState.Chasing;
     }
 
