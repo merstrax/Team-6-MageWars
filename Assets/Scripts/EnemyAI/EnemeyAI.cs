@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -103,6 +104,16 @@ public class EnemyAI : Unit, ITargetable
         distanceToPlayer = Vector3.Distance(transform.position, PlayerController.instance.transform.position);
         if (isDead || (distanceToPlayer > 75.0f && target == null)) return;
 
+        if(abilityCooldown !=null && animator.GetLayerWeight(animator.GetLayerIndex("Attack")) >= 0.001f)  
+        {
+            float attackWeight = animator.GetLayerWeight(animator.GetLayerIndex("Attack"));
+            float movWeight = animator.GetLayerWeight(animator.GetLayerIndex("Movement"));  
+            animator.SetLayerWeight(animator.GetLayerIndex("Attack"), Mathf.Lerp(attackWeight, 0, Time.deltaTime * 5f));
+            animator.SetLayerWeight(animator.GetLayerIndex("Movement"), Mathf.Lerp(movWeight, 1, Time.deltaTime * 5f));
+        }
+
+   
+
         switch (currentState)
         {
             case AIState.Idle:
@@ -167,7 +178,7 @@ public class EnemyAI : Unit, ITargetable
         }
         else
         {
-            if (distanceToTarget >= 0.5f)
+            if (distanceToTarget >= agent.radius * 2.0f)
                 MoveTowardsTarget();
             else
                 animator.SetFloat("Speed", 0.0f);
@@ -351,12 +362,11 @@ public class EnemyAI : Unit, ITargetable
 
     protected virtual IEnumerator Attack()
     {
-        animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 1);
-
         yield return new WaitForSeconds(abilityRate);
 
         canCastAbility = true;
+        abilityChosen = null;
+        abilityCooldown = null;
     }
 
     public void CastByAnimation()
@@ -365,15 +375,22 @@ public class EnemyAI : Unit, ITargetable
         Debug.Log(_ability.Info().AbilityName);
     }
 
+    Coroutine abilityCooldown; 
+
     public override void OnCastEnd(Unit other = null, Ability source = null, Damage damage = default)
     {
-        StartCoroutine(Attack());
-        abilityChosen.StartCooldown();
-        abilityChosen = null;
+        if (abilityChosen != null)
+        {
+            abilityChosen.StartCooldown();
+        }
+        
+        abilityCooldown = StartCoroutine(Attack());
     }
 
     protected virtual AbilityHandler ChooseAttack()
     {
+       
+
         float distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
 
         foreach (AbilityHandler abilityHandler in abilityHandlers)
