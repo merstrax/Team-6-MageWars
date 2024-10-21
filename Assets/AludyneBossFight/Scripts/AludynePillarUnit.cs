@@ -16,10 +16,6 @@ public class AludynePillarUnit : EnemyAI
         critChanceBase = enemyStats.critChanceBase;
         critDamageBase = enemyStats.critDamageBase;
         cooldownBase = enemyStats.cooldownBase;
-        aggroRange = enemyStats.aggroRange;
-        kiteRange = enemyStats.kiteRange;
-        dropChance = enemyStats.dropChance;
-        viewAngle = enemyStats.viewAngle;
         SetupTarget(targetMaterial);
 
         stats = new(healthBase, damageBase, defenseBase, speedBase, critChanceBase, critDamageBase, cooldownBase);
@@ -47,30 +43,12 @@ public class AludynePillarUnit : EnemyAI
     {
         return pillarAbility;
     }
+
     public override void OnCastStart(Unit other = null, Ability source = null, Damage damage = default) { }
     public override void OnCastEnd(Unit other = null, Ability source = null, Damage damage = default) { }
-    public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
-    {
-
-    }
-
-    public override void OnSlow(Unit other = null, Ability source = null, Damage damage = default)
-    {
-
-    }
-
-    public override void OnStun(Unit other = null, Ability source = null, Damage damage = default)
-    {
-
-    }
-
-    public override void OnStunEnd(Unit other = null, Ability source = null, Damage damage = default)
-    {
-
-    }
-
-    public override void OnRoot(Unit other = null, Ability source = null, Damage damage = default)
-    {
-
-    }
+    public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default) { }
+    public override void OnSlow(Unit other = null, Ability source = null, Damage damage = default) { }
+    public override void OnStun(Unit other = null, Ability source = null, Damage damage = default) { }
+    public override void OnStunEnd(Unit other = null, Ability source = null, Damage damage = default) { }
+    public override void OnRoot(Unit other = null, Ability source = null, Damage damage = default) { }
 }

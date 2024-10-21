@@ -25,13 +25,6 @@ public class EnemyAI : Unit, ITargetable
     [SerializeField] protected int faceTargetSpeed;
     [SerializeField] protected LayerMask groundMask;
 
-    [Header("Aggro and Roaming")]
-    protected float aggroRange;
-    protected float kiteRange;
-    protected float roamRange;
-    protected float roamTimer;
-    protected int viewAngle;
-
     [Header("Drop")]
     [SerializeField] protected GameObject[] dropPrefab;
     protected float dropChance = 1;
@@ -39,7 +32,6 @@ public class EnemyAI : Unit, ITargetable
     [Header("AI Abilities")]
     Ability[] abilityPassive;
     Ability[] abilities;
-    float abilityRate;
     protected bool canCastAbility = true;
     AbilityHandler[] abilityHandlers;
     AbilityHandler abilityChosen;
@@ -69,13 +61,6 @@ public class EnemyAI : Unit, ITargetable
         cooldownBase = enemyStats.cooldownBase;
         abilityPassive = enemyStats.abilityPassive;
         abilities = enemyStats.abilities;
-        abilityRate = enemyStats.abilityRate;
-        aggroRange = enemyStats.aggroRange;
-        kiteRange = enemyStats.kiteRange;
-        roamRange = enemyStats.roamRange;
-        roamTimer = enemyStats.roamTimer;
-        dropChance = enemyStats.dropChance;
-        viewAngle = enemyStats.viewAngle;
 
         startPos = transform.position;
         currentState = AIState.Idle;
@@ -98,21 +83,30 @@ public class EnemyAI : Unit, ITargetable
         SetupTarget(targetMaterial);
     }
 
-    float distanceToPlayer;
+    private void OnEnable()
+    {
+        TickUpdateEvent.OnTickUpdate += TickUpdate;
+    }
+
+    private void OnDisable()
+    {
+        TickUpdateEvent.OnTickUpdate -= TickUpdate;
+    }
+
     protected virtual void Update()
     {
-        distanceToPlayer = Vector3.Distance(transform.position, PlayerController.instance.transform.position);
-        if (isDead || (distanceToPlayer > 75.0f && target == null)) return;
-
         if(abilityCooldown !=null && animator.GetLayerWeight(animator.GetLayerIndex("Attack")) >= 0.001f)  
         {
             float attackWeight = animator.GetLayerWeight(animator.GetLayerIndex("Attack"));
-            float movWeight = animator.GetLayerWeight(animator.GetLayerIndex("Movement"));  
+            float movWeight = animator.GetLayerWeight(animator.GetLayerIndex("Movement"));
             animator.SetLayerWeight(animator.GetLayerIndex("Attack"), Mathf.Lerp(attackWeight, 0, Time.deltaTime * 5f));
             animator.SetLayerWeight(animator.GetLayerIndex("Movement"), Mathf.Lerp(movWeight, 1, Time.deltaTime * 5f));
         }
+    }
 
-   
+    private void TickUpdate()
+    {
+        if (isDead) return;
 
         switch (currentState)
         {
@@ -164,7 +158,7 @@ public class EnemyAI : Unit, ITargetable
     {
         float distanceFromStart = Vector3.Distance(transform.position, startPos);
 
-        if (distanceFromStart >= kiteRange)
+        if (distanceFromStart >= enemyStats.kiteRange)
         {
             ResetStart();
             return;
@@ -250,7 +244,7 @@ public class EnemyAI : Unit, ITargetable
             if (unit.CompareTag(tag)) continue;
             distanceToTarget = Vector3.Distance(transform.position, unit.transform.position);
             target = unit;
-            return distanceToTarget <= aggroRange;
+            return distanceToTarget <= enemyStats.aggroRange;
         }
 
         target = null;
@@ -262,7 +256,7 @@ public class EnemyAI : Unit, ITargetable
         Vector3 directionToTarget = (target.transform.position - headPos.position).normalized;
         float angleToTarget = Vector3.Angle(directionToTarget, transform.forward);
 
-        if (angleToTarget < viewAngle)
+        if (angleToTarget < enemyStats.viewAngle)
         {
             return true;
         }
@@ -279,8 +273,8 @@ public class EnemyAI : Unit, ITargetable
     private IEnumerator Roam()
     {
         // Generate random offset withing the roam range
-        float randomX = Random.Range(-roamRange, roamRange);
-        float randomZ = Random.Range(-roamRange, roamRange);
+        float randomX = Random.Range(-enemyStats.roamRange, enemyStats.roamRange);
+        float randomZ = Random.Range(-enemyStats.roamRange, enemyStats.roamRange);
 
         // Calculate new position 
         roamPos = startPos + new Vector3(randomX, 0, randomZ);
@@ -301,7 +295,7 @@ public class EnemyAI : Unit, ITargetable
         animator.SetFloat("Speed", 0.5f);
 
         // Wait for the specified roam timer before the next movement
-        yield return new WaitForSeconds(roamTimer);
+        yield return new WaitForSeconds(enemyStats.roamTimer);
 
         roamCoroutine = null;
     }
@@ -329,7 +323,7 @@ public class EnemyAI : Unit, ITargetable
             agent.isStopped = false;
             currentState = AIState.Chasing;
         }
-        else if (distanceToPlayer > aggroRange)
+        else if (distanceToPlayer > enemyStats.aggroRange)
         {
             currentState = AIState.Reset; 
         }
@@ -354,7 +348,7 @@ public class EnemyAI : Unit, ITargetable
 
     public override void OnCastStart(Unit other = null, Ability source = null, Damage damage = default)
     {
-        string animation = animations[source.Info().AnimationType];
+        int animation = animations[source.Info().AnimationType];
         animator.SetLayerWeight(animator.GetLayerIndex("Attack"), 1);
         animator.SetLayerWeight(animator.GetLayerIndex("Movement"), 0);
         animator.SetTrigger(animation);
@@ -362,7 +356,7 @@ public class EnemyAI : Unit, ITargetable
 
     protected virtual IEnumerator Attack()
     {
-        yield return new WaitForSeconds(abilityRate);
+        yield return new WaitForSeconds(enemyStats.abilityRate);
 
         canCastAbility = true;
         abilityChosen = null;
@@ -441,7 +435,7 @@ public class EnemyAI : Unit, ITargetable
     {
         // Health drop logic - chance to drop health item
         float randomValue = Random.Range(0f, 1f);
-        if (randomValue >= dropChance && dropPrefab != null && dropPrefab.Length > 0)
+        if (randomValue >= enemyStats.dropChance && dropPrefab != null && dropPrefab.Length > 0)
         {
             int randomIndex = Random.Range(0, dropPrefab.Length);
 

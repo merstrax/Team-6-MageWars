@@ -34,19 +34,45 @@ public class AnimationContainer : ScriptableObject
     public string Stun;
     public string Death;
 
-    private List<string> _animations;
+    private List<int> _animations;
 
     public AnimationContainer()
     {
-        _animations = new() {Idle, Walk, Run, Jump, Attack1, Attack2, Attack3, Attack4, Hit, Knockback, Stun, Death};
+        int _idle = Animator.StringToHash(Idle);
+        int _walk = Animator.StringToHash(Walk);
+        int _run = Animator.StringToHash(Run);
+        int _jump = Animator.StringToHash(Jump);
+        int _attack1 = Animator.StringToHash(Attack1);
+        int _attack2 = Animator.StringToHash(Attack2);
+        int _attack3 = Animator.StringToHash(Attack3);
+        int _attack4 = Animator.StringToHash(Attack4);
+        int _hit = Animator.StringToHash(Hit);
+        int _knockback = Animator.StringToHash(Knockback);
+        int _stun = Animator.StringToHash(Stun);
+        int _death = Animator.StringToHash(Death);
+
+        _animations = new() { _idle, _walk, _run, _jump, _attack1, _attack2, _attack3, _attack4, _hit, _knockback, _stun, _death };
     }
 
     public void Inititialize()
     {
-        _animations = new() {Idle, Walk, Run, Jump, Attack1, Attack2, Attack3, Attack4, Hit, Knockback, Stun, Death };
+        int _idle = Animator.StringToHash(Idle);
+        int _walk = Animator.StringToHash(Walk);
+        int _run = Animator.StringToHash(Run);
+        int _jump = Animator.StringToHash(Jump);
+        int _attack1 = Animator.StringToHash(Attack1);
+        int _attack2 = Animator.StringToHash(Attack2);
+        int _attack3 = Animator.StringToHash(Attack3);
+        int _attack4 = Animator.StringToHash(Attack4);
+        int _hit = Animator.StringToHash(Hit);
+        int _knockback = Animator.StringToHash(Knockback);
+        int _stun = Animator.StringToHash(Stun);
+        int _death = Animator.StringToHash(Death);
+
+        _animations = new() { _idle, _walk, _run, _jump, _attack1, _attack2, _attack3, _attack4, _hit, _knockback, _stun, _death };
     }
 
-    public string this[AnimationType type]
+    public int this[AnimationType type]
     {
         get
         {
