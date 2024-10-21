@@ -13,7 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - EFFECT_SUBSURFACE
-  - _WINDQUALITY_FAST
+  - _WINDQUALITY_BETTER
   m_InvalidKeywords:
   - _ALPHAPREMULTIPLY_ON
   - _CUSTOMWIND_ON
@@ -143,7 +143,7 @@ Material:
     - _UVSec: 0
     - _WindDensity: 1
     - _WindMovement: 1
-    - _WindQuality: 2
+    - _WindQuality: 3
     - _WindStrength: 0.5
     - _ZWrite: 0
     - __dirty: 0
