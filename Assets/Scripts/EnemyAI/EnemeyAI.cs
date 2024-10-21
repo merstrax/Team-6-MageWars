@@ -371,8 +371,8 @@ public class EnemyAI : Unit, ITargetable
 
     public void CastByAnimation()
     {
-        _ability.Cast(GetCastPos(_ability.Info().CastPosition), target.gameObject.transform.position);
-        Debug.Log(_ability.Info().AbilityName);
+        if(_ability != null)
+            _ability.Cast(GetCastPos(_ability.Info().CastPosition), target.gameObject.transform.position);
     }
 
     Coroutine abilityCooldown; 
