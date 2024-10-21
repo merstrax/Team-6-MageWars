@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4970355253777405309}
   - component: {fileID: 5120609369417213831}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4970355253777405309
 Transform:
@@ -50,14 +50,14 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_StandbyUpdate: 2
+  m_StandbyUpdate: 0
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 80
     OrthographicSize: 5
     NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FarClipPlane: 450
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -82,14 +82,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8000931550533377251}
   - component: {fileID: 8230978147243371140}
-  - component: {fileID: 5474490406276999004}
-  - component: {fileID: 1523430934746699704}
-  m_Layer: 0
+  - component: {fileID: 3967942374619742695}
+  - component: {fileID: 4539010173071286329}
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8000931550533377251
 Transform:
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5474490406276999004
+--- !u!114 &3967942374619742695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,19 +130,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 1, y: 1, z: 1}
+  Damping: {x: 0.66, y: 3, z: 2}
   ShoulderOffset: {x: 0.5, y: 0, z: 0}
-  VerticalArmLength: 2
-  CameraSide: 0.66
+  VerticalArmLength: 0.5
+  CameraSide: 1
   CameraDistance: 6
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 191
   IgnoreTag: Player
-  CameraRadius: 0.4
+  CameraRadius: 0.2
   DampingIntoCollision: 0
-  DampingFromCollision: 4
---- !u!114 &1523430934746699704
+  DampingFromCollision: 2
+--- !u!114 &4539010173071286329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

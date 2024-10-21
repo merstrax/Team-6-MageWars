@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class cameraController : MonoBehaviour
 {
+    [SerializeField] PlayerMoveController moveController;
     [SerializeField] Transform followTransform;
     [SerializeField] float sensitivity;
     [SerializeField] int lockVertMin, lockVertMax;
@@ -37,7 +38,7 @@ public class cameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (InputController.instance == null) return;
 
@@ -65,18 +66,21 @@ public class cameraController : MonoBehaviour
         }
         
         followTransform.transform.localEulerAngles = angles;
-        
+
         #endregion
-        
+
         #region Player Movement
         
-        if(InputController.instance.Move.x == 0 && InputController.instance.Move.y == 0)
+
+        if (InputController.instance.Move.x == 0 && InputController.instance.Move.y == 0)
         {
+            moveController.RotateRigidbody(x);
             return;
         }
 
         //Set the player rotation based on the look transform
-        transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
+        //Quaternion rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
+        moveController.RotateRigidbody(x, true);
         //reset the y rotation of the look transform
         followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
 

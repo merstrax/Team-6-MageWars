@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 279674049265579943}
   - component: {fileID: 5391961225124459694}
   - component: {fileID: 1309944978084627218}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PT_Grass_02_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7442711440568689961}
   - component: {fileID: 7088410758827092112}
   - component: {fileID: 5828874672928699267}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PT_Grass_02_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 6119579431137445377}
   - component: {fileID: 8043189345720651878}
   - component: {fileID: 941673656794352374}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PT_Grass_02_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 6251920492078742113}
   - component: {fileID: -235496246077341852}
   - component: {fileID: 3192880250681380361}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PT_Grass_02 1
   m_TagString: Terrain
   m_Icon: {fileID: 0}

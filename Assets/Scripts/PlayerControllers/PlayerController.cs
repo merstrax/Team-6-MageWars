@@ -19,15 +19,13 @@ public class PlayerController : Unit
     [SerializeField] Ability[] abilities;
     readonly AbilityHandler[] abilityHandlers = new AbilityHandler[4];
 
-    Ability movementAbility;
-
     [SerializeField] GameObject aoeTargetSelector;
     [SerializeField] LayerMask targetLayerMask;
     public int selectedAbility = -1;
 
     public AbilityHandler GetAbility(uint handlerID)
     {
-        if (handlerID > 3) return null;
+        if (handlerID > 4) return null;
 
         return abilityHandlers[handlerID];
     }
@@ -70,10 +68,6 @@ public class PlayerController : Unit
             {
                 abilityHandlers[i] = gameObject.AddComponent<AbilityHandler>();
                 abilityHandlers[i].Setup(this, abilities[i], i);
-                if (abilityHandlers[i].IsMovementAbility())
-                {
-                    movementAbility = abilityHandlers[i].GetAbility();
-                }
             }
         }
 
@@ -92,6 +86,7 @@ public class PlayerController : Unit
 
         if(IsDead)
         {
+            RemoveAllEffects();
             animator.SetTrigger("Revive");
             IsDead = false;
         }
@@ -103,6 +98,7 @@ public class PlayerController : Unit
 
         if (IsDead)
         {
+            RemoveAllEffects();
             animator.SetTrigger("Revive");
             IsDead = false;
         }
@@ -124,7 +120,6 @@ public class PlayerController : Unit
             float current = Time.time - castStart;
             
             float end = abilityHandler.GetAbility().Info().CastTime;
-            Debug.Log(current + " : " + end);
             GameManager.instance.UpdateCastbar(true, current, end);
         }
 
@@ -251,7 +246,7 @@ public class PlayerController : Unit
                 //hit.collider.CompareTag("Terrain") && 
                 if (!hit.collider.CompareTag("Player") && aoeTargetSelector.activeInHierarchy)
                 {
-                    aoeTargetSelector.transform.position = Vector3.Lerp(aoeTargetSelector.transform.position, hit.point + Vector3.up, 10.0f * Time.deltaTime);
+                    aoeTargetSelector.transform.position = Vector3.Lerp(aoeTargetSelector.transform.position, hit.point + Vector3.up, 3.0f * Time.deltaTime);
                 }
             }
         }

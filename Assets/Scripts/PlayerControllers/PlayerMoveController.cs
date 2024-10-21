@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PlayerMoveController : MonoBehaviour
 {
@@ -24,32 +26,65 @@ public class PlayerMoveController : MonoBehaviour
     public bool isGrounded;
 
     private Vector3 moveDirection;
+    private float rotateX;
+    private bool doRotation;
+    private bool doJump;
     private float moveSpeed;
     private float horizontalMovement;
     private float verticalMovement;
     private bool IsDashing;
 
     // Update is called once per frame
+    private void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
+        MoveRigidbody(_playerSpawn.transform.position, Quaternion.identity);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
+        MoveRigidbody(_playerSpawn.transform.position, Quaternion.identity);
+    }
+
     private void Update()
     {
-        if(InputController.instance == null) return;
-
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundMask);
 
         UpdateInput();
         UpdateAnimations();
 
         if (isGrounded)
+        {
             rigidBody.drag = groundDrag;
+        }
         else
             rigidBody.drag = 0;
     }
 
     private void FixedUpdate()
     {
-        if (InputController.instance == null) return;
-
         UpdateMovement();
+
+        if (doRotation)
+        {
+            rigidBody.MoveRotation(rigidBody.rotation * Quaternion.AngleAxis(rotateX, Vector3.up));
+            //rigidBody.MoveRotation(Quaternion.Euler(0, rotateY, 0));
+            rotateX = 0;
+        }
+    }
+
+    public void MoveRigidbody(Vector3 position, Quaternion rotation)
+    {
+        rigidBody.Move(position, rotation);
+    }
+
+    public void RotateRigidbody(float rotation, bool doRotate = false)
+    {
+        rotateX += rotation;
+        doRotation = doRotate;
     }
 
     private void UpdateAnimations()
@@ -72,6 +107,13 @@ public class PlayerMoveController : MonoBehaviour
     {
         horizontalMovement = InputController.instance.Move.x;
         verticalMovement = InputController.instance.Move.y;
+
+        if (InputController.instance.Jump && isGrounded)
+        {
+            animator.SetTrigger("Jump");
+            doJump = true;
+            InputController.instance.Jump = false;
+        }
     }
 
     private void UpdateMovement()
@@ -97,11 +139,11 @@ public class PlayerMoveController : MonoBehaviour
             rigidBody.AddForce(10f * walkSpeed * moveDirection, ForceMode.Force);
         }
 
-        if (InputController.instance.Jump && isGrounded)
+        if (doJump)
         {
-            animator.SetTrigger("Jump");
             rigidBody.AddForce(jumpSpeed * Vector3.up, ForceMode.Impulse);
             InputController.instance.Jump = false;
+            doJump = false;
         }
 
         SpeedControl();
