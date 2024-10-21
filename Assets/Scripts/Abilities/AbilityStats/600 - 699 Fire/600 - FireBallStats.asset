@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
   m_Name: 600 - FireBallStats
   m_EditorClassIdentifier: 
-  AbilityName: 
-  AbilityDescription: 
-  AbilityID: 0
-  AbilitySpeed: 0
-  AbilityRange: 0
-  ElementType: 0
-  AbilityType: 1
-  CastType: 2
-  Cooldown: 0
-  CastTime: 3
+  AbilityName: Fire Ball
+  AbilityDescription: Shoots out  fire balls
+  AbilityID: 600
+  AbilitySpeed: 20
+  AbilityRange: 35
+  ElementType: 3
+  AbilityType: 0
+  CastType: 0
+  Cooldown: 4
+  CastTime: 0
   IsRooted: 0
   IsTarget: 0
   EffectType: 0
@@ -32,8 +32,8 @@ MonoBehaviour:
   TriggerFlags: 8
   ModifierType: 0
   EffectAbility: {fileID: 11400000, guid: ef81544d644260a42a3fba10501a0862, type: 2}
-  EffectAmount: 10
-  DamageCoefficent: 0
+  EffectAmount: 15
+  DamageCoefficent: 0.3
   EffectTriggerChance: 1
   EffectStackAmount: 0
   EffectStackMax: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   ResourceReset: 0
   ComboAbilities: []
   AbilityIcon: {fileID: 2800000, guid: 6b5a4c03887fb754f819c6e9c590beb7, type: 3}
-  AbilityVisual: {fileID: 0}
+  AbilityVisual: {fileID: 161104, guid: 799ba3095ff225146bea02318a149f87, type: 3}
   AbilityImpact: {fileID: 0}
   AbilityCast: {fileID: 0}
   CastPosition: 0

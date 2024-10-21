@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
   m_Name: 603 - FireGushStats
   m_EditorClassIdentifier: 
-  AbilityName: 
+  AbilityName: FireGush
   AbilityDescription: 
-  AbilityID: 0
+  AbilityID: 603
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0
@@ -32,13 +32,13 @@ MonoBehaviour:
   TriggerFlags: 0
   ModifierType: 0
   EffectAbility: {fileID: 0}
-  EffectAmount: 0
-  DamageCoefficent: 0
+  EffectAmount: 15
+  DamageCoefficent: 0.33
   EffectTriggerChance: 0
   EffectStackAmount: 0
   EffectStackMax: 0
   EffectDuration: 0
-  EffectTickSpeed: 0
+  EffectTickSpeed: 0.32
   ResourceType: 0
   ResourceMax: 0
   ResourceCooldown: 0
