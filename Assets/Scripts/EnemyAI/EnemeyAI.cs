@@ -99,16 +99,16 @@ public class EnemyAI : Unit, ITargetable
 
     float distanceToPlayer;
     protected virtual void Update()
-    {
+    { 
         distanceToPlayer = Vector3.Distance(transform.position, PlayerController.instance.transform.position);
-        if (isDead || (distanceToPlayer > 75.0f && target == null)) return;
+        if (isDead || distanceToPlayer >= 100.0f) return;
 
         if (abilityCooldown != null && animator.GetLayerWeight(animator.GetLayerIndex("Attack")) >= 0.001f)
         {
-            //float attackWeight = animator.GetLayerWeight(animator.GetLayerIndex("Attack"));
-            //float movWeight = animator.GetLayerWeight(animator.GetLayerIndex("Movement"));
-            //animator.SetLayerWeight(animator.GetLayerIndex("Attack"), Mathf.Lerp(attackWeight, 0, Time.deltaTime * 5f));
-            //animator.SetLayerWeight(animator.GetLayerIndex("Movement"), Mathf.Lerp(movWeight, 1, Time.deltaTime * 5f));
+            float attackWeight = animator.GetLayerWeight(animator.GetLayerIndex("Attack"));
+            float movWeight = animator.GetLayerWeight(animator.GetLayerIndex("Movement"));
+            animator.SetLayerWeight(animator.GetLayerIndex("Attack"), Mathf.Lerp(attackWeight, 0, Time.deltaTime * 5f));
+            animator.SetLayerWeight(animator.GetLayerIndex("Movement"), Mathf.Lerp(movWeight, 1, Time.deltaTime * 5f));
         }
 
         switch (currentState)
@@ -138,14 +138,13 @@ public class EnemyAI : Unit, ITargetable
             roamCoroutine = StartCoroutine(Roam());
         }
 
-        float distanceToRoam = Vector3.Distance(transform.position, roamPos);
-        if (distanceToRoam < 1.0f)
+        if (agent.remainingDistance < 1.0f)
         {
             agent.isStopped = true;
             animator.SetFloat("Speed", 0.0f);
         }
 
-        if (IsTargetInRange() && IsTargetVisible())
+        if (distanceToPlayer <= aggroRange && IsTargetVisible())
         {
             currentState = AIState.Chasing;
             agent.isStopped = false;
@@ -167,16 +166,14 @@ public class EnemyAI : Unit, ITargetable
             return;
         }
 
-        float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-
-        if (AnyAbilityInRange(distanceToTarget))
+        if (AnyAbilityInRange(distanceToPlayer))
         {
             currentState = AIState.Attacking;
             animator.SetFloat("Speed", 0.0f);
         }
         else
         {
-            if (distanceToTarget >= agent.stoppingDistance)
+            if (distanceToPlayer >= agent.stoppingDistance)
                 MoveTowardsTarget();
             else
                 animator.SetFloat("Speed", 0.0f);
@@ -231,36 +228,20 @@ public class EnemyAI : Unit, ITargetable
 
     protected void MoveTowardsTarget()
     {
-        if (target != null)
-        {
-            //agent.SetDestination(target.gameObject.transform.position);
-            NavMeshPath path = new();
-            agent.CalculatePath(target.transform.position, path);
-            agent.SetPath(path);
-            animator.SetFloat("Speed", agent.velocity.magnitude / GetSpeed());
-        }
+        NavMeshPath path = new();
+        agent.CalculatePath(PlayerController.instance.transform.position, path);
+        agent.SetPath(path);
+        animator.SetFloat("Speed", agent.velocity.magnitude / GetSpeed());
     }
 
     protected bool IsTargetInRange()
     {
-        Unit[] unitList = FindObjectsOfType<Unit>();
-        float distanceToTarget;
-
-        foreach (Unit unit in unitList)
-        {
-            if (unit.CompareTag(tag)) continue;
-            distanceToTarget = Vector3.Distance(transform.position, unit.transform.position);
-            target = unit;
-            return distanceToTarget <= aggroRange;
-        }
-
-        target = null;
-        return false;
+        return distanceToPlayer <= aggroRange;
     }
 
     protected bool IsTargetVisible()
     {
-        Vector3 directionToTarget = (target.transform.position - headPos.position).normalized;
+        Vector3 directionToTarget = (PlayerController.instance.transform.position - headPos.position).normalized;
         float angleToTarget = Vector3.Angle(directionToTarget, transform.forward);
 
         if (angleToTarget < viewAngle)
@@ -272,7 +253,7 @@ public class EnemyAI : Unit, ITargetable
 
     protected void FaceTarget()
     {
-        targetDirection = (target.transform.position - transform.position).normalized;
+        targetDirection = (PlayerController.instance.transform.position - transform.position).normalized;
         Quaternion rot = Quaternion.LookRotation(targetDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
@@ -285,7 +266,6 @@ public class EnemyAI : Unit, ITargetable
 
         // Calculate new position 
         roamPos = startPos + new Vector3(randomX, 0, randomZ);
-
 
         if (Physics.Raycast(roamPos, Vector3.down, out RaycastHit ray, agent.height * 0.5f + 0.2f, groundMask))
         {
@@ -319,14 +299,12 @@ public class EnemyAI : Unit, ITargetable
         // Fetch ability>cast>CD
         abilityChosen = ChooseAttack();
         FaceTarget();
-        if (abilityChosen != null && canCastAbility && target != null && !IsStunned())
+        if (abilityChosen != null && canCastAbility && !IsStunned())
         {
             CastAbility(abilityChosen);
         }
 
-        // Handle attacking through coroutines
-        float distanceToPlayer = Vector3.Distance(transform.position, target.transform.position);
-        Debug.Log(distanceToPlayer);
+        // Handle attacking through coroutine
         if (!AnyAbilityInRange(distanceToPlayer))
         {
             agent.isStopped = false;
@@ -344,12 +322,11 @@ public class EnemyAI : Unit, ITargetable
         _ability = Instantiate(ability.GetAbility(), GetCastPos(ability.GetAbility().Info().CastPosition).position, transform.rotation);
         _ability.SetOwner(this);
 
-        Vector3 toCastPos = target.transform.position;
+        Vector3 toCastPos = PlayerController.instance.transform.position;
 
         if (_ability.Info().AbilityType == AbilityType.PROJECTILE)
         {
-            toCastPos = target.transform.position;
-            toCastPos.y += (target.GetComponent<CapsuleCollider>().height * 0.75f);
+            toCastPos.y += (PlayerController.instance.GetComponent<CapsuleCollider>().height * 0.75f);
         }
         canCastAbility = false;
         _ability.CastStart(this, toCastPos);
@@ -375,7 +352,7 @@ public class EnemyAI : Unit, ITargetable
     public void CastByAnimation()
     {
         if (_ability != null)
-            _ability.Cast(GetCastPos(_ability.Info().CastPosition), target.transform.position);
+            _ability.Cast(GetCastPos(_ability.Info().CastPosition), PlayerController.instance.transform.position);
     }
 
     Coroutine abilityCooldown;
@@ -392,8 +369,6 @@ public class EnemyAI : Unit, ITargetable
 
     protected virtual AbilityHandler ChooseAttack()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, target.transform.position);
-
         foreach (AbilityHandler abilityHandler in abilityHandlers)
         {
             float abilityDist = abilityHandler.GetAbility().Info().AbilityRange;

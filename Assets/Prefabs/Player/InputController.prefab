@@ -263,7 +263,11 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f6ff234f-7710-44cb-a180-583bf2c309ff
     m_ActionName: UI/Pause[/Keyboard/escape]
-  m_NeverAutoSwitchControlSchemes: 0
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 33213986-ab15-47d1-884b-e016511d8897
+    m_ActionName: UI/Objectives[/Keyboard/tab]
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1

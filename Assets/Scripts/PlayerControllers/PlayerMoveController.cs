@@ -11,6 +11,7 @@ public class PlayerMoveController : MonoBehaviour
     [SerializeField] Transform model;
     [SerializeField] Rigidbody rigidBody;
     [SerializeField] Animator animator;
+    [SerializeField] CameraController cameraController;
 
     [Header("Movement")]
     [SerializeField] float groundDrag;
@@ -58,7 +59,6 @@ public class PlayerMoveController : MonoBehaviour
 
         isGrounded = Physics.Raycast(groundRay, Vector3.down, playerHeight + 0.3f, groundMask);
 
-
         UpdateInput();
         UpdateAnimations();
 
@@ -76,9 +76,10 @@ public class PlayerMoveController : MonoBehaviour
 
         if (doRotation)
         {
+            Transform _cam = cameraController.GetFollowTransform();
             rigidBody.MoveRotation(rigidBody.rotation * Quaternion.AngleAxis(rotateX, Vector3.up));
-            //rigidBody.MoveRotation(Quaternion.Euler(0, rotateY, 0));
             rotateX = 0;
+            _cam.localEulerAngles = new Vector3(_cam.localEulerAngles.x, 0, 0);
         }
     }
 

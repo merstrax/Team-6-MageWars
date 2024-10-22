@@ -395,6 +395,7 @@ public class PlayerController : Unit
         ProccessEvent(TriggerFlags.ON_DAMAGED, other, source, damage);
 
         healthCurrent -= damage.Amount;
+        GameManager.instance.UpdateHealthbar(healthCurrent, healthMax);
 
         if (healthCurrent <= 0)
         {
@@ -407,7 +408,6 @@ public class PlayerController : Unit
     public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
     {
         animator.SetTrigger("Hit");
-        GameManager.instance.UpdateHealthbar(healthCurrent, healthMax);
     }
 
     public override void OnStun(Unit other = null, Ability source = null, Damage damage = default)
@@ -433,7 +433,7 @@ public class PlayerController : Unit
     {
         IsDead = true;
         yield return new WaitForSeconds(3.0f);
-        GameManager.instance.youLose();
+        GameManager.instance.YouLose();
     }
 
     public void Interact()

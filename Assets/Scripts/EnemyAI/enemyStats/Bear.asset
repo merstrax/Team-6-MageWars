@@ -24,7 +24,7 @@ MonoBehaviour:
   kiteRange: 75
   roamRange: 10
   roamTimer: 6
-  viewAngle: 90
+  viewAngle: 120
   abilityPassive: []
   abilities:
   - {fileID: 5482782143325043695, guid: f1537bbb1a844824f8ed6001a9fd65b0, type: 3}

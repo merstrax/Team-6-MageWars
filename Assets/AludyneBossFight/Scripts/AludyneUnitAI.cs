@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AludyneUnitAI : EnemyAI
 {
+    bool IsAwakened = false;
+
+    protected override void Update()
+    {
+        if(IsAwakened)
+            base.Update();
+    }
 
     public void SetSleeping()
     {
@@ -27,6 +34,7 @@ public class AludyneUnitAI : EnemyAI
         RemoveStatus(StatusFlag.INVULNERABLE);
         RemoveStatus(StatusFlag.STUNNED);
         IsTargetDisabled = false;
+        IsAwakened = true;
     }
 
     public override void OnDeath(Unit other = null, Ability source = null, Damage damage = default)

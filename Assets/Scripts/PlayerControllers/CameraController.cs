@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class cameraController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     [SerializeField] PlayerMoveController moveController;
     [SerializeField] Transform followTransform;
@@ -15,6 +15,8 @@ public class cameraController : MonoBehaviour
     float rotX;
 
     private CinemachineVirtualCamera playerCamera;
+
+    public Transform GetFollowTransform() { return followTransform; }
 
     // Start is called before the first frame update
     void Start()
@@ -82,7 +84,7 @@ public class cameraController : MonoBehaviour
         //Quaternion rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
         moveController.RotateRigidbody(x, true);
         //reset the y rotation of the look transform
-        followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
+        //followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
 
         #endregion
     }

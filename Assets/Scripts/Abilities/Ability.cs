@@ -199,7 +199,8 @@ public class Ability : MonoBehaviour
     {
         if (instant)
         {
-            Destroy(gameObject);
+            if(gameObject != null)
+                Destroy(gameObject);
             return;
         }
         Destroy(gameObject, AbilityInfo.EffectDuration);

@@ -16,12 +16,14 @@ MonoBehaviour:
   healthBase: 2000
   damageBase: 0
   defenseBase: 0
-  speedBase: 0
+  speedBase: 8
   critChanceBase: 0
   critDamageBase: 0
   cooldownBase: 0
   aggroRange: 1000
   kiteRange: 1000
+  roamRange: 0
+  roamTimer: 0
   viewAngle: 360
   abilityPassive: []
   abilities: []

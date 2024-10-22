@@ -10,30 +10,30 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [Header("User Interface")]
     [SerializeField] Canvas mainInterface;
-    [SerializeField] GameObject menuActive;
+    [SerializeField] PlayerInput inputUI;
+    
     [SerializeField] GameObject menuPause;
+    [SerializeField] GameObject menuPauseQuit;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    
+
+    [Header("Game Options")]
     [SerializeField] GameObject menuSettings;
-    [SerializeField] PlayerInterface playerInterface;
     [SerializeField] GameObject menuGraphics;
     [SerializeField] GameObject menuSound;
-    [SerializeField] ObjectiveMenu QuestsScreen;
 
+    [Header("Player Options")]
     [SerializeField] PlayerController playerController;
     
     public GameObject checkPointPopUp;
     public GameObject player;
 
-    float timeScaleOrig;
+    private GameObject menuActive;
 
+    private float timeScaleOrig;
     private bool isPaused;
-    public bool IsPaused()
-    {
-        return isPaused;
-    }
-
-    public Canvas GetMainCanvas() { return mainInterface; }
+    public bool IsPaused(){ return isPaused; }
 
     // Start is called before the first frame update
     void Awake()
@@ -46,9 +46,18 @@ public class GameManager : MonoBehaviour
             Instantiate(playerController);
         }
 
-        player = GameObject.FindWithTag("Player");
-    }
+        menuGraphics.SetActive(false);
 
+        player = GameObject.FindWithTag("Player");
+        playerController = PlayerController.instance;
+
+#if PLATFORM_WEBGL
+        inputUI.actions["pause"].ChangeBinding(0)
+            .WithPath("<Keyboard>/p");
+
+        Destroy(menuPauseQuit);
+#endif
+    }
 
     // Update is called once per frame
     public void OnPause() 
@@ -71,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void StatePause()
     {
-        isPaused = !isPaused;
+        isPaused = true;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
@@ -80,7 +89,7 @@ public class GameManager : MonoBehaviour
 
     public void StateUnpause()
     {
-        isPaused = !isPaused;
+        isPaused = false;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -97,7 +106,7 @@ public class GameManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
-    public void youLose()
+    public void YouLose()
     {
         StatePause();
         menuActive = menuLose;
@@ -123,6 +132,16 @@ public class GameManager : MonoBehaviour
             menuActive = menuSettings;
             menuActive.SetActive(true);
         }
+    }
+
+    public void EnableBossHealthBar()
+    {
+        bossHealthBar.SetActive(true);
+    }
+
+    public void DisableBossHealthBar()
+    {
+        bossHealthBar.SetActive(false);
     }
 
     public void UpdateCastbar(bool Show, float Cast = 1f, float maxCast = 1f)
