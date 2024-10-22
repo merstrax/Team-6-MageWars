@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Options")]
     [SerializeField] PlayerController playerController;
+    [SerializeField] PlayerInterface playerInterface;
+    [SerializeField] ObjectiveMenu QuestsScreen;
+    [SerializeField] GameObject bossHealthBar;
     
     public GameObject checkPointPopUp;
     public GameObject player;
