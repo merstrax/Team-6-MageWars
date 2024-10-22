@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     public void StatePause()
     {
-        isPaused = !isPaused;
+        isPaused = true;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void StateUnpause()
     {
-        isPaused = !isPaused;
+        isPaused = false;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -106,7 +106,6 @@ public class GameManager : MonoBehaviour
 
     public void ReturnToPrev()
     {
-        StatePause();
         menuActive.SetActive(false);
         if (menuActive == menuSettings)
         {
