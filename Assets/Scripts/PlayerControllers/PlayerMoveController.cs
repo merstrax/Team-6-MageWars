@@ -39,6 +39,8 @@ public class PlayerMoveController : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        if (SceneManager.GetActiveScene().name == "LoadGameScene") return;
+
         PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
         MoveRigidbody(_playerSpawn.transform.position, Quaternion.identity);
     }
@@ -49,9 +51,13 @@ public class PlayerMoveController : MonoBehaviour
         MoveRigidbody(_playerSpawn.transform.position, Quaternion.identity);
     }
 
+    Vector3 groundRay;
     private void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundMask);
+        groundRay = new Vector3(transform.position.x, transform.position.y + playerHeight, transform.position.z);
+
+        isGrounded = Physics.Raycast(groundRay, Vector3.down, playerHeight + 0.3f, groundMask);
+
 
         UpdateInput();
         UpdateAnimations();
@@ -89,6 +95,8 @@ public class PlayerMoveController : MonoBehaviour
 
     private void UpdateAnimations()
     {
+        if (InputController.instance == null) return;
+
         float agentSpeed = Mathf.Round(InputController.instance.Move.x);
         float animSpeed = animator.GetFloat("MoveX");
         animator.SetFloat("MoveX", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * 10.0f));
@@ -105,6 +113,8 @@ public class PlayerMoveController : MonoBehaviour
 
     private void UpdateInput()
     {
+        if (InputController.instance == null) return;
+
         horizontalMovement = InputController.instance.Move.x;
         verticalMovement = InputController.instance.Move.y;
 

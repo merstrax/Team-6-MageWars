@@ -14,9 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Godrick Valley.unity
     guid: 42dc142100c3e8d43a4c4c6ef2b2fecd
-  - enabled: 0
-    path: Assets/Scenes/Godrick Valley_WebGL.unity
-    guid: eeb7bdd54724fd444896c583bc6dc08d
   - enabled: 1
     path: Assets/Scenes/Altar of Aludyne.unity
     guid: 912e23fe524277541b30e079fe240ac8
