@@ -16,7 +16,7 @@ MonoBehaviour:
   AbilityDescription: Front L Paw
   AbilityID: 121
   AbilitySpeed: 0
-  AbilityRange: 5
+  AbilityRange: 6
   ElementType: 5
   AbilityType: 0
   CastType: 0

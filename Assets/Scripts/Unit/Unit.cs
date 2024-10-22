@@ -101,7 +101,7 @@ public class Unit : MonoBehaviour, IDamage
     public string GetUnitName() { return unitName; }
 
     [SerializeField] protected AnimationContainer animations;
-    public int GetAnimation(AnimationType animation) { return animations[animation]; }
+    public string GetAnimation(AnimationType animation) { return animations[animation]; }
 
     [SerializeField] protected Transform[] castPositions;
     public Transform GetCastPos(uint castPos)

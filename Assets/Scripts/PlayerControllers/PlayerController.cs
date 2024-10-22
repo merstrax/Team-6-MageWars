@@ -317,7 +317,7 @@ public class PlayerController : Unit
 
     public override void OnCastStart(Unit other = null, Ability source = null, Damage damage = default)
     {
-        int animation = animations[source.Info().AnimationType];
+        string animation = animations[source.Info().AnimationType];
         animator.SetTrigger(animation);
     }
 

@@ -16,7 +16,7 @@ MonoBehaviour:
   AbilityDescription: Front R Paw
   AbilityID: 120
   AbilitySpeed: 0
-  AbilityRange: 5
+  AbilityRange: 6
   ElementType: 5
   AbilityType: 0
   CastType: 0
