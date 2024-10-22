@@ -52,7 +52,6 @@ public class GodrickValleyController : MonoBehaviour
         firePillar.gameObject.SetActive(false);
         arcanePillar.gameObject.SetActive(false);
         windPillar.gameObject.SetActive(false);
-        aludyneAltar.gameObject.SetActive(false);
 #else
         frostPillar.SetComplete(pillarFlags.HasFlag(PillarFlags.FROST));
         firePillar.SetComplete(pillarFlags.HasFlag(PillarFlags.FIRE));
@@ -66,7 +65,8 @@ public class GodrickValleyController : MonoBehaviour
         firePillar_wgl.gameObject.SetActive(false);
         arcanePillar_wgl.gameObject.SetActive(false);
         windPillar_wgl.gameObject.SetActive(false);
-        aludyneAltar_wgl.gameObject.SetActive(false);
+
+        aludyneAltar.SetComplete(false);
 #endif
     }
 
