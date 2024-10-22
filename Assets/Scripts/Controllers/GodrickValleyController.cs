@@ -7,9 +7,9 @@ using UnityEngine;
 public enum PillarFlags
 {
     NONE,
-    FROST,
+    ARCANE,
     FIRE,
-    ARCANE = 4,
+    FROST = 4,
     WIND = 8,
 
     EVERYTHING = FROST | FIRE | ARCANE | WIND,
@@ -79,5 +79,7 @@ public class GodrickValleyController : MonoBehaviour
         {
             aludyneAltar.SetComplete(false);
         }
+        int index = (int)(Mathf.Log((int)type) / Mathf.Log(2));
+        GameManager.instance.SetObjectiveComplete(index);
     }
 }

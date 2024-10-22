@@ -20,6 +20,11 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField] AbilityIcon ability2;
     [SerializeField] AbilityIcon ability3;
     [SerializeField] AbilityIcon ability4;
+    [SerializeField] TMP_Text FireObjective;
+    [SerializeField] TMP_Text ArcaneObjective;
+    [SerializeField] TMP_Text ForstObjective;
+    [SerializeField] TMP_Text WindObjective;
+
 
     List<AbilityIcon> abilities;
 

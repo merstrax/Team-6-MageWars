@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MiniMap : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    [SerializeField] float cameraRange;
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 newPosition = player.position;
-        newPosition.y = transform.position.y;
-        PlayerController.instance.transform.position = newPosition;
+        Vector3 newPosition = PlayerController.instance.transform.position;
+        newPosition.y += cameraRange;
+        transform.position = newPosition;
     }
 }
