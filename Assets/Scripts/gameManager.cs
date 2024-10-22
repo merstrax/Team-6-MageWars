@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerInterface playerInterface;
     [SerializeField] GameObject menuGraphics;
     [SerializeField] GameObject menuSound;
+    [SerializeField] ObjectiveMenu QuestsScreen;
 
     [SerializeField] PlayerController playerController;
     
@@ -169,5 +170,13 @@ public class GameManager : MonoBehaviour
             menuActive = menuSound;
             menuActive.SetActive(true);
         }
+    }
+    public void OnObjectives()
+    {
+        QuestsScreen.gameObject.SetActive(!QuestsScreen.gameObject.activeSelf);
+    }
+    public void SetObjectiveComplete(int objectiveID)
+    {
+        QuestsScreen.SetObjectiveComplete(objectiveID);
     }
 }
