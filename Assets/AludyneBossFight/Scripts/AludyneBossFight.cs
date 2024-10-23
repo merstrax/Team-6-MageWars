@@ -59,6 +59,9 @@ public class AludyneBossFight : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip[] audioClips;
 
+    [SerializeField] AudioSource bgSource;
+    [SerializeField] AudioClip bgClip;
+
     Phases currentPhase = Phases.START;
     Coroutine roleplayCoroutine;
 
@@ -112,6 +115,10 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.Stop();
         audioSource.clip = audioClips[0];
         audioSource.Play();
+
+        bgSource.clip = bgClip;
+        bgSource.volume = 0.4f;
+        bgSource.Play();
 
         aludyneUnit.SetSleeping();
 

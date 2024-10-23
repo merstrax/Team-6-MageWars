@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AludynePillarStats
   m_EditorClassIdentifier: 
   healthRegen: 0
-  healthBase: 100
+  healthBase: 300
   damageBase: 0
   defenseBase: 0
   speedBase: 0
@@ -22,6 +22,8 @@ MonoBehaviour:
   cooldownBase: 0
   aggroRange: 0
   kiteRange: 0
+  roamRange: 0
+  roamTimer: 0
   viewAngle: 0
   abilityPassive: []
   abilities: []

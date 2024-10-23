@@ -48,7 +48,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1841949358072867171}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7d603208f5952d45a4a28b54a752c17, type: 3}
   m_Name: 
@@ -98,6 +98,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b2fa2fdfebc7a2d41b3b17241071ec64, type: 3}
   - {fileID: 8300000, guid: a771770a45a9e0545b819e8c72817b0d, type: 3}
   - {fileID: 8300000, guid: 4ab285dd682215c47859e3efe6653537, type: 3}
+  bgSource: {fileID: 0}
+  bgClip: {fileID: 8300000, guid: 0d13cb0f754c2294382afef9df902297, type: 3}
 --- !u!82 &1803765798031322292
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1002,6 +1004,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332267895436848291, guid: 2a2d7106373c1794785736799637f160,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9142772966208370348, guid: 2a2d7106373c1794785736799637f160,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
