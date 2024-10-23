@@ -7,7 +7,7 @@ public class AludyneFightTrigger : MonoBehaviour
 {
     [SerializeField] AludyneBossFight fightObject;
     [SerializeField] GameObject wall;
-    [SerializeField] Image bossHealthBar;
+    [SerializeField] GameObject bossHealthBar;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,7 +22,7 @@ public class AludyneFightTrigger : MonoBehaviour
                 wall.SetActive(true);
 
             if(bossHealthBar != null)
-                bossHealthBar.enabled = true;
+                bossHealthBar.SetActive(true);
         }
     }
 }

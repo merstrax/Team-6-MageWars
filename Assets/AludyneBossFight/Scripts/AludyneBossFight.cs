@@ -59,7 +59,8 @@ public class AludyneBossFight : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip[] audioClips;
 
-    [SerializeField] AudioSource bgSource;
+    [SerializeField] AudioSource bgSourceDungeon;
+    [SerializeField] AudioSource bgSourceFight;
     [SerializeField] AudioClip bgClip;
 
     Phases currentPhase = Phases.START;
@@ -116,10 +117,9 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.clip = audioClips[0];
         audioSource.Play();
 
-        bgSource.clip = bgClip;
-        bgSource.volume = 0.4f;
-        bgSource.Play();
-
+        bgSourceDungeon.Stop();
+        bgSourceFight.Play();
+        bgSourceFight.volume = 0.1f;
         aludyneUnit.SetSleeping();
 
         GameManager.instance.SetInteractMessage("Skip Dialogue");
@@ -127,14 +127,12 @@ public class AludyneBossFight : MonoBehaviour
         yield return new WaitForSeconds(audioClips[0].length + 1.0f);
         //yield return new WaitForSeconds(3.0f);
 
-        currentPhase = Phases.PHASE_1;
-        roleplayCoroutine = null;
-        StartCoroutine(Phase1_Start());
-        GameManager.instance.SetInteractMessage("");
+        SkipDialogue();
     }
 
     void SkipDialogue()
     {
+        bgSourceFight.volume = 0.2f;
         currentPhase = Phases.PHASE_1;
         StopCoroutine(roleplayCoroutine);
         roleplayCoroutine = null;
@@ -182,7 +180,7 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.Stop();
         audioSource.clip = audioClips[1];
         audioSource.Play();
-
+        bgSourceFight.volume = 0.1f;
         foreach (AludynePillarUnit pillar in pillarList)
         {
             pillar.RemoveStatus(StatusFlag.INVULNERABLE);
@@ -191,6 +189,7 @@ public class AludyneBossFight : MonoBehaviour
         yield return new WaitForSeconds(audioClips[1].length);
 
         SelectAbility();
+        bgSourceFight.volume = 0.2f;
     }
 
     IEnumerator Phase1_End()
@@ -198,9 +197,9 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.Stop();
         audioSource.clip = audioClips[6];
         audioSource.Play();
-
+        bgSourceFight.volume = 0.1f;
         yield return new WaitForSeconds(audioClips[6].length);
-
+        bgSourceFight.volume = 0.2f;
         Destroy(zerrokUnit.gameObject);
         aludyneUnit.HealPercent(new Damage(0.15f));
         roleplayCoroutine = null;
@@ -264,6 +263,7 @@ public class AludyneBossFight : MonoBehaviour
     {
         if (zerrokBurningDevotionCurrent >= zerrokBurningDevotionCount && abilityCoroutine == null)
         {
+            bgSourceFight.volume = 0.2f;
             abilityPhaseFinished = true;
             return;
         }
@@ -283,7 +283,7 @@ public class AludyneBossFight : MonoBehaviour
             audioSource.clip = audioClips[2];
             audioSource.Play();
         }
-
+        
         zerrokBurningDevotionCurrent++;
         Instantiate(zerrokFireAbility);
 
@@ -298,7 +298,6 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.Stop();
         audioSource.clip = audioClips[4];
         audioSource.Play();
-
         Ability frost;
 
         foreach (EnemyAI enemyAI in FindObjectsOfType<EnemyAI>(false))
@@ -329,7 +328,6 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.Stop();
         audioSource.clip = audioClips[5];
         audioSource.Play();
-
         int whirlingTempestCount = 1 + (4 - pillarList.Count);
 
         for (int i = 0; i < whirlingTempestCount; i++)
@@ -442,11 +440,11 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.Play();
 
         aludyneUnit.preAwaken();
-
+        bgSourceFight.volume = 0.1f;
         yield return new WaitForSeconds(audioClips[7].length + 1.0f);
 
         aludyneUnit.Awaken();
-        
+        bgSourceFight.volume = 0.2f;
         currentPhase = Phases.PHASE_2;
         roleplayCoroutine = null;
     }
@@ -457,9 +455,14 @@ public class AludyneBossFight : MonoBehaviour
         audioSource.clip = audioClips[10];
         audioSource.Play();
 
+        bgSourceFight.volume = 0.1f;
+
         yield return new WaitForSeconds(15.0f);
 
         //Game complete logic
+        bgSourceFight.Stop();
+        bgSourceFight.Play();
+        bgSourceFight.volume = 0.2f;
         aludyneUnit.DoDeathAnimation();
     }
     #endregion

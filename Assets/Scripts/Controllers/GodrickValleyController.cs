@@ -65,8 +65,6 @@ public class GodrickValleyController : MonoBehaviour
         firePillar_wgl.gameObject.SetActive(false);
         arcanePillar_wgl.gameObject.SetActive(false);
         windPillar_wgl.gameObject.SetActive(false);
-
-        aludyneAltar.SetComplete(false);
 #endif
     }
 

@@ -76,6 +76,11 @@ public class PlayerController : Unit
         PlayerSpawnPoint _playerSpawn = FindFirstObjectByType<PlayerSpawnPoint>();
         transform.position = _playerSpawn.transform.position;
         GameManager.instance.SetInteractMessage("");
+
+        abilityCasting = null;
+        abilityHandler = null;
+        abilityChannel = null;
+        castStart = 0.0f;
     }
 
     // Start is called before the first frame update
@@ -84,24 +89,18 @@ public class PlayerController : Unit
         Setup();
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        if(IsDead)
-        {
-            RemoveAllEffects();
-            animator.SetTrigger("Revive");
-            IsDead = false;
-        }
+        RemoveAllEffects();
+        animator.SetTrigger("Revive");
+        IsDead = false;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Setup();
 
-        if (IsDead)
-        {
-            RemoveAllEffects();
-            animator.SetTrigger("Revive");
-            IsDead = false;
-        }
+        RemoveAllEffects();
+        animator.SetTrigger("Revive");
+        IsDead = false;
     }
 
     // Update is called once per frame

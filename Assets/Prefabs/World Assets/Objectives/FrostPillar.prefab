@@ -328,7 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMaterial: {fileID: 2100000, guid: c45a573292c01414884ab31f9a89b521, type: 2}
   interactMessage: Activate Frost Pillar
-  type: 1
+  type: 4
   visual: {fileID: 4409923649547499932}
 --- !u!136 &7662221204009733789
 CapsuleCollider:
@@ -349,10 +349,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.75
   m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: -0.1, y: 1, z: 0.1}
 --- !u!1001 &4409923649547358980
 PrefabInstance:
   m_ObjectHideFlags: 0

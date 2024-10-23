@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMaterial: {fileID: 2100000, guid: c45a573292c01414884ab31f9a89b521, type: 2}
   interactMessage: Activate Arcane Pillar
-  type: 4
+  type: 1
   visual: {fileID: 8319879757709654507}
 --- !u!136 &8497870303688835434
 CapsuleCollider:
@@ -183,10 +183,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.75
   m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: -0.1, y: 1, z: 0.1}
 --- !u!1 &5100488360520590860
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +332,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 93415edde47040648869ae6638d33ced, type: 2}
-  - {fileID: 2100000, guid: 7ef6b6e25f198ed4598f6166b5dd91b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

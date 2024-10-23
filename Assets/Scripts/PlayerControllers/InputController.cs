@@ -66,13 +66,6 @@ public class InputController : MonoBehaviour
 
     public void OnDebug(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            if (SceneManager.GetActiveScene().name == "ShowcaseScene")
-                SceneManager.LoadScene("Godrick Valley");
-            else
-                SceneManager.LoadScene("ShowcaseScene");
-        }
     }
 
     void Start()
