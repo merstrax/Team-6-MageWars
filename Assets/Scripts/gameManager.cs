@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
+    [SerializeField] GameObject menuCredits;
+
 
     [Header("Game Options")]
     [SerializeField] GameObject menuSettings;
@@ -79,7 +81,7 @@ public class GameManager : MonoBehaviour
             menuActive = menuPause;
             menuActive.SetActive(isPaused);
         }
-        else if (menuActive == menuSettings)
+        else if (menuActive == menuSettings || menuActive == menuCredits)
         {
             ReturnToPrev();
         }
@@ -145,6 +147,11 @@ public class GameManager : MonoBehaviour
             menuActive = menuSettings;
             menuActive.SetActive(true);
         }
+        else if (menuActive == menuCredits)
+        {
+            menuActive = menuPause;
+            menuActive.SetActive(true);
+        }
     }
 
     public void EnableBossHealthBar()
@@ -200,6 +207,15 @@ public class GameManager : MonoBehaviour
         {
             menuActive.SetActive(false);
             menuActive = menuSound;
+            menuActive.SetActive(true);
+        }
+    }
+    public void ToddleCredits()
+    {
+        if (menuActive == menuPause)
+        {
+            menuActive.SetActive(false);
+            menuActive = menuCredits;
             menuActive.SetActive(true);
         }
     }

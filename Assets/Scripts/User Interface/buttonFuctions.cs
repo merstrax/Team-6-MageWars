@@ -32,6 +32,11 @@ public class buttonFuctions : MonoBehaviour
         GameManager.instance.ToggleSoundMenu();
     }
 
+    public void CreditsPanel()
+    {
+        GameManager.instance.ToddleCredits();
+    }
+
     public void Close()
     {
        GameManager.instance.ReturnToPrev();
