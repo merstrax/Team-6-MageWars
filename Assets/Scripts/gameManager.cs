@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System;
+using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,12 +13,12 @@ public class GameManager : MonoBehaviour
     [Header("User Interface")]
     [SerializeField] Canvas mainInterface;
     [SerializeField] PlayerInput inputUI;
-    
+
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuPauseQuit;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
-    
+
 
     [Header("Game Options")]
     [SerializeField] GameObject menuSettings;
@@ -28,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerInterface playerInterface;
     [SerializeField] ObjectiveMenu QuestsScreen;
     [SerializeField] GameObject bossHealthBar;
-    
+
     public GameObject checkPointPopUp;
     public GameObject player;
 
@@ -36,34 +38,40 @@ public class GameManager : MonoBehaviour
 
     private float timeScaleOrig;
     private bool isPaused;
-    public bool IsPaused(){ return isPaused; }
+    public bool IsPaused() { return isPaused; }
 
     // Start is called before the first frame update
     void Awake()
     {
+
         instance = this;
         timeScaleOrig = Time.timeScale;
-
-        if (PlayerController.instance == null)
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-            Instantiate(playerController);
-        }
-
-        menuGraphics.SetActive(false);
-
-        player = GameObject.FindWithTag("Player");
-        playerController = PlayerController.instance;
-
-#if PLATFORM_WEBGL
+            if (PlayerController.instance == null)
+            {
+                Instantiate(playerController);
+            }
+            player = GameObject.FindWithTag("Player");
+            playerController = PlayerController.instance;
+#if PLATFORM_WEBGL 
         inputUI.actions["pause"].ChangeBinding(0)
             .WithPath("<Keyboard>/p");
 
         Destroy(menuPauseQuit);
 #endif
+        }
+        else
+        {
+            menuActive = menuPause;
+            menuActive.SetActive(true);
+        }
+
+        menuGraphics.SetActive(false);
     }
 
     // Update is called once per frame
-    public void OnPause() 
+    public void OnPause()
     {
         if (menuActive == null)
         {
@@ -83,6 +91,7 @@ public class GameManager : MonoBehaviour
 
     public void StatePause()
     {
+        if (SceneManager.GetActiveScene().name == "MainMenu") return;
         isPaused = true;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -92,6 +101,7 @@ public class GameManager : MonoBehaviour
 
     public void StateUnpause()
     {
+        if (SceneManager.GetActiveScene().name == "MainMenu") return;
         isPaused = false;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
@@ -124,7 +134,7 @@ public class GameManager : MonoBehaviour
         {
             menuActive = menuPause;
             menuActive.SetActive(true);
-        }   
+        }
         else if (menuActive == menuGraphics)
         {
             menuActive = menuSettings;

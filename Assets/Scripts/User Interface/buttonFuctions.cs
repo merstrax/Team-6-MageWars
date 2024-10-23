@@ -11,7 +11,7 @@ public class buttonFuctions : MonoBehaviour
     public GameObject graphicsScreen;
     public GameObject soundScreen;
 
-
+    
     public void mainMenuSettings(GameObject menuSettings)
     {
         menuSettings.SetActive(!menuSettings.activeSelf);
