@@ -17,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Altar of Aludyne.unity
     guid: 912e23fe524277541b30e079fe240ac8
-  - enabled: 1
-    path: Assets/Scenes/ShowcaseScene.unity
-    guid: 691ae94da18db88498fad64e69fb42b6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e6c2fe2a9f921f545a05fefdd73b4bbd,
       type: 2}
