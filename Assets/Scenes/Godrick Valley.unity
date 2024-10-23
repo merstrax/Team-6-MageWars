@@ -18504,6 +18504,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 880182250896797231, guid: 93ab347366922a446b19a5682cf3e2ef,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083225675931405612, guid: 93ab347366922a446b19a5682cf3e2ef,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 170
+      objectReference: {fileID: 0}
     - target: {fileID: 1239533229837274739, guid: 93ab347366922a446b19a5682cf3e2ef,
         type: 3}
       propertyPath: m_IsActive
