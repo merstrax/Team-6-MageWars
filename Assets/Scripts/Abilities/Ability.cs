@@ -40,8 +40,6 @@ public class Ability : MonoBehaviour
         EffectTimeApplied = Time.time;
 
         others = new List<Unit>();
-
-        
     }
 
     // Update is called once per frame
