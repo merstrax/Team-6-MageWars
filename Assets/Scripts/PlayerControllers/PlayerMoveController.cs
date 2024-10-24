@@ -68,6 +68,9 @@ public class PlayerMoveController : MonoBehaviour
         }
         else
             rigidBody.drag = 0;
+
+        walkSpeed = PlayerController.instance.GetSpeed();
+        runSpeed = walkSpeed * 2.0f;
     }
 
     private void FixedUpdate()
@@ -140,7 +143,7 @@ public class PlayerMoveController : MonoBehaviour
             moveSpeed = 1;
         }
 
-        if (InputController.instance.Sprint)
+        if (InputController.instance.Sprint && verticalMovement >= 0)
         {
             rigidBody.AddForce(10f * runSpeed * moveDirection, ForceMode.Force);
             moveSpeed *= 2;
