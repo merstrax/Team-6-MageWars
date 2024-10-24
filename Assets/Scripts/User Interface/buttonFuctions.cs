@@ -62,6 +62,7 @@ public class buttonFuctions : MonoBehaviour
     }
     public void startgame()
     {
+        GameManager.instance.ShowLoadingScreen();
         SceneManager.LoadScene("LoadGameScene");
     }
 }

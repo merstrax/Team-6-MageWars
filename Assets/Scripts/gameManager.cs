@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject menuCredits;
 
+    [SerializeField] GameObject loadingScreen;
 
     [Header("Game Options")]
     [SerializeField] GameObject menuSettings;
@@ -56,18 +57,19 @@ public class GameManager : MonoBehaviour
             }
             player = GameObject.FindWithTag("Player");
             playerController = PlayerController.instance;
-#if PLATFORM_WEBGL 
-        inputUI.actions["pause"].ChangeBinding(0)
-            .WithPath("<Keyboard>/p");
-
-        Destroy(menuPauseQuit);
-#endif
         }
         else
         {
             menuActive = menuPause;
             menuActive.SetActive(true);
         }
+
+#if PLATFORM_WEBGL
+        inputUI.actions["pause"].ChangeBinding(0)
+            .WithPath("<Keyboard>/p");
+
+        Destroy(menuPauseQuit);
+#endif
 
         menuGraphics.SetActive(false);
     }
@@ -152,6 +154,11 @@ public class GameManager : MonoBehaviour
             menuActive = menuPause;
             menuActive.SetActive(true);
         }
+    }
+
+    public void ShowLoadingScreen()
+    {
+        loadingScreen.SetActive(true);
     }
 
     public void EnableBossHealthBar()
