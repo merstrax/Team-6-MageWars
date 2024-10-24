@@ -1445,12 +1445,15 @@ MonoBehaviour:
   animator: {fileID: 6036635453473558285}
   model: {fileID: 5084379265514629020}
   bodyCollider: {fileID: 6997852639410806426}
-  headCollider: {fileID: 6997852639410806426}
   targetMaterial: {fileID: 2100000, guid: 6d29f059216938e489d523720b043a84, type: 2}
   agent: {fileID: 4947504186526812065}
   headPos: {fileID: 7482975054958508614}
   faceTargetSpeed: 50
-  dropPrefab: []
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  dropPrefab:
+  - {fileID: 2194540399978094853, guid: fa0c1337d62dcea48ae473bef1697265, type: 3}
 --- !u!95 &6036635453473558285
 Animator:
   serializedVersion: 5

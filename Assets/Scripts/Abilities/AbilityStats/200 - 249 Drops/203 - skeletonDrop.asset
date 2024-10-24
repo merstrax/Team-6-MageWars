@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 204 - movementBuff
+  m_Name: 203 - skeletonDrop
   m_EditorClassIdentifier: 
-  AbilityName: movementBuff
+  AbilityName: skeletonDrop
   AbilityDescription: movementBuff
-  AbilityID: 204
+  AbilityID: 203
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0
@@ -32,12 +32,12 @@ MonoBehaviour:
   TriggerFlags: 0
   ModifierType: 2
   EffectAbility: {fileID: 0}
-  EffectAmount: 1.15
+  EffectAmount: 1.035
   DamageCoefficent: 0
   EffectTriggerChance: 0
   EffectStackAmount: 1
-  EffectStackMax: 5
-  EffectDuration: 8
+  EffectStackMax: 10
+  EffectDuration: 999999
   EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0

@@ -1442,7 +1442,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 128
-  dropPrefab: []
+  dropPrefab:
+  - {fileID: 1936345988254126526, guid: 59731e7ba49bcdf4f827e8574d2ff13a, type: 3}
 --- !u!95 &6966241651665529386
 Animator:
   serializedVersion: 5

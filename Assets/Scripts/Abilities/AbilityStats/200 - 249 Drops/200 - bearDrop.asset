@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 202 - decreasedCooldown
+  m_Name: 200 - bearDrop
   m_EditorClassIdentifier: 
-  AbilityName: decreasedCooldown
-  AbilityDescription: decreasedCooldown
-  AbilityID: 202
+  AbilityName: BearDrop
+  AbilityDescription: MaxHealth add 20
+  AbilityID: 200
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0
@@ -27,17 +27,17 @@ MonoBehaviour:
   EffectType: 3
   EffectTargetType: 1
   StatusType: 0
-  AttributeFlags: 64
+  AttributeFlags: 1
   ElementFlags: 0
   TriggerFlags: 0
   ModifierType: 2
   EffectAbility: {fileID: 0}
   EffectAmount: 1.2
   DamageCoefficent: 0
-  EffectTriggerChance: 0
+  EffectTriggerChance: 1
   EffectStackAmount: 1
-  EffectStackMax: 5
-  EffectDuration: 10
+  EffectStackMax: 10
+  EffectDuration: 0
   EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0
@@ -45,6 +45,9 @@ MonoBehaviour:
   ResourceReset: 0
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
+  StatusIcon: 1
   AbilityVisual: {fileID: 0}
+  AbilityImpact: {fileID: 0}
+  AbilityCast: {fileID: 0}
   CastPosition: 0
   AnimationType: 0

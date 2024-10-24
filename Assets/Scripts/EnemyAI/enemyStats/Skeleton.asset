@@ -16,7 +16,7 @@ MonoBehaviour:
   healthBase: 50
   damageBase: 0
   defenseBase: 0
-  speedBase: 10
+  speedBase: 12
   critChanceBase: 0.3
   critDamageBase: 2
   cooldownBase: 0
@@ -28,5 +28,5 @@ MonoBehaviour:
   abilityPassive: []
   abilities:
   - {fileID: 91540206895485541, guid: efe348eabb29e994590abfdaf07625af, type: 3}
-  abilityRate: 5
-  dropChance: 0.1
+  abilityRate: 2
+  dropChance: 1

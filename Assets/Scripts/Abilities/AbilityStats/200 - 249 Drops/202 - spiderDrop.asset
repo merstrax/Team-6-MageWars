@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 201 - healOverTime
+  m_Name: 202 - spiderDrop
   m_EditorClassIdentifier: 
-  AbilityName: healOverTime
-  AbilityDescription: healOverTime
+  AbilityName: spiderDrop
+  AbilityDescription: increasedDMG
   AbilityID: 201
   AbilitySpeed: 0
   AbilityRange: 0
@@ -24,27 +24,30 @@ MonoBehaviour:
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
-  EffectType: 0
+  EffectType: 3
   EffectTargetType: 1
   StatusType: 0
-  AttributeFlags: 0
+  AttributeFlags: 2
   ElementFlags: 0
   TriggerFlags: 0
-  ModifierType: 0
+  ModifierType: 2
   EffectAbility: {fileID: 0}
-  EffectAmount: -20
+  EffectAmount: 1.035
   DamageCoefficent: 0
   EffectTriggerChance: 0
-  EffectStackAmount: 0
-  EffectStackMax: 0
-  EffectDuration: 0.1
-  EffectTickSpeed: 0.1
+  EffectStackAmount: 1
+  EffectStackMax: 10
+  EffectDuration: 999999
+  EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0
   ResourceCooldown: 0
   ResourceReset: 0
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
+  StatusIcon: 2
   AbilityVisual: {fileID: 0}
+  AbilityImpact: {fileID: 0}
+  AbilityCast: {fileID: 0}
   CastPosition: 0
   AnimationType: 0
