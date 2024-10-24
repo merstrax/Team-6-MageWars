@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4306968fb4a1b48b3f80bfea0844f1, type: 3}
-  m_Name: 200 - bearDrop
+  m_Name: 204 - HealDrop
   m_EditorClassIdentifier: 
-  AbilityName: BearDrop
-  AbilityDescription: MaxHealth add 20
-  AbilityID: 200
+  AbilityName: BearHeal
+  AbilityDescription: Heal Player for 20
+  AbilityID: 204
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0
@@ -25,19 +25,19 @@ MonoBehaviour:
   IsRooted: 0
   IsTarget: 0
   EffectType: 1
-  EffectTargetType: 1
+  EffectTargetType: 0
   StatusType: 0
   AttributeFlags: 1
   ElementFlags: 0
   TriggerFlags: 0
   ModifierType: 2
-  EffectAbility: {fileID: 11400000, guid: 3f6c39c936729fe4cb6210e3b8c96537, type: 2}
+  EffectAbility: {fileID: 0}
   EffectAmount: 1.2
   DamageCoefficent: 0
   EffectTriggerChance: 1
   EffectStackAmount: 1
   EffectStackMax: 10
-  EffectDuration: 999999
+  EffectDuration: 0
   EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0

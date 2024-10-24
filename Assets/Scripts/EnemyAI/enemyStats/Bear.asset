@@ -32,4 +32,4 @@ MonoBehaviour:
   - {fileID: 5482782143325043695, guid: 91e28f8ac88900b4983bbdb75706da4b, type: 3}
   - {fileID: 5482782143325043695, guid: c80cbaa6b68db204299f842512be2aa9, type: 3}
   abilityRate: 3
-  dropChance: 1
+  dropChance: 0
