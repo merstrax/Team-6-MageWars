@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skeleton
   m_EditorClassIdentifier: 
   healthRegen: 0
-  healthBase: 50
+  healthBase: 120
   damageBase: 0
   defenseBase: 0
   speedBase: 12

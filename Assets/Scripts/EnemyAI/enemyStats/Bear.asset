@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bear
   m_EditorClassIdentifier: 
   healthRegen: 0
-  healthBase: 100
+  healthBase: 150
   damageBase: 0
   defenseBase: 0
   speedBase: 12
