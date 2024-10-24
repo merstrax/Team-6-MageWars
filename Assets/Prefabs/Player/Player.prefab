@@ -5159,7 +5159,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 2255221d850daf642981c1a4eedf85a1, type: 3}
   m_Controller: {fileID: 9100000, guid: d1c0b9c34b2efc94ca1575d0b70ab1b5, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 2
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -5266,7 +5266,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8608821737314731923}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f222f6942ea36bc4880401b5bf6f9c77, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

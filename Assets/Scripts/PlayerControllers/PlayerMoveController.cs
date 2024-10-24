@@ -132,6 +132,12 @@ public class PlayerMoveController : MonoBehaviour
 
     private void UpdateMovement()
     {
+        if (!isGrounded)
+        {
+            verticalMovement = 0;
+            horizontalMovement = 0;
+        }
+
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
 
         if (verticalMovement == 0 && horizontalMovement == 0)
