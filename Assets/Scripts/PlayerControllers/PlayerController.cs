@@ -122,7 +122,6 @@ public class PlayerController : Unit
 
         if (abilityChannel != null)
         {
-            float tickSpeed = abilityHandler.GetAbility().Info().EffectTickSpeed;
             float current = Time.time - castStart;
             
             float end = abilityHandler.GetAbility().Info().CastTime;
@@ -131,7 +130,7 @@ public class PlayerController : Unit
 
         for (int i = 0; i < InputController.instance.Ability.Length; i++)
         {
-            if (InputController.instance.Ability[i] && abilityHandlers[i].ReadyToCast())
+            if (InputController.instance.Ability[i] && abilityHandlers[i].ReadyToCast() && !isChanneling)
             {
                 if (selectedAbility != i && selectedAbility != -1)
                 {
@@ -147,7 +146,7 @@ public class PlayerController : Unit
                     continue;
                 }
 
-                if (abilityHandlers[i].GetAbility().Info().AbilityType == AbilityType.AREAOFEFFECT && abilityHandlers[i].GetAbility().Info().IsTarget)
+                if (abilityHandlers[i].GetAbility().Info().AbilityType == AbilityType.AREAOFEFFECT && abilityHandlers[i].GetAbility().Info().IsTarget )
                 {
                     aoeTargetSelector.SetActive(true);
                     aoeTargetSelector.GetComponent<AoETargetSpin>().SetScale(1.8f * abilityHandlers[i].GetAbility().GetComponent<SphereCollider>().radius);
@@ -187,6 +186,7 @@ public class PlayerController : Unit
             abilityHandler = null;
             abilityChannel = null;
             castStart = 0.0f;
+            isChanneling = false;
         }
     }
 
