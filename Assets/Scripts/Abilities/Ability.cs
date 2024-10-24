@@ -460,7 +460,7 @@ public class Ability : MonoBehaviour
 
         if ((other.CompareTag("MapObject") || other.gameObject.layer == LayerMask.NameToLayer("Terrain")) && Info().AbilityType != AbilityType.AREAOFEFFECT)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
