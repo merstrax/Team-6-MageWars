@@ -36,6 +36,8 @@ public class StatusPanel : MonoBehaviour
 
     public void ToggleStatus(Status status, bool active = false)
     {
+        if (status == Status.NONE) return;
+
         statusIcons[(int)status].SetActive(active);
     }
 }

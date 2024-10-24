@@ -458,7 +458,8 @@ public class Ability : MonoBehaviour
             }
         }
 
-        if ((other.CompareTag("MapObject") || other.gameObject.layer == LayerMask.NameToLayer("Terrain")) && Info().AbilityType != AbilityType.AREAOFEFFECT)
+        if ((other.CompareTag("MapObject") || other.gameObject.layer == LayerMask.NameToLayer("Terrain")) 
+            && Info().AbilityType != AbilityType.AREAOFEFFECT && Info().AbilityType != AbilityType.MELEE)
         {
             Destroy(gameObject);
         }

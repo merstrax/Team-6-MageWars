@@ -205,6 +205,11 @@ public class Unit : MonoBehaviour, IDamage
                 var modifyFlag = ability.Info().AttributeFlags;
                 int currentFlag = 1;
 
+                if (GetComponent<PlayerController>() != null)
+                {
+                    GameManager.instance.GetPlayerInterface().ToggleStatus(ability.GetAbilityInfo().StatusIcon, true);
+                }
+
                 while (currentFlag < (int)AttributeFlags.COOLDOWN)
                 {
                     if (modifyFlag.HasFlag((AttributeFlags)currentFlag))
@@ -352,16 +357,18 @@ public class Unit : MonoBehaviour, IDamage
         }
         UpdateStats();
 
-        if (GetComponent<PlayerController>() != null)
-        {
-            GameManager.instance.GetPlayerInterface().ToggleStatus(ability.GetAbilityInfo().StatusIcon, true);
-        }
-
         UpdateInterface();
 
         if (ability.Info().StatusType != EffectStatusType.NONE)
         {
             ApplyStatus((StatusFlag)ability.Info().StatusType, ability);
+        }
+        else
+        {
+            if (GetComponent<PlayerController>() != null)
+            {
+                GameManager.instance.GetPlayerInterface().ToggleStatus(ability.GetAbilityInfo().StatusIcon, true);
+            }
         }
     }
 
@@ -373,6 +380,12 @@ public class Unit : MonoBehaviour, IDamage
             if (ability.Info().StatusType != EffectStatusType.NONE)
             {
                 RemoveStatus((StatusFlag)ability.Info().StatusType, ability);
+            }else
+            {
+                if (GetComponent<PlayerController>() != null)
+                {
+                    GameManager.instance.GetPlayerInterface().ToggleStatus(ability.GetAbilityInfo().StatusIcon, false);
+                }
             }
 
             effects[_id].CleanUp(true);
