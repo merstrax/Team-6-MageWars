@@ -32,7 +32,7 @@ MonoBehaviour:
   TriggerFlags: 0
   ModifierType: 2
   EffectAbility: {fileID: 0}
-  EffectAmount: 1.035
+  EffectAmount: 1.05
   DamageCoefficent: 0
   EffectTriggerChance: 0
   EffectStackAmount: 1

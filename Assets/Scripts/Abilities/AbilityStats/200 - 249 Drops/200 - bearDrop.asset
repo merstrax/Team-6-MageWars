@@ -29,7 +29,7 @@ MonoBehaviour:
   StatusType: 0
   AttributeFlags: 1
   ElementFlags: 0
-  TriggerFlags: 0
+  TriggerFlags: 256
   ModifierType: 2
   EffectAbility: {fileID: 0}
   EffectAmount: 1.2

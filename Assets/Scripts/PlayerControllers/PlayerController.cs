@@ -423,6 +423,12 @@ public class PlayerController : Unit
 
     #region Trigger Events
 
+    public override void OnHealed(Unit other = null, Ability source = null, Damage damage = default)
+    {
+        base.OnHealed(other, source, damage);
+        GameManager.instance.UpdateHealthbar(healthCurrent, healthMax);
+    }
+
     public override void OnDamaged(Unit other = null, Ability source = null, Damage damage = default)
     {
         animator.SetTrigger("Hit");

@@ -18,7 +18,7 @@ MonoBehaviour:
   AbilitySpeed: 0
   AbilityRange: 0
   ElementType: 0
-  AbilityType: 2
+  AbilityType: 6
   CastType: 0
   Cooldown: 0
   CastTime: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
   ElementFlags: 0
   TriggerFlags: 0
   ModifierType: 2
-  EffectAbility: {fileID: 0}
+  EffectAbility: {fileID: 11400000, guid: ae6ae7fa03f89f6499971ea38dc7dd88, type: 2}
   EffectAmount: 0.2
   DamageCoefficent: 0
   EffectTriggerChance: 1

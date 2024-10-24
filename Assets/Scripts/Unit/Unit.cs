@@ -230,8 +230,10 @@ public class Unit : MonoBehaviour, IDamage
             }
         }
 
+        float healthMaxDif = healthMax;
         healthMax = stats[AttributeFlags.HEALTH] * stats.GetModifier(AttributeFlags.HEALTH);
-        healthCurrent = Mathf.Min(healthCurrent, healthMax);
+        healthMaxDif -= healthMax;
+        healthCurrent = Mathf.Min(healthCurrent - healthMaxDif, healthMax);
 
         stats[AttributeFlags.MOVESPEED] *= stats.GetModifier(AttributeFlags.MOVESPEED);
         if (stats[AttributeFlags.MOVESPEED] < stats.Speed) { ApplyStatus(StatusFlag.SLOWED); }
@@ -239,6 +241,11 @@ public class Unit : MonoBehaviour, IDamage
 
         stats[AttributeFlags.CRIT_CHANCE] *= stats.GetModifier(AttributeFlags.CRIT_CHANCE);
         stats[AttributeFlags.CRIT_DAMAGE] *= stats.GetModifier(AttributeFlags.CRIT_DAMAGE);
+
+        if (GetComponent<PlayerController>() != null)
+        {
+            GameManager.instance.UpdateHealthbar(healthCurrent, healthMax);
+        }
     }
     #endregion
 

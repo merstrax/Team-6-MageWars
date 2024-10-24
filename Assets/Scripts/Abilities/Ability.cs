@@ -309,7 +309,7 @@ public class Ability : MonoBehaviour
                 break;
             case EffectTargetType.OTHER:
                 if (other != null)
-                    other.HealPercent(_calcDamage, this, other);
+                    other.HealPercent(_calcDamage, this, owner);
                 break;
             default:
                 break;
