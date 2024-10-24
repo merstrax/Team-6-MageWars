@@ -91,7 +91,7 @@ public class PlayerController : Unit
 
         if (IsDead)
         {
-            RemoveAllEffects();
+            //RemoveAllEffects();
             animator.SetTrigger("Revive");
             IsDead = false;
         }
@@ -101,10 +101,9 @@ public class PlayerController : Unit
     {
         Setup();
 
-
         if (IsDead)
         {
-            RemoveAllEffects();
+            //RemoveAllEffects();
             animator.SetTrigger("Revive");
             IsDead = false;
         }
@@ -375,10 +374,7 @@ public class PlayerController : Unit
 
             abilityCasting.Cast(GetCastLocation());
         }
-        catch (Exception) 
-        {
-            Debug.Log("Channel Broke");
-        }
+        catch (Exception) {}
 
         if (isChanneling)
             abilityChannel = StartCoroutine(ChannelCast(tickSpeed));
