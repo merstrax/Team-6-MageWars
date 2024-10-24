@@ -27,7 +27,7 @@ MonoBehaviour:
   EffectType: 1
   EffectTargetType: 1
   StatusType: 0
-  AttributeFlags: 1
+  AttributeFlags: 0
   ElementFlags: 0
   TriggerFlags: 0
   ModifierType: 2
@@ -37,7 +37,7 @@ MonoBehaviour:
   EffectTriggerChance: 1
   EffectStackAmount: 1
   EffectStackMax: 1
-  EffectDuration: 15
+  EffectDuration: 10
   EffectTickSpeed: 0
   ResourceType: 0
   ResourceMax: 0

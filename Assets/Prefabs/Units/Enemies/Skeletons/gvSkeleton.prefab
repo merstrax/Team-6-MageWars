@@ -1387,7 +1387,7 @@ GameObject:
   - component: {fileID: 3638051124665397020}
   - component: {fileID: 4947504186526812065}
   m_Layer: 6
-  m_Name: Skeleton
+  m_Name: gvSkeleton
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1452,8 +1452,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 0
-  dropPrefab:
-  - {fileID: 2194540399978094853, guid: fa0c1337d62dcea48ae473bef1697265, type: 3}
+  dropPrefab: []
 --- !u!95 &6036635453473558285
 Animator:
   serializedVersion: 5
