@@ -42,6 +42,7 @@ public class PlayerController : Unit
     ITargetable target;
     bool canInteract;
     public bool IsDead;
+    Coroutine deathCoroutine;
 
     private void Awake()
     {
@@ -79,9 +80,25 @@ public class PlayerController : Unit
         abilityChannel = null;
         castStart = 0.0f;
 
+        StartCoroutine(DelayedUpdate());
+    }
+
+    IEnumerator DelayedUpdate()
+    {
+        yield return new WaitForSeconds(0.2f);
         UpdateStats();
         healthCurrent = healthMax;
         GameManager.instance.UpdateHealthbar(healthCurrent, healthMax);
+
+        animator.ResetTrigger("Hit");
+
+        if (deathCoroutine != null)
+        {
+            //RemoveAllEffects();
+            animator.SetTrigger("Revive");
+            IsDead = false;
+            deathCoroutine = null;
+        }
     }
 
     // Start is called before the first frame update
@@ -89,25 +106,11 @@ public class PlayerController : Unit
     {
         Setup();
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-        if (IsDead)
-        {
-            //RemoveAllEffects();
-            animator.SetTrigger("Revive");
-            IsDead = false;
-        }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Setup();
-
-        if (IsDead)
-        {
-            //RemoveAllEffects();
-            animator.SetTrigger("Revive");
-            IsDead = false;
-        }
     }
 
     // Update is called once per frame
@@ -446,7 +449,7 @@ public class PlayerController : Unit
         if (IsDead) return;
 
         animator.SetTrigger("Death");
-        StartCoroutine(ShowDeathScreen());
+        deathCoroutine = StartCoroutine(ShowDeathScreen());
     }
     #endregion
 

@@ -117,7 +117,7 @@ public class PlayerMoveController : MonoBehaviour
 
     private void UpdateInput()
     {
-        if (InputController.instance == null) return;
+        if (InputController.instance == null || PlayerController.instance.IsDead) return;
 
         horizontalMovement = InputController.instance.Move.x;
         verticalMovement = InputController.instance.Move.y;
