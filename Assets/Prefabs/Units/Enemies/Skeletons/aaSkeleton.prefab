@@ -1452,8 +1452,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 0
-  dropPrefab:
-  - {fileID: 2194540399978094853, guid: fa0c1337d62dcea48ae473bef1697265, type: 3}
+  dropPrefab: []
 --- !u!95 &6036635453473558285
 Animator:
   serializedVersion: 5
@@ -1512,7 +1511,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
