@@ -53,9 +53,6 @@ public class PlayerController : Unit
     {
         stats = new(healthBase, damageBase, defenseBase, speedBase, critChanceBase, critDamageBase, cooldownBase);
 
-        UpdateStats();
-        healthCurrent = healthMax;
-
         if (abilityPassive != null)
         {
             //abilityPassive[0] = Instantiate(abilityPassive[0], GetCastPos());
@@ -81,6 +78,10 @@ public class PlayerController : Unit
         abilityHandler = null;
         abilityChannel = null;
         castStart = 0.0f;
+
+        UpdateStats();
+        healthCurrent = healthMax;
+        GameManager.instance.UpdateHealthbar(healthCurrent, healthMax);
     }
 
     // Start is called before the first frame update
@@ -130,7 +131,7 @@ public class PlayerController : Unit
         for (int i = 0; i < InputController.instance.Ability.Length; i++)
         {
             if (isChanneling || abilityHandler != null) break;
-            if (InputController.instance.Ability[i] && abilityHandlers[i].ReadyToCast() && !isChanneling)
+            if (InputController.instance.Ability[i] && abilityHandlers[i].ReadyToCast())
             {
                 if (selectedAbility != i && selectedAbility != -1)
                 {
