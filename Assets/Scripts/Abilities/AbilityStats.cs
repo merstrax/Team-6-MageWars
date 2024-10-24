@@ -47,6 +47,7 @@ public class AbilityStats : ScriptableObject
 
     [Header("Visuals")]
     public Texture2D AbilityIcon;
+    public Status StatusIcon;
     public GameObject AbilityVisual;
     public GameObject AbilityImpact;
     public GameObject AbilityCast;

@@ -45,6 +45,9 @@ MonoBehaviour:
   ResourceReset: 0
   ComboAbilities: []
   AbilityIcon: {fileID: 0}
+  StatusIcon: 3
   AbilityVisual: {fileID: 0}
+  AbilityImpact: {fileID: 0}
+  AbilityCast: {fileID: 0}
   CastPosition: 0
   AnimationType: 0

@@ -244,6 +244,10 @@ public class Unit : MonoBehaviour, IDamage
         statusFlag |= status;
         if (source != null)
         {
+            if (GetComponent<PlayerController>() != null)
+            {
+                GameManager.instance.GetPlayerInterface().ToggleStatus(source.GetAbilityInfo().StatusIcon, true);
+            }
             ProccessEvent(GetStatusTrigger(status), other, source);
         }
     }
@@ -255,6 +259,10 @@ public class Unit : MonoBehaviour, IDamage
             {
                 if (ability.GetID() == source.GetID()) continue;
                 if ((StatusFlag)ability.Info().StatusType == status) return;
+                if (GetComponent<PlayerController>() != null)
+                {
+                    GameManager.instance.GetPlayerInterface().ToggleStatus(ability.GetAbilityInfo().StatusIcon, false);
+                }
             }
         }
         statusFlag &= ~status;
@@ -343,6 +351,11 @@ public class Unit : MonoBehaviour, IDamage
             effects.Add(_id, ability);
         }
         UpdateStats();
+
+        if (GetComponent<PlayerController>() != null)
+        {
+            GameManager.instance.GetPlayerInterface().ToggleStatus(ability.GetAbilityInfo().StatusIcon, true);
+        }
 
         UpdateInterface();
 

@@ -20,11 +20,9 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField] AbilityIcon ability2;
     [SerializeField] AbilityIcon ability3;
     [SerializeField] AbilityIcon ability4;
-    [SerializeField] TMP_Text FireObjective;
-    [SerializeField] TMP_Text ArcaneObjective;
-    [SerializeField] TMP_Text ForstObjective;
-    [SerializeField] TMP_Text WindObjective;
 
+    [Header("Status Bar")]
+    [SerializeField] StatusPanel statusPanel;
 
     List<AbilityIcon> abilities;
 
@@ -60,6 +58,11 @@ public class PlayerInterface : MonoBehaviour
 
         interactMessage.enabled = true;
         interactMessage.text = "Press [F] - To " + message;
+    }
+
+    public void ToggleStatus(Status status, bool active = false)
+    {
+        statusPanel.ToggleStatus(status, active);
     }
 
     #region Abilities

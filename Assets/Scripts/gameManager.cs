@@ -171,6 +171,11 @@ public class GameManager : MonoBehaviour
         bossHealthBar.SetActive(false);
     }
 
+    public PlayerInterface GetPlayerInterface()
+    {
+        return playerInterface;
+    }
+
     public void UpdateCastbar(bool Show, float Cast = 1f, float maxCast = 1f)
     {
         playerInterface.UpdatePlayerCast(Show, Cast, maxCast);
