@@ -374,7 +374,10 @@ public class PlayerController : Unit
 
             abilityCasting.Cast(GetCastLocation());
         }
-        catch (Exception) { }
+        catch (Exception) 
+        {
+            Debug.Log("Channel Broke");
+        }
 
         if (isChanneling)
             abilityChannel = StartCoroutine(ChannelCast(tickSpeed));
