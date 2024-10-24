@@ -24,14 +24,14 @@ MonoBehaviour:
   CastTime: 0
   IsRooted: 0
   IsTarget: 0
-  EffectType: 1
+  EffectType: 3
   EffectTargetType: 1
   StatusType: 0
   AttributeFlags: 1
   ElementFlags: 0
   TriggerFlags: 0
   ModifierType: 2
-  EffectAbility: {fileID: 11400000, guid: 3f6c39c936729fe4cb6210e3b8c96537, type: 2}
+  EffectAbility: {fileID: 0}
   EffectAmount: 1.2
   DamageCoefficent: 0
   EffectTriggerChance: 1

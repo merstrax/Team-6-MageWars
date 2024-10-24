@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4426815321787069102}
   - component: {fileID: 8934347642815464750}
   - component: {fileID: -3912492591618551599}
+  - component: {fileID: 3135248957683848671}
   m_Layer: 0
   m_Name: BearDrop
   m_TagString: Untagged
@@ -121,3 +122,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.13582927, y: 0.29992896, z: 0.15684217}
   m_Center: {x: 0.000000011175871, y: 0.14835408, z: -0.000000029802322}
+--- !u!114 &3135248957683848671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3093282128322826495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e0ea2d58ec30ba489836ff625afa007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeSpan: 10
+  dropType: 0
+  AbilityDrops: {fileID: 11400000, guid: 3f6c39c936729fe4cb6210e3b8c96537, type: 2}

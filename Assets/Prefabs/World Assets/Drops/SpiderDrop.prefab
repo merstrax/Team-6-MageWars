@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeSpan: 10
-  dropType: 2
-  AbilityDrops: {fileID: 11400000, guid: e73a35fcac9acad4da782e1b095180a0, type: 2}
+  dropType: 3
+  AbilityDrops: {fileID: 11400000, guid: e57c1bbbc0a956641a0b869ba36a3c56, type: 2}
 --- !u!33 &8929894237929327517
 MeshFilter:
   m_ObjectHideFlags: 0
