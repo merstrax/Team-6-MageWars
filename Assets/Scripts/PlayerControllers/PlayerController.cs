@@ -89,18 +89,25 @@ public class PlayerController : Unit
         Setup();
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        RemoveAllEffects();
-        animator.SetTrigger("Revive");
-        IsDead = false;
+        if (IsDead)
+        {
+            RemoveAllEffects();
+            animator.SetTrigger("Revive");
+            IsDead = false;
+        }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Setup();
 
-        RemoveAllEffects();
-        animator.SetTrigger("Revive");
-        IsDead = false;
+
+        if (IsDead)
+        {
+            RemoveAllEffects();
+            animator.SetTrigger("Revive");
+            IsDead = false;
+        }
     }
 
     // Update is called once per frame
@@ -172,6 +179,14 @@ public class PlayerController : Unit
                 aoeTargetSelector.SetActive(false);
                 selectedAbility = -1;
             }
+        }
+
+        if(castStart + 10.0f < Time.time && castStart != 0.0f)
+        {
+            abilityCasting = null;
+            abilityHandler = null;
+            abilityChannel = null;
+            castStart = 0.0f;
         }
     }
 
@@ -369,7 +384,6 @@ public class PlayerController : Unit
     {
         if (isChanneling) return;
 
-        animator.SetTrigger("AttackEnd");
         abilityHandler.StartCooldown();
         abilityCasting = null;
         abilityHandler = null;
@@ -377,6 +391,7 @@ public class PlayerController : Unit
         castStart = 0.0f;
 
         GameManager.instance.UpdateCastbar(false);
+        animator.SetTrigger("AttackEnd");
     }
     #endregion
 
