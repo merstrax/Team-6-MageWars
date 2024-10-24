@@ -132,6 +132,7 @@ public class PlayerMoveController : MonoBehaviour
 
     private void UpdateMovement()
     {
+        if(InputController.instance == null) { return; }
         if (!isGrounded)
         {
             verticalMovement = 0;
